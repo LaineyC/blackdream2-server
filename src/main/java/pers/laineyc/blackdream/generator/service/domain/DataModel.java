@@ -1,7 +1,12 @@
 package pers.laineyc.blackdream.generator.service.domain;
 
 import pers.laineyc.blackdream.framework.service.domain.Domain;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 
 /**
@@ -61,6 +66,21 @@ public class DataModel extends Domain {
      * 修改时间
      */
     private Date updateTime;
+
+    /**
+     * 属性列表
+     */
+    private List<DataModelField> propertyList = new ArrayList<>();
+
+    /**
+     * 字段列表
+     */
+    private List<DataModelField> fieldList = new ArrayList<>();
+
+    /**
+     * 默认记录列表
+     */
+    private List<Map<String, Object>> defaultRecordList = new ArrayList<>();
 
 	public DataModel() {
 
@@ -146,4 +166,27 @@ public class DataModel extends Domain {
         this.updateTime = updateTime;
     }
 
+    public List<DataModelField> getPropertyList() {
+        return propertyList;
+    }
+
+    public void setPropertyList(List<DataModelField> propertyList) {
+        this.propertyList = propertyList;
+    }
+
+    public List<DataModelField> getFieldList() {
+        return fieldList;
+    }
+
+    public void setFieldList(List<DataModelField> fieldList) {
+        this.fieldList = fieldList;
+    }
+
+    public List<Map<String, Object>> getDefaultRecordList() {
+        return defaultRecordList;
+    }
+
+    public void setDefaultRecordList(List<Map<String, Object>> defaultRecordList) {
+        this.defaultRecordList = defaultRecordList;
+    }
 }

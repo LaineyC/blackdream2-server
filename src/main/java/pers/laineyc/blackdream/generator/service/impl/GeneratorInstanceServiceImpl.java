@@ -440,8 +440,10 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
     @Transactional
     public GeneratorInstance make(GeneratorInstanceMakeParameter parameter) {
         generatorInstanceServiceTool.makeValidate(parameter);
-    
+
+        Date now = new Date();
         Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
 
         GeneratorInstance generatorInstance = new GeneratorInstance();
 
@@ -454,10 +456,37 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
     @Transactional
     public GeneratorInstance versionSync(GeneratorInstanceVersionSyncParameter parameter) {
         generatorInstanceServiceTool.versionSyncValidate(parameter);
-    
+
+        Date now = new Date();
         Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
+
+        Long id = parameter.getId();
+        GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(id);
+        if(generatorInstancePo == null){
+            throw new BusinessException("生成器实例不存在");
+        }
+        if(!generatorInstancePo.getUserId().equals(authUserId)){
+            throw new BusinessException("生成器实例不存在");
+        }
+
+        Long generatorId = generatorInstancePo.getGeneratorId();
+        GeneratorPo generatorPo = generatorDao.selectById(generatorId);
+        if(generatorPo == null){
+            throw new BusinessException("所属生成器不存在");
+        }
+
+        Integer generatorReleaseVersion = generatorPo.getReleaseVersion();
+        if(generatorInstancePo.getReleaseVersion() < generatorReleaseVersion){
+            GeneratorInstancePo generatorInstancePoUpdate = new GeneratorInstancePo();
+            generatorInstancePoUpdate.setId(id);
+            generatorInstancePoUpdate.setReleaseVersion(generatorReleaseVersion);
+            generatorInstancePoUpdate.setUpdateTime(now);
+            generatorInstanceDao.updateSelective(generatorInstancePoUpdate);
+        }
 
         GeneratorInstance generatorInstance = new GeneratorInstance();
+        generatorInstance.setId(id);
 
         return generatorInstance;
     }

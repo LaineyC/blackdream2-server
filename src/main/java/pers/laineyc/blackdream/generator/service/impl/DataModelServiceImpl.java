@@ -4,11 +4,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import pers.laineyc.blackdream.foundation.service.SequenceService;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.generator.service.DataModelService;
+import pers.laineyc.blackdream.generator.service.domain.DataModelField;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.DataModelServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
@@ -50,6 +52,9 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
     @Autowired
     private GeneratorDao generatorDao;
 
+    @Autowired
+    private SequenceService sequenceService;
+
     public DataModelServiceImpl() {
 
 	}
@@ -61,11 +66,17 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
     public DataModel create(DataModelCreateParameter parameter) {
         dataModelServiceTool.createValidate(parameter);
 
+        Date now = new Date();
         Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
+
+        Long id = sequenceService.nextId();
     
         DataModelPo dataModelPo = new DataModelPo();
+
+        dataModelPo.setId(id);
         
-        dataModelPo.setUserId(0L);
+        dataModelPo.setUserId(authUserId);
 
         Long generatorId = parameter.getGeneratorId();
         dataModelPo.setGeneratorId(generatorId);
@@ -86,9 +97,13 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         dataModelPo.setIsDeleted(false);
 
-        dataModelPo.setCreateTime(new Date());
+        dataModelPo.setCreateTime(now);
 
-        dataModelPo.setUpdateTime(new Date());
+        dataModelPo.setPropertyList(parameter.getPropertyList());
+
+        dataModelPo.setFieldList(parameter.getFieldList());
+
+        dataModelPo.setDefaultRecordList(parameter.getDefaultRecordList());
 
         dataModelDao.insert(dataModelPo);
 
@@ -104,16 +119,25 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
     @Transactional
     public DataModel delete(DataModelDeleteParameter parameter) {
         dataModelServiceTool.deleteValidate(parameter);
-        
+
+        Date now = new Date();
         Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
                
         Long id = parameter.getId();
         DataModelPo dataModelPo = dataModelDao.selectById(id);
         if(dataModelPo == null){
             throw new BusinessException("生成器数据模型不存在");
         }
+        if(!dataModelPo.getUserId().equals(authUserId)){
+            throw new BusinessException("生成器数据模型不存在");
+        }
 
-        dataModelDao.delete(dataModelPo);
+        DataModelPo dataModelPoUpdate = new DataModelPo();
+        dataModelPoUpdate.setId(id);
+        dataModelPoUpdate.setUpdateTime(now);
+        dataModelPoUpdate.setIsDeleted(true);
+        dataModelDao.updateSelective(dataModelPoUpdate);
 
         DataModel dataModel = new DataModel();
         dataModel.setId(id);
@@ -127,18 +151,19 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
     @Transactional
     public DataModel update(DataModelUpdateParameter parameter) {
         dataModelServiceTool.updateValidate(parameter);
-      
+
+        Date now = new Date();
         Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
 
         Long id = parameter.getId();
         DataModelPo dataModelPo = dataModelDao.selectById(id);
         if(dataModelPo == null){
             throw new BusinessException("生成器数据模型不存在");
         }
-        dataModelPo.setId(id);
-        
-        dataModelPo.setUserId(0L);
-
+        if(!dataModelPo.getUserId().equals(authUserId)){
+            throw new BusinessException("生成器数据模型不存在");
+        }
 
         String name = parameter.getName();
         dataModelPo.setName(name);
@@ -149,16 +174,16 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         String iconStyle = parameter.getIconStyle();
         dataModelPo.setIconStyle(iconStyle);
 
-        dataModelPo.setDisplayOrder(1000);
-
         String description = parameter.getDescription();
         dataModelPo.setDescription(description);
 
-        dataModelPo.setIsDeleted(false);
+        dataModelPo.setUpdateTime(now);
 
-        dataModelPo.setCreateTime(new Date());
+        dataModelPo.setPropertyList(parameter.getPropertyList());
 
-        dataModelPo.setUpdateTime(new Date());
+        dataModelPo.setFieldList(parameter.getFieldList());
+
+        dataModelPo.setDefaultRecordList(parameter.getDefaultRecordList());
 
         dataModelDao.update(dataModelPo);
 
@@ -220,6 +245,12 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModel.setCreateTime(dataModelPo.getCreateTime());
 
         dataModel.setUpdateTime(dataModelPo.getUpdateTime());
+
+        dataModel.setPropertyList(dataModelPo.getPropertyList());
+
+        dataModel.setFieldList(dataModelPo.getFieldList());
+
+        dataModel.setDefaultRecordList(dataModelPo.getDefaultRecordList());
 
         return dataModel;
     }

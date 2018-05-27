@@ -11,8 +11,18 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 @ApiModel
 public class GeneratorInstanceVersionSyncWebRequest extends Request {
 
+    @ApiModelProperty(value = "主键", required = true)
+    private Long id;
+
     public GeneratorInstanceVersionSyncWebRequest() {
 
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

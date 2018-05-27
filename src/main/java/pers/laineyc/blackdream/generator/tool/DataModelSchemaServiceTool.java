@@ -116,7 +116,7 @@ public class DataModelSchemaServiceTool{
         Long id = parameter.getId();
         Long generatorId = parameter.getGeneratorId();
         if(id == null && generatorId == null) {
-            throw new BusinessException("主键参数");
+            throw new BusinessException("缺少参数");
         }
     }
 

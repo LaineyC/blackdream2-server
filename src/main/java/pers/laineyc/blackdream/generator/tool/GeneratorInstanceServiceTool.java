@@ -174,7 +174,10 @@ public class GeneratorInstanceServiceTool{
      * 生成器实例版本同步Validate
      */
     public void versionSyncValidate(GeneratorInstanceVersionSyncParameter parameter) {
-       
+        Long id = parameter.getId();
+        if(id == null) {
+            throw new BusinessException("缺少主键");
+        }
     }
     
 }
