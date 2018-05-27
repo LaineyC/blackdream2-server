@@ -10,31 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pers.laineyc.blackdream.configuration.config.Security;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaCreateParameter;
-import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaCreateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaCreateWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.DataModelSchemaCreateWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaDeleteParameter;
-import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaDeleteWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaDeleteWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.DataModelSchemaDeleteWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaUpdateParameter;
-import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaUpdateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaUpdateWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.DataModelSchemaUpdateWebVo;
+import pers.laineyc.blackdream.generator.action.web.request.*;
+import pers.laineyc.blackdream.generator.action.web.response.*;
+import pers.laineyc.blackdream.generator.action.web.vo.*;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaSearchParameter;
-import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaGetWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaGetWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.DataModelSchemaGetWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaQueryWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaQueryWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.DataModelSchemaQueryWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaSearchWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.DataModelSchemaSearchWebVo;
 import pers.laineyc.blackdream.generator.service.domain.DataModelSchema;
 import pers.laineyc.blackdream.generator.service.DataModelSchemaService;
 import java.util.List;
@@ -54,7 +34,7 @@ public class DataModelSchemaWebController extends BaseWebController {
     public DataModelSchemaWebController() {
 
     }
-
+/*
     @Security
     @ApiOperation(value = "生成器数据模型模式创建")
     @PostMapping(value = "/dataModelSchema/create")
@@ -69,7 +49,7 @@ public class DataModelSchemaWebController extends BaseWebController {
 
         return new DataModelSchemaCreateWebResponse(dataModelSchemaCreateWebVo);
     }
-/*
+
     @ApiOperation(value = "生成器数据模型模式删除")
     @PostMapping(value = "/dataModelSchema/delete")
     public @ResponseBody DataModelSchemaDeleteWebResponse delete(@RequestBody DataModelSchemaDeleteWebRequest request) {
@@ -83,7 +63,7 @@ public class DataModelSchemaWebController extends BaseWebController {
 
         return new DataModelSchemaDeleteWebResponse(dataModelSchemaDeleteWebVo);
     }
-*/
+
     @Security
     @ApiOperation(value = "生成器数据模型模式修改")
     @PostMapping(value = "/dataModelSchema/update")
@@ -98,7 +78,7 @@ public class DataModelSchemaWebController extends BaseWebController {
 
         return new DataModelSchemaUpdateWebResponse(dataModelSchemaUpdateWebVo);
     }
-
+*/
     @ApiOperation(value = "生成器数据模型模式单个查询")
     @PostMapping(value = "/dataModelSchema/get")
     public @ResponseBody DataModelSchemaGetWebResponse get(@RequestBody DataModelSchemaGetWebRequest request) {
@@ -106,9 +86,12 @@ public class DataModelSchemaWebController extends BaseWebController {
         BeanUtils.copyProperties(request, parameter);
 
         DataModelSchema dataModelSchema = dataModelSchemaService.get(parameter);
-        
-        DataModelSchemaGetWebVo dataModelSchemaGetWebVo = new DataModelSchemaGetWebVo();
-        BeanUtils.copyProperties(dataModelSchema, dataModelSchemaGetWebVo);
+
+        DataModelSchemaGetWebVo dataModelSchemaGetWebVo = null;
+        if(dataModelSchema != null){
+            dataModelSchemaGetWebVo = new DataModelSchemaGetWebVo();
+            BeanUtils.copyProperties(dataModelSchema, dataModelSchemaGetWebVo);
+        }
         
         return new DataModelSchemaGetWebResponse(dataModelSchemaGetWebVo);
     }
@@ -151,4 +134,19 @@ public class DataModelSchemaWebController extends BaseWebController {
         return new DataModelSchemaSearchWebResponse(dataModelSchemaSearchWebVoPageResult);
     }
 */
+    @Security
+    @ApiOperation(value = "生成器数据模型模式保存")
+    @PostMapping(value = "/dataModelSchema/save")
+    public @ResponseBody DataModelSchemaSaveWebResponse save(@RequestBody DataModelSchemaSaveWebRequest request) {
+        DataModelSchemaSaveParameter parameter = new DataModelSchemaSaveParameter();
+        BeanUtils.copyProperties(request, parameter);
+
+        DataModelSchema dataModelSchema = dataModelSchemaService.save(parameter);
+
+        DataModelSchemaSaveWebVo dataModelSchemaSaveWebVo = new DataModelSchemaSaveWebVo();
+        BeanUtils.copyProperties(dataModelSchema, dataModelSchemaSaveWebVo);
+
+        return new DataModelSchemaSaveWebResponse(dataModelSchemaSaveWebVo);
+    }
+
 }

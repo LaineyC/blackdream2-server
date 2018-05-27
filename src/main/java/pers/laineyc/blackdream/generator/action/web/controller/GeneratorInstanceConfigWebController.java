@@ -10,31 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pers.laineyc.blackdream.configuration.config.Security;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigCreateParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceConfigCreateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceConfigCreateWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceConfigCreateWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigDeleteParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceConfigDeleteWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceConfigDeleteWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceConfigDeleteWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigUpdateParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceConfigUpdateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceConfigUpdateWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceConfigUpdateWebVo;
+import pers.laineyc.blackdream.generator.action.web.request.*;
+import pers.laineyc.blackdream.generator.action.web.response.*;
+import pers.laineyc.blackdream.generator.action.web.vo.*;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigSearchParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceConfigGetWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceConfigGetWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceConfigGetWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceConfigQueryWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceConfigQueryWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceConfigQueryWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceConfigSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceConfigSearchWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceConfigSearchWebVo;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceConfig;
 import pers.laineyc.blackdream.generator.service.GeneratorInstanceConfigService;
 import java.util.List;
@@ -54,7 +34,7 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
     public GeneratorInstanceConfigWebController() {
 
     }
-
+/*
     @Security
     @ApiOperation(value = "生成器实例设置创建")
     @PostMapping(value = "/generatorInstanceConfig/create")
@@ -69,7 +49,7 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
 
         return new GeneratorInstanceConfigCreateWebResponse(generatorInstanceConfigCreateWebVo);
     }
-/*
+
     @Security
     @ApiOperation(value = "生成器实例设置删除")
     @PostMapping(value = "/generatorInstanceConfig/delete")
@@ -84,7 +64,7 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
 
         return new GeneratorInstanceConfigDeleteWebResponse(generatorInstanceConfigDeleteWebVo);
     }
-*/
+
     @Security
     @ApiOperation(value = "生成器实例设置修改")
     @PostMapping(value = "/generatorInstanceConfig/update")
@@ -99,7 +79,7 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
 
         return new GeneratorInstanceConfigUpdateWebResponse(generatorInstanceConfigUpdateWebVo);
     }
-
+*/
     @ApiOperation(value = "生成器实例设置单个查询")
     @PostMapping(value = "/generatorInstanceConfig/get")
     public @ResponseBody GeneratorInstanceConfigGetWebResponse get(@RequestBody GeneratorInstanceConfigGetWebRequest request) {
@@ -107,10 +87,13 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorInstanceConfig generatorInstanceConfig = generatorInstanceConfigService.get(parameter);
-        
-        GeneratorInstanceConfigGetWebVo generatorInstanceConfigGetWebVo = new GeneratorInstanceConfigGetWebVo();
-        BeanUtils.copyProperties(generatorInstanceConfig, generatorInstanceConfigGetWebVo);
-        
+
+        GeneratorInstanceConfigGetWebVo generatorInstanceConfigGetWebVo = null;
+        if(generatorInstanceConfig != null){
+            generatorInstanceConfigGetWebVo = new GeneratorInstanceConfigGetWebVo();
+            BeanUtils.copyProperties(generatorInstanceConfig, generatorInstanceConfigGetWebVo);
+        }
+
         return new GeneratorInstanceConfigGetWebResponse(generatorInstanceConfigGetWebVo);
     }
 /*
@@ -152,4 +135,19 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
         return new GeneratorInstanceConfigSearchWebResponse(generatorInstanceConfigSearchWebVoPageResult);
     }
 */
+
+    @Security
+    @ApiOperation(value = "生成器实例设置保存")
+    @PostMapping(value = "/generatorInstanceConfig/save")
+    public @ResponseBody GeneratorInstanceConfigSaveWebResponse save(@RequestBody GeneratorInstanceConfigSaveWebRequest request) {
+        GeneratorInstanceConfigSaveParameter parameter = new GeneratorInstanceConfigSaveParameter();
+        BeanUtils.copyProperties(request, parameter);
+
+        GeneratorInstanceConfig generatorInstanceConfig = generatorInstanceConfigService.save(parameter);
+
+        GeneratorInstanceConfigSaveWebVo generatorInstanceConfigSaveWebVo = new GeneratorInstanceConfigSaveWebVo();
+        BeanUtils.copyProperties(generatorInstanceConfig, generatorInstanceConfigSaveWebVo);
+
+        return new GeneratorInstanceConfigSaveWebResponse(generatorInstanceConfigSaveWebVo);
+    }
 }

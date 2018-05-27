@@ -13,6 +13,11 @@ public class GeneratorInstanceConfigGetParameter extends Parameter {
      */
     private Long id;
 
+    /**
+     * 所属生成器实例
+     */
+    private Long generatorInstanceId;
+
     public GeneratorInstanceConfigGetParameter() {
 
     }
@@ -25,4 +30,11 @@ public class GeneratorInstanceConfigGetParameter extends Parameter {
         this.id = id;
     }
 
+    public Long getGeneratorInstanceId() {
+        return generatorInstanceId;
+    }
+
+    public void setGeneratorInstanceId(Long generatorInstanceId) {
+        this.generatorInstanceId = generatorInstanceId;
+    }
 }

@@ -3,15 +3,15 @@ package pers.laineyc.blackdream.generator.service.parameter;
 import pers.laineyc.blackdream.framework.service.parameter.Parameter;
 
 /**
- * 生成器指南保存Parameter
+ * 生成器数据模型模式修改Parameter
  * @author LaineyC
  */
-public class GeneratorGuideUpdateParameter extends Parameter {
+public class DataModelSchemaSaveParameter extends Parameter {
 
     /**
-     * 主键
+     * 所属生成器
      */
-    private Long id;
+    private Long generatorId;
 
     /**
      * 名称
@@ -24,24 +24,24 @@ public class GeneratorGuideUpdateParameter extends Parameter {
     private String description;
 
     /**
-     * 内容
+     * 脚本
      */
-    private String content;
+    private String script;
 
-    public GeneratorGuideUpdateParameter() {
+    public DataModelSchemaSaveParameter() {
 
     }
-    
-    public Long getId() {
-        return this.id;
+
+    public Long getGeneratorId() {
+        return generatorId;
     }
 
-    public void setId (Long id) {
-        this.id = id;
+    public void setGeneratorId(Long generatorId) {
+        this.generatorId = generatorId;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -49,18 +49,18 @@ public class GeneratorGuideUpdateParameter extends Parameter {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getContent() {
-        return content;
+    public String getScript() {
+        return script;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setScript(String script) {
+        this.script = script;
     }
 }

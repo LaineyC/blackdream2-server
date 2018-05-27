@@ -1,6 +1,7 @@
 package pers.laineyc.blackdream.generator.dao.po;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import java.util.Date;
@@ -23,11 +24,13 @@ public class TemplateFilePo extends Po {
 	/**
 	 *  所属用户
 	 */
+    @Indexed
 	private Long userId;
 
 	/**
 	 *  所属生成器
 	 */
+    @Indexed
 	private Long generatorId;
 
 	/**

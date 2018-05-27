@@ -61,7 +61,7 @@ public class GeneratorInstanceServiceTool{
      */
     public void createValidate(GeneratorInstanceCreateParameter parameter) {
         Long generatorId = parameter.getGeneratorId();
-        if(generatorId != null){
+        if(generatorId == null){
             throw new BusinessException("缺少所属生成器");
         }
 

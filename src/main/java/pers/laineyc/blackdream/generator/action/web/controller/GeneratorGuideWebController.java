@@ -10,31 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pers.laineyc.blackdream.configuration.config.Security;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideCreateParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorGuideCreateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorGuideCreateWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorGuideCreateWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideDeleteParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorGuideDeleteWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorGuideDeleteWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorGuideDeleteWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideUpdateParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorGuideUpdateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorGuideUpdateWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorGuideUpdateWebVo;
+import pers.laineyc.blackdream.generator.action.web.request.*;
+import pers.laineyc.blackdream.generator.action.web.response.*;
+import pers.laineyc.blackdream.generator.action.web.vo.*;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideSearchParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorGuideGetWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorGuideGetWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorGuideGetWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorGuideQueryWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorGuideQueryWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorGuideQueryWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorGuideSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorGuideSearchWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorGuideSearchWebVo;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorGuide;
 import pers.laineyc.blackdream.generator.service.GeneratorGuideService;
 import java.util.List;
@@ -54,7 +34,7 @@ public class GeneratorGuideWebController extends BaseWebController {
     public GeneratorGuideWebController() {
 
     }
-
+/*
     @Security
     @ApiOperation(value = "生成器指南创建")
     @PostMapping(value = "/generatorGuide/create")
@@ -69,7 +49,7 @@ public class GeneratorGuideWebController extends BaseWebController {
 
         return new GeneratorGuideCreateWebResponse(generatorGuideCreateWebVo);
     }
-/*
+
     @Security
     @ApiOperation(value = "生成器指南删除")
     @PostMapping(value = "/generatorGuide/delete")
@@ -84,7 +64,7 @@ public class GeneratorGuideWebController extends BaseWebController {
 
         return new GeneratorGuideDeleteWebResponse(generatorGuideDeleteWebVo);
     }
-*/
+
     @Security
     @ApiOperation(value = "生成器指南修改")
     @PostMapping(value = "/generatorGuide/update")
@@ -93,13 +73,13 @@ public class GeneratorGuideWebController extends BaseWebController {
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorGuide generatorGuide = generatorGuideService.update(parameter);
-        
+
         GeneratorGuideUpdateWebVo generatorGuideUpdateWebVo = new GeneratorGuideUpdateWebVo();
         BeanUtils.copyProperties(generatorGuide, generatorGuideUpdateWebVo);
 
         return new GeneratorGuideUpdateWebResponse(generatorGuideUpdateWebVo);
     }
-
+*/
     @ApiOperation(value = "生成器指南单个查询")
     @PostMapping(value = "/generatorGuide/get")
     public @ResponseBody GeneratorGuideGetWebResponse get(@RequestBody GeneratorGuideGetWebRequest request) {
@@ -107,10 +87,13 @@ public class GeneratorGuideWebController extends BaseWebController {
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorGuide generatorGuide = generatorGuideService.get(parameter);
-        
-        GeneratorGuideGetWebVo generatorGuideGetWebVo = new GeneratorGuideGetWebVo();
-        BeanUtils.copyProperties(generatorGuide, generatorGuideGetWebVo);
-        
+
+        GeneratorGuideGetWebVo generatorGuideGetWebVo = null;
+        if(generatorGuide != null){
+            generatorGuideGetWebVo = new GeneratorGuideGetWebVo();
+            BeanUtils.copyProperties(generatorGuide, generatorGuideGetWebVo);
+        }
+
         return new GeneratorGuideGetWebResponse(generatorGuideGetWebVo);
     }
 /*
@@ -152,4 +135,18 @@ public class GeneratorGuideWebController extends BaseWebController {
         return new GeneratorGuideSearchWebResponse(generatorGuideSearchWebVoPageResult);
     }
 */
+    @Security
+    @ApiOperation(value = "生成器指南保存")
+    @PostMapping(value = "/generatorGuide/save")
+    public @ResponseBody GeneratorGuideSaveWebResponse save(@RequestBody GeneratorGuideSaveWebRequest request) {
+        GeneratorGuideSaveParameter parameter = new GeneratorGuideSaveParameter();
+        BeanUtils.copyProperties(request, parameter);
+
+        GeneratorGuide generatorGuide = generatorGuideService.save(parameter);
+
+        GeneratorGuideSaveWebVo generatorGuideSaveWebVo = new GeneratorGuideSaveWebVo();
+        BeanUtils.copyProperties(generatorGuide, generatorGuideSaveWebVo);
+
+        return new GeneratorGuideSaveWebResponse(generatorGuideSaveWebVo);
+    }
 }

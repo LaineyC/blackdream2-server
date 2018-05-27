@@ -8,15 +8,11 @@ import pers.laineyc.blackdream.foundation.service.SequenceService;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
+import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.generator.service.GeneratorGuideService;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.GeneratorGuideServiceTool;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideCreateParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideDeleteParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideUpdateParameter;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideSearchParameter;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorGuide;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorGuidePo;
 import pers.laineyc.blackdream.generator.dao.query.GeneratorGuideQuery;
@@ -122,7 +118,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
             throw new BusinessException("生成器指南不存在");
         }
         if(!generatorGuidePo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器模板文件不存在");
+            throw new BusinessException("生成器指南不存在");
         }
 
         GeneratorGuidePo generatorGuidePoUpdate = new GeneratorGuidePo();
@@ -154,7 +150,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
             throw new BusinessException("生成器指南不存在");
         }
         if(!generatorGuidePo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器模板文件不存在");
+            throw new BusinessException("生成器指南不存在");
         }
 
         String name = parameter.getName();
@@ -186,9 +182,19 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         Auth auth = parameter.getAuth();
         
         Long id = parameter.getId();
-        GeneratorGuidePo generatorGuidePo = generatorGuideDao.selectById(id);
+        Long parameterGeneratorId = parameter.getGeneratorId();
+        GeneratorGuidePo generatorGuidePo = null;
+        if(id != null){
+            generatorGuidePo = generatorGuideDao.selectById(id);
+        }
+        else if(parameterGeneratorId != null){
+            GeneratorGuideQuery generatorGuideQuery = new GeneratorGuideQuery();
+            generatorGuideQuery.setGeneratorId(parameterGeneratorId);
+            generatorGuidePo = generatorGuideDao.selectOne(generatorGuideQuery);
+        }
+
         if(generatorGuidePo == null) {
-            throw new BusinessException("生成器指南不存在");
+            return null;
         }
 
         GeneratorGuide generatorGuide = new GeneratorGuide();
@@ -408,6 +414,32 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         }
 
         return pageResult;
+    }
+
+    @Transactional
+    public GeneratorGuide save(GeneratorGuideSaveParameter parameter) {
+        generatorGuideServiceTool.saveValidate(parameter);
+
+        Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
+
+        Long generatorId = parameter.getGeneratorId();
+
+        GeneratorGuideQuery generatorGuideQuery = new GeneratorGuideQuery();
+        generatorGuideQuery.setGeneratorId(generatorId);
+        GeneratorGuidePo generatorGuidePo = generatorGuideDao.selectOne(generatorGuideQuery);
+
+        if(generatorGuidePo == null) {
+            GeneratorGuideCreateParameter generatorGuideCreateParameter = new GeneratorGuideCreateParameter();
+            BeanUtils.copyProperties(parameter, generatorGuideCreateParameter);
+            return this.create(generatorGuideCreateParameter);
+        }
+        else{
+            GeneratorGuideUpdateParameter generatorGuideUpdateParameter = new GeneratorGuideUpdateParameter();
+            BeanUtils.copyProperties(parameter, generatorGuideUpdateParameter);
+            generatorGuideUpdateParameter.setId(generatorGuidePo.getId());
+            return this.update(generatorGuideUpdateParameter);
+        }
     }
 
 }

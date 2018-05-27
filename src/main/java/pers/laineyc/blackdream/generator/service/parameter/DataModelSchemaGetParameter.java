@@ -13,6 +13,11 @@ public class DataModelSchemaGetParameter extends Parameter {
      */
     private Long id;
 
+    /**
+     * 所属生成器
+     */
+    private Long generatorId;
+
     public DataModelSchemaGetParameter() {
 
     }
@@ -25,4 +30,11 @@ public class DataModelSchemaGetParameter extends Parameter {
         this.id = id;
     }
 
+    public Long getGeneratorId() {
+        return generatorId;
+    }
+
+    public void setGeneratorId(Long generatorId) {
+        this.generatorId = generatorId;
+    }
 }

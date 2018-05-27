@@ -8,15 +8,11 @@ import pers.laineyc.blackdream.foundation.service.SequenceService;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
+import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.generator.service.DataModelSchemaService;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.DataModelSchemaServiceTool;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaCreateParameter;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaDeleteParameter;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaUpdateParameter;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.DataModelSchemaSearchParameter;
 import pers.laineyc.blackdream.generator.service.domain.DataModelSchema;
 import pers.laineyc.blackdream.generator.dao.po.DataModelSchemaPo;
 import pers.laineyc.blackdream.generator.dao.query.DataModelSchemaQuery;
@@ -122,7 +118,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
             throw new BusinessException("生成器数据模型模式不存在");
         }
         if(!dataModelSchemaPo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器模板文件不存在");
+            throw new BusinessException("生成器数据模型模式不存在");
         }
 
         DataModelSchemaPo dataModelSchemaPoUpdate = new DataModelSchemaPo();
@@ -154,7 +150,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
             throw new BusinessException("生成器数据模型模式不存在");
         }
         if(!dataModelSchemaPo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器模板文件不存在");
+            throw new BusinessException("生成器数据模型模式不存在");
         }
 
         String name = parameter.getName();
@@ -186,9 +182,19 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
         Auth auth = parameter.getAuth();
         
         Long id = parameter.getId();
-        DataModelSchemaPo dataModelSchemaPo = dataModelSchemaDao.selectById(id);
+        Long parameterGeneratorId = parameter.getGeneratorId();
+        DataModelSchemaPo dataModelSchemaPo = null;
+        if(id != null){
+            dataModelSchemaPo = dataModelSchemaDao.selectById(id);
+        }
+        else if(parameterGeneratorId != null){
+            DataModelSchemaQuery dataModelSchemaQuery = new DataModelSchemaQuery();
+            dataModelSchemaQuery.setGeneratorId(parameterGeneratorId);
+            dataModelSchemaPo = dataModelSchemaDao.selectOne(dataModelSchemaQuery);
+        }
+
         if(dataModelSchemaPo == null) {
-            throw new BusinessException("生成器数据模型模式不存在");
+            return null;
         }
 
         DataModelSchema dataModelSchema = new DataModelSchema();
@@ -408,6 +414,32 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
         }
 
         return pageResult;
+    }
+
+    @Transactional
+    public DataModelSchema save(DataModelSchemaSaveParameter parameter) {
+        dataModelSchemaServiceTool.saveValidate(parameter);
+
+        Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
+
+        Long generatorId = parameter.getGeneratorId();
+
+        DataModelSchemaQuery dataModelSchemaQuery = new DataModelSchemaQuery();
+        dataModelSchemaQuery.setGeneratorId(generatorId);
+        DataModelSchemaPo dataModelSchemaPo = dataModelSchemaDao.selectOne(dataModelSchemaQuery);
+
+        if(dataModelSchemaPo == null) {
+            DataModelSchemaCreateParameter dataModelSchemaCreateParameter = new DataModelSchemaCreateParameter();
+            BeanUtils.copyProperties(parameter, dataModelSchemaCreateParameter);
+            return this.create(dataModelSchemaCreateParameter);
+        }
+        else{
+            DataModelSchemaUpdateParameter dataModelSchemaUpdateParameter = new DataModelSchemaUpdateParameter();
+            BeanUtils.copyProperties(parameter, dataModelSchemaUpdateParameter);
+            dataModelSchemaUpdateParameter.setId(dataModelSchemaPo.getId());
+            return this.update(dataModelSchemaUpdateParameter);
+        }
     }
 
 }

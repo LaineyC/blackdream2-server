@@ -14,6 +14,9 @@ public class GeneratorInstanceConfigGetWebRequest extends Request {
     @ApiModelProperty(value = "主键", required = true)
     private Long id;
 
+    @ApiModelProperty(value = "所属生成器实例")
+    private Long generatorInstanceId;
+
     public GeneratorInstanceConfigGetWebRequest() {
 
     }
@@ -26,4 +29,11 @@ public class GeneratorInstanceConfigGetWebRequest extends Request {
         this.id = id;
     }
 
+    public Long getGeneratorInstanceId() {
+        return generatorInstanceId;
+    }
+
+    public void setGeneratorInstanceId(Long generatorInstanceId) {
+        this.generatorInstanceId = generatorInstanceId;
+    }
 }

@@ -1,13 +1,8 @@
 package pers.laineyc.blackdream.generator.service;
 
 import pers.laineyc.blackdream.framework.service.Service;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideCreateParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideDeleteParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideUpdateParameter;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGuideSearchParameter;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorGuide;
 import java.util.List; 
 
@@ -46,5 +41,10 @@ public interface GeneratorGuideService extends Service{
      * 生成器指南分页查询
      */
     PageResult<GeneratorGuide> search(GeneratorGuideSearchParameter parameter);
+
+    /**
+     * 生成器指南保存
+     */
+    GeneratorGuide save(GeneratorGuideSaveParameter parameter);
 
 }

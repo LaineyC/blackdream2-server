@@ -5,12 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.configuration.constant.SystemConstant;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigCreateParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigDeleteParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigUpdateParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigSearchParameter;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceConfig;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorInstanceConfigPo;
 import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceConfigQuery;
@@ -62,7 +57,7 @@ public class GeneratorInstanceConfigServiceTool{
      */
     public void createValidate(GeneratorInstanceConfigCreateParameter parameter) {
         Long generatorInstanceId = parameter.getGeneratorInstanceId();
-        if(generatorInstanceId != null){
+        if(generatorInstanceId == null){
             throw new BusinessException("缺少所属生成器实例");
         }
         GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(generatorInstanceId);
@@ -71,11 +66,10 @@ public class GeneratorInstanceConfigServiceTool{
         }
 
         String name = parameter.getName();
-        if(!StringUtils.hasText(name)){
-            throw new BusinessException("缺少名称");
-        }
-        if(name.length() > 255){
-            throw new BusinessException("名称长度不能大于255");
+        if(StringUtils.hasText(name)){
+            if(name.length() > 255){
+                throw new BusinessException("名称长度不能大于255");
+            }
         }
 
         String description = parameter.getDescription();
@@ -106,11 +100,10 @@ public class GeneratorInstanceConfigServiceTool{
         }
 
         String name = parameter.getName();
-        if(!StringUtils.hasText(name)){
-            throw new BusinessException("缺少名称");
-        }
-        if(name.length() > 255){
-            throw new BusinessException("名称长度不能大于255");
+        if(StringUtils.hasText(name)){
+            if(name.length() > 255){
+                throw new BusinessException("名称长度不能大于255");
+            }
         }
 
         String description = parameter.getDescription();
@@ -126,8 +119,9 @@ public class GeneratorInstanceConfigServiceTool{
      */
     public void getValidate(GeneratorInstanceConfigGetParameter parameter) {
         Long id = parameter.getId();
-        if(id == null) {
-            throw new BusinessException("缺少主键");
+        Long generatorInstanceId = parameter.getGeneratorInstanceId();
+        if(id == null && generatorInstanceId == null) {
+            throw new BusinessException("主键参数");
         }
     }
 
@@ -151,6 +145,31 @@ public class GeneratorInstanceConfigServiceTool{
         if(pageSize == null || pageSize < 1 || pageSize > 100){
             throw new BusinessException("每页数量不合法");
         }
+    }
+
+    /**
+     * 生成器指南保存Validate
+     */
+    public void saveValidate(GeneratorInstanceConfigSaveParameter parameter) {
+        Long generatorInstanceId = parameter.getGeneratorInstanceId();
+        if(generatorInstanceId == null) {
+            throw new BusinessException("缺少所属生成器实例");
+        }
+
+        String name = parameter.getName();
+        if(StringUtils.hasText(name)){
+            if(name.length() > 255){
+                throw new BusinessException("名称长度不能大于255");
+            }
+        }
+
+        String description = parameter.getDescription();
+        if(StringUtils.hasText(description)){
+            if(description.length() > 255){
+                throw new BusinessException("描述长度不能大于255");
+            }
+        }
+
     }
 
 }

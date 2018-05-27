@@ -1,6 +1,7 @@
 package pers.laineyc.blackdream.usercenter.dao.po;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import java.util.Date;
@@ -38,11 +39,13 @@ public class UserPo extends Po {
 	/**
 	 *  用户名
 	 */
+    @Indexed(unique = true)
 	private String username;
 
 	/**
 	 *  邮箱
 	 */
+    @Indexed(unique = true)
 	private String email;
 
 	/**

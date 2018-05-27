@@ -8,15 +8,11 @@ import pers.laineyc.blackdream.foundation.service.SequenceService;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
+import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.generator.service.GeneratorInstanceConfigService;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.GeneratorInstanceConfigServiceTool;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigCreateParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigDeleteParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigUpdateParameter;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceConfigSearchParameter;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceConfig;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorInstanceConfigPo;
 import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceConfigQuery;
@@ -195,9 +191,19 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
         Auth auth = parameter.getAuth();
         
         Long id = parameter.getId();
-        GeneratorInstanceConfigPo generatorInstanceConfigPo = generatorInstanceConfigDao.selectById(id);
+        Long parameterGeneratorInstanceId = parameter.getGeneratorInstanceId();
+        GeneratorInstanceConfigPo generatorInstanceConfigPo = null;
+        if(id != null){
+            generatorInstanceConfigPo = generatorInstanceConfigDao.selectById(id);
+        }
+        else if(parameterGeneratorInstanceId != null){
+            GeneratorInstanceConfigQuery generatorInstanceConfigQuery = new GeneratorInstanceConfigQuery();
+            generatorInstanceConfigQuery.setGeneratorInstanceId(parameterGeneratorInstanceId);
+            generatorInstanceConfigPo = generatorInstanceConfigDao.selectOne(generatorInstanceConfigQuery);
+        }
+
         if(generatorInstanceConfigPo == null) {
-            throw new BusinessException("生成器实例设置不存在");
+            return null;
         }
 
         GeneratorInstanceConfig generatorInstanceConfig = new GeneratorInstanceConfig();
@@ -481,6 +487,32 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
         }
 
         return pageResult;
+    }
+
+    @Transactional
+    public GeneratorInstanceConfig save(GeneratorInstanceConfigSaveParameter parameter) {
+        generatorInstanceConfigServiceTool.saveValidate(parameter);
+
+        Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
+
+        Long parameterGeneratorInstanceId = parameter.getGeneratorInstanceId();
+
+        GeneratorInstanceConfigQuery generatorInstanceConfigQuery = new GeneratorInstanceConfigQuery();
+        generatorInstanceConfigQuery.setGeneratorInstanceId(parameterGeneratorInstanceId);
+        GeneratorInstanceConfigPo generatorInstanceConfigPo = generatorInstanceConfigDao.selectOne(generatorInstanceConfigQuery);
+
+        if(generatorInstanceConfigPo == null) {
+            GeneratorInstanceConfigCreateParameter generatorInstanceConfigCreateParameter = new GeneratorInstanceConfigCreateParameter();
+            BeanUtils.copyProperties(parameter, generatorInstanceConfigCreateParameter);
+            return this.create(generatorInstanceConfigCreateParameter);
+        }
+        else{
+            GeneratorInstanceConfigUpdateParameter generatorInstanceConfigUpdateParameter = new GeneratorInstanceConfigUpdateParameter();
+            BeanUtils.copyProperties(parameter, generatorInstanceConfigUpdateParameter);
+            generatorInstanceConfigUpdateParameter.setId(generatorInstanceConfigPo.getId());
+            return this.update(generatorInstanceConfigUpdateParameter);
+        }
     }
 
 }

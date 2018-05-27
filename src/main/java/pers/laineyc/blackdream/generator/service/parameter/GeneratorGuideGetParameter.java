@@ -13,6 +13,11 @@ public class GeneratorGuideGetParameter extends Parameter {
      */
     private Long id;
 
+    /**
+     * 所属生成器
+     */
+    private Long generatorId;
+
     public GeneratorGuideGetParameter() {
 
     }
@@ -25,4 +30,11 @@ public class GeneratorGuideGetParameter extends Parameter {
         this.id = id;
     }
 
+    public Long getGeneratorId() {
+        return generatorId;
+    }
+
+    public void setGeneratorId(Long generatorId) {
+        this.generatorId = generatorId;
+    }
 }
