@@ -1,0 +1,32 @@
+# 应用配置
+blackdream:
+  rootPath: E:/laineyc/blackdream
+  email:
+    host: smtp.163.com
+    username: blackdream2@163.com
+    password: BLACKDREAM2
+# 框架配置
+server:
+  port: 8888
+spring:
+  profiles:
+    active: dev
+  session:
+    store-type: redis
+  redis:
+    database: 1
+    host: localhost
+    port: 6379
+    password:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/blackdream
+  output:
+    ansi:
+      enabled: DETECT
+  freemarker:
+    checkTemplateLocation: false
+logging:
+  file: ${blackdream.rootPath}/logging/blackdream.log
+  level:
+    root: INFO
