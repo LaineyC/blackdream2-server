@@ -83,6 +83,9 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         String name = parameter.getName();
         generatorGuidePo.setName(name);
 
+        Integer docType = parameter.getDocType();
+        generatorGuidePo.setDocType(docType);
+
         String description = parameter.getDescription();
         generatorGuidePo.setDescription(description);
 
@@ -155,6 +158,9 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
 
         String name = parameter.getName();
         generatorGuidePo.setName(name);
+
+        Integer docType = parameter.getDocType();
+        generatorGuidePo.setDocType(docType);
 
         String description = parameter.getDescription();
         generatorGuidePo.setDescription(description);
@@ -248,6 +254,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         generatorGuideQuery.setUserId(parameter.getUserId());
         generatorGuideQuery.setGeneratorId(parameter.getGeneratorId());
         generatorGuideQuery.setName(parameter.getName());
+        generatorGuideQuery.setDocType(parameter.getDocType());
 
         List<GeneratorGuidePo> generatorGuidePoList = generatorGuideDao.selectList(generatorGuideQuery);
 
@@ -344,6 +351,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         generatorGuideQuery.setUserId(parameter.getUserId());
         generatorGuideQuery.setGeneratorId(parameter.getGeneratorId());
         generatorGuideQuery.setName(parameter.getName());
+        generatorGuideQuery.setDocType(parameter.getDocType());
         generatorGuideQuery.limit((page - 1) * pageSize, pageSize);
         
         PageResult<GeneratorGuidePo> generatorGuidePoPageResult = generatorGuideDao.selectPage(generatorGuideQuery);

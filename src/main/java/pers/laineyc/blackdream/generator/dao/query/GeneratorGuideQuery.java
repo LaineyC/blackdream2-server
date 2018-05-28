@@ -39,6 +39,11 @@ public class GeneratorGuideQuery extends Query<GeneratorGuidePo> {
     private String nameLike;
 
     /**
+     * 文档类型:1markdown
+     */
+    private Integer docType;
+
+    /**
      * 描述
      */
     private String description;
@@ -121,6 +126,17 @@ public class GeneratorGuideQuery extends Query<GeneratorGuidePo> {
         }
         this.nameLike = nameLike;
         this.addWhereExpression(ExpressionBuilder.like("name", this.nameLike));
+    }
+
+    public Integer getDocType() {
+        return docType;
+    }
+
+    public void setDocType(Integer docType) {
+        this.docType = docType;
+        if(this.docType != null){
+            this.addWhereExpression(ExpressionBuilder.equal("docType", this.docType));
+        }
     }
 
     public String getDescription() {

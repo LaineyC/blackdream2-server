@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.configuration.constant.SystemConstant;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
+import pers.laineyc.blackdream.generator.constant.GeneratorGuideDocTypeEnum;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorGuide;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorGuidePo;
@@ -67,6 +68,14 @@ public class GeneratorGuideServiceTool{
             }
         }
 
+        Integer docType = parameter.getDocType();
+        if(docType == null){
+            throw new BusinessException("缺少文档类型");
+        }
+        if(GeneratorGuideDocTypeEnum.hasCode(docType)){
+            throw new BusinessException("文档类型值不合法");
+        }
+
         String description = parameter.getDescription();
         if(StringUtils.hasText(description)){
             if(description.length() > 255){
@@ -100,6 +109,14 @@ public class GeneratorGuideServiceTool{
             if(name.length() > 255){
                 throw new BusinessException("名称长度不能大于255");
             }
+        }
+
+        Integer docType = parameter.getDocType();
+        if(docType == null){
+            throw new BusinessException("缺少文档类型");
+        }
+        if(GeneratorGuideDocTypeEnum.hasCode(docType)){
+            throw new BusinessException("文档类型值不合法");
         }
 
         String description = parameter.getDescription();
@@ -158,6 +175,14 @@ public class GeneratorGuideServiceTool{
             if(name.length() > 255){
                 throw new BusinessException("名称长度不能大于255");
             }
+        }
+
+        Integer docType = parameter.getDocType();
+        if(docType == null){
+            throw new BusinessException("缺少文档类型");
+        }
+        if(GeneratorGuideDocTypeEnum.hasCode(docType)){
+            throw new BusinessException("文档类型值不合法");
         }
 
         String description = parameter.getDescription();

@@ -265,5 +265,19 @@ public class UserWebController extends BaseWebController {
 
         return new UserIconChangeWebResponse(userIconChangeWebVo);
     }
+
+    @ApiOperation(value = "用户单个查询")
+    @PostMapping(value = "/user/infoGet")
+    public @ResponseBody UserInfoGetWebResponse infoGet(@RequestBody UserInfoGetWebRequest request) {
+        UserInfoGetParameter parameter = new UserInfoGetParameter();
+        BeanUtils.copyProperties(request, parameter);
+
+        User user = userService.infoGet(parameter);
+
+        UserInfoGetWebVo userInfoGetWebVo = new UserInfoGetWebVo();
+        BeanUtils.copyProperties(user, userInfoGetWebVo);
+
+        return new UserInfoGetWebResponse(userInfoGetWebVo);
+    }
     
 }

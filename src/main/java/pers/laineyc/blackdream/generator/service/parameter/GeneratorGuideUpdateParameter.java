@@ -19,6 +19,11 @@ public class GeneratorGuideUpdateParameter extends Parameter {
     private String name;
 
     /**
+     * 文档类型：1markdown
+     */
+    private Integer docType;
+
+    /**
      * 描述
      */
     private String description;
@@ -46,6 +51,14 @@ public class GeneratorGuideUpdateParameter extends Parameter {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getDocType() {
+        return docType;
+    }
+
+    public void setDocType(Integer docType) {
+        this.docType = docType;
     }
 
     public String getDescription() {

@@ -144,4 +144,11 @@ public class UserServiceTool{
 
     }
 
+    /**
+     * 用户单个查询Validate
+     */
+    public void infoGetValidate(UserInfoGetParameter parameter) {
+
+    }
+
 }

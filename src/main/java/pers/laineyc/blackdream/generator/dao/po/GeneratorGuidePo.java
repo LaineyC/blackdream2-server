@@ -38,6 +38,11 @@ public class GeneratorGuidePo extends Po {
 	 */
 	private String name;
 
+    /**
+     * 文档类型:1markdown
+     */
+    private Integer docType;
+
 	/**
 	 *  描述
 	 */
@@ -98,6 +103,14 @@ public class GeneratorGuidePo extends Po {
 
 	public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getDocType() {
+        return docType;
+    }
+
+    public void setDocType(Integer docType) {
+        this.docType = docType;
     }
 
     public String getDescription() {

@@ -20,6 +20,9 @@ public class GeneratorGuideQueryWebRequest extends Request {
     @ApiModelProperty(value = "名称", required = true)
     private String name;
 
+    @ApiModelProperty(value = "文档类型：1markdown")
+    private Integer docType;
+
     public GeneratorGuideQueryWebRequest() {
 
     }
@@ -48,4 +51,11 @@ public class GeneratorGuideQueryWebRequest extends Request {
         this.name = name;
     }
 
+    public Integer getDocType() {
+        return docType;
+    }
+
+    public void setDocType(Integer docType) {
+        this.docType = docType;
+    }
 }

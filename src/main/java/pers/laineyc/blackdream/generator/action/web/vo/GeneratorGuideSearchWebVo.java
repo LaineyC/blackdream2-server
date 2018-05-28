@@ -26,6 +26,9 @@ public class GeneratorGuideSearchWebVo extends Vo {
     @ApiModelProperty(value = "名称")
     private String name;
 
+    @ApiModelProperty(value = "文档类型：1markdown")
+    private Integer docType;
+
     @ApiModelProperty(value = "描述")
     private String description;
 
@@ -69,6 +72,14 @@ public class GeneratorGuideSearchWebVo extends Vo {
 
 	public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getDocType() {
+        return docType;
+    }
+
+    public void setDocType(Integer docType) {
+        this.docType = docType;
     }
 
     public String getDescription() {

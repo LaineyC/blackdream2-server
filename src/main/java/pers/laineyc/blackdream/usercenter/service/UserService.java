@@ -66,4 +66,9 @@ public interface UserService extends Service{
      * 用户头像更改
      */
     User iconChange(UserIconChangeParameter parameter);
+
+    /**
+     * 用户单个查询
+     */
+    User infoGet(UserInfoGetParameter parameter);
 }

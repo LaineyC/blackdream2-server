@@ -23,6 +23,11 @@ public class GeneratorGuideQueryParameter extends Parameter {
      */
     private String name;
 
+    /**
+     * 文档类型：1markdown
+     */
+    private Integer docType;
+
     public GeneratorGuideQueryParameter() {
 
     }
@@ -51,4 +56,11 @@ public class GeneratorGuideQueryParameter extends Parameter {
         this.name = name;
     }
 
+    public Integer getDocType() {
+        return docType;
+    }
+
+    public void setDocType(Integer docType) {
+        this.docType = docType;
+    }
 }

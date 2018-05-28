@@ -15,6 +15,7 @@ import pers.laineyc.blackdream.foundation.service.parameter.StorageFileDeletePar
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
+import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.usercenter.constant.UserStatusEnum;
 import pers.laineyc.blackdream.usercenter.service.UserService;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
@@ -544,4 +545,21 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         return new User();
     }
+
+    /**
+     * 用户单个查询
+     */
+    //@Transactional(readOnly = true)
+    public User infoGet(UserInfoGetParameter parameter) {
+        userServiceTool.infoGetValidate(parameter);
+
+        Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
+
+        UserGetParameter userGetParameter = new UserGetParameter();
+        BeanUtils.copyProperties(parameter, userGetParameter);
+        userGetParameter.setId(authUserId);
+        return this.get(userGetParameter);
+    }
+
 }

@@ -33,6 +33,11 @@ public class GeneratorGuideSearchParameter extends Parameter {
      */
     private String name;
 
+    /**
+     * 文档类型：1markdown
+     */
+    private Integer docType;
+
     public GeneratorGuideSearchParameter() {
 
     }
@@ -77,4 +82,11 @@ public class GeneratorGuideSearchParameter extends Parameter {
         this.name = name;
     }
 
+    public Integer getDocType() {
+        return docType;
+    }
+
+    public void setDocType(Integer docType) {
+        this.docType = docType;
+    }
 }
