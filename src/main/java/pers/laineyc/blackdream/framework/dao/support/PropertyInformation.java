@@ -19,7 +19,7 @@ public class PropertyInformation<K extends Comparable<? super K>> {
 
     private Boolean isPrimaryKey;
 
-    private Boolean isLazyLoad;
+    private Boolean isFetchLazy;
 
     public PropertyInformation(String propertyName, Class<K> propertyType, Field propertyField) {
         this(propertyName, propertyName, propertyType, propertyField);
@@ -29,13 +29,13 @@ public class PropertyInformation<K extends Comparable<? super K>> {
       this(propertyName, propertyAlias, propertyType, propertyField, false, false);
     }
 
-    public PropertyInformation(String propertyName, String propertyAlias, Class<K> propertyType, Field propertyField, Boolean isPrimaryKey, Boolean isLazyLoad) {
+    public PropertyInformation(String propertyName, String propertyAlias, Class<K> propertyType, Field propertyField, Boolean isPrimaryKey, Boolean isFetchLazy) {
         this.propertyName = propertyName;
         this.propertyAlias = propertyAlias;
         this.propertyType = propertyType;
         this.propertyField = propertyField;
         this.isPrimaryKey = isPrimaryKey;
-        this.isLazyLoad = isLazyLoad;
+        this.isFetchLazy = isFetchLazy;
     }
 
     public String getPropertyName() {
@@ -58,7 +58,7 @@ public class PropertyInformation<K extends Comparable<? super K>> {
         return isPrimaryKey;
     }
 
-    public Boolean getIsLazyLoad() {
-        return isLazyLoad;
+    public Boolean getIsFetchLazy() {
+        return isFetchLazy;
     }
 }

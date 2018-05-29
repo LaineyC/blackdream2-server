@@ -524,6 +524,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         TemplateFileQuery templateFileQuery = new TemplateFileQuery();
         templateFileQuery.setIsDeleted(false);
         templateFileQuery.setGeneratorId(generatorId);
+        templateFileQuery.fetchLazy(false);
 
         List<TemplateFilePo> templateFilePoList = templateFileDao.selectList(templateFileQuery);
         templateFilePoList.forEach(templateFilePo -> {

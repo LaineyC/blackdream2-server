@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
-import pers.laineyc.blackdream.framework.dao.support.LazyLoad;
+import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
 
 import java.util.*;
 
@@ -84,13 +84,13 @@ public class GeneratorDataPo extends Po {
     /**
      * 属性集
      */
-    @LazyLoad
+    @FetchLazy
     private Map<String, Object> property = new LinkedHashMap<>();
 
     /**
      * 记录列表
      */
-    @LazyLoad
+    @FetchLazy
     private List<Map<String, Object>> recordList = new ArrayList<>();
 
 	public GeneratorDataPo() {

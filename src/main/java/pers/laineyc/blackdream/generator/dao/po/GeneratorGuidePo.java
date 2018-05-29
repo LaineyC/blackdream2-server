@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
-import pers.laineyc.blackdream.framework.dao.support.LazyLoad;
+import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
 
 import java.util.Date;
 
@@ -68,7 +68,7 @@ public class GeneratorGuidePo extends Po {
     /**
      * 内容
      */
-    @LazyLoad
+    @FetchLazy
     private String content;
 
 

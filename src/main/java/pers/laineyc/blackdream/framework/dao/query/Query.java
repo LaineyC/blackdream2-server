@@ -21,8 +21,10 @@ public abstract class Query<E extends Po> implements Serializable {
 
     private Limit limit;
 
-    public Query(){
+    private boolean fetchLazy;
 
+    public Query(){
+        fetchLazy = true;
     }
 
     protected void addWhereExpression(Expression... expressions) {
@@ -83,6 +85,14 @@ public abstract class Query<E extends Po> implements Serializable {
 
     public void limit(Integer firstResult, Integer maxResults){
         this.limit = new Limit(firstResult, maxResults);
+    }
+
+    public void fetchLazy(boolean fetchLazy) {
+        this.fetchLazy = fetchLazy;
+    }
+
+    public boolean getIsFetchLazy() {
+        return fetchLazy;
     }
 
 }

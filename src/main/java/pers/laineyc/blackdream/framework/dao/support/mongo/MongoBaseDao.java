@@ -142,14 +142,7 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
 
     @Override
     public List<E> selectList(Query<E> query) {
-        Limit limit = query.getLimit();
-        Integer firstResult = limit.getFirstResult();
-        Integer maxResults = limit.getMaxResults();
-
-        BasicQuery mongodbQuery = createQuery(query);
-        mongodbQuery.skip(firstResult).limit(maxResults);
-
-        return mongoTemplate.find(mongodbQuery, entityClass);
+        return mongoTemplate.find(createQuery(query), entityClass);
     }
 /*
     @Override
@@ -197,14 +190,23 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
         }
 
         DBObject fieldsObject = new BasicDBObject();
-        entityInformation.getPropertyInformationList().forEach(propertyInformation -> {
-            if(propertyInformation.getIsLazyLoad()){
-                fieldsObject.put(propertyInformation.getPropertyAlias(), false);
-            }
-        });
+        if(query.getIsFetchLazy()) {
+            entityInformation.getPropertyInformationList().forEach(propertyInformation -> {
+                if (propertyInformation.getIsFetchLazy()) {
+                    fieldsObject.put(propertyInformation.getPropertyAlias(), false);
+                }
+            });
+        }
 
         BasicQuery basicQuery = new BasicQuery(mongodbQuery.getQueryObject(), fieldsObject);
         basicQuery.setSortObject(mongodbQuery.getSortObject());
+
+        Limit limit = query.getLimit();
+        if(limit != null){
+            Integer firstResult = limit.getFirstResult();
+            Integer maxResults = limit.getMaxResults();
+            basicQuery.skip(firstResult).limit(maxResults);
+        }
 
         return basicQuery;
     }

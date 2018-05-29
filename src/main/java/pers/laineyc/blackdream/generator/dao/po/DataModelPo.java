@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
-import pers.laineyc.blackdream.framework.dao.support.LazyLoad;
+import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
 import pers.laineyc.blackdream.generator.service.domain.DataModelField;
 
 import java.util.ArrayList;
@@ -82,19 +82,19 @@ public class DataModelPo extends Po {
     /**
      * 属性列表
      */
-    @LazyLoad
+    @FetchLazy
     private List<DataModelField> propertyList = new ArrayList<>();
 
     /**
      * 字段列表
      */
-    @LazyLoad
+    @FetchLazy
     private List<DataModelField> fieldList = new ArrayList<>();
 
     /**
      * 默认记录列表
      */
-    @LazyLoad
+    @FetchLazy
     private List<Map<String, Object>> defaultRecordList = new ArrayList<>();
 
 	public DataModelPo() {

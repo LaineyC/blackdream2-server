@@ -3,7 +3,7 @@ package pers.laineyc.blackdream.framework.dao.support.mongo;
 import org.springframework.data.annotation.Id;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import pers.laineyc.blackdream.framework.dao.support.EntityInformation;
-import pers.laineyc.blackdream.framework.dao.support.LazyLoad;
+import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
 import pers.laineyc.blackdream.framework.dao.support.PropertyInformation;
 import pers.laineyc.blackdream.framework.util.ReflectionUtil;
 import java.beans.BeanInfo;
@@ -55,7 +55,7 @@ public class MongoEntityInformationSupport {
                 Class<K> propertyType = (Class<K>)field.getType();
                 Field propertyField = field;
                 boolean isPrimaryKey;
-                boolean isLazyLoad;
+                boolean isFetchLazy;
 
                 org.springframework.data.mongodb.core.mapping.Field mongodbField = field.getAnnotation(org.springframework.data.mongodb.core.mapping.Field.class);
                 if(mongodbField != null){
@@ -65,10 +65,10 @@ public class MongoEntityInformationSupport {
                 Id id = field.getAnnotation(Id.class);
                 isPrimaryKey = id != null;
 
-                LazyLoad lazyLoadField = field.getAnnotation(LazyLoad.class);
-                isLazyLoad = lazyLoadField != null;
+                FetchLazy fetchLazyField = field.getAnnotation(FetchLazy.class);
+                isFetchLazy = fetchLazyField != null;
 
-                PropertyInformation<K> propertyInformation = new PropertyInformation<>(propertyName, propertyAlias, propertyType, propertyField, isPrimaryKey, isLazyLoad);
+                PropertyInformation<K> propertyInformation = new PropertyInformation<>(propertyName, propertyAlias, propertyType, propertyField, isPrimaryKey, isFetchLazy);
                 propertyInformationList.add(propertyInformation);
             }
         }

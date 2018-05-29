@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
-import pers.laineyc.blackdream.framework.dao.support.LazyLoad;
+import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
 
 import java.util.Date;
 
@@ -83,7 +83,7 @@ public class TemplateFilePo extends Po {
     /**
      * 脚本
      */
-    @LazyLoad
+    @FetchLazy
     private String script;
 
 	public TemplateFilePo() {
