@@ -142,10 +142,6 @@ public class DataModelServiceTool{
                 throw new BusinessException("描述长度不能大于255");
             }
         }
-
-
-
-
     }
     
     /**
@@ -184,7 +180,20 @@ public class DataModelServiceTool{
      * 生成器数据模型排序Validate
      */
     public void sortValidate(DataModelSortParameter parameter) {
-       
+        Long id = parameter.getId();
+        if(id == null) {
+            throw new BusinessException("缺少主键");
+        }
+
+        Integer fromIndex = parameter.getFromIndex();
+        if(fromIndex == null) {
+            throw new BusinessException("缺少移动前的位置");
+        }
+
+        Integer toIndex = parameter.getToIndex();
+        if(toIndex == null) {
+            throw new BusinessException("缺少移动后的位置");
+        }
     }
 
     /**

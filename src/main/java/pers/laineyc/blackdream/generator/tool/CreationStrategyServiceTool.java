@@ -162,7 +162,20 @@ public class CreationStrategyServiceTool{
      * 生成器生成策略排序Validate
      */
     public void sortValidate(CreationStrategySortParameter parameter) {
-       
+        Long id = parameter.getId();
+        if(id == null) {
+            throw new BusinessException("缺少主键");
+        }
+
+        Integer fromIndex = parameter.getFromIndex();
+        if(fromIndex == null) {
+            throw new BusinessException("缺少移动前的位置");
+        }
+
+        Integer toIndex = parameter.getToIndex();
+        if(toIndex == null) {
+            throw new BusinessException("缺少移动后的位置");
+        }
     }
 
     /**

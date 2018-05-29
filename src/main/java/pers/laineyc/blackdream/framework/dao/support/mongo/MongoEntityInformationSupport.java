@@ -65,8 +65,8 @@ public class MongoEntityInformationSupport {
                 Id id = field.getAnnotation(Id.class);
                 isPrimaryKey = id != null;
 
-                FetchLazy fetchLazyField = field.getAnnotation(FetchLazy.class);
-                isFetchLazy = fetchLazyField != null;
+                FetchLazy fetchLazy = field.getAnnotation(FetchLazy.class);
+                isFetchLazy = fetchLazy != null;
 
                 PropertyInformation<K> propertyInformation = new PropertyInformation<>(propertyName, propertyAlias, propertyType, propertyField, isPrimaryKey, isFetchLazy);
                 propertyInformationList.add(propertyInformation);

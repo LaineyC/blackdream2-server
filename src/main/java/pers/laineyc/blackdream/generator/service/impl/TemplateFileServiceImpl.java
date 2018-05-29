@@ -296,16 +296,15 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         Map<Long, Generator> generatorMap = new HashMap<>();
         templateFilePoList.forEach(po -> {
             TemplateFile templateFile = new TemplateFile();
-            
+
             templateFile.setId(po.getId());
 
             Long userId = po.getUserId();
-            if(userId != null) {
+            if (userId != null) {
                 User user;
-                if(userMap.containsKey(userId)) {
+                if (userMap.containsKey(userId)) {
                     user = userMap.get(userId);
-                }
-                else {
+                } else {
                     user = new User();
                     user.setId(userId);
                     userMap.put(userId, user);
@@ -314,12 +313,11 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
             }
 
             Long generatorId = po.getGeneratorId();
-            if(generatorId != null) {
+            if (generatorId != null) {
                 Generator generator;
-                if(generatorMap.containsKey(generatorId)) {
+                if (generatorMap.containsKey(generatorId)) {
                     generator = generatorMap.get(generatorId);
-                }
-                else {
+                } else {
                     generator = new Generator();
                     generator.setId(generatorId);
                     generatorMap.put(generatorId, generator);
@@ -404,16 +402,15 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         Map<Long, Generator> generatorMap = new HashMap<>();
         templateFilePoPageResult.getRecords().forEach(po -> {
             TemplateFile templateFile = new TemplateFile();
-            
+
             templateFile.setId(po.getId());
 
             Long userId = po.getUserId();
-            if(userId != null) {
+            if (userId != null) {
                 User user;
-                if(userMap.containsKey(userId)) {
+                if (userMap.containsKey(userId)) {
                     user = userMap.get(userId);
-                }
-                else {
+                } else {
                     user = new User();
                     user.setId(userId);
                     userMap.put(userId, user);
@@ -422,12 +419,11 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
             }
 
             Long generatorId = po.getGeneratorId();
-            if(generatorId != null) {
+            if (generatorId != null) {
                 Generator generator;
-                if(generatorMap.containsKey(generatorId)) {
+                if (generatorMap.containsKey(generatorId)) {
                     generator = generatorMap.get(generatorId);
-                }
-                else {
+                } else {
                     generator = new Generator();
                     generator.setId(generatorId);
                     generatorMap.put(generatorId, generator);
@@ -485,8 +481,51 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
     @Transactional
     public TemplateFile sort(TemplateFileSortParameter parameter) {
         templateFileServiceTool.sortValidate(parameter);
-    
+
+        Date now = new Date();
         Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
+
+        Long id = parameter.getId();
+        TemplateFilePo templateFilePo = templateFileDao.selectById(id);
+        if(templateFilePo == null) {
+            throw new BusinessException("生成器模板文件不存在");
+        }
+        if(!templateFilePo.getUserId().equals(authUserId)){
+            throw new BusinessException("生成器模板文件不存在");
+        }
+
+        TemplateFileQuery templateFileQuery = new TemplateFileQuery();
+        templateFileQuery.setIsDeleted(false);
+        templateFileQuery.setGeneratorId(templateFilePo.getGeneratorId());
+        templateFileQuery.orderByDisplayOrder(Order.Direction.ASC);
+        List<TemplateFilePo> templateFilePoList = templateFileDao.selectList(templateFileQuery);
+
+        int fromIndex = parameter.getFromIndex();
+        int toIndex = parameter.getToIndex();
+        int size = templateFilePoList.size();
+        if(size == 0 || toIndex > size - 1 || fromIndex > size - 1){
+            throw new BusinessException("请保存并刷新数据，重新操作！");
+        }
+
+        TemplateFilePo templateFilePoRemove = templateFilePoList.remove(fromIndex);
+        if(templateFilePoRemove == null || !id.equals(templateFilePoRemove.getId())){
+            throw new BusinessException("请保存并刷新数据，重新操作！");
+        }
+        templateFilePoList.add(toIndex, templateFilePoRemove);
+
+        int index = 0;
+        for(TemplateFilePo po : templateFilePoList){
+            Long poId = po.getId();
+            if(po.getDisplayOrder() != (index + 1)) {
+                TemplateFilePo templateFilePoUpdate = new TemplateFilePo();
+                templateFilePoUpdate.setId(poId);
+                templateFilePoUpdate.setDisplayOrder(index + 1);
+                templateFilePoUpdate.setUpdateTime(now);
+                templateFileDao.updateSelective(templateFilePoUpdate);
+            }
+            index++;
+        }
 
         TemplateFile templateFile = new TemplateFile();
 

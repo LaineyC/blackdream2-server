@@ -203,7 +203,20 @@ public class TemplateFileServiceTool{
      * 生成器模板文件排序Validate
      */
     public void sortValidate(TemplateFileSortParameter parameter) {
-       
+        Long id = parameter.getId();
+        if(id == null) {
+            throw new BusinessException("缺少主键");
+        }
+
+        Integer fromIndex = parameter.getFromIndex();
+        if(fromIndex == null) {
+            throw new BusinessException("缺少移动前的位置");
+        }
+
+        Integer toIndex = parameter.getToIndex();
+        if(toIndex == null) {
+            throw new BusinessException("缺少移动后的位置");
+        }
     }
 
     /**

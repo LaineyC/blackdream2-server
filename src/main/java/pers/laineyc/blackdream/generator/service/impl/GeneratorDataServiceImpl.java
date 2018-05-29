@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import pers.laineyc.blackdream.foundation.service.SequenceService;
+import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
@@ -651,6 +652,8 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         GeneratorDataQuery generatorDataQuery = new GeneratorDataQuery();
         generatorDataQuery.setIsDeleted(false);
         generatorDataQuery.setUserId(authUserId);
+        generatorDataQuery.setGeneratorInstanceId(parameter.getGeneratorInstanceId());
+        generatorDataQuery.orderByDisplayOrder(Order.Direction.ASC);
         List<GeneratorDataPo> generatorDataPoList = generatorDataDao.selectList(generatorDataQuery);
 
         Map<Long, GeneratorData> index = new HashMap<>();
@@ -673,6 +676,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             DataModel dataModel = new DataModel();
             dataModel.setId(generatorDataPo.getDataModelId());
             generatorData.setDataModel(dataModel);
+
             generatorData.setName(generatorDataPo.getName());
             generatorData.setIsExpanded(generatorDataPo.getIsExpanded());
             generatorData.setDisplayOrder(generatorDataPo.getDisplayOrder());

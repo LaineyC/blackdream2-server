@@ -8,8 +8,46 @@ import pers.laineyc.blackdream.framework.service.parameter.Parameter;
  */
 public class CreationStrategySortParameter extends Parameter {
 
+    /**
+     * 主键
+     */
+    private Long id;
+
+    /**
+     * 移动前的位置
+     */
+    private Integer fromIndex;
+
+    /**
+     * 移动后的位置
+     */
+    private Integer toIndex;
+
     public CreationStrategySortParameter() {
 
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getFromIndex() {
+        return fromIndex;
+    }
+
+    public void setFromIndex(Integer fromIndex) {
+        this.fromIndex = fromIndex;
+    }
+
+    public Integer getToIndex() {
+        return toIndex;
+    }
+
+    public void setToIndex(Integer toIndex) {
+        this.toIndex = toIndex;
+    }
 }

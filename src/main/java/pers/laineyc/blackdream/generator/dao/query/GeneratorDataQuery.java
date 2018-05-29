@@ -1,5 +1,6 @@
 package pers.laineyc.blackdream.generator.dao.query;
 
+import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorDataPo;
 import pers.laineyc.blackdream.framework.dao.query.Query;
 import pers.laineyc.blackdream.framework.dao.query.expression.ExpressionBuilder;
@@ -243,6 +244,10 @@ public class GeneratorDataQuery extends Query<GeneratorDataPo> {
         if(this.updateTime != null){
             this.addWhereExpression(ExpressionBuilder.equal("updateTime", this.updateTime));
         }
+    }
+
+    public void orderByDisplayOrder(Order.Direction orderDirection){
+        orderBy("displayOrder", orderDirection);
     }
 
 }

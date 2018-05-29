@@ -180,14 +180,30 @@ public class GeneratorDataServiceTool{
      * 生成器数据树形查询Validate
      */
     public void treeValidate(GeneratorDataTreeParameter parameter) {
-
+        Long generatorInstanceId = parameter.getGeneratorInstanceId();
+        if(generatorInstanceId == null) {
+            throw new BusinessException("缺少所属生成器实例");
+        }
     }
     
     /**
      * 生成器数据排序Validate
      */
     public void sortValidate(GeneratorDataSortParameter parameter) {
-       
+        Long id = parameter.getId();
+        if(id == null) {
+            throw new BusinessException("缺少主键");
+        }
+
+        Integer fromIndex = parameter.getFromIndex();
+        if(fromIndex == null) {
+            throw new BusinessException("缺少移动前的位置");
+        }
+
+        Integer toIndex = parameter.getToIndex();
+        if(toIndex == null) {
+            throw new BusinessException("缺少移动后的位置");
+        }
     }
     
 }

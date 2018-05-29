@@ -8,8 +8,20 @@ import pers.laineyc.blackdream.framework.service.parameter.Parameter;
  */
 public class GeneratorDataTreeParameter extends Parameter {
 
+    /**
+     * 所属生成器实例
+     */
+    private Long generatorInstanceId;
+
     public GeneratorDataTreeParameter() {
 
     }
 
+    public Long getGeneratorInstanceId() {
+        return generatorInstanceId;
+    }
+
+    public void setGeneratorInstanceId(Long generatorInstanceId) {
+        this.generatorInstanceId = generatorInstanceId;
+    }
 }

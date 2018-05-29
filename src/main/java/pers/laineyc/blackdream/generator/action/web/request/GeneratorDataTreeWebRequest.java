@@ -11,8 +11,19 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 @ApiModel
 public class GeneratorDataTreeWebRequest extends Request {
 
+    @ApiModelProperty(value = "所属生成器实例")
+    private Long generatorInstanceId;
+
     public GeneratorDataTreeWebRequest() {
 
+    }
+
+    public Long getGeneratorInstanceId() {
+        return generatorInstanceId;
+    }
+
+    public void setGeneratorInstanceId(Long generatorInstanceId) {
+        this.generatorInstanceId = generatorInstanceId;
     }
 
 }
