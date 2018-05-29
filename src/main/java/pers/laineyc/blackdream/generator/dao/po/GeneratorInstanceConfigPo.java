@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
+import pers.laineyc.blackdream.framework.dao.support.LazyLoad;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,11 +72,13 @@ public class GeneratorInstanceConfigPo extends Po {
     /**
      * 是否直接添加默认记录
      */
+    @LazyLoad
     private Boolean isAddDefaultRecordList;
 
     /**
      * 默认记录集合数据
      */
+    @LazyLoad
     private List<Map<String, Object>> defaultRecordList = new ArrayList<>();
 
 	public GeneratorInstanceConfigPo() {

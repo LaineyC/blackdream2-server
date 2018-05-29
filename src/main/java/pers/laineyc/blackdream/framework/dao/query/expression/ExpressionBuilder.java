@@ -1,5 +1,7 @@
 package pers.laineyc.blackdream.framework.dao.query.expression;
 
+import java.util.List;
+
 /**
  * ExpressionBuilder
  *
@@ -28,6 +30,10 @@ public final class ExpressionBuilder {
     }
 
     public static In in(String property, Comparable... value){
+        return new In(property, value);
+    }
+
+    public static In in(String property, List value){
         return new In(property, value);
     }
 

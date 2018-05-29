@@ -283,9 +283,11 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
             generatorList.add(generator);
         });
-        
+
         if(!userMap.isEmpty()){
-            List<UserPo> userPos = userDao.selectByIds(userMap.keySet());
+            UserQuery userQuery = new UserQuery();
+            userQuery.setIdList(new ArrayList<>(userMap.keySet()));
+            List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
                 Long id = po.getId();
                 User user = userMap.get(id);
@@ -365,7 +367,9 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         });
 
         if(!userMap.isEmpty()){
-            List<UserPo> userPos = userDao.selectByIds(userMap.keySet());
+            UserQuery userQuery = new UserQuery();
+            userQuery.setIdList(new ArrayList<>(userMap.keySet()));
+            List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
                 Long id = po.getId();
                 User user = userMap.get(id);

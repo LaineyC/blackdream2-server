@@ -18,6 +18,7 @@ import pers.laineyc.blackdream.foundation.service.domain.DetachedFile;
 import pers.laineyc.blackdream.foundation.dao.po.DetachedFilePo;
 import pers.laineyc.blackdream.foundation.dao.query.DetachedFileQuery;
 import pers.laineyc.blackdream.foundation.dao.DetachedFileDao;
+import pers.laineyc.blackdream.usercenter.dao.query.UserQuery;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
@@ -157,9 +158,11 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
 
             detachedFileList.add(detachedFile);
         });
-        
+
         if(!userMap.isEmpty()){
-            List<UserPo> userPos = userDao.selectByIds(userMap.keySet());
+            UserQuery userQuery = new UserQuery();
+            userQuery.setIdList(new ArrayList<>(userMap.keySet()));
+            List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
                 Long id = po.getId();
                 User user = userMap.get(id);
@@ -233,7 +236,9 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
         });
 
         if(!userMap.isEmpty()){
-            List<UserPo> userPos = userDao.selectByIds(userMap.keySet());
+            UserQuery userQuery = new UserQuery();
+            userQuery.setIdList(new ArrayList<>(userMap.keySet()));
+            List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
                 Long id = po.getId();
                 User user = userMap.get(id);

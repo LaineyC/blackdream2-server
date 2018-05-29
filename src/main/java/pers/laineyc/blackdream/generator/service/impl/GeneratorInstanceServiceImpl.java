@@ -300,9 +300,11 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
             generatorInstanceList.add(generatorInstance);
         });
-        
+
         if(!userMap.isEmpty()){
-            List<UserPo> userPos = userDao.selectByIds(userMap.keySet());
+            UserQuery userQuery = new UserQuery();
+            userQuery.setIdList(new ArrayList<>(userMap.keySet()));
+            List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
                 Long id = po.getId();
                 User user = userMap.get(id);
@@ -311,7 +313,9 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         }
 
         if(!generatorMap.isEmpty()){
-            List<GeneratorPo> generatorPos = generatorDao.selectByIds(generatorMap.keySet());
+            GeneratorQuery generatorQuery = new GeneratorQuery();
+            generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
+            List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
                 Long id = po.getId();
                 Generator generator = generatorMap.get(id);
@@ -397,7 +401,9 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         });
 
         if(!userMap.isEmpty()){
-            List<UserPo> userPos = userDao.selectByIds(userMap.keySet());
+            UserQuery userQuery = new UserQuery();
+            userQuery.setIdList(new ArrayList<>(userMap.keySet()));
+            List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
                 Long id = po.getId();
                 User user = userMap.get(id);
@@ -406,7 +412,9 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         }
 
         if(!generatorMap.isEmpty()){
-            List<GeneratorPo> generatorPos = generatorDao.selectByIds(generatorMap.keySet());
+            GeneratorQuery generatorQuery = new GeneratorQuery();
+            generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
+            List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
                 Long id = po.getId();
                 Generator generator = generatorMap.get(id);

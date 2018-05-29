@@ -1,4 +1,4 @@
-package pers.laineyc.blackdream.framework.dao.support.mongo;
+package pers.laineyc.blackdream.framework.dao.support;
 
 import java.lang.reflect.Field;
 
@@ -17,18 +17,25 @@ public class PropertyInformation<K extends Comparable<? super K>> {
 
     private Field propertyField;
 
+    private Boolean isPrimaryKey;
+
+    private Boolean isLazyLoad;
+
     public PropertyInformation(String propertyName, Class<K> propertyType, Field propertyField) {
-        this.propertyName = propertyName;
-        this.propertyAlias = propertyName;
-        this.propertyType = propertyType;
-        this.propertyField = propertyField;
+        this(propertyName, propertyName, propertyType, propertyField);
     }
 
     public PropertyInformation(String propertyName, String propertyAlias, Class<K> propertyType, Field propertyField) {
+      this(propertyName, propertyAlias, propertyType, propertyField, false, false);
+    }
+
+    public PropertyInformation(String propertyName, String propertyAlias, Class<K> propertyType, Field propertyField, Boolean isPrimaryKey, Boolean isLazyLoad) {
         this.propertyName = propertyName;
         this.propertyAlias = propertyAlias;
         this.propertyType = propertyType;
         this.propertyField = propertyField;
+        this.isPrimaryKey = isPrimaryKey;
+        this.isLazyLoad = isLazyLoad;
     }
 
     public String getPropertyName() {
@@ -47,4 +54,11 @@ public class PropertyInformation<K extends Comparable<? super K>> {
         return propertyAlias;
     }
 
+    public Boolean getIsPrimaryKey() {
+        return isPrimaryKey;
+    }
+
+    public Boolean getIsLazyLoad() {
+        return isLazyLoad;
+    }
 }

@@ -4,7 +4,6 @@ import pers.laineyc.blackdream.framework.dao.po.Po;
 import pers.laineyc.blackdream.framework.dao.query.expression.Condition;
 import pers.laineyc.blackdream.framework.dao.query.expression.Expression;
 import pers.laineyc.blackdream.framework.dao.query.expression.ExpressionBuilder;
-
 import java.io.Serializable;
 
 /**
@@ -44,6 +43,24 @@ public abstract class Query<E extends Po> implements Serializable {
         }
     }
 
+    protected void groupBy(String property){
+        if(this.group == null){
+            this.group = new Group(property);
+        }
+        else{
+            this.group.by(property);
+        }
+    }
+
+    protected void orderBy(String property, Order.Direction orderDirection){
+        if(this.order == null){
+            this.order = new Order(property, orderDirection);
+        }
+        else{
+            this.order.by(property, orderDirection);
+        }
+    }
+
     public Condition getWhere() {
         return where;
     }
@@ -66,24 +83,6 @@ public abstract class Query<E extends Po> implements Serializable {
 
     public void limit(Integer firstResult, Integer maxResults){
         this.limit = new Limit(firstResult, maxResults);
-    }
-
-    public void groupBy(String property){
-        if(this.group == null){
-            this.group = new Group(property);
-        }
-        else{
-            this.group.by(property);
-        }
-    }
-
-    public void orderBy(String property, Order.Direction orderDirection){
-        if(this.order == null){
-            this.order = new Order(property, orderDirection);
-        }
-        else{
-            this.order.by(property, orderDirection);
-        }
     }
 
 }

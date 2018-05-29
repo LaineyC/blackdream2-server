@@ -67,7 +67,7 @@ public interface Dao<E extends Po, K extends Comparable<? super K>> {
      * @param ids 主键集合
      * @return 多条数据
      */
-    List<E> selectByIds(Iterable<K> ids);
+    //List<E> selectByIds(Iterable<K> ids);
 
     /**
      * 根据query作为sql的where条件查询单条数据，所有值都是and操作。如果数据库有多条数据返回会报异常。
@@ -88,7 +88,7 @@ public interface Dao<E extends Po, K extends Comparable<? super K>> {
      * @param query 所有属性基本对应表字段，可扩展，但不能加入别的表的字段
      * @return 多条数据
      */
-    List<E> selectLimit(Query<E> query);
+    //List<E> selectLimit(Query<E> query);
 
     /**
      * 根据query作为sql的where条件查询数据行数
@@ -120,7 +120,7 @@ public interface Dao<E extends Po, K extends Comparable<? super K>> {
             query.limit((maxPage - 1) * maxResults, maxResults);
         }
 
-        List<E> poList = this.selectLimit(query);
+        List<E> poList = this.selectList(query);
         pageResult.setRecords(poList);
 
         return pageResult;

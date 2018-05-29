@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.foundation.service.SequenceService;
+import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
@@ -344,9 +345,11 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
             templateFileList.add(templateFile);
         });
-        
+
         if(!userMap.isEmpty()){
-            List<UserPo> userPos = userDao.selectByIds(userMap.keySet());
+            UserQuery userQuery = new UserQuery();
+            userQuery.setIdList(new ArrayList<>(userMap.keySet()));
+            List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
                 Long id = po.getId();
                 User user = userMap.get(id);
@@ -355,7 +358,9 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         }
 
         if(!generatorMap.isEmpty()){
-            List<GeneratorPo> generatorPos = generatorDao.selectByIds(generatorMap.keySet());
+            GeneratorQuery generatorQuery = new GeneratorQuery();
+            generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
+            List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
                 Long id = po.getId();
                 Generator generator = generatorMap.get(id);
@@ -450,7 +455,9 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         });
 
         if(!userMap.isEmpty()){
-            List<UserPo> userPos = userDao.selectByIds(userMap.keySet());
+            UserQuery userQuery = new UserQuery();
+            userQuery.setIdList(new ArrayList<>(userMap.keySet()));
+            List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
                 Long id = po.getId();
                 User user = userMap.get(id);
@@ -459,7 +466,9 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         }
 
         if(!generatorMap.isEmpty()){
-            List<GeneratorPo> generatorPos = generatorDao.selectByIds(generatorMap.keySet());
+            GeneratorQuery generatorQuery = new GeneratorQuery();
+            generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
+            List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
                 Long id = po.getId();
                 Generator generator = generatorMap.get(id);

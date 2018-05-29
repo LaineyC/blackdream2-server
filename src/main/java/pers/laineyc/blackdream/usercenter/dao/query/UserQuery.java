@@ -3,7 +3,10 @@ package pers.laineyc.blackdream.usercenter.dao.query;
 import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
 import pers.laineyc.blackdream.framework.dao.query.Query;
 import pers.laineyc.blackdream.framework.dao.query.expression.ExpressionBuilder;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户Query
@@ -17,6 +20,11 @@ public class UserQuery extends Query<UserPo> {
      * 主键
      */
     private Long id;
+
+    /**
+     * 主键
+     */
+    private List<Long> idList = new ArrayList<>();
 
     /**
      * 状态：1冻结；2启用
@@ -125,6 +133,17 @@ public class UserQuery extends Query<UserPo> {
         this.id = id;
         if(this.id != null){
             this.addWhereExpression(ExpressionBuilder.equal("id", this.id));
+        }
+    }
+
+    public List<Long> getIdList() {
+        return idList;
+    }
+
+    public void setIdList(List<Long> idList) {
+        this.idList = idList;
+        if(this.idList != null && !this.idList.isEmpty()){
+            this.addWhereExpression(ExpressionBuilder.in("id", this.idList));
         }
     }
 

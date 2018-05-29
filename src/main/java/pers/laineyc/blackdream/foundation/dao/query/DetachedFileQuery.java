@@ -3,7 +3,10 @@ package pers.laineyc.blackdream.foundation.dao.query;
 import pers.laineyc.blackdream.foundation.dao.po.DetachedFilePo;
 import pers.laineyc.blackdream.framework.dao.query.Query;
 import pers.laineyc.blackdream.framework.dao.query.expression.ExpressionBuilder;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 游离文件Query
@@ -17,6 +20,11 @@ public class DetachedFileQuery extends Query<DetachedFilePo> {
      * 主键
      */
     private Long id;
+
+    /**
+     * 主键
+     */
+    private List<Long> idList = new ArrayList<>();
 
     /**
      * 所属用户
@@ -85,6 +93,17 @@ public class DetachedFileQuery extends Query<DetachedFilePo> {
         this.id = id;
         if(this.id != null){
             this.addWhereExpression(ExpressionBuilder.equal("id", this.id));
+        }
+    }
+
+    public List<Long> getIdList() {
+        return idList;
+    }
+
+    public void setIdList(List<Long> idList) {
+        this.idList = idList;
+        if(this.idList != null && !this.idList.isEmpty()){
+            this.addWhereExpression(ExpressionBuilder.in("id", this.idList));
         }
     }
 

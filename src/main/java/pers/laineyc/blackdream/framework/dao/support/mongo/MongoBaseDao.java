@@ -1,15 +1,20 @@
 package pers.laineyc.blackdream.framework.dao.support.mongo;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
 import pers.laineyc.blackdream.framework.dao.Dao;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import pers.laineyc.blackdream.framework.dao.query.Limit;
+import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.dao.query.Query;
 import pers.laineyc.blackdream.framework.dao.query.expression.*;
+import pers.laineyc.blackdream.framework.dao.support.EntityInformation;
 import pers.laineyc.blackdream.framework.util.ReflectionUtil;
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -30,7 +35,7 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
 
     public MongoBaseDao(){
         this.entityClass = ReflectionUtil.getSuperClassGenericsType(getClass(), 0);
-        this.entityInformation = EntityInformationSupport.getEntityInformation(entityClass);
+        this.entityInformation = MongoEntityInformationSupport.getEntityInformation(entityClass);
     }
 
     protected MongoTemplate getMongoTemplate() {
@@ -65,8 +70,8 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
         Object idValue = ReflectionUtil.getFieldValue(entityInformation.getIdPropertyInformation().getPropertyField(), po);
         mongodbQuery.addCriteria(Criteria.where(entityInformation.getIdPropertyInformation().getPropertyAlias()).is(idValue));
         Update update = new Update();
-        entityInformation.getPropertyInformationCache().forEach((property, propertyInformation) -> {
-            if(propertyInformation == entityInformation.getIdPropertyInformation()){
+        entityInformation.getPropertyInformationList().forEach(propertyInformation -> {
+            if(propertyInformation.getIsPrimaryKey()){
                 return;
             }
             Object value = ReflectionUtil.getFieldValue(propertyInformation.getPropertyField(), po);
@@ -80,9 +85,11 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
     @Override
     public int updateSelective(E po) {
         org.springframework.data.mongodb.core.query.Query mongodbQuery = new org.springframework.data.mongodb.core.query.Query();
+        Object idValue = ReflectionUtil.getFieldValue(entityInformation.getIdPropertyInformation().getPropertyField(), po);
+        mongodbQuery.addCriteria(Criteria.where(entityInformation.getIdPropertyInformation().getPropertyAlias()).is(idValue));
         Update update = new Update();
-        entityInformation.getPropertyInformationCache().forEach((property, propertyInformation) -> {
-            if(propertyInformation == entityInformation.getIdPropertyInformation()){
+        entityInformation.getPropertyInformationList().forEach(propertyInformation -> {
+            if(propertyInformation.getIsPrimaryKey()){
                 return;
             }
             Object value = ReflectionUtil.getFieldValue(propertyInformation.getPropertyField(), po);
@@ -100,8 +107,8 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
     public int updateList(Query<E> query, E po) {
         org.springframework.data.mongodb.core.query.Query mongodbQuery = createQuery(query);
         Update update = new Update();
-        entityInformation.getPropertyInformationCache().forEach((property, propertyInformation) -> {
-            if(propertyInformation == entityInformation.getIdPropertyInformation()){
+        entityInformation.getPropertyInformationList().forEach(propertyInformation -> {
+            if(propertyInformation.getIsPrimaryKey()){
                 return;
             }
             Object value = ReflectionUtil.getFieldValue(propertyInformation.getPropertyField(), po);
@@ -120,14 +127,14 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
     public E selectById(K id) {
         return mongoTemplate.findById(id, entityClass);
     }
-
+/*
     @Override
     public List<E> selectByIds(Iterable<K> ids) {
         org.springframework.data.mongodb.core.query.Query mongodbQuery = new org.springframework.data.mongodb.core.query.Query();
         mongodbQuery.addCriteria(Criteria.where(entityInformation.getIdPropertyInformation().getPropertyAlias()).in(ids));
         return mongoTemplate.find(mongodbQuery, entityClass);
     }
-
+*/
     @Override
     public E selectOne(Query<E> query) {
         return mongoTemplate.findOne(createQuery(query), entityClass);
@@ -135,27 +142,34 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
 
     @Override
     public List<E> selectList(Query<E> query) {
-        return mongoTemplate.find(createQuery(query), entityClass);
-    }
+        Limit limit = query.getLimit();
+        Integer firstResult = limit.getFirstResult();
+        Integer maxResults = limit.getMaxResults();
 
+        BasicQuery mongodbQuery = createQuery(query);
+        mongodbQuery.skip(firstResult).limit(maxResults);
+
+        return mongoTemplate.find(mongodbQuery, entityClass);
+    }
+/*
     @Override
     public List<E> selectLimit(Query<E> query) {
         Limit limit = query.getLimit();
         Integer firstResult = limit.getFirstResult();
         Integer maxResults = limit.getMaxResults();
 
-        org.springframework.data.mongodb.core.query.Query mongodbQuery = createQuery(query);
+        BasicQuery mongodbQuery = createQuery(query);
         mongodbQuery.skip(firstResult).limit(maxResults);
 
         return mongoTemplate.find(mongodbQuery, entityClass);
     }
-
+*/
     @Override
     public int selectCount(Query<E> query) {
         return (int)mongoTemplate.count(createQuery(query), entityClass);
     }
 
-    private org.springframework.data.mongodb.core.query.Query createQuery(Query<E> query){
+    private BasicQuery createQuery(Query<E> query){
         org.springframework.data.mongodb.core.query.Query mongodbQuery = new org.springframework.data.mongodb.core.query.Query();
         Condition where = query.getWhere();
 
@@ -182,7 +196,17 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
             mongodbQuery.with(sort);
         }
 
-        return mongodbQuery;
+        DBObject fieldsObject = new BasicDBObject();
+        entityInformation.getPropertyInformationList().forEach(propertyInformation -> {
+            if(propertyInformation.getIsLazyLoad()){
+                fieldsObject.put(propertyInformation.getPropertyAlias(), false);
+            }
+        });
+
+        BasicQuery basicQuery = new BasicQuery(mongodbQuery.getQueryObject(), fieldsObject);
+        basicQuery.setSortObject(mongodbQuery.getSortObject());
+
+        return basicQuery;
     }
 
     private Criteria handleCondition(Condition condition){
@@ -246,15 +270,15 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
         return criteria;
     }
 
-    private Sort handleOrder(pers.laineyc.blackdream.framework.dao.query.Order order){
+    private Sort handleOrder(Order order){
         List<Sort.Order> jpaOrderList = new ArrayList<>();
-        List<pers.laineyc.blackdream.framework.dao.query.Order.OrderItem> orderItemList = order.getOrderItemList();
+        List<Order.OrderItem> orderItemList = order.getOrderItemList();
 
         orderItemList.forEach(orderItem -> {
             String property = orderItem.getProperty();
-            pers.laineyc.blackdream.framework.dao.query.Order.Direction direction = orderItem.getDirection();
+            Order.Direction direction = orderItem.getDirection();
 
-            if(direction == pers.laineyc.blackdream.framework.dao.query.Order.Direction.ASC ){
+            if(direction == Order.Direction.ASC ){
                 Sort.Order jpaOrder = new Sort.Order(Sort.Direction.ASC, property);
                 jpaOrderList.add(jpaOrder);
             }
@@ -266,7 +290,6 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
 
         return  new Sort(jpaOrderList);
     }
-
 /*
     private List<javax.persistence.criteria.Expression<?>> handleGroup(pers.laineyc.blackdream.framework.dao.query.Group group, Root<E> root){
         List<javax.persistence.criteria.Expression<?>> groupList = new ArrayList<>();
@@ -289,5 +312,4 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
         return groupList;
     }
 */
-
 }

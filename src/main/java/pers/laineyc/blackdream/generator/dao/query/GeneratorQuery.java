@@ -3,7 +3,10 @@ package pers.laineyc.blackdream.generator.dao.query;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
 import pers.laineyc.blackdream.framework.dao.query.Query;
 import pers.laineyc.blackdream.framework.dao.query.expression.ExpressionBuilder;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 生成器Query
@@ -17,6 +20,11 @@ public class GeneratorQuery extends Query<GeneratorPo> {
      * 主键
      */
     private Long id;
+
+    /**
+     * 主键
+     */
+    private List<Long> idList = new ArrayList<>();
 
     /**
      * 所属用户
@@ -95,6 +103,17 @@ public class GeneratorQuery extends Query<GeneratorPo> {
         this.id = id;
         if(this.id != null){
             this.addWhereExpression(ExpressionBuilder.equal("id", this.id));
+        }
+    }
+
+    public List<Long> getIdList() {
+        return idList;
+    }
+
+    public void setIdList(List<Long> idList) {
+        this.idList = idList;
+        if(this.idList != null && !this.idList.isEmpty()){
+            this.addWhereExpression(ExpressionBuilder.in("id", this.idList));
         }
     }
 
