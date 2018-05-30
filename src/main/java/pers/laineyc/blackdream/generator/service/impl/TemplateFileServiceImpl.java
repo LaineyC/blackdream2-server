@@ -29,14 +29,13 @@ import pers.laineyc.blackdream.generator.service.domain.Generator;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
 import pers.laineyc.blackdream.generator.dao.query.GeneratorQuery;
 import pers.laineyc.blackdream.generator.dao.GeneratorDao;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Date; 
-import java.util.ArrayList; 
-import java.util.Map; 
-import java.util.HashMap; 
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * 生成器模板文件ServiceImpl
@@ -77,11 +76,11 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         Long authUserId = auth.getUserId();
 
         Long id = sequenceService.nextId();
-    
+
         TemplateFilePo templateFilePo = new TemplateFilePo();
 
         templateFilePo.setId(id);
-        
+
         templateFilePo.setUserId(authUserId);
 
         Long generatorId = parameter.getGeneratorId();
@@ -95,8 +94,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         String code = parameter.getCode();
         if(!StringUtils.hasText(code)){
-            TemplateEngineTypeEnum templateEngineTypeEnum = TemplateEngineTypeEnum.value(engineType);
-            code = id.toString() + "." + templateEngineTypeEnum.getSuffix();
+            code = id.toString();
         }
         templateFilePo.setCode(code);
 
@@ -133,7 +131,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         Date now = new Date();
         Auth auth = parameter.getAuth();
         Long authUserId = auth.getUserId();
-               
+
         Long id = parameter.getId();
         TemplateFilePo templateFilePo = templateFileDao.selectById(id);
         if(templateFilePo == null){
@@ -154,7 +152,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         return templateFile;
     }
-    
+
     /**
      * 生成器模板文件修改
      */
@@ -183,8 +181,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         String code = parameter.getCode();
         if(!StringUtils.hasText(code)){
-            TemplateEngineTypeEnum templateEngineTypeEnum = TemplateEngineTypeEnum.value(engineType);
-            code = id.toString() + "." + templateEngineTypeEnum.getSuffix();
+            code = id.toString();
         }
         templateFilePo.setCode(code);
 
@@ -206,16 +203,16 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         return templateFile;
     }
-    
+
     /**
      * 生成器模板文件单个查询
      */
     //@Transactional(readOnly = true)
     public TemplateFile get(TemplateFileGetParameter parameter) {
         templateFileServiceTool.getValidate(parameter);
-        
+
         Auth auth = parameter.getAuth();
-        
+
         Long id = parameter.getId();
         TemplateFilePo templateFilePo = templateFileDao.selectById(id);
         if(templateFilePo == null) {
@@ -223,7 +220,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         }
 
         TemplateFile templateFile = new TemplateFile();
-        
+
         templateFile.setId(templateFilePo.getId());
 
         Long userId = templateFilePo.getUserId();
@@ -273,9 +270,9 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
     //@Transactional(readOnly = true)
     public List<TemplateFile> query(TemplateFileQueryParameter parameter) {
         templateFileServiceTool.queryValidate(parameter);
-    
+
         Auth auth = parameter.getAuth();
-        
+
         TemplateFileQuery templateFileQuery = new TemplateFileQuery();
         templateFileQuery.setIsDeleted(false);
         templateFileQuery.setUserId(parameter.getUserId());
@@ -291,7 +288,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         if(templateFilePoList.isEmpty()){
             return templateFileList;
         }
-        
+
         Map<Long, User> userMap = new HashMap<>();
         Map<Long, Generator> generatorMap = new HashMap<>();
         templateFilePoList.forEach(po -> {
@@ -375,13 +372,13 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
     //@Transactional(readOnly = true)
     public PageResult<TemplateFile> search(TemplateFileSearchParameter parameter) {
         templateFileServiceTool.searchValidate(parameter);
-    
+
         Auth auth = parameter.getAuth();
 
         Integer page = parameter.getPage();
 
         Integer pageSize = parameter.getPageSize();
-        
+
         PageResult<TemplateFile> pageResult = new PageResult<>();
         List<TemplateFile> records = pageResult.getRecords();
 
@@ -394,7 +391,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         templateFileQuery.setEngineType(parameter.getEngineType());
         templateFileQuery.setDisplayGroup(parameter.getDisplayGroup());
         templateFileQuery.limit((page - 1) * pageSize, pageSize);
-        
+
         PageResult<TemplateFilePo> templateFilePoPageResult = templateFileDao.selectPage(templateFileQuery);
         pageResult.setTotal(templateFilePoPageResult.getTotal());
 
@@ -514,17 +511,17 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         }
         templateFilePoList.add(toIndex, templateFilePoRemove);
 
-        int index = 0;
+        int displayOrder = 1;
         for(TemplateFilePo po : templateFilePoList){
             Long poId = po.getId();
-            if(po.getDisplayOrder() != (index + 1)) {
+            if(po.getDisplayOrder() != displayOrder) {
                 TemplateFilePo templateFilePoUpdate = new TemplateFilePo();
                 templateFilePoUpdate.setId(poId);
-                templateFilePoUpdate.setDisplayOrder(index + 1);
+                templateFilePoUpdate.setDisplayOrder(displayOrder);
                 templateFilePoUpdate.setUpdateTime(now);
                 templateFileDao.updateSelective(templateFilePoUpdate);
             }
-            index++;
+            displayOrder++;
         }
 
         TemplateFile templateFile = new TemplateFile();
@@ -567,8 +564,10 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         List<TemplateFilePo> templateFilePoList = templateFileDao.selectList(templateFileQuery);
         templateFilePoList.forEach(templateFilePo -> {
+            Integer engineType = templateFilePo.getEngineType();
+            TemplateEngineTypeEnum templateEngineTypeEnum = TemplateEngineTypeEnum.value(engineType);
             String code = templateFilePo.getCode();
-            Path path = Paths.get(templateFileServiceTool.getScriptPath(templateFilePo.getGeneratorId(), code));
+            Path path = Paths.get(templateFileServiceTool.getScriptPath(templateFilePo.getGeneratorId(), code + "." + templateEngineTypeEnum.getSuffix()));
 
             Path parentPath = path.getParent();
             FileUtil.create(parentPath);

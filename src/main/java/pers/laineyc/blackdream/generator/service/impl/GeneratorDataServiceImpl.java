@@ -9,8 +9,6 @@ import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
-import pers.laineyc.blackdream.framework.util.FileUtil;
-import pers.laineyc.blackdream.framework.util.JsonUtil;
 import pers.laineyc.blackdream.generator.service.GeneratorDataService;
 import pers.laineyc.blackdream.generator.tool.GeneratorDataServiceTool;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataCreateParameter;
@@ -42,9 +40,6 @@ import pers.laineyc.blackdream.generator.service.domain.DataModel;
 import pers.laineyc.blackdream.generator.dao.po.DataModelPo;
 import pers.laineyc.blackdream.generator.dao.query.DataModelQuery;
 import pers.laineyc.blackdream.generator.dao.DataModelDao;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map; 
 import java.util.HashMap; 
@@ -712,8 +707,52 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
     @Transactional
     public GeneratorData sort(GeneratorDataSortParameter parameter) {
         generatorDataServiceTool.sortValidate(parameter);
-    
+
+        Date now = new Date();
         Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
+
+        Long id = parameter.getId();
+        GeneratorDataPo generatorDataPo = generatorDataDao.selectById(id);
+        if(generatorDataPo == null) {
+            throw new BusinessException("生成器模板文件不存在");
+        }
+        if(!generatorDataPo.getUserId().equals(authUserId)){
+            throw new BusinessException("生成器模板文件不存在");
+        }
+
+        GeneratorDataQuery generatorDataQuery = new GeneratorDataQuery();
+        generatorDataQuery.setIsDeleted(false);
+        generatorDataQuery.setGeneratorInstanceId(generatorDataPo.getGeneratorInstanceId());
+        generatorDataQuery.setParentId(generatorDataPo.getParentId());
+        generatorDataQuery.orderByDisplayOrder(Order.Direction.ASC);
+        List<GeneratorDataPo> generatorDataPoList = generatorDataDao.selectList(generatorDataQuery);
+
+        int fromIndex = parameter.getFromIndex();
+        int toIndex = parameter.getToIndex();
+        int size = generatorDataPoList.size();
+        if(size == 0 || toIndex > size - 1 || fromIndex > size - 1){
+            throw new BusinessException("请保存并刷新数据，重新操作！");
+        }
+
+        GeneratorDataPo generatorDataPoRemove = generatorDataPoList.remove(fromIndex);
+        if(generatorDataPoRemove == null || !id.equals(generatorDataPoRemove.getId())){
+            throw new BusinessException("请保存并刷新数据，重新操作！");
+        }
+        generatorDataPoList.add(toIndex, generatorDataPoRemove);
+
+        int displayOrder = 1;
+        for(GeneratorDataPo po : generatorDataPoList){
+            Long poId = po.getId();
+            if(po.getDisplayOrder() != displayOrder) {
+                GeneratorDataPo generatorDataPoUpdate = new GeneratorDataPo();
+                generatorDataPoUpdate.setId(poId);
+                generatorDataPoUpdate.setDisplayOrder(displayOrder);
+                generatorDataPoUpdate.setUpdateTime(now);
+                generatorDataDao.updateSelective(generatorDataPoUpdate);
+            }
+            displayOrder++;
+        }
 
         GeneratorData generatorData = new GeneratorData();
 

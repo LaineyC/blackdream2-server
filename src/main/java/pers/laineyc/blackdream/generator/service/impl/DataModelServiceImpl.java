@@ -5,12 +5,12 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import pers.laineyc.blackdream.foundation.service.SequenceService;
+import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.generator.service.DataModelService;
-import pers.laineyc.blackdream.generator.service.domain.DataModelField;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.DataModelServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
@@ -467,8 +467,51 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
     @Transactional
     public DataModel sort(DataModelSortParameter parameter) {
         dataModelServiceTool.sortValidate(parameter);
-    
+
+        Date now = new Date();
         Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
+
+        Long id = parameter.getId();
+        DataModelPo dataModelPo = dataModelDao.selectById(id);
+        if(dataModelPo == null) {
+            throw new BusinessException("生成器数据模型不存在");
+        }
+        if(!dataModelPo.getUserId().equals(authUserId)){
+            throw new BusinessException("生成器数据模型不存在");
+        }
+
+        DataModelQuery dataModelQuery = new DataModelQuery();
+        dataModelQuery.setIsDeleted(false);
+        dataModelQuery.setGeneratorId(dataModelPo.getGeneratorId());
+        dataModelQuery.orderByDisplayOrder(Order.Direction.ASC);
+        List<DataModelPo> dataModelPoList = dataModelDao.selectList(dataModelQuery);
+
+        int fromIndex = parameter.getFromIndex();
+        int toIndex = parameter.getToIndex();
+        int size = dataModelPoList.size();
+        if(size == 0 || toIndex > size - 1 || fromIndex > size - 1){
+            throw new BusinessException("请保存并刷新数据，重新操作！");
+        }
+
+        DataModelPo dataModelPoRemove = dataModelPoList.remove(fromIndex);
+        if(dataModelPoRemove == null || !id.equals(dataModelPoRemove.getId())){
+            throw new BusinessException("请保存并刷新数据，重新操作！");
+        }
+        dataModelPoList.add(toIndex, dataModelPoRemove);
+
+        int displayOrder = 1;
+        for(DataModelPo po : dataModelPoList){
+            Long poId = po.getId();
+            if(po.getDisplayOrder() != displayOrder) {
+                DataModelPo dataModelPoUpdate = new DataModelPo();
+                dataModelPoUpdate.setId(poId);
+                dataModelPoUpdate.setDisplayOrder(displayOrder);
+                dataModelPoUpdate.setUpdateTime(now);
+                dataModelDao.updateSelective(dataModelPoUpdate);
+            }
+            displayOrder++;
+        }
 
         DataModel dataModel = new DataModel();
 

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import pers.laineyc.blackdream.foundation.service.SequenceService;
+import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
@@ -120,7 +121,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
             throw new BusinessException("生成器生成策略不存在");
         }
         if(!creationStrategyPo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器模板文件不存在");
+            throw new BusinessException("生成器生成策略不存在");
         }
 
         CreationStrategyPo creationStrategyPoUpdate = new CreationStrategyPo();
@@ -152,7 +153,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
             throw new BusinessException("生成器生成策略不存在");
         }
         if(!creationStrategyPo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器模板文件不存在");
+            throw new BusinessException("生成器生成策略不存在");
         }
 
         String name = parameter.getName();
@@ -428,8 +429,53 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
     @Transactional
     public CreationStrategy sort(CreationStrategySortParameter parameter) {
         creationStrategyServiceTool.sortValidate(parameter);
-    
+
+
+        Date now = new Date();
         Auth auth = parameter.getAuth();
+        Long authUserId = auth.getUserId();
+
+        Long id = parameter.getId();
+        CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(id);
+        if(creationStrategyPo == null) {
+            throw new BusinessException("生成器生成策略不存在");
+        }
+        if(!creationStrategyPo.getUserId().equals(authUserId)){
+            throw new BusinessException("生成器生成策略不存在");
+        }
+
+        CreationStrategyQuery creationStrategyQuery = new CreationStrategyQuery();
+        creationStrategyQuery.setIsDeleted(false);
+        creationStrategyQuery.setGeneratorId(creationStrategyPo.getGeneratorId());
+        creationStrategyQuery.orderByDisplayOrder(Order.Direction.ASC);
+        List<CreationStrategyPo> creationStrategyPoList = creationStrategyDao.selectList(creationStrategyQuery);
+
+        int fromIndex = parameter.getFromIndex();
+        int toIndex = parameter.getToIndex();
+        int size = creationStrategyPoList.size();
+        if(size == 0 || toIndex > size - 1 || fromIndex > size - 1){
+            throw new BusinessException("请保存并刷新数据，重新操作！");
+        }
+
+        CreationStrategyPo creationStrategyPoRemove = creationStrategyPoList.remove(fromIndex);
+        if(creationStrategyPoRemove == null || !id.equals(creationStrategyPoRemove.getId())){
+            throw new BusinessException("请保存并刷新数据，重新操作！");
+        }
+        creationStrategyPoList.add(toIndex, creationStrategyPoRemove);
+
+        int displayOrder = 1;
+        for(CreationStrategyPo po : creationStrategyPoList){
+            Long poId = po.getId();
+            if(po.getDisplayOrder() != displayOrder) {
+                CreationStrategyPo creationStrategyPoUpdate = new CreationStrategyPo();
+                creationStrategyPoUpdate.setId(poId);
+                creationStrategyPoUpdate.setDisplayOrder(displayOrder);
+                creationStrategyPoUpdate.setUpdateTime(now);
+                creationStrategyDao.updateSelective(creationStrategyPoUpdate);
+            }
+            displayOrder++;
+        }
+
 
         CreationStrategy creationStrategy = new CreationStrategy();
 
