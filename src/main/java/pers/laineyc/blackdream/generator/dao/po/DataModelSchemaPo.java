@@ -5,8 +5,10 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
-
+import pers.laineyc.blackdream.generator.service.domain.DataModelSchemaRule;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 生成器数据模型模式Po
@@ -61,10 +63,10 @@ public class DataModelSchemaPo extends Po {
 	private Date updateTime;
 
     /**
-     * 脚本
+     * 规则集合
      */
     @FetchLazy
-    private String script;
+    private List<DataModelSchemaRule> ruleList = new ArrayList<>();
 
 	public DataModelSchemaPo() {
 
@@ -134,11 +136,12 @@ public class DataModelSchemaPo extends Po {
         this.updateTime = updateTime;
     }
 
-    public String getScript() {
-        return script;
+    public List<DataModelSchemaRule> getRuleList() {
+        return ruleList;
     }
 
-    public void setScript(String script) {
-        this.script = script;
+    public void setRuleList(List<DataModelSchemaRule> ruleList) {
+        this.ruleList = ruleList;
     }
+
 }

@@ -1,6 +1,9 @@
 package pers.laineyc.blackdream.generator.service.parameter;
 
 import pers.laineyc.blackdream.framework.service.parameter.Parameter;
+import pers.laineyc.blackdream.generator.service.domain.DataModelSchemaRule;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 生成器数据模型模式修改Parameter
@@ -24,9 +27,9 @@ public class DataModelSchemaUpdateParameter extends Parameter {
     private String description;
 
     /**
-     * 脚本
+     * 规则集合
      */
-    private String script;
+    private List<DataModelSchemaRule> ruleList = new ArrayList<>();
 
     public DataModelSchemaUpdateParameter() {
 
@@ -56,11 +59,11 @@ public class DataModelSchemaUpdateParameter extends Parameter {
         this.description = description;
     }
 
-    public String getScript() {
-        return script;
+    public List<DataModelSchemaRule> getRuleList() {
+        return ruleList;
     }
 
-    public void setScript(String script) {
-        this.script = script;
+    public void setRuleList(List<DataModelSchemaRule> ruleList) {
+        this.ruleList = ruleList;
     }
 }

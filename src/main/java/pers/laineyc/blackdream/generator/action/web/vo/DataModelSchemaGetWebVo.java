@@ -3,7 +3,10 @@ package pers.laineyc.blackdream.generator.action.web.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.controller.response.Vo;
+import pers.laineyc.blackdream.framework.service.domain.Domain;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 生成器数据模型模式
@@ -35,8 +38,8 @@ public class DataModelSchemaGetWebVo extends Vo {
     @ApiModelProperty(value = "修改时间")
     private Date updateTime;
 
-    @ApiModelProperty(value = "脚本")
-    private String script;
+    @ApiModelProperty(value = "规则集合")
+    private List<DataModelSchemaRule> ruleList = new ArrayList<>();
 
     public DataModelSchemaGetWebVo() {
 
@@ -98,12 +101,12 @@ public class DataModelSchemaGetWebVo extends Vo {
         this.updateTime = updateTime;
     }
 
-    public String getScript() {
-        return script;
+    public List<DataModelSchemaRule> getRuleList() {
+        return ruleList;
     }
 
-    public void setScript(String script) {
-        this.script = script;
+    public void setRuleList(List<DataModelSchemaRule> ruleList) {
+        this.ruleList = ruleList;
     }
 
     @ApiModel
@@ -155,6 +158,38 @@ public class DataModelSchemaGetWebVo extends Vo {
 
         public void setName(String name) {
             this.name = name;
+        }
+    }
+
+    @ApiModel
+    public static class DataModelSchemaRule extends Domain {
+
+        private static final long serialVersionUID = 1L;
+
+        @ApiModelProperty(value = "生成器数据模型节点code")
+        private String nodeCode;
+
+        @ApiModelProperty(value = "子节点集合")
+        private List<String> childCodeList = new ArrayList<>();
+
+        public DataModelSchemaRule() {
+
+        }
+
+        public String getNodeCode() {
+            return nodeCode;
+        }
+
+        public void setNodeCode(String nodeCode) {
+            this.nodeCode = nodeCode;
+        }
+
+        public List<String> getChildCodeList() {
+            return childCodeList;
+        }
+
+        public void setChildCodeList(List<String> childCodeList) {
+            this.childCodeList = childCodeList;
         }
     }
 }

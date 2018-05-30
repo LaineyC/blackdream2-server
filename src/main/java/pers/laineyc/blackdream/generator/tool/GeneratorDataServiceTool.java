@@ -142,6 +142,9 @@ public class GeneratorDataServiceTool{
                 throw new BusinessException("父节点不存在");
             }
         }
+        else{
+            parameter.setParentId(0L);
+        }
     }
     
     /**

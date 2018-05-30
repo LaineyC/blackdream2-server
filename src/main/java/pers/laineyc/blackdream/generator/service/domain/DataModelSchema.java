@@ -1,7 +1,9 @@
 package pers.laineyc.blackdream.generator.service.domain;
 
 import pers.laineyc.blackdream.framework.service.domain.Domain;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 
 /**
@@ -48,9 +50,9 @@ public class DataModelSchema extends Domain {
     private Date updateTime;
 
     /**
-     * 脚本
+     * 规则集合
      */
-    private String script;
+    private List<DataModelSchemaRule> ruleList = new ArrayList<>();
 
 	public DataModelSchema() {
 
@@ -112,11 +114,11 @@ public class DataModelSchema extends Domain {
         this.updateTime = updateTime;
     }
 
-    public String getScript() {
-        return script;
+    public List<DataModelSchemaRule> getRuleList() {
+        return ruleList;
     }
 
-    public void setScript(String script) {
-        this.script = script;
+    public void setRuleList(List<DataModelSchemaRule> ruleList) {
+        this.ruleList = ruleList;
     }
 }

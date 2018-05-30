@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.foundation.service.SequenceService;
 import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
@@ -85,6 +86,9 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModelPo.setName(name);
 
         String code = parameter.getCode();
+        if(!StringUtils.hasText(code)){
+            code = id.toString();
+        }
         dataModelPo.setCode(code);
 
         String iconStyle = parameter.getIconStyle();
@@ -169,6 +173,9 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModelPo.setName(name);
 
         String code = parameter.getCode();
+        if(!StringUtils.hasText(code)){
+            code = id.toString();
+        }
         dataModelPo.setCode(code);
 
         String iconStyle = parameter.getIconStyle();

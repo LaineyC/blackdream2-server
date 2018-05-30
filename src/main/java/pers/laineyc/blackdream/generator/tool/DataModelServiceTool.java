@@ -2,6 +2,7 @@ package pers.laineyc.blackdream.generator.tool;
 
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.service.domain.DataModel;
@@ -40,52 +41,43 @@ public class DataModelServiceTool{
      * 生成器数据模型创建Validate
      */
     public void createValidate(DataModelCreateParameter parameter) {
-
         Long generatorId = parameter.getGeneratorId();
-        if(generatorId != null){
-            GeneratorPo generatorPo = generatorDao.selectById(generatorId);
-            if(generatorPo == null){
-                throw new BusinessException("所属生成器不存在");
-            }
+        if(generatorId == null){
+            throw new BusinessException("缺少所属生成器参数");
+        }
+        GeneratorPo generatorPo = generatorDao.selectById(generatorId);
+        if(generatorPo == null){
+            throw new BusinessException("所属生成器不存在");
         }
 
         String name = parameter.getName();
-        if(name == null){
-            throw new BusinessException("缺少名称");
-        }
-        if(name.length() > 255){
-            throw new BusinessException("名称长度不能大于255");
+        if(StringUtils.hasText(name)){
+            if(name.length() > 255){
+                throw new BusinessException("名称长度不能大于255");
+            }
         }
 
         String code = parameter.getCode();
-        if(code == null){
-            parameter.setCode("code");
-        }
-        else{
+        if(StringUtils.hasText(code)){
             if(code.length() > 255){
                 throw new BusinessException("编号长度不能大于255");
             }
         }
 
         String iconStyle = parameter.getIconStyle();
-        if(iconStyle == null){
+        if(!StringUtils.hasText(iconStyle)){
             throw new BusinessException("缺少图标样式");
         }
         if(iconStyle.length() > 255){
             throw new BusinessException("图标样式长度不能大于255");
         }
 
-
         String description = parameter.getDescription();
-        if(description != null){
+        if(StringUtils.hasText(description)){
             if(description.length() > 255){
                 throw new BusinessException("描述长度不能大于255");
             }
         }
-
-
-
-
     }
 
     /**
@@ -106,38 +98,31 @@ public class DataModelServiceTool{
         if(id == null){
             throw new BusinessException("缺少主键");
         }
-        
-
 
         String name = parameter.getName();
-        if(name == null){
-            throw new BusinessException("缺少名称");
-        }
-        if(name.length() > 255){
-            throw new BusinessException("名称长度不能大于255");
+        if(StringUtils.hasText(name)){
+            if(name.length() > 255){
+                throw new BusinessException("名称长度不能大于255");
+            }
         }
 
         String code = parameter.getCode();
-        if(code == null){
-            parameter.setCode("code");
-        }
-        else{
+        if(StringUtils.hasText(code)){
             if(code.length() > 255){
                 throw new BusinessException("编号长度不能大于255");
             }
         }
 
         String iconStyle = parameter.getIconStyle();
-        if(iconStyle == null){
+        if(!StringUtils.hasText(iconStyle)){
             throw new BusinessException("缺少图标样式");
         }
         if(iconStyle.length() > 255){
             throw new BusinessException("图标样式长度不能大于255");
         }
 
-
         String description = parameter.getDescription();
-        if(description != null){
+        if(StringUtils.hasText(description)){
             if(description.length() > 255){
                 throw new BusinessException("描述长度不能大于255");
             }

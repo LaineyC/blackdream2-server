@@ -3,6 +3,9 @@ package pers.laineyc.blackdream.generator.action.web.request;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.controller.request.Request;
+import pers.laineyc.blackdream.framework.service.domain.Domain;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 生成器数据模型模式修改Request
@@ -20,8 +23,8 @@ public class DataModelSchemaUpdateWebRequest extends Request {
     @ApiModelProperty(value = "描述")
     private String description;
 
-    @ApiModelProperty(value = "脚本")
-    private String script;
+    @ApiModelProperty(value = "规则集合")
+    private List<DataModelSchemaRule> ruleList = new ArrayList<>();
 
     public DataModelSchemaUpdateWebRequest() {
 
@@ -51,11 +54,43 @@ public class DataModelSchemaUpdateWebRequest extends Request {
         this.description = description;
     }
 
-    public String getScript() {
-        return script;
+    public List<DataModelSchemaRule> getRuleList() {
+        return ruleList;
     }
 
-    public void setScript(String script) {
-        this.script = script;
+    public void setRuleList(List<DataModelSchemaRule> ruleList) {
+        this.ruleList = ruleList;
+    }
+
+    @ApiModel
+    public static class DataModelSchemaRule extends Domain {
+
+        private static final long serialVersionUID = 1L;
+
+        @ApiModelProperty(value = "生成器数据模型节点code")
+        private String nodeCode;
+
+        @ApiModelProperty(value = "子节点集合")
+        private List<String> childCodeList = new ArrayList<>();
+
+        public DataModelSchemaRule() {
+
+        }
+
+        public String getNodeCode() {
+            return nodeCode;
+        }
+
+        public void setNodeCode(String nodeCode) {
+            this.nodeCode = nodeCode;
+        }
+
+        public List<String> getChildCodeList() {
+            return childCodeList;
+        }
+
+        public void setChildCodeList(List<String> childCodeList) {
+            this.childCodeList = childCodeList;
+        }
     }
 }
