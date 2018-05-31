@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import pers.laineyc.blackdream.foundation.service.SequenceService;
 import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
@@ -53,9 +52,6 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
     @Autowired
     private GeneratorDao generatorDao;
 
-    @Autowired
-    private SequenceService sequenceService;
-
     public DataModelServiceImpl() {
 
 	}
@@ -71,11 +67,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
 
-        String id = sequenceService.nextId();
-    
         DataModelPo dataModelPo = new DataModelPo();
-
-        dataModelPo.setId(id);
         
         dataModelPo.setUserId(authUserId);
 
@@ -86,9 +78,6 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModelPo.setName(name);
 
         String code = parameter.getCode();
-        if(!StringUtils.hasText(code)){
-            code = id.toString();
-        }
         dataModelPo.setCode(code);
 
         String iconStyle = parameter.getIconStyle();
@@ -110,6 +99,9 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModelPo.setDefaultRecordList(parameter.getDefaultRecordList());
 
         dataModelDao.insert(dataModelPo);
+
+        dataModelPo.setCode(dataModelPo.getId());
+        dataModelDao.update(dataModelPo);
 
         DataModel dataModel = new DataModel();
         dataModel.setId(dataModelPo.getId());

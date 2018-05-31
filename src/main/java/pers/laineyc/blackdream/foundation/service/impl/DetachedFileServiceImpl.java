@@ -1,11 +1,11 @@
 package pers.laineyc.blackdream.foundation.service.impl;
 
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import pers.laineyc.blackdream.foundation.constant.DetachedFileStatusEnum;
-import pers.laineyc.blackdream.foundation.service.SequenceService;
 import pers.laineyc.blackdream.foundation.service.StorageFileService;
 import pers.laineyc.blackdream.foundation.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.Auth;
@@ -22,7 +22,6 @@ import pers.laineyc.blackdream.usercenter.dao.query.UserQuery;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
-
 import java.io.InputStream;
 import java.util.List;
 import java.util.Date; 
@@ -46,9 +45,6 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
 
     @Autowired
     private UserDao userDao;
-
-    @Autowired
-    private SequenceService sequenceService;
 
     @Autowired
     private StorageFileService storageFileService;
@@ -263,7 +259,7 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
             authUserId = auth.getUserId();
         }
 
-        String id = sequenceService.nextId();
+        String id = ObjectId.get().toString();
 
         DetachedFilePo detachedFilePo = new DetachedFilePo();
         detachedFilePo.setId(id);

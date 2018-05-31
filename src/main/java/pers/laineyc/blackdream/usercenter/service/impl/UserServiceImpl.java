@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import pers.laineyc.blackdream.foundation.service.DetachedFileService;
-import pers.laineyc.blackdream.foundation.service.SequenceService;
 import pers.laineyc.blackdream.foundation.service.StorageFileService;
 import pers.laineyc.blackdream.foundation.service.domain.DetachedFile;
 import pers.laineyc.blackdream.foundation.service.parameter.DetachedFilePersistParameter;
@@ -43,9 +42,6 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Autowired
     private UserDao userDao;
-
-    @Autowired
-    private SequenceService sequenceService;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -403,9 +399,6 @@ public class UserServiceImpl extends BaseService implements UserService {
         Date now = new Date();
 
         UserPo userPo = new UserPo();
-
-        String id = sequenceService.nextId();
-        userPo.setId(id);
 
         String username = parameter.getUsername();
         UserQuery userQueryUsernameExist = new UserQuery();

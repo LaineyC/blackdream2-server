@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import pers.laineyc.blackdream.foundation.service.SequenceService;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
@@ -47,9 +46,6 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
     private UserDao userDao;
 
     @Autowired
-    private SequenceService sequenceService;
-
-    @Autowired
     private TemplateFileService templateFileService;
 
     public GeneratorServiceImpl() {
@@ -66,11 +62,8 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         Date now = new Date();
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
-
-        String id = sequenceService.nextId();
     
         GeneratorPo generatorPo = new GeneratorPo();
-        generatorPo.setId(id);
 
         generatorPo.setUserId(authUserId);
 

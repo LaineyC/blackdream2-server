@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import pers.laineyc.blackdream.foundation.service.SequenceService;
 import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
@@ -57,9 +56,6 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
     @Autowired
     private GeneratorDao generatorDao;
 
-    @Autowired
-    private SequenceService sequenceService;
-
     public TemplateFileServiceImpl() {
 
 	}
@@ -75,11 +71,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
 
-        String id = sequenceService.nextId();
-
         TemplateFilePo templateFilePo = new TemplateFilePo();
-
-        templateFilePo.setId(id);
 
         templateFilePo.setUserId(authUserId);
 
@@ -93,9 +85,6 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         templateFilePo.setEngineType(engineType);
 
         String code = parameter.getCode();
-        if(!StringUtils.hasText(code)){
-            code = id.toString();
-        }
         templateFilePo.setCode(code);
 
         String displayGroup = parameter.getDisplayGroup();
@@ -114,6 +103,9 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         templateFilePo.setScript(script);
 
         templateFileDao.insert(templateFilePo);
+
+        templateFilePo.setCode(templateFilePo.getId());
+        templateFileDao.update(templateFilePo);
 
         TemplateFile templateFile = new TemplateFile();
         templateFile.setId(templateFilePo.getId());
