@@ -36,7 +36,7 @@ public class GeneratorInstanceConfigServiceTest extends BaseServiceTest {
     public void create() {
         GeneratorInstanceConfigCreateParameter parameter = new GeneratorInstanceConfigCreateParameter();
         parameter.setAuth(getAuth());
-        parameter.setGeneratorInstanceId(0L);
+        parameter.setGeneratorInstanceId("");
         parameter.setName("");
         parameter.setDescription("");
         GeneratorInstanceConfig generatorInstanceConfig = generatorInstanceConfigService.create(parameter);
@@ -50,7 +50,7 @@ public class GeneratorInstanceConfigServiceTest extends BaseServiceTest {
     public void delete() {
         GeneratorInstanceConfigDeleteParameter parameter = new GeneratorInstanceConfigDeleteParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         GeneratorInstanceConfig generatorInstanceConfig = generatorInstanceConfigService.delete(parameter);
         Assert.assertNotNull(generatorInstanceConfig);
     }
@@ -62,7 +62,7 @@ public class GeneratorInstanceConfigServiceTest extends BaseServiceTest {
     public void update() {
         GeneratorInstanceConfigUpdateParameter parameter = new GeneratorInstanceConfigUpdateParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         parameter.setName("");
         parameter.setDescription("");
         GeneratorInstanceConfig generatorInstanceConfig = generatorInstanceConfigService.update(parameter);
@@ -76,7 +76,7 @@ public class GeneratorInstanceConfigServiceTest extends BaseServiceTest {
     public void get(){
         GeneratorInstanceConfigGetParameter parameter = new GeneratorInstanceConfigGetParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         GeneratorInstanceConfig generatorInstanceConfig = generatorInstanceConfigService.get(parameter);
         Assert.assertNotNull(generatorInstanceConfig);
     }
@@ -88,9 +88,9 @@ public class GeneratorInstanceConfigServiceTest extends BaseServiceTest {
     public void query() {
         GeneratorInstanceConfigQueryParameter parameter = new GeneratorInstanceConfigQueryParameter();
         parameter.setAuth(getAuth());
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
-        parameter.setGeneratorInstanceId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
+        parameter.setGeneratorInstanceId("");
         parameter.setName("");
         parameter.setDescription("");
         List<GeneratorInstanceConfig> list = generatorInstanceConfigService.query(parameter);
@@ -106,9 +106,9 @@ public class GeneratorInstanceConfigServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setPage(1);
         parameter.setPageSize(10);
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
-        parameter.setGeneratorInstanceId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
+        parameter.setGeneratorInstanceId("");
         parameter.setName("");
         parameter.setDescription("");
         PageResult<GeneratorInstanceConfig> pageResult = generatorInstanceConfigService.search(parameter);

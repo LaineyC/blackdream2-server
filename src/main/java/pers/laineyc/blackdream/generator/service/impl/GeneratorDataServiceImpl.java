@@ -88,9 +88,9 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = sequenceService.nextId();
+        String id = sequenceService.nextId();
     
         GeneratorDataPo generatorDataPo = new GeneratorDataPo();
 
@@ -98,7 +98,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         
         generatorDataPo.setUserId(authUserId);
 
-        Long generatorInstanceId = parameter.getGeneratorInstanceId();
+        String generatorInstanceId = parameter.getGeneratorInstanceId();
         GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(generatorInstanceId);
         if(generatorInstancePo == null){
             throw new BusinessException("所属生成器实例不存在");
@@ -106,7 +106,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         generatorDataPo.setGeneratorInstanceId(generatorInstanceId);
         generatorDataPo.setGeneratorId(generatorInstancePo.getGeneratorId());
 
-        Long dataModelId = parameter.getDataModelId();
+        String dataModelId = parameter.getDataModelId();
         generatorDataPo.setDataModelId(dataModelId);
 
         String name = parameter.getName();
@@ -117,7 +117,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         generatorDataPo.setDisplayOrder(1000);
 
-        Long parentId = parameter.getParentId();
+        String parentId = parameter.getParentId();
         generatorDataPo.setParentId(parentId);
 
         generatorDataPo.setIsDeleted(false);
@@ -145,9 +145,9 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
                
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorDataPo generatorDataPo = generatorDataDao.selectById(id);
         if(generatorDataPo == null){
             throw new BusinessException("生成器数据不存在");
@@ -178,9 +178,9 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorDataPo generatorDataPo = generatorDataDao.selectById(id);
         if(generatorDataPo == null){
             throw new BusinessException("生成器数据不存在");
@@ -195,7 +195,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         Boolean isExpanded = parameter.getIsExpanded();
         generatorDataPo.setIsExpanded(isExpanded);
 
-        Long parentId = parameter.getParentId();
+        String parentId = parameter.getParentId();
         generatorDataPo.setParentId(parentId);
 
         generatorDataPo.setUpdateTime(now);
@@ -221,7 +221,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         
         Auth auth = parameter.getAuth();
         
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorDataPo generatorDataPo = generatorDataDao.selectById(id);
         if(generatorDataPo == null) {
             throw new BusinessException("生成器数据不存在");
@@ -231,7 +231,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         
         generatorData.setId(generatorDataPo.getId());
 
-        Long userId = generatorDataPo.getUserId();
+        String userId = generatorDataPo.getUserId();
         if(userId != null){
             UserPo userPo = userDao.selectById(userId);
             if(userPo != null){
@@ -241,7 +241,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             }
         }
 
-        Long generatorId = generatorDataPo.getGeneratorId();
+        String generatorId = generatorDataPo.getGeneratorId();
         if(generatorId != null){
             GeneratorPo generatorPo = generatorDao.selectById(generatorId);
             if(generatorPo != null){
@@ -251,7 +251,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             }
         }
 
-        Long generatorInstanceId = generatorDataPo.getGeneratorInstanceId();
+        String generatorInstanceId = generatorDataPo.getGeneratorInstanceId();
         if(generatorInstanceId != null){
             GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(generatorInstanceId);
             if(generatorInstancePo != null){
@@ -261,7 +261,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             }
         }
 
-        Long dataModelId = generatorDataPo.getDataModelId();
+        String dataModelId = generatorDataPo.getDataModelId();
         if(dataModelId != null){
             DataModelPo dataModelPo = dataModelDao.selectById(dataModelId);
             if(dataModelPo != null){
@@ -277,7 +277,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         generatorData.setDisplayOrder(generatorDataPo.getDisplayOrder());
 
-        Long parentId = generatorDataPo.getParentId();
+        String parentId = generatorDataPo.getParentId();
         if(parentId != null){
             GeneratorDataPo parentPo = generatorDataDao.selectById(parentId);
             if(parentPo != null){
@@ -323,17 +323,17 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             return generatorDataList;
         }
         
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
-        Map<Long, GeneratorInstance> generatorInstanceMap = new HashMap<>();
-        Map<Long, DataModel> dataModelMap = new HashMap<>();
-        Map<Long, GeneratorData> parentMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
+        Map<String, GeneratorInstance> generatorInstanceMap = new HashMap<>();
+        Map<String, DataModel> dataModelMap = new HashMap<>();
+        Map<String, GeneratorData> parentMap = new HashMap<>();
         generatorDataPoList.forEach(po -> {
             GeneratorData generatorData = new GeneratorData();
             
             generatorData.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -347,7 +347,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
                 generatorData.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -361,7 +361,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
                 generatorData.setGenerator(generator);
             }
 
-            Long generatorInstanceId = po.getGeneratorInstanceId();
+            String generatorInstanceId = po.getGeneratorInstanceId();
             if(generatorInstanceId != null) {
                 GeneratorInstance generatorInstance;
                 if(generatorInstanceMap.containsKey(generatorInstanceId)) {
@@ -375,7 +375,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
                 generatorData.setGeneratorInstance(generatorInstance);
             }
 
-            Long dataModelId = po.getDataModelId();
+            String dataModelId = po.getDataModelId();
             if(dataModelId != null) {
                 DataModel dataModel;
                 if(dataModelMap.containsKey(dataModelId)) {
@@ -395,7 +395,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
             generatorData.setDisplayOrder(po.getDisplayOrder());
 
-            Long parentId = po.getParentId();
+            String parentId = po.getParentId();
             if(parentId != null) {
                 GeneratorData parent;
                 if(parentMap.containsKey(parentId)) {
@@ -421,7 +421,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -432,7 +432,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -443,7 +443,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             generatorInstanceQuery.setIdList(new ArrayList<>(generatorInstanceMap.keySet()));
             List<GeneratorInstancePo> generatorInstancePos = generatorInstanceDao.selectList(generatorInstanceQuery);
             generatorInstancePos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 GeneratorInstance generatorInstance = generatorInstanceMap.get(id);
                 generatorInstance.setId(id);
             });
@@ -454,7 +454,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             dataModelQuery.setIdList(new ArrayList<>(dataModelMap.keySet()));
             List<DataModelPo> dataModelPos = dataModelDao.selectList(dataModelQuery);
             dataModelPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 DataModel dataModel = dataModelMap.get(id);
                 dataModel.setId(id);
             });
@@ -492,17 +492,17 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         PageResult<GeneratorDataPo> generatorDataPoPageResult = generatorDataDao.selectPage(generatorDataQuery);
         pageResult.setTotal(generatorDataPoPageResult.getTotal());
 
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
-        Map<Long, GeneratorInstance> generatorInstanceMap = new HashMap<>();
-        Map<Long, DataModel> dataModelMap = new HashMap<>();
-        Map<Long, GeneratorData> parentMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
+        Map<String, GeneratorInstance> generatorInstanceMap = new HashMap<>();
+        Map<String, DataModel> dataModelMap = new HashMap<>();
+        Map<String, GeneratorData> parentMap = new HashMap<>();
         generatorDataPoPageResult.getRecords().forEach(po -> {
             GeneratorData generatorData = new GeneratorData();
             
             generatorData.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -516,7 +516,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
                 generatorData.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -530,7 +530,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
                 generatorData.setGenerator(generator);
             }
 
-            Long generatorInstanceId = po.getGeneratorInstanceId();
+            String generatorInstanceId = po.getGeneratorInstanceId();
             if(generatorInstanceId != null) {
                 GeneratorInstance generatorInstance;
                 if(generatorInstanceMap.containsKey(generatorInstanceId)) {
@@ -544,7 +544,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
                 generatorData.setGeneratorInstance(generatorInstance);
             }
 
-            Long dataModelId = po.getDataModelId();
+            String dataModelId = po.getDataModelId();
             if(dataModelId != null) {
                 DataModel dataModel;
                 if(dataModelMap.containsKey(dataModelId)) {
@@ -564,7 +564,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
             generatorData.setDisplayOrder(po.getDisplayOrder());
 
-            Long parentId = po.getParentId();
+            String parentId = po.getParentId();
             if(parentId != null) {
                 GeneratorData parent;
                 if(parentMap.containsKey(parentId)) {
@@ -589,7 +589,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -600,7 +600,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -611,7 +611,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             generatorInstanceQuery.setIdList(new ArrayList<>(generatorInstanceMap.keySet()));
             List<GeneratorInstancePo> generatorInstancePos = generatorInstanceDao.selectList(generatorInstanceQuery);
             generatorInstancePos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 GeneratorInstance generatorInstance = generatorInstanceMap.get(id);
                 generatorInstance.setId(id);
             });
@@ -622,7 +622,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             dataModelQuery.setIdList(new ArrayList<>(dataModelMap.keySet()));
             List<DataModelPo> dataModelPos = dataModelDao.selectList(dataModelQuery);
             dataModelPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 DataModel dataModel = dataModelMap.get(id);
                 dataModel.setId(id);
             });
@@ -640,7 +640,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
         
         List<GeneratorData> generatorDataList = new ArrayList<>();
 
@@ -651,7 +651,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         generatorDataQuery.orderByDisplayOrder(Order.Direction.ASC);
         List<GeneratorDataPo> generatorDataPoList = generatorDataDao.selectList(generatorDataQuery);
 
-        Map<Long, GeneratorData> index = new HashMap<>();
+        Map<String, GeneratorData> index = new HashMap<>();
         for(GeneratorDataPo generatorDataPo : generatorDataPoList){
             GeneratorData generatorData = new GeneratorData();
             generatorData.setId(generatorDataPo.getId());
@@ -675,7 +675,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             generatorData.setName(generatorDataPo.getName());
             generatorData.setIsExpanded(generatorDataPo.getIsExpanded());
             generatorData.setDisplayOrder(generatorDataPo.getDisplayOrder());
-            if(generatorDataPo.getParentId() == null || generatorDataPo.getParentId() == 0){
+            if(generatorDataPo.getParentId() == null){
                 generatorDataList.add(generatorData);
             }
             else{
@@ -710,9 +710,9 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorDataPo generatorDataPo = generatorDataDao.selectById(id);
         if(generatorDataPo == null) {
             throw new BusinessException("生成器模板文件不存在");
@@ -743,7 +743,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         int displayOrder = 1;
         for(GeneratorDataPo po : generatorDataPoList){
-            Long poId = po.getId();
+            String poId = po.getId();
             if(po.getDisplayOrder() != displayOrder) {
                 GeneratorDataPo generatorDataPoUpdate = new GeneratorDataPo();
                 generatorDataPoUpdate.setId(poId);

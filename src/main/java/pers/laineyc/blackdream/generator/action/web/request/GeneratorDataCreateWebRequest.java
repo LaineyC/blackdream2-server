@@ -17,10 +17,10 @@ import java.util.Map;
 public class GeneratorDataCreateWebRequest extends Request {
 
     @ApiModelProperty(value = "所属生成器实例")
-    private Long generatorInstanceId;
+    private String generatorInstanceId;
 
     @ApiModelProperty(value = "所属生成器数据模型")
-    private Long dataModelId;
+    private String dataModelId;
 
     @ApiModelProperty(value = "名称", required = true)
     private String name;
@@ -29,7 +29,7 @@ public class GeneratorDataCreateWebRequest extends Request {
     private Boolean isExpanded;
 
     @ApiModelProperty(value = "父节点")
-    private Long parentId;
+    private String parentId;
 
     @ApiModelProperty(value = "属性集")
     private Map<String, Object> property = new LinkedHashMap<>();
@@ -41,19 +41,19 @@ public class GeneratorDataCreateWebRequest extends Request {
 
     }
 
-    public Long getGeneratorInstanceId() {
+    public String getGeneratorInstanceId() {
         return this.generatorInstanceId;
     }
 
-    public void setGeneratorInstanceId(Long generatorInstanceId) {
+    public void setGeneratorInstanceId(String generatorInstanceId) {
         this.generatorInstanceId = generatorInstanceId;
     }
 
-    public Long getDataModelId() {
+    public String getDataModelId() {
         return this.dataModelId;
     }
 
-    public void setDataModelId(Long dataModelId) {
+    public void setDataModelId(String dataModelId) {
         this.dataModelId = dataModelId;
     }
 
@@ -73,11 +73,11 @@ public class GeneratorDataCreateWebRequest extends Request {
         this.isExpanded = isExpanded;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return this.parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

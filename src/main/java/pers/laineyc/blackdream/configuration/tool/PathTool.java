@@ -18,14 +18,13 @@ public class PathTool {
     @Value(SystemConstant.ROOT_PATH_KEY)
     private String rootPath;
 
-    public String splitIdAsPath(Long id){
+    public String splitIdAsPath(String id){
         String path = PATH_SEPARATOR;
         if(id == null){
             return path;
         }
 
-        String idString = id.toString();
-        char[] charArray = idString.toCharArray();
+        char[] charArray = id.toCharArray();
         for(int i = 0 ; i < charArray.length ; i++){
             path += charArray[i];
             if((i + 1) % 4 == 0){

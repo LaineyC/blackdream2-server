@@ -44,7 +44,7 @@ public class GeneratorGuideServiceTool{
 
 	}
 
-    public String getContentPath(Long generatorId, String id){
+    public String getContentPath(String generatorId, String id){
         return generatorServiceTool.getGeneratorPath(generatorId) + File.separator + SystemConstant.GENERATOR_GUIDE_PATH_NAME + File.separator + id + ".data";
     }
 
@@ -52,7 +52,7 @@ public class GeneratorGuideServiceTool{
      * 生成器指南创建Validate
      */
     public void createValidate(GeneratorGuideCreateParameter parameter) {
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
         if(generatorId == null){
             throw new BusinessException("缺少所属生成器参数");
         }
@@ -89,7 +89,7 @@ public class GeneratorGuideServiceTool{
      * 生成器指南删除Validate
      */
     public void deleteValidate(GeneratorGuideDeleteParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -99,7 +99,7 @@ public class GeneratorGuideServiceTool{
      * 生成器指南修改Validate
      */
     public void updateValidate(GeneratorGuideUpdateParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -132,8 +132,8 @@ public class GeneratorGuideServiceTool{
      * 生成器指南单个查询Validate
      */
     public void getValidate(GeneratorGuideGetParameter parameter) {
-        Long id = parameter.getId();
-        Long generatorId = parameter.getGeneratorId();
+        String id = parameter.getId();
+        String generatorId = parameter.getGeneratorId();
         if(id == null && generatorId == null) {
             throw new BusinessException("主键参数");
         }
@@ -165,7 +165,7 @@ public class GeneratorGuideServiceTool{
      * 生成器指南保存Validate
      */
     public void saveValidate(GeneratorGuideSaveParameter parameter) {
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
         if(generatorId == null) {
             throw new BusinessException("缺少所属生成器");
         }

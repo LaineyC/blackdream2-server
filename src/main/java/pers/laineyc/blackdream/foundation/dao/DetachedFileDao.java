@@ -7,6 +7,6 @@ import pers.laineyc.blackdream.framework.dao.Dao;
  * 游离文件Dao
  * @author LaineyC
  */
-public interface DetachedFileDao extends Dao<DetachedFilePo, Long> {
+public interface DetachedFileDao extends Dao<DetachedFilePo, String> {
 
 }

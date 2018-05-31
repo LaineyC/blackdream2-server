@@ -36,7 +36,7 @@ public class GeneratorGuideServiceTest extends BaseServiceTest {
     public void create() {
         GeneratorGuideCreateParameter parameter = new GeneratorGuideCreateParameter();
         parameter.setAuth(getAuth());
-        parameter.setGeneratorId(0L);
+        parameter.setGeneratorId("");
         parameter.setName("");
         parameter.setDescription("");
         GeneratorGuide generatorGuide = generatorGuideService.create(parameter);
@@ -50,7 +50,7 @@ public class GeneratorGuideServiceTest extends BaseServiceTest {
     public void delete() {
         GeneratorGuideDeleteParameter parameter = new GeneratorGuideDeleteParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         GeneratorGuide generatorGuide = generatorGuideService.delete(parameter);
         Assert.assertNotNull(generatorGuide);
     }
@@ -62,7 +62,7 @@ public class GeneratorGuideServiceTest extends BaseServiceTest {
     public void update() {
         GeneratorGuideUpdateParameter parameter = new GeneratorGuideUpdateParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         parameter.setName("");
         parameter.setDescription("");
         GeneratorGuide generatorGuide = generatorGuideService.update(parameter);
@@ -76,7 +76,7 @@ public class GeneratorGuideServiceTest extends BaseServiceTest {
     public void get(){
         GeneratorGuideGetParameter parameter = new GeneratorGuideGetParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         GeneratorGuide generatorGuide = generatorGuideService.get(parameter);
         Assert.assertNotNull(generatorGuide);
     }
@@ -88,8 +88,8 @@ public class GeneratorGuideServiceTest extends BaseServiceTest {
     public void query() {
         GeneratorGuideQueryParameter parameter = new GeneratorGuideQueryParameter();
         parameter.setAuth(getAuth());
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         List<GeneratorGuide> list = generatorGuideService.query(parameter);
         Assert.assertNotNull(list);
@@ -104,8 +104,8 @@ public class GeneratorGuideServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setPage(1);
         parameter.setPageSize(10);
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         PageResult<GeneratorGuide> pageResult = generatorGuideService.search(parameter);
         Assert.assertNotNull(pageResult);

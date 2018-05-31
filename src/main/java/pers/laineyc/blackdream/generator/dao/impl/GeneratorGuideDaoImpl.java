@@ -10,6 +10,6 @@ import pers.laineyc.blackdream.generator.dao.po.GeneratorGuidePo;
  * @author LaineyC
  */
 @Repository
-public class GeneratorGuideDaoImpl extends MongoBaseDao<GeneratorGuidePo, Long> implements GeneratorGuideDao{
+public class GeneratorGuideDaoImpl extends MongoBaseDao<GeneratorGuidePo, String> implements GeneratorGuideDao{
 
 }

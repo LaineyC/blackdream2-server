@@ -12,17 +12,17 @@ import pers.laineyc.blackdream.framework.controller.response.Vo;
 public class DetachedFileUploadWebVo extends Vo {
 
     @ApiModelProperty(value = "主键")
-    private Long id;
+    private String id;
 
     public DetachedFileUploadWebVo() {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

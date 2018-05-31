@@ -19,27 +19,27 @@ public class GeneratorInstanceConfigQuery extends Query<GeneratorInstanceConfigP
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     /**
      * 主键
      */
-    private List<Long> idList = new ArrayList<>();
+    private List<String> idList = new ArrayList<>();
 
     /**
      * 所属用户
      */
-    private Long userId;
+    private String userId;
 
     /**
      * 所属生成器
      */
-    private Long generatorId;
+    private String generatorId;
 
     /**
      * 所属生成器实例
      */
-    private Long generatorInstanceId;
+    private String generatorInstanceId;
 
     /**
      * 名称
@@ -80,55 +80,55 @@ public class GeneratorInstanceConfigQuery extends Query<GeneratorInstanceConfigP
 
 	}
 	
-    public Long getId() {
+    public String getId() {
         return id;
     }
     
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
         if(this.id != null){
             this.addWhereExpression(ExpressionBuilder.equal("id", this.id));
         }
     }
 
-    public List<Long> getIdList() {
+    public List<String> getIdList() {
         return idList;
     }
 
-    public void setIdList(List<Long> idList) {
+    public void setIdList(List<String> idList) {
         this.idList = idList;
         if(this.idList != null && !this.idList.isEmpty()){
             this.addWhereExpression(ExpressionBuilder.in("id", this.idList));
         }
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
     
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
         if(this.userId != null){
             this.addWhereExpression(ExpressionBuilder.equal("userId", this.userId));
         }
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return generatorId;
     }
     
-    public void setGeneratorId(Long generatorId) {
+    public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
         if(this.generatorId != null){
             this.addWhereExpression(ExpressionBuilder.equal("generatorId", this.generatorId));
         }
     }
 
-    public Long getGeneratorInstanceId() {
+    public String getGeneratorInstanceId() {
         return generatorInstanceId;
     }
     
-    public void setGeneratorInstanceId(Long generatorInstanceId) {
+    public void setGeneratorInstanceId(String generatorInstanceId) {
         this.generatorInstanceId = generatorInstanceId;
         if(this.generatorInstanceId != null){
             this.addWhereExpression(ExpressionBuilder.equal("generatorInstanceId", this.generatorInstanceId));

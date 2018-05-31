@@ -19,17 +19,17 @@ public class DetachedFileQuery extends Query<DetachedFilePo> {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     /**
      * 主键
      */
-    private List<Long> idList = new ArrayList<>();
+    private List<String> idList = new ArrayList<>();
 
     /**
      * 所属用户
      */
-    private Long userId;
+    private String userId;
 
     /**
      * 状态：1游离；2受管
@@ -85,33 +85,33 @@ public class DetachedFileQuery extends Query<DetachedFilePo> {
 
 	}
 	
-    public Long getId() {
+    public String getId() {
         return id;
     }
     
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
         if(this.id != null){
             this.addWhereExpression(ExpressionBuilder.equal("id", this.id));
         }
     }
 
-    public List<Long> getIdList() {
+    public List<String> getIdList() {
         return idList;
     }
 
-    public void setIdList(List<Long> idList) {
+    public void setIdList(List<String> idList) {
         this.idList = idList;
         if(this.idList != null && !this.idList.isEmpty()){
             this.addWhereExpression(ExpressionBuilder.in("id", this.idList));
         }
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
     
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
         if(this.userId != null){
             this.addWhereExpression(ExpressionBuilder.equal("userId", this.userId));

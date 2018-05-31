@@ -69,7 +69,7 @@ public class TokenSignInInterceptor {
                 userTokenSignInParameter.setAccessToken(accessToken);
                 User user = userService.tokenSignIn(userTokenSignInParameter);
 
-                Long userId = user.getId();
+                String userId = user.getId();
 
                 auth = new Auth();
                 auth.setUserId(userId);

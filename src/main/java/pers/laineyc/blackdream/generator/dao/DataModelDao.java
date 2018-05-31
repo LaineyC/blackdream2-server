@@ -7,6 +7,6 @@ import pers.laineyc.blackdream.framework.dao.Dao;
  * 生成器数据模型Dao
  * @author LaineyC
  */
-public interface DataModelDao extends Dao<DataModelPo, Long> {
+public interface DataModelDao extends Dao<DataModelPo, String> {
 
 }

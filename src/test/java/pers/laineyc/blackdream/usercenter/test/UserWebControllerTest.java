@@ -36,10 +36,10 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void update() throws Exception {
         UserUpdateWebRequest request = new UserUpdateWebRequest();
-        request.setId(0L);
+        request.setId("");
         request.setStatus(0);
         request.setNickname("");
-        request.setIconFileId(0L);
+        request.setIconFileId("");
         request.setUsername("");
         request.setEmail("");
         UserUpdateWebResponse response = execute(request, UserUpdateWebResponse.class, "/user/update");
@@ -52,7 +52,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void get() throws Exception {
         UserGetWebRequest request = new UserGetWebRequest();
-        request.setId(0L);
+        request.setId("");
         UserGetWebResponse response = execute(request, UserGetWebResponse.class, "/user/get");
         Assert.assertNotNull(response.getBody());
     }
@@ -65,7 +65,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
         UserQueryWebRequest request = new UserQueryWebRequest();
         request.setStatus(0);
         request.setNickname("");
-        request.setIconFileId(0L);
+        request.setIconFileId("");
         request.setUsername("");
         request.setEmail("");
         UserQueryWebResponse response = execute(request, UserQueryWebResponse.class, "/user/query");
@@ -82,7 +82,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
         request.setPageSize(10);
         request.setStatus(0);
         request.setNickname("");
-        request.setIconFileId(0L);
+        request.setIconFileId("");
         request.setUsername("");
         request.setEmail("");
         UserSearchWebResponse response = execute(request, UserSearchWebResponse.class, "/user/search");

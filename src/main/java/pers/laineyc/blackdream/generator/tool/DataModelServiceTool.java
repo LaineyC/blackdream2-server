@@ -41,7 +41,7 @@ public class DataModelServiceTool{
      * 生成器数据模型创建Validate
      */
     public void createValidate(DataModelCreateParameter parameter) {
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
         if(generatorId == null){
             throw new BusinessException("缺少所属生成器参数");
         }
@@ -84,7 +84,7 @@ public class DataModelServiceTool{
      * 生成器数据模型删除Validate
      */
     public void deleteValidate(DataModelDeleteParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -94,7 +94,7 @@ public class DataModelServiceTool{
      * 生成器数据模型修改Validate
      */
     public void updateValidate(DataModelUpdateParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -133,7 +133,7 @@ public class DataModelServiceTool{
      * 生成器数据模型单个查询Validate
      */
     public void getValidate(DataModelGetParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }
@@ -165,7 +165,7 @@ public class DataModelServiceTool{
      * 生成器数据模型排序Validate
      */
     public void sortValidate(DataModelSortParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }

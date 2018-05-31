@@ -12,7 +12,7 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 public class UserUpdateWebRequest extends Request {
 
     @ApiModelProperty(value = "主键", required = true)
-    private Long id;
+    private String id;
 
     @ApiModelProperty(value = "状态：1冻结；2启用")
     private Integer status;
@@ -21,7 +21,7 @@ public class UserUpdateWebRequest extends Request {
     private String nickname;
 
     @ApiModelProperty(value = "头像文件Id")
-    private Long iconFileId;
+    private String iconFileId;
 
     @ApiModelProperty(value = "用户名")
     private String username;
@@ -33,11 +33,11 @@ public class UserUpdateWebRequest extends Request {
 
     }
     
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId (Long id) {
+    public void setId (String id) {
         this.id = id;
     }
 
@@ -57,11 +57,11 @@ public class UserUpdateWebRequest extends Request {
         this.nickname = nickname;
     }
 
-    public Long getIconFileId() {
+    public String getIconFileId() {
         return this.iconFileId;
     }
 
-    public void setIconFileId(Long iconFileId) {
+    public void setIconFileId(String iconFileId) {
         this.iconFileId = iconFileId;
     }
 

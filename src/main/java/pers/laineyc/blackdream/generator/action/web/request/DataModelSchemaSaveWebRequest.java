@@ -15,7 +15,7 @@ import java.util.List;
 public class DataModelSchemaSaveWebRequest extends Request {
 
     @ApiModelProperty(value = "所属生成器", required = true)
-    private Long generatorId;
+    private String generatorId;
 
     @ApiModelProperty(value = "名称")
     private String name;
@@ -30,11 +30,11 @@ public class DataModelSchemaSaveWebRequest extends Request {
 
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return generatorId;
     }
 
-    public void setGeneratorId(Long generatorId) {
+    public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 

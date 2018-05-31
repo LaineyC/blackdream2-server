@@ -11,30 +11,30 @@ public class GeneratorGuideGetParameter extends Parameter {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     /**
      * 所属生成器
      */
-    private Long generatorId;
+    private String generatorId;
 
     public GeneratorGuideGetParameter() {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return generatorId;
     }
 
-    public void setGeneratorId(Long generatorId) {
+    public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 }

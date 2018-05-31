@@ -10,6 +10,6 @@ import pers.laineyc.blackdream.framework.dao.support.mongo.MongoBaseDao;
  * @author LaineyC
  */
 @Repository
-public class DetachedFileDaoImpl extends MongoBaseDao<DetachedFilePo, Long> implements DetachedFileDao{
+public class DetachedFileDaoImpl extends MongoBaseDao<DetachedFilePo, String> implements DetachedFileDao{
 
 }

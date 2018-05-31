@@ -17,7 +17,7 @@ import java.util.Map;
 public class DataModelCreateWebRequest extends Request {
 
     @ApiModelProperty(value = "所属生成器")
-    private Long generatorId;
+    private String generatorId;
 
     @ApiModelProperty(value = "名称", required = true)
     private String name;
@@ -44,11 +44,11 @@ public class DataModelCreateWebRequest extends Request {
 
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return this.generatorId;
     }
 
-    public void setGeneratorId(Long generatorId) {
+    public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 
@@ -111,7 +111,7 @@ public class DataModelCreateWebRequest extends Request {
     public static class DataModelField {
 
         @ApiModelProperty(value = "主键")
-        private Long id;
+        private String id;
 
         @ApiModelProperty(value = "字段名称")
         private String name;
@@ -174,11 +174,11 @@ public class DataModelCreateWebRequest extends Request {
 
         }
 
-        public Long getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(Long id) {
+        public void setId(String id) {
             this.id = id;
         }
 

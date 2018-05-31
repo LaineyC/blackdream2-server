@@ -19,7 +19,7 @@ public class UserPo extends Po {
 	 *  主键
 	 */
     @Id
-	private Long id;
+	private String id;
 
 	/**
 	 *  状态：1冻结；2启用
@@ -34,7 +34,7 @@ public class UserPo extends Po {
 	/**
 	 *  头像文件Id
 	 */
-	private Long iconFileId;
+	private String iconFileId;
 
 	/**
 	 *  用户名
@@ -92,11 +92,11 @@ public class UserPo extends Po {
 
 	}
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-	public void setId(Long id) {
+	public void setId(String id) {
         this.id = id;
     }
 
@@ -116,11 +116,11 @@ public class UserPo extends Po {
         this.nickname = nickname;
     }
 
-    public Long getIconFileId() {
+    public String getIconFileId() {
         return iconFileId;
     }
 
-	public void setIconFileId(Long iconFileId) {
+	public void setIconFileId(String iconFileId) {
         this.iconFileId = iconFileId;
     }
 

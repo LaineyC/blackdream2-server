@@ -12,28 +12,28 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 public class DataModelSchemaGetWebRequest extends Request {
 
     @ApiModelProperty(value = "主键", required = true)
-    private Long id;
+    private String id;
 
     @ApiModelProperty(value = "所属生成器")
-    private Long generatorId;
+    private String generatorId;
 
     public DataModelSchemaGetWebRequest() {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return generatorId;
     }
 
-    public void setGeneratorId(Long generatorId) {
+    public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 }

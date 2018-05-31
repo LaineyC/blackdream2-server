@@ -10,6 +10,6 @@ import pers.laineyc.blackdream.generator.dao.po.GeneratorDataPo;
  * @author LaineyC
  */
 @Repository
-public class GeneratorDataDaoImpl extends MongoBaseDao<GeneratorDataPo, Long> implements GeneratorDataDao{
+public class GeneratorDataDaoImpl extends MongoBaseDao<GeneratorDataPo, String> implements GeneratorDataDao{
 
 }

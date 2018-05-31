@@ -13,12 +13,12 @@ public class StorageFileCreateParameter extends Parameter {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     /**
      * 所属用户
      */
-    private Long userId;
+    private String userId;
 
     /**
      * 文件大小
@@ -56,19 +56,19 @@ public class StorageFileCreateParameter extends Parameter {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

@@ -12,7 +12,7 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 public class TemplateFileCreateWebRequest extends Request {
 
     @ApiModelProperty(value = "所属生成器")
-    private Long generatorId;
+    private String generatorId;
 
     @ApiModelProperty(value = "名称", required = true)
     private String name;
@@ -36,11 +36,11 @@ public class TemplateFileCreateWebRequest extends Request {
 
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return this.generatorId;
     }
 
-    public void setGeneratorId(Long generatorId) {
+    public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 

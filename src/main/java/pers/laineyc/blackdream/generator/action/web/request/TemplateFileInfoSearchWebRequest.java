@@ -18,7 +18,7 @@ public class TemplateFileInfoSearchWebRequest extends Request {
     private Integer pageSize;
 
     @ApiModelProperty(value = "所属生成器")
-    private Long generatorId;
+    private String generatorId;
 
     @ApiModelProperty(value = "名称", required = true)
     private String name;
@@ -52,11 +52,11 @@ public class TemplateFileInfoSearchWebRequest extends Request {
         this.pageSize = pageSize;
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return generatorId;
     }
 
-    public void setGeneratorId(Long generatorId) {
+    public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 

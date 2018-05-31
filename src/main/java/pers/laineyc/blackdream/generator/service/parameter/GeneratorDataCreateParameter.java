@@ -16,12 +16,12 @@ public class GeneratorDataCreateParameter extends Parameter {
     /**
      * 所属生成器实例
      */
-    private Long generatorInstanceId;
+    private String generatorInstanceId;
 
     /**
      * 所属生成器数据模型
      */
-    private Long dataModelId;
+    private String dataModelId;
 
     /**
      * 名称
@@ -36,7 +36,7 @@ public class GeneratorDataCreateParameter extends Parameter {
     /**
      * 父节点
      */
-    private Long parentId;
+    private String parentId;
 
     /**
      * 属性集
@@ -52,19 +52,19 @@ public class GeneratorDataCreateParameter extends Parameter {
 
     }
 
-    public Long getGeneratorInstanceId() {
+    public String getGeneratorInstanceId() {
         return this.generatorInstanceId;
     }
 
-    public void setGeneratorInstanceId(Long generatorInstanceId) {
+    public void setGeneratorInstanceId(String generatorInstanceId) {
         this.generatorInstanceId = generatorInstanceId;
     }
 
-    public Long getDataModelId() {
+    public String getDataModelId() {
         return this.dataModelId;
     }
 
-    public void setDataModelId(Long dataModelId) {
+    public void setDataModelId(String dataModelId) {
         this.dataModelId = dataModelId;
     }
 
@@ -84,11 +84,11 @@ public class GeneratorDataCreateParameter extends Parameter {
         this.isExpanded = isExpanded;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return this.parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

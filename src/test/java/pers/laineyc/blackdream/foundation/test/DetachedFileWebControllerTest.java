@@ -29,7 +29,7 @@ public class DetachedFileWebControllerTest extends BaseWebControllerTest {
     @Test
     public void get() throws Exception {
         DetachedFileGetWebRequest request = new DetachedFileGetWebRequest();
-        request.setId(0L);
+        request.setId("");
         DetachedFileGetWebResponse response = execute(request, DetachedFileGetWebResponse.class, "/detachedFile/get");
         Assert.assertNotNull(response.getBody());
     }
@@ -40,7 +40,7 @@ public class DetachedFileWebControllerTest extends BaseWebControllerTest {
     @Test
     public void query() throws Exception {
         DetachedFileQueryWebRequest request = new DetachedFileQueryWebRequest();
-        request.setUserId(0L);
+        request.setUserId("");
         request.setSize(0L);
         request.setName("");
         request.setExtension("");
@@ -57,7 +57,7 @@ public class DetachedFileWebControllerTest extends BaseWebControllerTest {
         DetachedFileSearchWebRequest request = new DetachedFileSearchWebRequest();
         request.setPage(1);
         request.setPageSize(10);
-        request.setUserId(0L);
+        request.setUserId("");
         request.setSize(0L);
         request.setName("");
         request.setExtension("");

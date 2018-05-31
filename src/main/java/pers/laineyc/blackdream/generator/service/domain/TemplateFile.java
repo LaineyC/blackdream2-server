@@ -15,7 +15,7 @@ public class TemplateFile extends Domain {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     /**
      * 所属用户
@@ -76,11 +76,11 @@ public class TemplateFile extends Domain {
 
 	}
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-	public void setId(Long id) {
+	public void setId(String id) {
         this.id = id;
     }
 

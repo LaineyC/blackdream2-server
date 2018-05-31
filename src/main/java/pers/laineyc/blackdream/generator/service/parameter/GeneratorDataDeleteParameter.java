@@ -11,17 +11,17 @@ public class GeneratorDataDeleteParameter extends Parameter {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     public GeneratorDataDeleteParameter() {
 
     }
     
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId (Long id) {
+    public void setId (String id) {
         this.id = id;
     }
     

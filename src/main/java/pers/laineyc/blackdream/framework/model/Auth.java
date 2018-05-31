@@ -10,17 +10,17 @@ public class Auth implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long userId;
+    private String userId;
 
     public Auth() {
 
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

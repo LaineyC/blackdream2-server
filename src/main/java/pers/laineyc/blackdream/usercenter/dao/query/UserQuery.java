@@ -19,12 +19,12 @@ public class UserQuery extends Query<UserPo> {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     /**
      * 主键
      */
-    private List<Long> idList = new ArrayList<>();
+    private List<String> idList = new ArrayList<>();
 
     /**
      * 状态：1冻结；2启用
@@ -44,7 +44,7 @@ public class UserQuery extends Query<UserPo> {
     /**
      * 头像文件Id
      */
-    private Long iconFileId;
+    private String iconFileId;
 
     /**
      * 用户名
@@ -125,22 +125,22 @@ public class UserQuery extends Query<UserPo> {
 
 	}
 	
-    public Long getId() {
+    public String getId() {
         return id;
     }
     
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
         if(this.id != null){
             this.addWhereExpression(ExpressionBuilder.equal("id", this.id));
         }
     }
 
-    public List<Long> getIdList() {
+    public List<String> getIdList() {
         return idList;
     }
 
-    public void setIdList(List<Long> idList) {
+    public void setIdList(List<String> idList) {
         this.idList = idList;
         if(this.idList != null && !this.idList.isEmpty()){
             this.addWhereExpression(ExpressionBuilder.in("id", this.idList));
@@ -181,11 +181,11 @@ public class UserQuery extends Query<UserPo> {
         this.addWhereExpression(ExpressionBuilder.like("nickname", this.nicknameLike));
     }
 
-    public Long getIconFileId() {
+    public String getIconFileId() {
         return iconFileId;
     }
     
-    public void setIconFileId(Long iconFileId) {
+    public void setIconFileId(String iconFileId) {
         this.iconFileId = iconFileId;
         if(this.iconFileId != null){
             this.addWhereExpression(ExpressionBuilder.equal("iconFileId", this.iconFileId));

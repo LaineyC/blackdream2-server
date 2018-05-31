@@ -12,7 +12,7 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 public class GeneratorInstanceUpdateWebRequest extends Request {
 
     @ApiModelProperty(value = "主键", required = true)
-    private Long id;
+    private String id;
 
     @ApiModelProperty(value = "名称", required = true)
     private String name;
@@ -24,11 +24,11 @@ public class GeneratorInstanceUpdateWebRequest extends Request {
 
     }
     
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId (Long id) {
+    public void setId (String id) {
         this.id = id;
     }
 

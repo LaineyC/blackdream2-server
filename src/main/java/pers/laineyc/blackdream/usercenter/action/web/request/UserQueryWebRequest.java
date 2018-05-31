@@ -18,7 +18,7 @@ public class UserQueryWebRequest extends Request {
     private String nickname;
 
     @ApiModelProperty(value = "头像文件Id")
-    private Long iconFileId;
+    private String iconFileId;
 
     @ApiModelProperty(value = "用户名")
     private String username;
@@ -46,11 +46,11 @@ public class UserQueryWebRequest extends Request {
         this.nickname = nickname;
     }
 
-    public Long getIconFileId() {
+    public String getIconFileId() {
         return this.iconFileId;
     }
 
-    public void setIconFileId(Long iconFileId) {
+    public void setIconFileId(String iconFileId) {
         this.iconFileId = iconFileId;
     }
 

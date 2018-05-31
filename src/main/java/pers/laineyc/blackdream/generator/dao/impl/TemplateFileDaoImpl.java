@@ -10,6 +10,6 @@ import pers.laineyc.blackdream.generator.dao.po.TemplateFilePo;
  * @author LaineyC
  */
 @Repository
-public class TemplateFileDaoImpl extends MongoBaseDao<TemplateFilePo, Long> implements TemplateFileDao{
+public class TemplateFileDaoImpl extends MongoBaseDao<TemplateFilePo, String> implements TemplateFileDao{
 
 }

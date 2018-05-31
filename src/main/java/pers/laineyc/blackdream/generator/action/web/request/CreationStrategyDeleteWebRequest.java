@@ -12,17 +12,17 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 public class CreationStrategyDeleteWebRequest extends Request {
 
     @ApiModelProperty(value = "主键", required = true)
-    private Long id;
+    private String id;
 
     public CreationStrategyDeleteWebRequest() {
 
     }
     
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId (Long id) {
+    public void setId (String id) {
         this.id = id;
     }
     

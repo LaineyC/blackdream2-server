@@ -21,30 +21,30 @@ public class GeneratorDataPo extends Po {
 	 *  主键
 	 */
     @Id
-	private Long id;
+	private String id;
 
 	/**
 	 *  所属用户
 	 */
     @Indexed
-	private Long userId;
+	private String userId;
 
 	/**
 	 *  所属生成器
 	 */
     @Indexed
-	private Long generatorId;
+	private String generatorId;
 
 	/**
 	 *  所属生成器实例
 	 */
     @Indexed
-	private Long generatorInstanceId;
+	private String generatorInstanceId;
 
 	/**
 	 *  所属生成器数据模型
 	 */
-	private Long dataModelId;
+	private String dataModelId;
 
 	/**
 	 *  名称
@@ -64,7 +64,7 @@ public class GeneratorDataPo extends Po {
 	/**
 	 *  父节点
 	 */
-	private Long parentId;
+	private String parentId;
 
 	/**
 	 *  是否删除
@@ -97,43 +97,43 @@ public class GeneratorDataPo extends Po {
 
 	}
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-	public void setId(Long id) {
+	public void setId(String id) {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return generatorId;
     }
 
-	public void setGeneratorId(Long generatorId) {
+	public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 
-    public Long getGeneratorInstanceId() {
+    public String getGeneratorInstanceId() {
         return generatorInstanceId;
     }
 
-	public void setGeneratorInstanceId(Long generatorInstanceId) {
+	public void setGeneratorInstanceId(String generatorInstanceId) {
         this.generatorInstanceId = generatorInstanceId;
     }
 
-    public Long getDataModelId() {
+    public String getDataModelId() {
         return dataModelId;
     }
 
-	public void setDataModelId(Long dataModelId) {
+	public void setDataModelId(String dataModelId) {
         this.dataModelId = dataModelId;
     }
 
@@ -161,11 +161,11 @@ public class GeneratorDataPo extends Po {
         this.displayOrder = displayOrder;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-	public void setParentId(Long parentId) {
+	public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

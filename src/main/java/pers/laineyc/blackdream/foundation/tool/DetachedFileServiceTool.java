@@ -32,7 +32,7 @@ public class DetachedFileServiceTool{
      * 游离文件单个查询Validate
      */
     public void getValidate(DetachedFileGetParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }

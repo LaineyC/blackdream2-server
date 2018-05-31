@@ -36,7 +36,7 @@ public class DataModelSchemaServiceTest extends BaseServiceTest {
     public void create() {
         DataModelSchemaCreateParameter parameter = new DataModelSchemaCreateParameter();
         parameter.setAuth(getAuth());
-        parameter.setGeneratorId(0L);
+        parameter.setGeneratorId("");
         parameter.setName("");
         parameter.setDescription("");
         DataModelSchema dataModelSchema = dataModelSchemaService.create(parameter);
@@ -50,7 +50,7 @@ public class DataModelSchemaServiceTest extends BaseServiceTest {
     public void delete() {
         DataModelSchemaDeleteParameter parameter = new DataModelSchemaDeleteParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         DataModelSchema dataModelSchema = dataModelSchemaService.delete(parameter);
         Assert.assertNotNull(dataModelSchema);
     }
@@ -62,7 +62,7 @@ public class DataModelSchemaServiceTest extends BaseServiceTest {
     public void update() {
         DataModelSchemaUpdateParameter parameter = new DataModelSchemaUpdateParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         parameter.setName("");
         parameter.setDescription("");
         DataModelSchema dataModelSchema = dataModelSchemaService.update(parameter);
@@ -76,7 +76,7 @@ public class DataModelSchemaServiceTest extends BaseServiceTest {
     public void get(){
         DataModelSchemaGetParameter parameter = new DataModelSchemaGetParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         DataModelSchema dataModelSchema = dataModelSchemaService.get(parameter);
         Assert.assertNotNull(dataModelSchema);
     }
@@ -88,8 +88,8 @@ public class DataModelSchemaServiceTest extends BaseServiceTest {
     public void query() {
         DataModelSchemaQueryParameter parameter = new DataModelSchemaQueryParameter();
         parameter.setAuth(getAuth());
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         List<DataModelSchema> list = dataModelSchemaService.query(parameter);
         Assert.assertNotNull(list);
@@ -104,8 +104,8 @@ public class DataModelSchemaServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setPage(1);
         parameter.setPageSize(10);
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         PageResult<DataModelSchema> pageResult = dataModelSchemaService.search(parameter);
         Assert.assertNotNull(pageResult);

@@ -7,6 +7,6 @@ package pers.laineyc.blackdream.foundation.service;
  */
 public interface SequenceService {
 
-     Long nextId();
+     String nextId();
 
 }

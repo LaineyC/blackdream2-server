@@ -33,7 +33,7 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
     @Test
     public void create() throws Exception {
         GeneratorInstanceConfigCreateWebRequest request = new GeneratorInstanceConfigCreateWebRequest();
-        request.setGeneratorInstanceId(0L);
+        request.setGeneratorInstanceId("");
         request.setName("");
         request.setDescription("");
         GeneratorInstanceConfigCreateWebResponse response = execute(request, GeneratorInstanceConfigCreateWebResponse.class, "/generatorInstanceConfig/create");
@@ -46,7 +46,7 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
     @Test
     public void delete() throws Exception {
         GeneratorInstanceConfigDeleteWebRequest request = new GeneratorInstanceConfigDeleteWebRequest();
-        request.setId(0L);
+        request.setId("");
         GeneratorInstanceConfigDeleteWebResponse response = execute(request, GeneratorInstanceConfigDeleteWebResponse.class, "/generatorInstanceConfig/delete");
         Assert.assertNotNull(response.getBody());
     }
@@ -57,7 +57,7 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
     @Test
     public void update() throws Exception {
         GeneratorInstanceConfigUpdateWebRequest request = new GeneratorInstanceConfigUpdateWebRequest();
-        request.setId(0L);
+        request.setId("");
         request.setName("");
         request.setDescription("");
         GeneratorInstanceConfigUpdateWebResponse response = execute(request, GeneratorInstanceConfigUpdateWebResponse.class, "/generatorInstanceConfig/update");
@@ -70,7 +70,7 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
     @Test
     public void get() throws Exception {
         GeneratorInstanceConfigGetWebRequest request = new GeneratorInstanceConfigGetWebRequest();
-        request.setId(0L);
+        request.setId("");
         GeneratorInstanceConfigGetWebResponse response = execute(request, GeneratorInstanceConfigGetWebResponse.class, "/generatorInstanceConfig/get");
         Assert.assertNotNull(response.getBody());
     }
@@ -81,9 +81,9 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
     @Test
     public void query() throws Exception {
         GeneratorInstanceConfigQueryWebRequest request = new GeneratorInstanceConfigQueryWebRequest();
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
-        request.setGeneratorInstanceId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
+        request.setGeneratorInstanceId("");
         request.setName("");
         request.setDescription("");
         GeneratorInstanceConfigQueryWebResponse response = execute(request, GeneratorInstanceConfigQueryWebResponse.class, "/generatorInstanceConfig/query");
@@ -98,9 +98,9 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
         GeneratorInstanceConfigSearchWebRequest request = new GeneratorInstanceConfigSearchWebRequest();
         request.setPage(1);
         request.setPageSize(10);
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
-        request.setGeneratorInstanceId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
+        request.setGeneratorInstanceId("");
         request.setName("");
         request.setDescription("");
         GeneratorInstanceConfigSearchWebResponse response = execute(request, GeneratorInstanceConfigSearchWebResponse.class, "/generatorInstanceConfig/search");

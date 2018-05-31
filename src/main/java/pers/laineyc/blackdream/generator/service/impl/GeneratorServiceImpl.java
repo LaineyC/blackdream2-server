@@ -65,9 +65,9 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = sequenceService.nextId();
+        String id = sequenceService.nextId();
     
         GeneratorPo generatorPo = new GeneratorPo();
         generatorPo.setId(id);
@@ -108,9 +108,9 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
                
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorPo generatorPo = generatorDao.selectById(id);
         if(generatorPo == null){
             throw new BusinessException("生成器不存在");
@@ -140,9 +140,9 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorPo generatorPo = generatorDao.selectById(id);
         if(generatorPo == null){
             throw new BusinessException("生成器不存在");
@@ -179,7 +179,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         
         Auth auth = parameter.getAuth();
         
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorPo generatorPo = generatorDao.selectById(id);
         if(generatorPo == null) {
             throw new BusinessException("生成器不存在");
@@ -189,7 +189,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         
         generator.setId(generatorPo.getId());
 
-        Long userId = generatorPo.getUserId();
+        String userId = generatorPo.getUserId();
         if(userId != null){
             UserPo userPo = userDao.selectById(userId);
             if(userPo != null){
@@ -243,13 +243,13 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
             return generatorList;
         }
         
-        Map<Long, User> userMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
         generatorPoList.forEach(po -> {
             Generator generator = new Generator();
             
             generator.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -289,7 +289,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -325,13 +325,13 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         PageResult<GeneratorPo> generatorPoPageResult = generatorDao.selectPage(generatorQuery);
         pageResult.setTotal(generatorPoPageResult.getTotal());
 
-        Map<Long, User> userMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
         generatorPoPageResult.getRecords().forEach(po -> {
             Generator generator = new Generator();
             
             generator.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -371,7 +371,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -416,7 +416,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         generatorServiceTool.infoSearchValidate(parameter);
 
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
         GeneratorSearchParameter generatorSearchParameter = new GeneratorSearchParameter();
         BeanUtils.copyProperties(parameter, generatorSearchParameter);
@@ -434,9 +434,9 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorPo generatorPo = generatorDao.selectById(id);
         if(generatorPo == null){
             throw new BusinessException("生成器不存在");

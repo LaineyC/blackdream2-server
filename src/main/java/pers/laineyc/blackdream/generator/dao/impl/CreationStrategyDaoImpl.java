@@ -10,6 +10,6 @@ import pers.laineyc.blackdream.generator.dao.po.CreationStrategyPo;
  * @author LaineyC
  */
 @Repository
-public class CreationStrategyDaoImpl extends MongoBaseDao<CreationStrategyPo, Long> implements CreationStrategyDao{
+public class CreationStrategyDaoImpl extends MongoBaseDao<CreationStrategyPo, String> implements CreationStrategyDao{
 
 }

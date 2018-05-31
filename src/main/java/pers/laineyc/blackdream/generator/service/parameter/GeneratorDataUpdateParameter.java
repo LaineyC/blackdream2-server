@@ -16,7 +16,7 @@ public class GeneratorDataUpdateParameter extends Parameter {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     /**
      * 名称
@@ -31,7 +31,7 @@ public class GeneratorDataUpdateParameter extends Parameter {
     /**
      * 父节点
      */
-    private Long parentId;
+    private String parentId;
 
     /**
      * 属性集
@@ -47,11 +47,11 @@ public class GeneratorDataUpdateParameter extends Parameter {
 
     }
     
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId (Long id) {
+    public void setId (String id) {
         this.id = id;
     }
 
@@ -71,11 +71,11 @@ public class GeneratorDataUpdateParameter extends Parameter {
         this.isExpanded = isExpanded;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return this.parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

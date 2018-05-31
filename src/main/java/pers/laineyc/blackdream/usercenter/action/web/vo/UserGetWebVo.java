@@ -15,7 +15,7 @@ public class UserGetWebVo extends Vo {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
-    private Long id;
+    private String id;
 
     @ApiModelProperty(value = "状态：1冻结；2启用")
     private Integer status;
@@ -24,7 +24,7 @@ public class UserGetWebVo extends Vo {
     private String nickname;
 
     @ApiModelProperty(value = "头像文件")
-    private Long iconFileId;
+    private String iconFileId;
 
     @ApiModelProperty(value = "用户名")
     private String username;
@@ -54,11 +54,11 @@ public class UserGetWebVo extends Vo {
 
 	}
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-	public void setId(Long id) {
+	public void setId(String id) {
         this.id = id;
     }
 
@@ -79,11 +79,11 @@ public class UserGetWebVo extends Vo {
     }
 
 
-    public Long getIconFileId() {
+    public String getIconFileId() {
         return iconFileId;
     }
 
-    public void setIconFileId(Long iconFileId) {
+    public void setIconFileId(String iconFileId) {
         this.iconFileId = iconFileId;
     }
 

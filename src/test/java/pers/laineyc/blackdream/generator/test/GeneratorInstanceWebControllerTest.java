@@ -39,7 +39,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
     @Test
     public void create() throws Exception {
         GeneratorInstanceCreateWebRequest request = new GeneratorInstanceCreateWebRequest();
-        request.setGeneratorId(0L);
+        request.setGeneratorId("");
         request.setName("");
         request.setDescription("");
         GeneratorInstanceCreateWebResponse response = execute(request, GeneratorInstanceCreateWebResponse.class, "/generatorInstance/create");
@@ -52,7 +52,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
     @Test
     public void delete() throws Exception {
         GeneratorInstanceDeleteWebRequest request = new GeneratorInstanceDeleteWebRequest();
-        request.setId(0L);
+        request.setId("");
         GeneratorInstanceDeleteWebResponse response = execute(request, GeneratorInstanceDeleteWebResponse.class, "/generatorInstance/delete");
         Assert.assertNotNull(response.getBody());
     }
@@ -63,7 +63,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
     @Test
     public void update() throws Exception {
         GeneratorInstanceUpdateWebRequest request = new GeneratorInstanceUpdateWebRequest();
-        request.setId(0L);
+        request.setId("");
         request.setName("");
         request.setDescription("");
         GeneratorInstanceUpdateWebResponse response = execute(request, GeneratorInstanceUpdateWebResponse.class, "/generatorInstance/update");
@@ -76,7 +76,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
     @Test
     public void get() throws Exception {
         GeneratorInstanceGetWebRequest request = new GeneratorInstanceGetWebRequest();
-        request.setId(0L);
+        request.setId("");
         GeneratorInstanceGetWebResponse response = execute(request, GeneratorInstanceGetWebResponse.class, "/generatorInstance/get");
         Assert.assertNotNull(response.getBody());
     }
@@ -87,8 +87,8 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
     @Test
     public void query() throws Exception {
         GeneratorInstanceQueryWebRequest request = new GeneratorInstanceQueryWebRequest();
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         GeneratorInstanceQueryWebResponse response = execute(request, GeneratorInstanceQueryWebResponse.class, "/generatorInstance/query");
         Assert.assertNotNull(response.getBody());
@@ -102,8 +102,8 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
         GeneratorInstanceSearchWebRequest request = new GeneratorInstanceSearchWebRequest();
         request.setPage(1);
         request.setPageSize(10);
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         GeneratorInstanceSearchWebResponse response = execute(request, GeneratorInstanceSearchWebResponse.class, "/generatorInstance/search");
         Assert.assertNotNull(response.getBody());

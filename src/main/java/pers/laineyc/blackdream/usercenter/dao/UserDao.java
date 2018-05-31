@@ -7,6 +7,6 @@ import pers.laineyc.blackdream.framework.dao.Dao;
  * 用户Dao
  * @author LaineyC
  */
-public interface UserDao extends Dao<UserPo, Long> {
+public interface UserDao extends Dao<UserPo, String> {
 
 }

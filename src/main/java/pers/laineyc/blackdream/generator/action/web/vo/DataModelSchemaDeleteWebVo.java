@@ -15,17 +15,17 @@ public class DataModelSchemaDeleteWebVo extends Vo {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
-    private Long id;
+    private String id;
 
 	public DataModelSchemaDeleteWebVo() {
 
 	}
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-	public void setId(Long id) {
+	public void setId(String id) {
         this.id = id;
     }
 

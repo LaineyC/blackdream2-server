@@ -37,7 +37,7 @@ public class CreationStrategyServiceTest extends BaseServiceTest {
     public void create() {
         CreationStrategyCreateParameter parameter = new CreationStrategyCreateParameter();
         parameter.setAuth(getAuth());
-        parameter.setGeneratorId(0L);
+        parameter.setGeneratorId("");
         parameter.setName("");
         parameter.setDescription("");
         CreationStrategy creationStrategy = creationStrategyService.create(parameter);
@@ -51,7 +51,7 @@ public class CreationStrategyServiceTest extends BaseServiceTest {
     public void delete() {
         CreationStrategyDeleteParameter parameter = new CreationStrategyDeleteParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         CreationStrategy creationStrategy = creationStrategyService.delete(parameter);
         Assert.assertNotNull(creationStrategy);
     }
@@ -63,7 +63,7 @@ public class CreationStrategyServiceTest extends BaseServiceTest {
     public void update() {
         CreationStrategyUpdateParameter parameter = new CreationStrategyUpdateParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         parameter.setName("");
         parameter.setDescription("");
         CreationStrategy creationStrategy = creationStrategyService.update(parameter);
@@ -77,7 +77,7 @@ public class CreationStrategyServiceTest extends BaseServiceTest {
     public void get(){
         CreationStrategyGetParameter parameter = new CreationStrategyGetParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         CreationStrategy creationStrategy = creationStrategyService.get(parameter);
         Assert.assertNotNull(creationStrategy);
     }
@@ -89,8 +89,8 @@ public class CreationStrategyServiceTest extends BaseServiceTest {
     public void query() {
         CreationStrategyQueryParameter parameter = new CreationStrategyQueryParameter();
         parameter.setAuth(getAuth());
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         List<CreationStrategy> list = creationStrategyService.query(parameter);
         Assert.assertNotNull(list);
@@ -105,8 +105,8 @@ public class CreationStrategyServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setPage(1);
         parameter.setPageSize(10);
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         PageResult<CreationStrategy> pageResult = creationStrategyService.search(parameter);
         Assert.assertNotNull(pageResult);

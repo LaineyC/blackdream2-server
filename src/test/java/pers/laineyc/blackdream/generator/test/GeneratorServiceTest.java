@@ -54,7 +54,7 @@ public class GeneratorServiceTest extends BaseServiceTest {
     public void delete() {
         GeneratorDeleteParameter parameter = new GeneratorDeleteParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         Generator generator = generatorService.delete(parameter);
         Assert.assertNotNull(generator);
     }
@@ -66,7 +66,7 @@ public class GeneratorServiceTest extends BaseServiceTest {
     public void update() {
         GeneratorUpdateParameter parameter = new GeneratorUpdateParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         parameter.setName("");
         parameter.setEngineType(0);
         parameter.setDescription("");
@@ -81,7 +81,7 @@ public class GeneratorServiceTest extends BaseServiceTest {
     public void get(){
         GeneratorGetParameter parameter = new GeneratorGetParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         Generator generator = generatorService.get(parameter);
         Assert.assertNotNull(generator);
     }
@@ -93,7 +93,7 @@ public class GeneratorServiceTest extends BaseServiceTest {
     public void query() {
         GeneratorQueryParameter parameter = new GeneratorQueryParameter();
         parameter.setAuth(getAuth());
-        parameter.setUserId(0L);
+        parameter.setUserId("");
         parameter.setName("");
         parameter.setStatus(0);
         parameter.setEngineType(0);
@@ -110,7 +110,7 @@ public class GeneratorServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setPage(1);
         parameter.setPageSize(10);
-        parameter.setUserId(0L);
+        parameter.setUserId("");
         parameter.setName("");
         parameter.setStatus(0);
         parameter.setEngineType(0);

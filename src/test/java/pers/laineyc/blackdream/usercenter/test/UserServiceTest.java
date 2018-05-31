@@ -37,10 +37,10 @@ public class UserServiceTest extends BaseServiceTest {
     public void update() {
         UserUpdateParameter parameter = new UserUpdateParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         parameter.setStatus(0);
         parameter.setNickname("");
-        parameter.setIconFileId(0L);
+        parameter.setIconFileId("");
         parameter.setUsername("");
         parameter.setEmail("");
         User user = userService.update(parameter);
@@ -54,7 +54,7 @@ public class UserServiceTest extends BaseServiceTest {
     public void get(){
         UserGetParameter parameter = new UserGetParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         User user = userService.get(parameter);
         Assert.assertNotNull(user);
     }
@@ -68,7 +68,7 @@ public class UserServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setStatus(0);
         parameter.setNickname("");
-        parameter.setIconFileId(0L);
+        parameter.setIconFileId("");
         parameter.setUsername("");
         parameter.setEmail("");
         List<User> list = userService.query(parameter);
@@ -86,7 +86,7 @@ public class UserServiceTest extends BaseServiceTest {
         parameter.setPageSize(10);
         parameter.setStatus(0);
         parameter.setNickname("");
-        parameter.setIconFileId(0L);
+        parameter.setIconFileId("");
         parameter.setUsername("");
         parameter.setEmail("");
         PageResult<User> pageResult = userService.search(parameter);

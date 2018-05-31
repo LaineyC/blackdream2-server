@@ -48,7 +48,7 @@ public class GeneratorInstanceConfigServiceTool{
 
 	}
 
-    public String getBodyPath(Long generatorInstanceId, String id){
+    public String getBodyPath(String generatorInstanceId, String id){
         return generatorInstanceServiceTool.getGeneratorInstancePath(generatorInstanceId) + File.separator + SystemConstant.GENERATOR_INSTANCE_CONFIG_PATH_NAME + File.separator + id + ".data";
     }
 
@@ -56,7 +56,7 @@ public class GeneratorInstanceConfigServiceTool{
      * 生成器实例设置创建Validate
      */
     public void createValidate(GeneratorInstanceConfigCreateParameter parameter) {
-        Long generatorInstanceId = parameter.getGeneratorInstanceId();
+        String generatorInstanceId = parameter.getGeneratorInstanceId();
         if(generatorInstanceId == null){
             throw new BusinessException("缺少所属生成器实例");
         }
@@ -84,7 +84,7 @@ public class GeneratorInstanceConfigServiceTool{
      * 生成器实例设置删除Validate
      */
     public void deleteValidate(GeneratorInstanceConfigDeleteParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -94,7 +94,7 @@ public class GeneratorInstanceConfigServiceTool{
      * 生成器实例设置修改Validate
      */
     public void updateValidate(GeneratorInstanceConfigUpdateParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -118,8 +118,8 @@ public class GeneratorInstanceConfigServiceTool{
      * 生成器实例设置单个查询Validate
      */
     public void getValidate(GeneratorInstanceConfigGetParameter parameter) {
-        Long id = parameter.getId();
-        Long generatorInstanceId = parameter.getGeneratorInstanceId();
+        String id = parameter.getId();
+        String generatorInstanceId = parameter.getGeneratorInstanceId();
         if(id == null && generatorInstanceId == null) {
             throw new BusinessException("主键参数");
         }
@@ -151,7 +151,7 @@ public class GeneratorInstanceConfigServiceTool{
      * 生成器指南保存Validate
      */
     public void saveValidate(GeneratorInstanceConfigSaveParameter parameter) {
-        Long generatorInstanceId = parameter.getGeneratorInstanceId();
+        String generatorInstanceId = parameter.getGeneratorInstanceId();
         if(generatorInstanceId == null) {
             throw new BusinessException("缺少所属生成器实例");
         }

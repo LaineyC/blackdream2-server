@@ -31,7 +31,7 @@ public class UserSearchParameter extends Parameter {
     /**
      * 头像文件Id
      */
-    private Long iconFileId;
+    private String iconFileId;
 
     /**
      * 用户名
@@ -79,11 +79,11 @@ public class UserSearchParameter extends Parameter {
         this.nickname = nickname;
     }
 
-    public Long getIconFileId() {
+    public String getIconFileId() {
         return this.iconFileId;
     }
 
-    public void setIconFileId(Long iconFileId) {
+    public void setIconFileId(String iconFileId) {
         this.iconFileId = iconFileId;
     }
 

@@ -12,7 +12,7 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 public class GeneratorQueryWebRequest extends Request {
 
     @ApiModelProperty(value = "所属用户")
-    private Long userId;
+    private String userId;
 
     @ApiModelProperty(value = "名称", required = true)
     private String name;
@@ -27,11 +27,11 @@ public class GeneratorQueryWebRequest extends Request {
 
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return this.userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

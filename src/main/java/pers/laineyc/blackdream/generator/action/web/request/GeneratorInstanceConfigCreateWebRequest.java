@@ -16,7 +16,7 @@ import java.util.Map;
 public class GeneratorInstanceConfigCreateWebRequest extends Request {
 
     @ApiModelProperty(value = "所属生成器实例")
-    private Long generatorInstanceId;
+    private String generatorInstanceId;
 
     @ApiModelProperty(value = "名称", required = true)
     private String name;
@@ -34,11 +34,11 @@ public class GeneratorInstanceConfigCreateWebRequest extends Request {
 
     }
 
-    public Long getGeneratorInstanceId() {
+    public String getGeneratorInstanceId() {
         return this.generatorInstanceId;
     }
 
-    public void setGeneratorInstanceId(Long generatorInstanceId) {
+    public void setGeneratorInstanceId(String generatorInstanceId) {
         this.generatorInstanceId = generatorInstanceId;
     }
 

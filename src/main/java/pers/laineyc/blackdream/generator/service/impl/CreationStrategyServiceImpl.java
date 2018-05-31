@@ -68,9 +68,9 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = sequenceService.nextId();
+        String id = sequenceService.nextId();
     
         CreationStrategyPo creationStrategyPo = new CreationStrategyPo();
 
@@ -78,7 +78,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         
         creationStrategyPo.setUserId(authUserId);
 
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
         creationStrategyPo.setGeneratorId(generatorId);
 
         String name = parameter.getName();
@@ -113,9 +113,9 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
                
-        Long id = parameter.getId();
+        String id = parameter.getId();
         CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(id);
         if(creationStrategyPo == null){
             throw new BusinessException("生成器生成策略不存在");
@@ -145,9 +145,9 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(id);
         if(creationStrategyPo == null){
             throw new BusinessException("生成器生成策略不存在");
@@ -184,7 +184,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         
         Auth auth = parameter.getAuth();
         
-        Long id = parameter.getId();
+        String id = parameter.getId();
         CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(id);
         if(creationStrategyPo == null) {
             throw new BusinessException("生成器生成策略不存在");
@@ -194,7 +194,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         
         creationStrategy.setId(creationStrategyPo.getId());
 
-        Long userId = creationStrategyPo.getUserId();
+        String userId = creationStrategyPo.getUserId();
         if(userId != null){
             UserPo userPo = userDao.selectById(userId);
             if(userPo != null){
@@ -204,7 +204,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
             }
         }
 
-        Long generatorId = creationStrategyPo.getGeneratorId();
+        String generatorId = creationStrategyPo.getGeneratorId();
         if(generatorId != null){
             GeneratorPo generatorPo = generatorDao.selectById(generatorId);
             if(generatorPo != null){
@@ -251,14 +251,14 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
             return creationStrategyList;
         }
         
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
         creationStrategyPoList.forEach(po -> {
             CreationStrategy creationStrategy = new CreationStrategy();
             
             creationStrategy.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -272,7 +272,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
                 creationStrategy.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -304,7 +304,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -315,7 +315,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -350,14 +350,14 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         PageResult<CreationStrategyPo> creationStrategyPoPageResult = creationStrategyDao.selectPage(creationStrategyQuery);
         pageResult.setTotal(creationStrategyPoPageResult.getTotal());
 
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
         creationStrategyPoPageResult.getRecords().forEach(po -> {
             CreationStrategy creationStrategy = new CreationStrategy();
             
             creationStrategy.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -371,7 +371,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
                 creationStrategy.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -403,7 +403,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -414,7 +414,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -433,9 +433,9 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(id);
         if(creationStrategyPo == null) {
             throw new BusinessException("生成器生成策略不存在");
@@ -465,7 +465,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
 
         int displayOrder = 1;
         for(CreationStrategyPo po : creationStrategyPoList){
-            Long poId = po.getId();
+            String poId = po.getId();
             if(po.getDisplayOrder() != displayOrder) {
                 CreationStrategyPo creationStrategyPoUpdate = new CreationStrategyPo();
                 creationStrategyPoUpdate.setId(poId);
@@ -490,7 +490,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         creationStrategyServiceTool.infoSearchValidate(parameter);
 
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
         CreationStrategySearchParameter creationStrategySearchParameter = new CreationStrategySearchParameter();
         BeanUtils.copyProperties(parameter, creationStrategySearchParameter);

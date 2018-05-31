@@ -35,7 +35,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
     @Test
     public void create() throws Exception {
         CreationStrategyCreateWebRequest request = new CreationStrategyCreateWebRequest();
-        request.setGeneratorId(0L);
+        request.setGeneratorId("");
         request.setName("");
         request.setDescription("");
         CreationStrategyCreateWebResponse response = execute(request, CreationStrategyCreateWebResponse.class, "/creationStrategy/create");
@@ -48,7 +48,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
     @Test
     public void delete() throws Exception {
         CreationStrategyDeleteWebRequest request = new CreationStrategyDeleteWebRequest();
-        request.setId(0L);
+        request.setId("");
         CreationStrategyDeleteWebResponse response = execute(request, CreationStrategyDeleteWebResponse.class, "/creationStrategy/delete");
         Assert.assertNotNull(response.getBody());
     }
@@ -59,7 +59,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
     @Test
     public void update() throws Exception {
         CreationStrategyUpdateWebRequest request = new CreationStrategyUpdateWebRequest();
-        request.setId(0L);
+        request.setId("");
         request.setName("");
         request.setDescription("");
         CreationStrategyUpdateWebResponse response = execute(request, CreationStrategyUpdateWebResponse.class, "/creationStrategy/update");
@@ -72,7 +72,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
     @Test
     public void get() throws Exception {
         CreationStrategyGetWebRequest request = new CreationStrategyGetWebRequest();
-        request.setId(0L);
+        request.setId("");
         CreationStrategyGetWebResponse response = execute(request, CreationStrategyGetWebResponse.class, "/creationStrategy/get");
         Assert.assertNotNull(response.getBody());
     }
@@ -83,8 +83,8 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
     @Test
     public void query() throws Exception {
         CreationStrategyQueryWebRequest request = new CreationStrategyQueryWebRequest();
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         CreationStrategyQueryWebResponse response = execute(request, CreationStrategyQueryWebResponse.class, "/creationStrategy/query");
         Assert.assertNotNull(response.getBody());
@@ -98,8 +98,8 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
         CreationStrategySearchWebRequest request = new CreationStrategySearchWebRequest();
         request.setPage(1);
         request.setPageSize(10);
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         CreationStrategySearchWebResponse response = execute(request, CreationStrategySearchWebResponse.class, "/creationStrategy/search");
         Assert.assertNotNull(response.getBody());

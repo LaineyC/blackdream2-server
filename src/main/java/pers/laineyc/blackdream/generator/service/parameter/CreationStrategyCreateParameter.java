@@ -11,7 +11,7 @@ public class CreationStrategyCreateParameter extends Parameter {
     /**
      * 所属生成器
      */
-    private Long generatorId;
+    private String generatorId;
 
     /**
      * 名称
@@ -32,11 +32,11 @@ public class CreationStrategyCreateParameter extends Parameter {
 
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return this.generatorId;
     }
 
-    public void setGeneratorId(Long generatorId) {
+    public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 

@@ -37,7 +37,7 @@ public class DataModelServiceTest extends BaseServiceTest {
     public void create() {
         DataModelCreateParameter parameter = new DataModelCreateParameter();
         parameter.setAuth(getAuth());
-        parameter.setGeneratorId(0L);
+        parameter.setGeneratorId("");
         parameter.setName("");
         parameter.setCode("");
         parameter.setIconStyle("");
@@ -53,7 +53,7 @@ public class DataModelServiceTest extends BaseServiceTest {
     public void delete() {
         DataModelDeleteParameter parameter = new DataModelDeleteParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         DataModel dataModel = dataModelService.delete(parameter);
         Assert.assertNotNull(dataModel);
     }
@@ -65,7 +65,7 @@ public class DataModelServiceTest extends BaseServiceTest {
     public void update() {
         DataModelUpdateParameter parameter = new DataModelUpdateParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         parameter.setName("");
         parameter.setCode("");
         parameter.setIconStyle("");
@@ -81,7 +81,7 @@ public class DataModelServiceTest extends BaseServiceTest {
     public void get(){
         DataModelGetParameter parameter = new DataModelGetParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         DataModel dataModel = dataModelService.get(parameter);
         Assert.assertNotNull(dataModel);
     }
@@ -93,8 +93,8 @@ public class DataModelServiceTest extends BaseServiceTest {
     public void query() {
         DataModelQueryParameter parameter = new DataModelQueryParameter();
         parameter.setAuth(getAuth());
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         parameter.setCode("");
         parameter.setIconStyle("");
@@ -111,8 +111,8 @@ public class DataModelServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setPage(1);
         parameter.setPageSize(10);
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         parameter.setCode("");
         parameter.setIconStyle("");

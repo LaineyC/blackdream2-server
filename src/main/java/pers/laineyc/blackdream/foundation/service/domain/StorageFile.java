@@ -14,7 +14,7 @@ public class StorageFile extends Domain{
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     /**
      * 所属用户
@@ -53,11 +53,11 @@ public class StorageFile extends Domain{
 
     private InputStream inputStream;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

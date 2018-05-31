@@ -126,11 +126,11 @@ public class UserWebController extends BaseWebController {
 
         User user = userService.signIn(parameter);
 
-        Long userId = user.getId();
+        String userId = user.getId();
 
         int maxAge = 60 * 60 * 24 * 30;
 
-        Cookie usernameCookie = new Cookie(TokenSignInConfigConstant.COOKIE_USERNAME_KEY,  userId.toString());
+        Cookie usernameCookie = new Cookie(TokenSignInConfigConstant.COOKIE_USERNAME_KEY,  userId);
         usernameCookie.setPath("/");
         usernameCookie.setMaxAge(maxAge);
         httpServletResponse.addCookie(usernameCookie);
@@ -222,11 +222,11 @@ public class UserWebController extends BaseWebController {
 
         User user = userService.passwordChange(parameter);
 
-        Long userId = user.getId();
+        String userId = user.getId();
 
         int maxAge = 60 * 60 * 24 * 30;
 
-        Cookie usernameCookie = new Cookie(TokenSignInConfigConstant.COOKIE_USERNAME_KEY,  userId.toString());
+        Cookie usernameCookie = new Cookie(TokenSignInConfigConstant.COOKIE_USERNAME_KEY,  userId);
         usernameCookie.setPath("/");
         usernameCookie.setMaxAge(maxAge);
         httpServletResponse.addCookie(usernameCookie);

@@ -18,13 +18,13 @@ public class GeneratorInstanceConfigSearchWebRequest extends Request {
     private Integer pageSize;
 
     @ApiModelProperty(value = "所属用户")
-    private Long userId;
+    private String userId;
 
     @ApiModelProperty(value = "所属生成器")
-    private Long generatorId;
+    private String generatorId;
 
     @ApiModelProperty(value = "所属生成器实例")
-    private Long generatorInstanceId;
+    private String generatorInstanceId;
 
     @ApiModelProperty(value = "名称", required = true)
     private String name;
@@ -52,27 +52,27 @@ public class GeneratorInstanceConfigSearchWebRequest extends Request {
         this.pageSize = pageSize;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return this.userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return this.generatorId;
     }
 
-    public void setGeneratorId(Long generatorId) {
+    public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 
-    public Long getGeneratorInstanceId() {
+    public String getGeneratorInstanceId() {
         return this.generatorInstanceId;
     }
 
-    public void setGeneratorInstanceId(Long generatorInstanceId) {
+    public void setGeneratorInstanceId(String generatorInstanceId) {
         this.generatorInstanceId = generatorInstanceId;
     }
 

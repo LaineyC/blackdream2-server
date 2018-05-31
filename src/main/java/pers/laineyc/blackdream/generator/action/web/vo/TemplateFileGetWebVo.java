@@ -15,7 +15,7 @@ public class TemplateFileGetWebVo extends Vo {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
-    private Long id;
+    private String id;
 
     @ApiModelProperty(value = "所属用户")
     private User user;
@@ -54,11 +54,11 @@ public class TemplateFileGetWebVo extends Vo {
 
 	}
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-	public void setId(Long id) {
+	public void setId(String id) {
         this.id = id;
     }
 
@@ -154,16 +154,16 @@ public class TemplateFileGetWebVo extends Vo {
     public static class User {
 
         @ApiModelProperty(value = "主键")
-        private Long id;
+        private String id;
 
         @ApiModelProperty(value = "名称")
         private String name;
 
-        public Long getId() {
+        public String getId() {
             return this.id;
         }
 
-        public void setId(Long id) {
+        public void setId(String id) {
             this.id = id;
         }
 
@@ -180,16 +180,16 @@ public class TemplateFileGetWebVo extends Vo {
     public static class Generator {
 
         @ApiModelProperty(value = "主键")
-        private Long id;
+        private String id;
 
         @ApiModelProperty(value = "名称")
         private String name;
 
-        public Long getId() {
+        public String getId() {
             return this.id;
         }
 
-        public void setId(Long id) {
+        public void setId(String id) {
             this.id = id;
         }
 

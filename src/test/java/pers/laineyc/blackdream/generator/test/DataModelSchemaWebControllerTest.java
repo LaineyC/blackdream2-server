@@ -33,7 +33,7 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
     @Test
     public void create() throws Exception {
         DataModelSchemaCreateWebRequest request = new DataModelSchemaCreateWebRequest();
-        request.setGeneratorId(0L);
+        request.setGeneratorId("");
         request.setName("");
         request.setDescription("");
         DataModelSchemaCreateWebResponse response = execute(request, DataModelSchemaCreateWebResponse.class, "/dataModelSchema/create");
@@ -46,7 +46,7 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
     @Test
     public void delete() throws Exception {
         DataModelSchemaDeleteWebRequest request = new DataModelSchemaDeleteWebRequest();
-        request.setId(0L);
+        request.setId("");
         DataModelSchemaDeleteWebResponse response = execute(request, DataModelSchemaDeleteWebResponse.class, "/dataModelSchema/delete");
         Assert.assertNotNull(response.getBody());
     }
@@ -57,7 +57,7 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
     @Test
     public void update() throws Exception {
         DataModelSchemaUpdateWebRequest request = new DataModelSchemaUpdateWebRequest();
-        request.setId(0L);
+        request.setId("");
         request.setName("");
         request.setDescription("");
         DataModelSchemaUpdateWebResponse response = execute(request, DataModelSchemaUpdateWebResponse.class, "/dataModelSchema/update");
@@ -70,7 +70,7 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
     @Test
     public void get() throws Exception {
         DataModelSchemaGetWebRequest request = new DataModelSchemaGetWebRequest();
-        request.setId(0L);
+        request.setId("");
         DataModelSchemaGetWebResponse response = execute(request, DataModelSchemaGetWebResponse.class, "/dataModelSchema/get");
         Assert.assertNotNull(response.getBody());
     }
@@ -81,8 +81,8 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
     @Test
     public void query() throws Exception {
         DataModelSchemaQueryWebRequest request = new DataModelSchemaQueryWebRequest();
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         DataModelSchemaQueryWebResponse response = execute(request, DataModelSchemaQueryWebResponse.class, "/dataModelSchema/query");
         Assert.assertNotNull(response.getBody());
@@ -96,8 +96,8 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
         DataModelSchemaSearchWebRequest request = new DataModelSchemaSearchWebRequest();
         request.setPage(1);
         request.setPageSize(10);
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         DataModelSchemaSearchWebResponse response = execute(request, DataModelSchemaSearchWebResponse.class, "/dataModelSchema/search");
         Assert.assertNotNull(response.getBody());

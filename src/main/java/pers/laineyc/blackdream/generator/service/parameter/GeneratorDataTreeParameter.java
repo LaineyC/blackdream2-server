@@ -11,17 +11,17 @@ public class GeneratorDataTreeParameter extends Parameter {
     /**
      * 所属生成器实例
      */
-    private Long generatorInstanceId;
+    private String generatorInstanceId;
 
     public GeneratorDataTreeParameter() {
 
     }
 
-    public Long getGeneratorInstanceId() {
+    public String getGeneratorInstanceId() {
         return generatorInstanceId;
     }
 
-    public void setGeneratorInstanceId(Long generatorInstanceId) {
+    public void setGeneratorInstanceId(String generatorInstanceId) {
         this.generatorInstanceId = generatorInstanceId;
     }
 }

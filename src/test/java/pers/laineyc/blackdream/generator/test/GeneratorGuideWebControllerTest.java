@@ -33,7 +33,7 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
     @Test
     public void create() throws Exception {
         GeneratorGuideCreateWebRequest request = new GeneratorGuideCreateWebRequest();
-        request.setGeneratorId(0L);
+        request.setGeneratorId("");
         request.setName("");
         request.setDescription("");
         GeneratorGuideCreateWebResponse response = execute(request, GeneratorGuideCreateWebResponse.class, "/generatorGuide/create");
@@ -46,7 +46,7 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
     @Test
     public void delete() throws Exception {
         GeneratorGuideDeleteWebRequest request = new GeneratorGuideDeleteWebRequest();
-        request.setId(0L);
+        request.setId("");
         GeneratorGuideDeleteWebResponse response = execute(request, GeneratorGuideDeleteWebResponse.class, "/generatorGuide/delete");
         Assert.assertNotNull(response.getBody());
     }
@@ -57,7 +57,7 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
     @Test
     public void update() throws Exception {
         GeneratorGuideUpdateWebRequest request = new GeneratorGuideUpdateWebRequest();
-        request.setId(0L);
+        request.setId("");
         request.setName("");
         request.setDescription("");
         GeneratorGuideUpdateWebResponse response = execute(request, GeneratorGuideUpdateWebResponse.class, "/generatorGuide/update");
@@ -70,7 +70,7 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
     @Test
     public void get() throws Exception {
         GeneratorGuideGetWebRequest request = new GeneratorGuideGetWebRequest();
-        request.setId(0L);
+        request.setId("");
         GeneratorGuideGetWebResponse response = execute(request, GeneratorGuideGetWebResponse.class, "/generatorGuide/get");
         Assert.assertNotNull(response.getBody());
     }
@@ -81,8 +81,8 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
     @Test
     public void query() throws Exception {
         GeneratorGuideQueryWebRequest request = new GeneratorGuideQueryWebRequest();
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         GeneratorGuideQueryWebResponse response = execute(request, GeneratorGuideQueryWebResponse.class, "/generatorGuide/query");
         Assert.assertNotNull(response.getBody());
@@ -96,8 +96,8 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
         GeneratorGuideSearchWebRequest request = new GeneratorGuideSearchWebRequest();
         request.setPage(1);
         request.setPageSize(10);
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         GeneratorGuideSearchWebResponse response = execute(request, GeneratorGuideSearchWebResponse.class, "/generatorGuide/search");
         Assert.assertNotNull(response.getBody());

@@ -10,6 +10,6 @@ import pers.laineyc.blackdream.generator.dao.po.DataModelPo;
  * @author LaineyC
  */
 @Repository
-public class DataModelDaoImpl extends MongoBaseDao<DataModelPo, Long> implements DataModelDao{
+public class DataModelDaoImpl extends MongoBaseDao<DataModelPo, String> implements DataModelDao{
 
 }

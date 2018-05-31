@@ -39,7 +39,7 @@ public class GeneratorInstanceServiceTest extends BaseServiceTest {
     public void create() {
         GeneratorInstanceCreateParameter parameter = new GeneratorInstanceCreateParameter();
         parameter.setAuth(getAuth());
-        parameter.setGeneratorId(0L);
+        parameter.setGeneratorId("");
         parameter.setName("");
         parameter.setDescription("");
         GeneratorInstance generatorInstance = generatorInstanceService.create(parameter);
@@ -53,7 +53,7 @@ public class GeneratorInstanceServiceTest extends BaseServiceTest {
     public void delete() {
         GeneratorInstanceDeleteParameter parameter = new GeneratorInstanceDeleteParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         GeneratorInstance generatorInstance = generatorInstanceService.delete(parameter);
         Assert.assertNotNull(generatorInstance);
     }
@@ -65,7 +65,7 @@ public class GeneratorInstanceServiceTest extends BaseServiceTest {
     public void update() {
         GeneratorInstanceUpdateParameter parameter = new GeneratorInstanceUpdateParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         parameter.setName("");
         parameter.setDescription("");
         GeneratorInstance generatorInstance = generatorInstanceService.update(parameter);
@@ -79,7 +79,7 @@ public class GeneratorInstanceServiceTest extends BaseServiceTest {
     public void get(){
         GeneratorInstanceGetParameter parameter = new GeneratorInstanceGetParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         GeneratorInstance generatorInstance = generatorInstanceService.get(parameter);
         Assert.assertNotNull(generatorInstance);
     }
@@ -91,8 +91,8 @@ public class GeneratorInstanceServiceTest extends BaseServiceTest {
     public void query() {
         GeneratorInstanceQueryParameter parameter = new GeneratorInstanceQueryParameter();
         parameter.setAuth(getAuth());
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         List<GeneratorInstance> list = generatorInstanceService.query(parameter);
         Assert.assertNotNull(list);
@@ -107,8 +107,8 @@ public class GeneratorInstanceServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setPage(1);
         parameter.setPageSize(10);
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         PageResult<GeneratorInstance> pageResult = generatorInstanceService.search(parameter);
         Assert.assertNotNull(pageResult);

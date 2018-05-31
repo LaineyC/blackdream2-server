@@ -17,7 +17,7 @@ import java.util.Map;
 public class GeneratorDataUpdateWebRequest extends Request {
 
     @ApiModelProperty(value = "主键", required = true)
-    private Long id;
+    private String id;
 
     @ApiModelProperty(value = "名称", required = true)
     private String name;
@@ -26,7 +26,7 @@ public class GeneratorDataUpdateWebRequest extends Request {
     private Boolean isExpanded;
 
     @ApiModelProperty(value = "父节点")
-    private Long parentId;
+    private String parentId;
 
     @ApiModelProperty(value = "属性集")
     private Map<String, Object> property = new LinkedHashMap<>();
@@ -38,11 +38,11 @@ public class GeneratorDataUpdateWebRequest extends Request {
 
     }
     
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId (Long id) {
+    public void setId (String id) {
         this.id = id;
     }
 
@@ -62,11 +62,11 @@ public class GeneratorDataUpdateWebRequest extends Request {
         this.isExpanded = isExpanded;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return this.parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

@@ -37,7 +37,7 @@ public class TemplateFileServiceTest extends BaseServiceTest {
     public void create() {
         TemplateFileCreateParameter parameter = new TemplateFileCreateParameter();
         parameter.setAuth(getAuth());
-        parameter.setGeneratorId(0L);
+        parameter.setGeneratorId("");
         parameter.setName("");
         parameter.setCode("");
         parameter.setEngineType(0);
@@ -54,7 +54,7 @@ public class TemplateFileServiceTest extends BaseServiceTest {
     public void delete() {
         TemplateFileDeleteParameter parameter = new TemplateFileDeleteParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         TemplateFile templateFile = templateFileService.delete(parameter);
         Assert.assertNotNull(templateFile);
     }
@@ -66,7 +66,7 @@ public class TemplateFileServiceTest extends BaseServiceTest {
     public void update() {
         TemplateFileUpdateParameter parameter = new TemplateFileUpdateParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         parameter.setName("");
         parameter.setCode("");
         parameter.setEngineType(0);
@@ -83,7 +83,7 @@ public class TemplateFileServiceTest extends BaseServiceTest {
     public void get(){
         TemplateFileGetParameter parameter = new TemplateFileGetParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         TemplateFile templateFile = templateFileService.get(parameter);
         Assert.assertNotNull(templateFile);
     }
@@ -95,8 +95,8 @@ public class TemplateFileServiceTest extends BaseServiceTest {
     public void query() {
         TemplateFileQueryParameter parameter = new TemplateFileQueryParameter();
         parameter.setAuth(getAuth());
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         parameter.setCode("");
         parameter.setEngineType(0);
@@ -114,8 +114,8 @@ public class TemplateFileServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setPage(1);
         parameter.setPageSize(10);
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
         parameter.setName("");
         parameter.setCode("");
         parameter.setEngineType(0);

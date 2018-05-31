@@ -15,8 +15,8 @@ public class SequenceServiceImpl extends BaseService implements SequenceService 
 
     private SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker(1L, 1L);
 
-    public Long nextId() {
-        return snowflakeIdWorker.nextId();
+    public String nextId() {
+        return Long.valueOf(snowflakeIdWorker.nextId()).toString();
     }
 
 }

@@ -36,7 +36,7 @@ public class StorageFileServiceImpl extends BaseService implements StorageFileSe
     public StorageFile create(StorageFileCreateParameter parameter) {
         storageFileServiceTool.createValidate(parameter);
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
 
         Path metaPath = Paths.get(storageFileServiceTool.getMetaPath(id));
         Path parentPath = metaPath.getParent();
@@ -45,7 +45,7 @@ public class StorageFileServiceImpl extends BaseService implements StorageFileSe
         StorageFile storageFile = new StorageFile();
         storageFile.setId(id);
 
-        Long userId = parameter.getUserId();
+        String userId = parameter.getUserId();
         if(userId != null){
             User user = new User();
             user.setId(userId);
@@ -88,7 +88,7 @@ public class StorageFileServiceImpl extends BaseService implements StorageFileSe
         storageFileServiceTool.deleteValidate(parameter);
         Auth auth = parameter.getAuth();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
 
         Path metaPath = Paths.get(storageFileServiceTool.getMetaPath(id));
 
@@ -109,7 +109,7 @@ public class StorageFileServiceImpl extends BaseService implements StorageFileSe
 
         Auth auth = parameter.getAuth();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
 
         Path metaPath = Paths.get(storageFileServiceTool.getMetaPath(id));
 
@@ -119,7 +119,7 @@ public class StorageFileServiceImpl extends BaseService implements StorageFileSe
 
         StorageFile storageFile = getMeta(storageFileGetMetaParameter);
 
-        Long userId = parameter.getUserId();
+        String userId = parameter.getUserId();
         if(userId != null){
             User user = new User();
             user.setId(userId);
@@ -178,7 +178,7 @@ public class StorageFileServiceImpl extends BaseService implements StorageFileSe
 
         Auth auth = parameter.getAuth();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
 
         StorageFileGetMetaParameter storageFileGetMetaParameter = new StorageFileGetMetaParameter();
         storageFileGetMetaParameter.setAuth(auth);
@@ -199,7 +199,7 @@ public class StorageFileServiceImpl extends BaseService implements StorageFileSe
     public StorageFile getMeta(StorageFileGetMetaParameter parameter) {
         storageFileServiceTool.getMetaValidate(parameter);
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
 
         Path metaPath = Paths.get(storageFileServiceTool.getMetaPath(id));
 
@@ -211,7 +211,7 @@ public class StorageFileServiceImpl extends BaseService implements StorageFileSe
     public InputStream getInputStream(StorageFileGetInputStreamParameter parameter) {
         storageFileServiceTool.getInputStreamValidate(parameter);
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
 
         Path dataPath = Paths.get(storageFileServiceTool.getDataPath(id));
 

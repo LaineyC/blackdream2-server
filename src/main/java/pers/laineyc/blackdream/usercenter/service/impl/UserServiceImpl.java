@@ -68,7 +68,7 @@ public class UserServiceImpl extends BaseService implements UserService {
       
         Auth auth = parameter.getAuth();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         UserPo userPo = userDao.selectById(id);
         if(userPo == null){
             throw new BusinessException("用户不存在");
@@ -81,7 +81,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         String nickname = parameter.getNickname();
         userPo.setNickname(nickname);
 
-        Long iconFileId = parameter.getIconFileId();
+        String iconFileId = parameter.getIconFileId();
         userPo.setIconFileId(iconFileId);
 
         String username = parameter.getUsername();
@@ -116,8 +116,8 @@ public class UserServiceImpl extends BaseService implements UserService {
         userServiceTool.getValidate(parameter);
         
         Auth auth = parameter.getAuth();
-        
-        Long id = parameter.getId();
+
+        String id = parameter.getId();
         UserPo userPo = userDao.selectById(id);
         if(userPo == null) {
             throw new BusinessException("用户不存在");
@@ -336,7 +336,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         String accessToken = parameter.getAccessToken();
 
-        Long userId = Long.valueOf(username);
+        String userId = username;
 
         UserPo userPo = userDao.selectById(userId);
         if(userPo == null){
@@ -377,7 +377,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         Date now = new Date();
 
         if(auth != null){
-            Long authUserId = auth.getUserId();
+            String authUserId = auth.getUserId();
             String accessToken = UUID.randomUUID().toString();
 
             UserPo userPoUpdate = new UserPo();
@@ -404,7 +404,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         UserPo userPo = new UserPo();
 
-        Long id = sequenceService.nextId();
+        String id = sequenceService.nextId();
         userPo.setId(id);
 
         String username = parameter.getUsername();
@@ -454,7 +454,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         userServiceTool.passwordUpdateValidate(parameter);
     
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
         UserPo userPo = userDao.selectById(authUserId);
         if(userPo == null){
@@ -512,14 +512,14 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
         UserPo userPo = userDao.selectById(authUserId);
         if(userPo == null){
             throw new BusinessException("用户不存在");
         }
 
-        Long iconFileId = parameter.getIconFileId();
+        String iconFileId = parameter.getIconFileId();
 
         DetachedFilePersistParameter detachedFileHandleParameter = new DetachedFilePersistParameter();
         detachedFileHandleParameter.setAuth(auth);
@@ -535,7 +535,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         userPoUpdate.setUpdateTime(now);
         userDao.updateSelective(userPoUpdate);
 
-        Long oldIconId = userPo.getIconFileId();
+        String oldIconId = userPo.getIconFileId();
         if(oldIconId != null){
             StorageFileDeleteParameter storageFileDeleteParameter = new StorageFileDeleteParameter();
             storageFileDeleteParameter.setAuth(auth);
@@ -554,7 +554,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         userServiceTool.infoGetValidate(parameter);
 
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
         UserGetParameter userGetParameter = new UserGetParameter();
         BeanUtils.copyProperties(parameter, userGetParameter);

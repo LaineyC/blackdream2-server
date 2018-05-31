@@ -34,7 +34,7 @@ public class DetachedFileServiceTest extends BaseServiceTest {
     public void get(){
         DetachedFileGetParameter parameter = new DetachedFileGetParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         DetachedFile detachedFile = detachedFileService.get(parameter);
         Assert.assertNotNull(detachedFile);
     }
@@ -46,7 +46,7 @@ public class DetachedFileServiceTest extends BaseServiceTest {
     public void query() {
         DetachedFileQueryParameter parameter = new DetachedFileQueryParameter();
         parameter.setAuth(getAuth());
-        parameter.setUserId(0L);
+        parameter.setUserId("");
         parameter.setSize(0L);
         parameter.setName("");
         parameter.setExtension("");
@@ -64,7 +64,7 @@ public class DetachedFileServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setPage(1);
         parameter.setPageSize(10);
-        parameter.setUserId(0L);
+        parameter.setUserId("");
         parameter.setSize(0L);
         parameter.setName("");
         parameter.setExtension("");

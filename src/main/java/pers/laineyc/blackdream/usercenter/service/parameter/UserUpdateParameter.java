@@ -11,7 +11,7 @@ public class UserUpdateParameter extends Parameter {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     /**
      * 状态：1冻结；2启用
@@ -26,7 +26,7 @@ public class UserUpdateParameter extends Parameter {
     /**
      * 头像文件Id
      */
-    private Long iconFileId;
+    private String iconFileId;
 
     /**
      * 用户名
@@ -42,11 +42,11 @@ public class UserUpdateParameter extends Parameter {
 
     }
     
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId (Long id) {
+    public void setId (String id) {
         this.id = id;
     }
 
@@ -66,11 +66,11 @@ public class UserUpdateParameter extends Parameter {
         this.nickname = nickname;
     }
 
-    public Long getIconFileId() {
+    public String getIconFileId() {
         return this.iconFileId;
     }
 
-    public void setIconFileId(Long iconFileId) {
+    public void setIconFileId(String iconFileId) {
         this.iconFileId = iconFileId;
     }
 

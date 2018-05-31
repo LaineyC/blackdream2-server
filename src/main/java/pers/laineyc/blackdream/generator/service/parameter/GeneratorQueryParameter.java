@@ -11,7 +11,7 @@ public class GeneratorQueryParameter extends Parameter {
     /**
      * 所属用户
      */
-    private Long userId;
+    private String userId;
 
     /**
      * 名称
@@ -32,11 +32,11 @@ public class GeneratorQueryParameter extends Parameter {
 
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return this.userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

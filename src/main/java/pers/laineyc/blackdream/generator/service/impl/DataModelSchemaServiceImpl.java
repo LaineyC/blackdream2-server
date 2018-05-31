@@ -68,9 +68,9 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = sequenceService.nextId();
+        String id = sequenceService.nextId();
     
         DataModelSchemaPo dataModelSchemaPo = new DataModelSchemaPo();
 
@@ -78,7 +78,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
         
         dataModelSchemaPo.setUserId(authUserId);
 
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
         dataModelSchemaPo.setGeneratorId(generatorId);
 
         String name = parameter.getName();
@@ -111,9 +111,9 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
                
-        Long id = parameter.getId();
+        String id = parameter.getId();
         DataModelSchemaPo dataModelSchemaPo = dataModelSchemaDao.selectById(id);
         if(dataModelSchemaPo == null){
             throw new BusinessException("生成器数据模型模式不存在");
@@ -143,9 +143,9 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         DataModelSchemaPo dataModelSchemaPo = dataModelSchemaDao.selectById(id);
         if(dataModelSchemaPo == null){
             throw new BusinessException("生成器数据模型模式不存在");
@@ -182,8 +182,8 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
         
         Auth auth = parameter.getAuth();
         
-        Long id = parameter.getId();
-        Long parameterGeneratorId = parameter.getGeneratorId();
+        String id = parameter.getId();
+        String parameterGeneratorId = parameter.getGeneratorId();
         DataModelSchemaPo dataModelSchemaPo = null;
         if(id != null){
             dataModelSchemaPo = dataModelSchemaDao.selectById(id);
@@ -202,7 +202,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
         
         dataModelSchema.setId(dataModelSchemaPo.getId());
 
-        Long userId = dataModelSchemaPo.getUserId();
+        String userId = dataModelSchemaPo.getUserId();
         if(userId != null){
             UserPo userPo = userDao.selectById(userId);
             if(userPo != null){
@@ -212,7 +212,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
             }
         }
 
-        Long generatorId = dataModelSchemaPo.getGeneratorId();
+        String generatorId = dataModelSchemaPo.getGeneratorId();
         if(generatorId != null){
             GeneratorPo generatorPo = generatorDao.selectById(generatorId);
             if(generatorPo != null){
@@ -257,14 +257,14 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
             return dataModelSchemaList;
         }
         
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
         dataModelSchemaPoList.forEach(po -> {
             DataModelSchema dataModelSchema = new DataModelSchema();
             
             dataModelSchema.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -278,7 +278,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
                 dataModelSchema.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -308,7 +308,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -319,7 +319,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -354,14 +354,14 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
         PageResult<DataModelSchemaPo> dataModelSchemaPoPageResult = dataModelSchemaDao.selectPage(dataModelSchemaQuery);
         pageResult.setTotal(dataModelSchemaPoPageResult.getTotal());
 
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
         dataModelSchemaPoPageResult.getRecords().forEach(po -> {
             DataModelSchema dataModelSchema = new DataModelSchema();
             
             dataModelSchema.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -375,7 +375,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
                 dataModelSchema.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -405,7 +405,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -416,7 +416,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -430,9 +430,9 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
         dataModelSchemaServiceTool.saveValidate(parameter);
 
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
 
         DataModelSchemaQuery dataModelSchemaQuery = new DataModelSchemaQuery();
         dataModelSchemaQuery.setGeneratorId(generatorId);

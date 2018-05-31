@@ -67,9 +67,9 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = sequenceService.nextId();
+        String id = sequenceService.nextId();
     
         GeneratorGuidePo generatorGuidePo = new GeneratorGuidePo();
 
@@ -77,7 +77,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         
         generatorGuidePo.setUserId(authUserId);
 
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
         generatorGuidePo.setGeneratorId(generatorId);
 
         String name = parameter.getName();
@@ -113,9 +113,9 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
                
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorGuidePo generatorGuidePo = generatorGuideDao.selectById(id);
         if(generatorGuidePo == null){
             throw new BusinessException("生成器指南不存在");
@@ -145,9 +145,9 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorGuidePo generatorGuidePo = generatorGuideDao.selectById(id);
         if(generatorGuidePo == null){
             throw new BusinessException("生成器指南不存在");
@@ -187,8 +187,8 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         
         Auth auth = parameter.getAuth();
         
-        Long id = parameter.getId();
-        Long parameterGeneratorId = parameter.getGeneratorId();
+        String id = parameter.getId();
+        String parameterGeneratorId = parameter.getGeneratorId();
         GeneratorGuidePo generatorGuidePo = null;
         if(id != null){
             generatorGuidePo = generatorGuideDao.selectById(id);
@@ -207,7 +207,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         
         generatorGuide.setId(generatorGuidePo.getId());
 
-        Long userId = generatorGuidePo.getUserId();
+        String userId = generatorGuidePo.getUserId();
         if(userId != null){
             UserPo userPo = userDao.selectById(userId);
             if(userPo != null){
@@ -217,7 +217,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
             }
         }
 
-        Long generatorId = generatorGuidePo.getGeneratorId();
+        String generatorId = generatorGuidePo.getGeneratorId();
         if(generatorId != null){
             GeneratorPo generatorPo = generatorDao.selectById(generatorId);
             if(generatorPo != null){
@@ -263,14 +263,14 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
             return generatorGuideList;
         }
         
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
         generatorGuidePoList.forEach(po -> {
             GeneratorGuide generatorGuide = new GeneratorGuide();
             
             generatorGuide.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -284,7 +284,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
                 generatorGuide.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -314,7 +314,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -325,7 +325,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -361,14 +361,14 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         PageResult<GeneratorGuidePo> generatorGuidePoPageResult = generatorGuideDao.selectPage(generatorGuideQuery);
         pageResult.setTotal(generatorGuidePoPageResult.getTotal());
 
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
         generatorGuidePoPageResult.getRecords().forEach(po -> {
             GeneratorGuide generatorGuide = new GeneratorGuide();
             
             generatorGuide.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -382,7 +382,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
                 generatorGuide.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -412,7 +412,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -423,7 +423,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -437,9 +437,9 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         generatorGuideServiceTool.saveValidate(parameter);
 
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
 
         GeneratorGuideQuery generatorGuideQuery = new GeneratorGuideQuery();
         generatorGuideQuery.setGeneratorId(generatorId);

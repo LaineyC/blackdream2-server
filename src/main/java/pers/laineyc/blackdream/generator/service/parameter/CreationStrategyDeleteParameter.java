@@ -11,17 +11,17 @@ public class CreationStrategyDeleteParameter extends Parameter {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     public CreationStrategyDeleteParameter() {
 
     }
     
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId (Long id) {
+    public void setId (String id) {
         this.id = id;
     }
     

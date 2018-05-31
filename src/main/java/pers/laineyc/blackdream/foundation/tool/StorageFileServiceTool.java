@@ -16,11 +16,11 @@ public class StorageFileServiceTool {
     @Autowired
     private PathTool pathTool;
 
-    public String getMetaPath(Long fileId){
+    public String getMetaPath(String fileId){
         return pathTool.getRootPath() + File.separator + SystemConstant.RESOURCE_PATH_NAME + pathTool.splitIdAsPath(fileId) + fileId + "." + SystemConstant.RESOURCE_META_SUFFIX_NAME;
     }
 
-    public String getDataPath(Long fileId){
+    public String getDataPath(String fileId){
         return pathTool.getRootPath() + File.separator + SystemConstant.RESOURCE_PATH_NAME + pathTool.splitIdAsPath(fileId) + fileId + "." + SystemConstant.RESOURCE_DATA_SUFFIX_NAME;
     }
 

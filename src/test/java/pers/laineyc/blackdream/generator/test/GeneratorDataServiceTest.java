@@ -38,11 +38,11 @@ public class GeneratorDataServiceTest extends BaseServiceTest {
     public void create() {
         GeneratorDataCreateParameter parameter = new GeneratorDataCreateParameter();
         parameter.setAuth(getAuth());
-        parameter.setGeneratorInstanceId(0L);
-        parameter.setDataModelId(0L);
+        parameter.setGeneratorInstanceId("");
+        parameter.setDataModelId("");
         parameter.setName("");
         parameter.setIsExpanded(false);
-        parameter.setParentId(0L);
+        parameter.setParentId("");
         GeneratorData generatorData = generatorDataService.create(parameter);
         Assert.assertNotNull(generatorData);
     }
@@ -54,7 +54,7 @@ public class GeneratorDataServiceTest extends BaseServiceTest {
     public void delete() {
         GeneratorDataDeleteParameter parameter = new GeneratorDataDeleteParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         GeneratorData generatorData = generatorDataService.delete(parameter);
         Assert.assertNotNull(generatorData);
     }
@@ -66,10 +66,10 @@ public class GeneratorDataServiceTest extends BaseServiceTest {
     public void update() {
         GeneratorDataUpdateParameter parameter = new GeneratorDataUpdateParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         parameter.setName("");
         parameter.setIsExpanded(false);
-        parameter.setParentId(0L);
+        parameter.setParentId("");
         GeneratorData generatorData = generatorDataService.update(parameter);
         Assert.assertNotNull(generatorData);
     }
@@ -81,7 +81,7 @@ public class GeneratorDataServiceTest extends BaseServiceTest {
     public void get(){
         GeneratorDataGetParameter parameter = new GeneratorDataGetParameter();
         parameter.setAuth(getAuth());
-        parameter.setId(0L);
+        parameter.setId("");
         GeneratorData generatorData = generatorDataService.get(parameter);
         Assert.assertNotNull(generatorData);
     }
@@ -93,12 +93,12 @@ public class GeneratorDataServiceTest extends BaseServiceTest {
     public void query() {
         GeneratorDataQueryParameter parameter = new GeneratorDataQueryParameter();
         parameter.setAuth(getAuth());
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
-        parameter.setGeneratorInstanceId(0L);
-        parameter.setDataModelId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
+        parameter.setGeneratorInstanceId("");
+        parameter.setDataModelId("");
         parameter.setName("");
-        parameter.setParentId(0L);
+        parameter.setParentId("");
         List<GeneratorData> list = generatorDataService.query(parameter);
         Assert.assertNotNull(list);
     }
@@ -112,12 +112,12 @@ public class GeneratorDataServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setPage(1);
         parameter.setPageSize(10);
-        parameter.setUserId(0L);
-        parameter.setGeneratorId(0L);
-        parameter.setGeneratorInstanceId(0L);
-        parameter.setDataModelId(0L);
+        parameter.setUserId("");
+        parameter.setGeneratorId("");
+        parameter.setGeneratorInstanceId("");
+        parameter.setDataModelId("");
         parameter.setName("");
-        parameter.setParentId(0L);
+        parameter.setParentId("");
         PageResult<GeneratorData> pageResult = generatorDataService.search(parameter);
         Assert.assertNotNull(pageResult);
     }

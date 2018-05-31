@@ -38,7 +38,7 @@ public class TemplateFileServiceTool{
 
 	}
 
-    public String getScriptPath(Long generatorId, String code){
+    public String getScriptPath(String generatorId, String code){
         return generatorServiceTool.getGeneratorPath(generatorId) + File.separator + SystemConstant.TEMPLATE_FILE_PATH_NAME + File.separator + code;
     }
 
@@ -46,7 +46,7 @@ public class TemplateFileServiceTool{
      * 生成器模板文件创建Validate
      */
     public void createValidate(TemplateFileCreateParameter parameter) {
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
         if(generatorId == null){
             throw new BusinessException("缺少所属生成器参数");
         }
@@ -105,7 +105,7 @@ public class TemplateFileServiceTool{
      * 生成器模板文件删除Validate
      */
     public void deleteValidate(TemplateFileDeleteParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -115,7 +115,7 @@ public class TemplateFileServiceTool{
      * 生成器模板文件修改Validate
      */
     public void updateValidate(TemplateFileUpdateParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -171,7 +171,7 @@ public class TemplateFileServiceTool{
      * 生成器模板文件单个查询Validate
      */
     public void getValidate(TemplateFileGetParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }
@@ -203,7 +203,7 @@ public class TemplateFileServiceTool{
      * 生成器模板文件排序Validate
      */
     public void sortValidate(TemplateFileSortParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }
@@ -238,7 +238,7 @@ public class TemplateFileServiceTool{
      * 生成器模板文件排序Validate
      */
     public void buildResourceValidate(TemplateFileBuildResourceParameter parameter) {
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
         if(generatorId != null){
             GeneratorPo generatorPo = generatorDao.selectById(generatorId);
             if(generatorPo == null){

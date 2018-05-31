@@ -10,6 +10,6 @@ import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
  * @author LaineyC
  */
 @Repository
-public class UserDaoImpl extends MongoBaseDao<UserPo, Long> implements UserDao{
+public class UserDaoImpl extends MongoBaseDao<UserPo, String> implements UserDao{
 
 }

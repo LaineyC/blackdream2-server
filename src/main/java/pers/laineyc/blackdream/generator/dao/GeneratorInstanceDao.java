@@ -7,6 +7,6 @@ import pers.laineyc.blackdream.framework.dao.Dao;
  * 生成器实例Dao
  * @author LaineyC
  */
-public interface GeneratorInstanceDao extends Dao<GeneratorInstancePo, Long> {
+public interface GeneratorInstanceDao extends Dao<GeneratorInstancePo, String> {
 
 }

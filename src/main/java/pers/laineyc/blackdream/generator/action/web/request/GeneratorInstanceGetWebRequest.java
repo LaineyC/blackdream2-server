@@ -12,17 +12,17 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 public class GeneratorInstanceGetWebRequest extends Request {
 
     @ApiModelProperty(value = "主键", required = true)
-    private Long id;
+    private String id;
 
     public GeneratorInstanceGetWebRequest() {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

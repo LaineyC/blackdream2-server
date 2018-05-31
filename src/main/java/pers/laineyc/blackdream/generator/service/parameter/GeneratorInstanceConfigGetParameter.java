@@ -11,30 +11,30 @@ public class GeneratorInstanceConfigGetParameter extends Parameter {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     /**
      * 所属生成器实例
      */
-    private Long generatorInstanceId;
+    private String generatorInstanceId;
 
     public GeneratorInstanceConfigGetParameter() {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getGeneratorInstanceId() {
+    public String getGeneratorInstanceId() {
         return generatorInstanceId;
     }
 
-    public void setGeneratorInstanceId(Long generatorInstanceId) {
+    public void setGeneratorInstanceId(String generatorInstanceId) {
         this.generatorInstanceId = generatorInstanceId;
     }
 }

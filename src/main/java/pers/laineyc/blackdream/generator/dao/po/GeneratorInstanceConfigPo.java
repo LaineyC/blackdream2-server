@@ -24,25 +24,25 @@ public class GeneratorInstanceConfigPo extends Po {
 	 *  主键
 	 */
     @Id
-	private Long id;
+	private String id;
 
 	/**
 	 *  所属用户
 	 */
     @Indexed
-	private Long userId;
+	private String userId;
 
 	/**
 	 *  所属生成器
 	 */
     @Indexed
-	private Long generatorId;
+	private String generatorId;
 
 	/**
 	 *  所属生成器实例
 	 */
     @Indexed(unique = true)
-	private Long generatorInstanceId;
+	private String generatorInstanceId;
 
 	/**
 	 *  名称
@@ -85,35 +85,35 @@ public class GeneratorInstanceConfigPo extends Po {
 
 	}
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-	public void setId(Long id) {
+	public void setId(String id) {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return generatorId;
     }
 
-	public void setGeneratorId(Long generatorId) {
+	public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 
-    public Long getGeneratorInstanceId() {
+    public String getGeneratorInstanceId() {
         return generatorInstanceId;
     }
 
-	public void setGeneratorInstanceId(Long generatorInstanceId) {
+	public void setGeneratorInstanceId(String generatorInstanceId) {
         this.generatorInstanceId = generatorInstanceId;
     }
 

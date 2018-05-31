@@ -65,8 +65,8 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
         detachedFileServiceTool.getValidate(parameter);
         
         Auth auth = parameter.getAuth();
-        
-        Long id = parameter.getId();
+
+        String id = parameter.getId();
         DetachedFilePo detachedFilePo = detachedFileDao.selectById(id);
         if(detachedFilePo == null) {
             throw new BusinessException("游离文件不存在");
@@ -76,7 +76,7 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
         
         detachedFile.setId(detachedFilePo.getId());
 
-        Long userId = detachedFilePo.getUserId();
+        String userId = detachedFilePo.getUserId();
         if(userId != null){
             UserPo userPo = userDao.selectById(userId);
             if(userPo != null){
@@ -125,13 +125,13 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
             return detachedFileList;
         }
         
-        Map<Long, User> userMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
         detachedFilePoList.forEach(po -> {
             DetachedFile detachedFile = new DetachedFile();
 
             detachedFile.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if (userId != null) {
                 User user;
                 if (userMap.containsKey(userId)) {
@@ -164,7 +164,7 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -201,13 +201,13 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
         PageResult<DetachedFilePo> detachedFilePoPageResult = detachedFileDao.selectPage(detachedFileQuery);
         pageResult.setTotal(detachedFilePoPageResult.getTotal());
 
-        Map<Long, User> userMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
         detachedFilePoPageResult.getRecords().forEach(po -> {
             DetachedFile detachedFile = new DetachedFile();
 
             detachedFile.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if (userId != null) {
                 User user;
                 if (userMap.containsKey(userId)) {
@@ -240,7 +240,7 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -258,12 +258,12 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = null;
+        String authUserId = null;
         if(auth != null){
             authUserId = auth.getUserId();
         }
 
-        Long id = sequenceService.nextId();
+        String id = sequenceService.nextId();
 
         DetachedFilePo detachedFilePo = new DetachedFilePo();
         detachedFilePo.setId(id);
@@ -318,7 +318,7 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
         Date now = new Date();
         Auth auth = parameter.getAuth();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         DetachedFilePo detachedFilePo = detachedFileDao.selectById(id);
         if(detachedFilePo == null) {
             throw new BusinessException("文件不存在");
@@ -331,7 +331,7 @@ public class DetachedFileServiceImpl extends BaseService implements DetachedFile
 
         DetachedFile detachedFile = new DetachedFile();
 
-        Long userId = detachedFilePo.getUserId();
+        String userId = detachedFilePo.getUserId();
         User user = new User();
         user.setId(userId);
         detachedFile.setUser(user);

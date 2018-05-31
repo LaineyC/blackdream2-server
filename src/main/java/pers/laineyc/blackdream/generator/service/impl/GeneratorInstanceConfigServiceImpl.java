@@ -74,9 +74,9 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = sequenceService.nextId();
+        String id = sequenceService.nextId();
 
         GeneratorInstanceConfigPo generatorInstanceConfigPo = new GeneratorInstanceConfigPo();
 
@@ -84,7 +84,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
         
         generatorInstanceConfigPo.setUserId(authUserId);
 
-        Long generatorInstanceId = parameter.getGeneratorInstanceId();
+        String generatorInstanceId = parameter.getGeneratorInstanceId();
         generatorInstanceConfigPo.setGeneratorInstanceId(generatorInstanceId);
 
         String name = parameter.getName();
@@ -118,9 +118,9 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
                
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorInstanceConfigPo generatorInstanceConfigPo = generatorInstanceConfigDao.selectById(id);
         if(generatorInstanceConfigPo == null){
             throw new BusinessException("生成器实例设置不存在");
@@ -150,9 +150,9 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         GeneratorInstanceConfigPo generatorInstanceConfigPo = generatorInstanceConfigDao.selectById(id);
         if(generatorInstanceConfigPo == null){
             throw new BusinessException("生成器实例设置不存在");
@@ -190,8 +190,8 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
         
         Auth auth = parameter.getAuth();
         
-        Long id = parameter.getId();
-        Long parameterGeneratorInstanceId = parameter.getGeneratorInstanceId();
+        String id = parameter.getId();
+        String parameterGeneratorInstanceId = parameter.getGeneratorInstanceId();
         GeneratorInstanceConfigPo generatorInstanceConfigPo = null;
         if(id != null){
             generatorInstanceConfigPo = generatorInstanceConfigDao.selectById(id);
@@ -210,7 +210,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
         
         generatorInstanceConfig.setId(generatorInstanceConfigPo.getId());
 
-        Long userId = generatorInstanceConfigPo.getUserId();
+        String userId = generatorInstanceConfigPo.getUserId();
         if(userId != null){
             UserPo userPo = userDao.selectById(userId);
             if(userPo != null){
@@ -220,7 +220,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
             }
         }
 
-        Long generatorId = generatorInstanceConfigPo.getGeneratorId();
+        String generatorId = generatorInstanceConfigPo.getGeneratorId();
         if(generatorId != null){
             GeneratorPo generatorPo = generatorDao.selectById(generatorId);
             if(generatorPo != null){
@@ -230,7 +230,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
             }
         }
 
-        Long generatorInstanceId = generatorInstanceConfigPo.getGeneratorInstanceId();
+        String generatorInstanceId = generatorInstanceConfigPo.getGeneratorInstanceId();
         if(generatorInstanceId != null){
             GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(generatorInstanceId);
             if(generatorInstancePo != null){
@@ -279,15 +279,15 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
             return generatorInstanceConfigList;
         }
         
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
-        Map<Long, GeneratorInstance> generatorInstanceMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
+        Map<String, GeneratorInstance> generatorInstanceMap = new HashMap<>();
         generatorInstanceConfigPoList.forEach(po -> {
             GeneratorInstanceConfig generatorInstanceConfig = new GeneratorInstanceConfig();
             
             generatorInstanceConfig.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -301,7 +301,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
                 generatorInstanceConfig.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -315,7 +315,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
                 generatorInstanceConfig.setGenerator(generator);
             }
 
-            Long generatorInstanceId = po.getGeneratorInstanceId();
+            String generatorInstanceId = po.getGeneratorInstanceId();
             if(generatorInstanceId != null) {
                 GeneratorInstance generatorInstance;
                 if(generatorInstanceMap.containsKey(generatorInstanceId)) {
@@ -345,7 +345,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -356,7 +356,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -367,7 +367,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
             generatorInstanceQuery.setIdList(new ArrayList<>(generatorInstanceMap.keySet()));
             List<GeneratorInstancePo> generatorInstancePos = generatorInstanceDao.selectList(generatorInstanceQuery);
             generatorInstancePos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 GeneratorInstance generatorInstance = generatorInstanceMap.get(id);
                 generatorInstance.setId(id);
             });
@@ -404,15 +404,15 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
         PageResult<GeneratorInstanceConfigPo> generatorInstanceConfigPoPageResult = generatorInstanceConfigDao.selectPage(generatorInstanceConfigQuery);
         pageResult.setTotal(generatorInstanceConfigPoPageResult.getTotal());
 
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
-        Map<Long, GeneratorInstance> generatorInstanceMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
+        Map<String, GeneratorInstance> generatorInstanceMap = new HashMap<>();
         generatorInstanceConfigPoPageResult.getRecords().forEach(po -> {
             GeneratorInstanceConfig generatorInstanceConfig = new GeneratorInstanceConfig();
             
             generatorInstanceConfig.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -426,7 +426,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
                 generatorInstanceConfig.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -440,7 +440,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
                 generatorInstanceConfig.setGenerator(generator);
             }
 
-            Long generatorInstanceId = po.getGeneratorInstanceId();
+            String generatorInstanceId = po.getGeneratorInstanceId();
             if(generatorInstanceId != null) {
                 GeneratorInstance generatorInstance;
                 if(generatorInstanceMap.containsKey(generatorInstanceId)) {
@@ -470,7 +470,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -481,7 +481,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -492,7 +492,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
             generatorInstanceQuery.setIdList(new ArrayList<>(generatorInstanceMap.keySet()));
             List<GeneratorInstancePo> generatorInstancePos = generatorInstanceDao.selectList(generatorInstanceQuery);
             generatorInstancePos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 GeneratorInstance generatorInstance = generatorInstanceMap.get(id);
                 generatorInstance.setId(id);
             });
@@ -506,9 +506,9 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
         generatorInstanceConfigServiceTool.saveValidate(parameter);
 
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long parameterGeneratorInstanceId = parameter.getGeneratorInstanceId();
+        String parameterGeneratorInstanceId = parameter.getGeneratorInstanceId();
 
         GeneratorInstanceConfigQuery generatorInstanceConfigQuery = new GeneratorInstanceConfigQuery();
         generatorInstanceConfigQuery.setGeneratorInstanceId(parameterGeneratorInstanceId);

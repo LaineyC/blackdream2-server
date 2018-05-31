@@ -10,6 +10,6 @@ import pers.laineyc.blackdream.generator.dao.po.GeneratorInstanceConfigPo;
  * @author LaineyC
  */
 @Repository
-public class GeneratorInstanceConfigDaoImpl extends MongoBaseDao<GeneratorInstanceConfigPo, Long> implements GeneratorInstanceConfigDao{
+public class GeneratorInstanceConfigDaoImpl extends MongoBaseDao<GeneratorInstanceConfigPo, String> implements GeneratorInstanceConfigDao{
 
 }

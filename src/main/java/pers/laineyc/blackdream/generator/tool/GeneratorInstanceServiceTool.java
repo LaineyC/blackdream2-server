@@ -52,7 +52,7 @@ public class GeneratorInstanceServiceTool{
 
 	}
 
-    public String getGeneratorInstancePath(Long generatorInstanceId){
+    public String getGeneratorInstancePath(String generatorInstanceId){
         return pathTool.getRootPath() + File.separator + SystemConstant.GENERATOR_PATH_NAME + pathTool.splitIdAsPath(generatorInstanceId) + generatorInstanceId.toString();
     }
 
@@ -60,7 +60,7 @@ public class GeneratorInstanceServiceTool{
      * 生成器实例创建Validate
      */
     public void createValidate(GeneratorInstanceCreateParameter parameter) {
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
         if(generatorId == null){
             throw new BusinessException("缺少所属生成器");
         }
@@ -85,7 +85,7 @@ public class GeneratorInstanceServiceTool{
      * 生成器实例删除Validate
      */
     public void deleteValidate(GeneratorInstanceDeleteParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -95,7 +95,7 @@ public class GeneratorInstanceServiceTool{
      * 生成器实例修改Validate
      */
     public void updateValidate(GeneratorInstanceUpdateParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -120,7 +120,7 @@ public class GeneratorInstanceServiceTool{
      * 生成器实例单个查询Validate
      */
     public void getValidate(GeneratorInstanceGetParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }
@@ -174,7 +174,7 @@ public class GeneratorInstanceServiceTool{
      * 生成器实例版本同步Validate
      */
     public void versionSyncValidate(GeneratorInstanceVersionSyncParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }

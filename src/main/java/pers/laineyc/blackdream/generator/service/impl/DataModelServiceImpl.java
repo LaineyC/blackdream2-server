@@ -69,9 +69,9 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = sequenceService.nextId();
+        String id = sequenceService.nextId();
     
         DataModelPo dataModelPo = new DataModelPo();
 
@@ -79,7 +79,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         
         dataModelPo.setUserId(authUserId);
 
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
         dataModelPo.setGeneratorId(generatorId);
 
         String name = parameter.getName();
@@ -126,9 +126,9 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
                
-        Long id = parameter.getId();
+        String id = parameter.getId();
         DataModelPo dataModelPo = dataModelDao.selectById(id);
         if(dataModelPo == null){
             throw new BusinessException("生成器数据模型不存在");
@@ -158,9 +158,9 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         DataModelPo dataModelPo = dataModelDao.selectById(id);
         if(dataModelPo == null){
             throw new BusinessException("生成器数据模型不存在");
@@ -209,7 +209,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         
         Auth auth = parameter.getAuth();
         
-        Long id = parameter.getId();
+        String id = parameter.getId();
         DataModelPo dataModelPo = dataModelDao.selectById(id);
         if(dataModelPo == null) {
             throw new BusinessException("生成器数据模型不存在");
@@ -219,7 +219,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         
         dataModel.setId(dataModelPo.getId());
 
-        Long userId = dataModelPo.getUserId();
+        String userId = dataModelPo.getUserId();
         if(userId != null){
             UserPo userPo = userDao.selectById(userId);
             if(userPo != null){
@@ -229,7 +229,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
             }
         }
 
-        Long generatorId = dataModelPo.getGeneratorId();
+        String generatorId = dataModelPo.getGeneratorId();
         if(generatorId != null){
             GeneratorPo generatorPo = generatorDao.selectById(generatorId);
             if(generatorPo != null){
@@ -286,14 +286,14 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
             return dataModelList;
         }
         
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
         dataModelPoList.forEach(po -> {
             DataModel dataModel = new DataModel();
             
             dataModel.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -307,7 +307,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
                 dataModel.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -343,7 +343,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -354,7 +354,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -391,14 +391,14 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         PageResult<DataModelPo> dataModelPoPageResult = dataModelDao.selectPage(dataModelQuery);
         pageResult.setTotal(dataModelPoPageResult.getTotal());
 
-        Map<Long, User> userMap = new HashMap<>();
-        Map<Long, Generator> generatorMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
+        Map<String, Generator> generatorMap = new HashMap<>();
         dataModelPoPageResult.getRecords().forEach(po -> {
             DataModel dataModel = new DataModel();
             
             dataModel.setId(po.getId());
 
-            Long userId = po.getUserId();
+            String userId = po.getUserId();
             if(userId != null) {
                 User user;
                 if(userMap.containsKey(userId)) {
@@ -412,7 +412,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
                 dataModel.setUser(user);
             }
 
-            Long generatorId = po.getGeneratorId();
+            String generatorId = po.getGeneratorId();
             if(generatorId != null) {
                 Generator generator;
                 if(generatorMap.containsKey(generatorId)) {
@@ -448,7 +448,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
             userQuery.setIdList(new ArrayList<>(userMap.keySet()));
             List<UserPo> userPos = userDao.selectList(userQuery);
             userPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
             });
@@ -459,7 +459,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
             generatorQuery.setIdList(new ArrayList<>(generatorMap.keySet()));
             List<GeneratorPo> generatorPos = generatorDao.selectList(generatorQuery);
             generatorPos.forEach(po -> {
-                Long id = po.getId();
+                String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
             });
@@ -477,9 +477,9 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
-        Long id = parameter.getId();
+        String id = parameter.getId();
         DataModelPo dataModelPo = dataModelDao.selectById(id);
         if(dataModelPo == null) {
             throw new BusinessException("生成器数据模型不存在");
@@ -509,7 +509,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         int displayOrder = 1;
         for(DataModelPo po : dataModelPoList){
-            Long poId = po.getId();
+            String poId = po.getId();
             if(po.getDisplayOrder() != displayOrder) {
                 DataModelPo dataModelPoUpdate = new DataModelPo();
                 dataModelPoUpdate.setId(poId);
@@ -533,7 +533,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModelServiceTool.infoSearchValidate(parameter);
 
         Auth auth = parameter.getAuth();
-        Long authUserId = auth.getUserId();
+        String authUserId = auth.getUserId();
 
         DataModelSearchParameter dataModelSearchParameter = new DataModelSearchParameter();
         BeanUtils.copyProperties(parameter, dataModelSearchParameter);

@@ -11,17 +11,17 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 public class UserIconChangeWebRequest extends Request {
 
     @ApiModelProperty(value = "头像文件", required = true)
-    private Long iconFileId;
+    private String iconFileId;
 
     public UserIconChangeWebRequest() {
 
     }
 
-    public Long getIconFileId() {
+    public String getIconFileId() {
         return iconFileId;
     }
 
-    public void setIconFileId(Long iconFileId) {
+    public void setIconFileId(String iconFileId) {
         this.iconFileId = iconFileId;
     }
 

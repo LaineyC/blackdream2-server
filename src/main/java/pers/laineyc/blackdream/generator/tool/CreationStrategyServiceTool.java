@@ -42,7 +42,7 @@ public class CreationStrategyServiceTool{
 
 	}
 
-    public String getScriptPath(Long generatorId, String id){
+    public String getScriptPath(String generatorId, String id){
         return generatorServiceTool.getGeneratorPath(generatorId) + File.separator + SystemConstant.CREATION_STRATEGY_PATH_NAME + File.separator + id + ".data";
     }
 
@@ -50,7 +50,7 @@ public class CreationStrategyServiceTool{
      * 生成器生成策略创建Validate
      */
     public void createValidate(CreationStrategyCreateParameter parameter) {
-        Long generatorId = parameter.getGeneratorId();
+        String generatorId = parameter.getGeneratorId();
         if(generatorId == null){
             throw new BusinessException("缺少所属生成器参数");
         }
@@ -87,7 +87,7 @@ public class CreationStrategyServiceTool{
      * 生成器生成策略删除Validate
      */
     public void deleteValidate(CreationStrategyDeleteParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -97,7 +97,7 @@ public class CreationStrategyServiceTool{
      * 生成器生成策略修改Validate
      */
     public void updateValidate(CreationStrategyUpdateParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -130,7 +130,7 @@ public class CreationStrategyServiceTool{
      * 生成器生成策略单个查询Validate
      */
     public void getValidate(CreationStrategyGetParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }
@@ -162,7 +162,7 @@ public class CreationStrategyServiceTool{
      * 生成器生成策略排序Validate
      */
     public void sortValidate(CreationStrategySortParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }

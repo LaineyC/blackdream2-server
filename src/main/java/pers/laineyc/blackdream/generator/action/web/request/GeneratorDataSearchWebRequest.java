@@ -18,22 +18,22 @@ public class GeneratorDataSearchWebRequest extends Request {
     private Integer pageSize;
 
     @ApiModelProperty(value = "所属用户")
-    private Long userId;
+    private String userId;
 
     @ApiModelProperty(value = "所属生成器")
-    private Long generatorId;
+    private String generatorId;
 
     @ApiModelProperty(value = "所属生成器实例")
-    private Long generatorInstanceId;
+    private String generatorInstanceId;
 
     @ApiModelProperty(value = "所属生成器数据模型")
-    private Long dataModelId;
+    private String dataModelId;
 
     @ApiModelProperty(value = "名称", required = true)
     private String name;
 
     @ApiModelProperty(value = "父节点")
-    private Long parentId;
+    private String parentId;
 
     public GeneratorDataSearchWebRequest() {
 
@@ -55,35 +55,35 @@ public class GeneratorDataSearchWebRequest extends Request {
         this.pageSize = pageSize;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return this.userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return this.generatorId;
     }
 
-    public void setGeneratorId(Long generatorId) {
+    public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 
-    public Long getGeneratorInstanceId() {
+    public String getGeneratorInstanceId() {
         return this.generatorInstanceId;
     }
 
-    public void setGeneratorInstanceId(Long generatorInstanceId) {
+    public void setGeneratorInstanceId(String generatorInstanceId) {
         this.generatorInstanceId = generatorInstanceId;
     }
 
-    public Long getDataModelId() {
+    public String getDataModelId() {
         return this.dataModelId;
     }
 
-    public void setDataModelId(Long dataModelId) {
+    public void setDataModelId(String dataModelId) {
         this.dataModelId = dataModelId;
     }
 
@@ -95,11 +95,11 @@ public class GeneratorDataSearchWebRequest extends Request {
         this.name = name;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return this.parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

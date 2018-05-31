@@ -50,7 +50,7 @@ public class UserServiceTool{
      * 用户修改Validate
      */
     public void updateValidate(UserUpdateParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -59,7 +59,7 @@ public class UserServiceTool{
 
         String nickname = parameter.getNickname();
 
-        Long iconFileId = parameter.getIconFileId();
+        String iconFileId = parameter.getIconFileId();
 
         String username = parameter.getUsername();
 
@@ -70,7 +70,7 @@ public class UserServiceTool{
      * 用户单个查询Validate
      */
     public void getValidate(UserGetParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }

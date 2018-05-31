@@ -35,7 +35,7 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
     @Test
     public void create() throws Exception {
         TemplateFileCreateWebRequest request = new TemplateFileCreateWebRequest();
-        request.setGeneratorId(0L);
+        request.setGeneratorId("");
         request.setName("");
         request.setCode("");
         request.setEngineType(0);
@@ -51,7 +51,7 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
     @Test
     public void delete() throws Exception {
         TemplateFileDeleteWebRequest request = new TemplateFileDeleteWebRequest();
-        request.setId(0L);
+        request.setId("");
         TemplateFileDeleteWebResponse response = execute(request, TemplateFileDeleteWebResponse.class, "/templateFile/delete");
         Assert.assertNotNull(response.getBody());
     }
@@ -62,7 +62,7 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
     @Test
     public void update() throws Exception {
         TemplateFileUpdateWebRequest request = new TemplateFileUpdateWebRequest();
-        request.setId(0L);
+        request.setId("");
         request.setName("");
         request.setCode("");
         request.setEngineType(0);
@@ -78,7 +78,7 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
     @Test
     public void get() throws Exception {
         TemplateFileGetWebRequest request = new TemplateFileGetWebRequest();
-        request.setId(0L);
+        request.setId("");
         TemplateFileGetWebResponse response = execute(request, TemplateFileGetWebResponse.class, "/templateFile/get");
         Assert.assertNotNull(response.getBody());
     }
@@ -89,8 +89,8 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
     @Test
     public void query() throws Exception {
         TemplateFileQueryWebRequest request = new TemplateFileQueryWebRequest();
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         request.setCode("");
         request.setEngineType(0);
@@ -107,8 +107,8 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
         TemplateFileSearchWebRequest request = new TemplateFileSearchWebRequest();
         request.setPage(1);
         request.setPageSize(10);
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         request.setCode("");
         request.setEngineType(0);

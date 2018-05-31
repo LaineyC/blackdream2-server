@@ -12,7 +12,7 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 public class DetachedFileQueryWebRequest extends Request {
 
     @ApiModelProperty(value = "所属用户")
-    private Long userId;
+    private String userId;
 
     @ApiModelProperty(value = "状态：1游离；2受管")
     private Integer status;
@@ -33,11 +33,11 @@ public class DetachedFileQueryWebRequest extends Request {
 
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return this.userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

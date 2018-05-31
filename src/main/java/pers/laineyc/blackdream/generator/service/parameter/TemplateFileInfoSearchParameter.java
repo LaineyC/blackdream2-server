@@ -22,7 +22,7 @@ public class TemplateFileInfoSearchParameter extends Parameter {
     /**
      * 所属生成器
      */
-    private Long generatorId;
+    private String generatorId;
 
     /**
      * 名称
@@ -64,11 +64,11 @@ public class TemplateFileInfoSearchParameter extends Parameter {
         this.pageSize = pageSize;
     }
 
-    public Long getGeneratorId() {
+    public String getGeneratorId() {
         return generatorId;
     }
 
-    public void setGeneratorId(Long generatorId) {
+    public void setGeneratorId(String generatorId) {
         this.generatorId = generatorId;
     }
 

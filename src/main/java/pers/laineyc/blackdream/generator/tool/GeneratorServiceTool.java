@@ -47,7 +47,7 @@ public class GeneratorServiceTool{
 
 	}
 
-    public String getGeneratorPath(Long generatorId){
+    public String getGeneratorPath(String generatorId){
         return pathTool.getRootPath() + File.separator + SystemConstant.GENERATOR_PATH_NAME + pathTool.splitIdAsPath(generatorId) + generatorId.toString();
     }
 
@@ -83,7 +83,7 @@ public class GeneratorServiceTool{
      * 生成器删除Validate
      */
     public void deleteValidate(GeneratorDeleteParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -93,7 +93,7 @@ public class GeneratorServiceTool{
      * 生成器修改Validate
      */
     public void updateValidate(GeneratorUpdateParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -126,7 +126,7 @@ public class GeneratorServiceTool{
      * 生成器单个查询Validate
      */
     public void getValidate(GeneratorGetParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }
@@ -187,7 +187,7 @@ public class GeneratorServiceTool{
      * 生成器发布Validate
      */
     public void releaseValidate(GeneratorReleaseParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }

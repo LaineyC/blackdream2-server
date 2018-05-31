@@ -61,7 +61,7 @@ public class GeneratorDataServiceTool{
 
     }
 
-    public String getBodyPath(Long generatorInstanceId, String id){
+    public String getBodyPath(String generatorInstanceId, String id){
         return generatorInstanceServiceTool.getGeneratorInstancePath(generatorInstanceId) + File.separator + SystemConstant.GENERATOR_INSTANCE_CONFIG_PATH_NAME + File.separator + id + ".data";
     }
 
@@ -69,12 +69,12 @@ public class GeneratorDataServiceTool{
      * 生成器数据创建Validate
      */
     public void createValidate(GeneratorDataCreateParameter parameter) {
-        Long generatorInstanceId = parameter.getGeneratorInstanceId();
+        String generatorInstanceId = parameter.getGeneratorInstanceId();
         if(generatorInstanceId == null){
             throw new BusinessException("缺少所属生成器实例");
         }
 
-        Long dataModelId = parameter.getDataModelId();
+        String dataModelId = parameter.getDataModelId();
         if(dataModelId == null){
             throw new BusinessException("缺少所属生成器数据模型");
         }
@@ -91,15 +91,12 @@ public class GeneratorDataServiceTool{
             throw new BusinessException("名称长度不能大于255");
         }
 
-        Long parentId = parameter.getParentId();
+        String parentId = parameter.getParentId();
         if(parentId != null){
             GeneratorDataPo parentPo = generatorDataDao.selectById(parentId);
             if(parentPo == null){
                 throw new BusinessException("父节点不存在");
             }
-        }
-        else{
-            parameter.setParentId(0L);
         }
     }
 
@@ -107,7 +104,7 @@ public class GeneratorDataServiceTool{
      * 生成器数据删除Validate
      */
     public void deleteValidate(GeneratorDataDeleteParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -117,7 +114,7 @@ public class GeneratorDataServiceTool{
      * 生成器数据修改Validate
      */
     public void updateValidate(GeneratorDataUpdateParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null){
             throw new BusinessException("缺少主键");
         }
@@ -135,15 +132,12 @@ public class GeneratorDataServiceTool{
             parameter.setIsExpanded(false);
         }
 
-        Long parentId = parameter.getParentId();
+        String parentId = parameter.getParentId();
         if(parentId != null){
             GeneratorDataPo parentPo = generatorDataDao.selectById(parentId);
             if(parentPo == null){
                 throw new BusinessException("父节点不存在");
             }
-        }
-        else{
-            parameter.setParentId(0L);
         }
     }
     
@@ -151,7 +145,7 @@ public class GeneratorDataServiceTool{
      * 生成器数据单个查询Validate
      */
     public void getValidate(GeneratorDataGetParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }
@@ -183,7 +177,7 @@ public class GeneratorDataServiceTool{
      * 生成器数据树形查询Validate
      */
     public void treeValidate(GeneratorDataTreeParameter parameter) {
-        Long generatorInstanceId = parameter.getGeneratorInstanceId();
+        String generatorInstanceId = parameter.getGeneratorInstanceId();
         if(generatorInstanceId == null) {
             throw new BusinessException("缺少所属生成器实例");
         }
@@ -193,7 +187,7 @@ public class GeneratorDataServiceTool{
      * 生成器数据排序Validate
      */
     public void sortValidate(GeneratorDataSortParameter parameter) {
-        Long id = parameter.getId();
+        String id = parameter.getId();
         if(id == null) {
             throw new BusinessException("缺少主键");
         }

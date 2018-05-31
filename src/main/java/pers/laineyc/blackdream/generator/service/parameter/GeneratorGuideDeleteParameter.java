@@ -11,17 +11,17 @@ public class GeneratorGuideDeleteParameter extends Parameter {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     public GeneratorGuideDeleteParameter() {
 
     }
     
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId (Long id) {
+    public void setId (String id) {
         this.id = id;
     }
     

@@ -11,7 +11,7 @@ public class GeneratorGuideUpdateParameter extends Parameter {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
     /**
      * 名称
@@ -37,11 +37,11 @@ public class GeneratorGuideUpdateParameter extends Parameter {
 
     }
     
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId (Long id) {
+    public void setId (String id) {
         this.id = id;
     }
 

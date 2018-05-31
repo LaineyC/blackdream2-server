@@ -35,7 +35,7 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
     @Test
     public void create() throws Exception {
         DataModelCreateWebRequest request = new DataModelCreateWebRequest();
-        request.setGeneratorId(0L);
+        request.setGeneratorId("");
         request.setName("");
         request.setCode("");
         request.setIconStyle("");
@@ -50,7 +50,7 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
     @Test
     public void delete() throws Exception {
         DataModelDeleteWebRequest request = new DataModelDeleteWebRequest();
-        request.setId(0L);
+        request.setId("");
         DataModelDeleteWebResponse response = execute(request, DataModelDeleteWebResponse.class, "/dataModel/delete");
         Assert.assertNotNull(response.getBody());
     }
@@ -61,7 +61,7 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
     @Test
     public void update() throws Exception {
         DataModelUpdateWebRequest request = new DataModelUpdateWebRequest();
-        request.setId(0L);
+        request.setId("");
         request.setName("");
         request.setCode("");
         request.setIconStyle("");
@@ -76,7 +76,7 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
     @Test
     public void get() throws Exception {
         DataModelGetWebRequest request = new DataModelGetWebRequest();
-        request.setId(0L);
+        request.setId("");
         DataModelGetWebResponse response = execute(request, DataModelGetWebResponse.class, "/dataModel/get");
         Assert.assertNotNull(response.getBody());
     }
@@ -87,8 +87,8 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
     @Test
     public void query() throws Exception {
         DataModelQueryWebRequest request = new DataModelQueryWebRequest();
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         request.setCode("");
         request.setIconStyle("");
@@ -104,8 +104,8 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
         DataModelSearchWebRequest request = new DataModelSearchWebRequest();
         request.setPage(1);
         request.setPageSize(10);
-        request.setUserId(0L);
-        request.setGeneratorId(0L);
+        request.setUserId("");
+        request.setGeneratorId("");
         request.setName("");
         request.setCode("");
         request.setIconStyle("");

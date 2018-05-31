@@ -54,7 +54,7 @@ public class GeneratorWebControllerTest extends BaseWebControllerTest {
     @Test
     public void delete() throws Exception {
         GeneratorDeleteWebRequest request = new GeneratorDeleteWebRequest();
-        request.setId(0L);
+        request.setId("");
         GeneratorDeleteWebResponse response = execute(request, GeneratorDeleteWebResponse.class, "/generator/delete");
         Assert.assertNotNull(response.getBody());
     }
@@ -65,7 +65,7 @@ public class GeneratorWebControllerTest extends BaseWebControllerTest {
     @Test
     public void update() throws Exception {
         GeneratorUpdateWebRequest request = new GeneratorUpdateWebRequest();
-        request.setId(0L);
+        request.setId("");
         request.setName("");
         request.setEngineType(0);
         request.setDescription("");
@@ -79,7 +79,7 @@ public class GeneratorWebControllerTest extends BaseWebControllerTest {
     @Test
     public void get() throws Exception {
         GeneratorGetWebRequest request = new GeneratorGetWebRequest();
-        request.setId(0L);
+        request.setId("");
         GeneratorGetWebResponse response = execute(request, GeneratorGetWebResponse.class, "/generator/get");
         Assert.assertNotNull(response.getBody());
     }
@@ -90,7 +90,7 @@ public class GeneratorWebControllerTest extends BaseWebControllerTest {
     @Test
     public void query() throws Exception {
         GeneratorQueryWebRequest request = new GeneratorQueryWebRequest();
-        request.setUserId(0L);
+        request.setUserId("");
         request.setName("");
         request.setStatus(0);
         request.setEngineType(0);
@@ -106,7 +106,7 @@ public class GeneratorWebControllerTest extends BaseWebControllerTest {
         GeneratorSearchWebRequest request = new GeneratorSearchWebRequest();
         request.setPage(1);
         request.setPageSize(10);
-        request.setUserId(0L);
+        request.setUserId("");
         request.setName("");
         request.setStatus(0);
         request.setEngineType(0);

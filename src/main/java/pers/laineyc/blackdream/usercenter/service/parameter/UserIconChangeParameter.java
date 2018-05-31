@@ -10,17 +10,17 @@ public class UserIconChangeParameter extends Parameter {
     /**
      * 头像文件
      */
-    private Long iconFileId;
+    private String iconFileId;
 
     public UserIconChangeParameter() {
 
     }
 
-    public Long getIconFileId() {
+    public String getIconFileId() {
         return iconFileId;
     }
 
-    public void setIconFileId(Long iconFileId) {
+    public void setIconFileId(String iconFileId) {
         this.iconFileId = iconFileId;
     }
 
