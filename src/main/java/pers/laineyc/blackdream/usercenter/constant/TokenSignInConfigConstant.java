@@ -15,4 +15,9 @@ public class TokenSignInConfigConstant {
      */
     public static final String COOKIE_ACCESS_TOKEN_KEY = "ACCESS_TOKEN";
 
+    /**
+     * 令牌登过期天数
+     */
+    public static final int COOKIE_ACCESS_TOKEN_EXPIRE_DAYS = 30;
+
 }

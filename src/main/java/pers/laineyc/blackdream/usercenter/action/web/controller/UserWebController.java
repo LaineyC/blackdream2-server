@@ -15,7 +15,6 @@ import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.usercenter.action.web.request.*;
 import pers.laineyc.blackdream.usercenter.action.web.response.*;
 import pers.laineyc.blackdream.usercenter.action.web.vo.*;
-import pers.laineyc.blackdream.usercenter.constant.TokenSignInConfigConstant;
 import pers.laineyc.blackdream.usercenter.constant.UserSignUpEmailValidCode;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
 import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
@@ -24,7 +23,7 @@ import pers.laineyc.blackdream.usercenter.service.domain.User;
 import pers.laineyc.blackdream.usercenter.service.UserService;
 import pers.laineyc.blackdream.usercenter.tool.EmailValidCode;
 import pers.laineyc.blackdream.usercenter.tool.EmailValidCodeTool;
-import javax.servlet.http.Cookie;
+import pers.laineyc.blackdream.usercenter.tool.UserServiceTool;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -45,6 +44,9 @@ public class UserWebController extends BaseWebController {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserServiceTool userServiceTool;
     
     public UserWebController() {
 
@@ -128,17 +130,7 @@ public class UserWebController extends BaseWebController {
 
         String userId = user.getId();
 
-        int maxAge = 60 * 60 * 24 * 30;
-
-        Cookie usernameCookie = new Cookie(TokenSignInConfigConstant.COOKIE_USERNAME_KEY,  userId);
-        usernameCookie.setPath("/");
-        usernameCookie.setMaxAge(maxAge);
-        httpServletResponse.addCookie(usernameCookie);
-
-        Cookie accessTokenCookie = new Cookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_KEY, user.getAccessToken());
-        accessTokenCookie.setPath("/");
-        accessTokenCookie.setMaxAge(maxAge);
-        httpServletResponse.addCookie(accessTokenCookie);
+        userServiceTool.handleTokenSignInCookie(userId, user.getAccessToken(), httpServletResponse);
 
         Auth auth = new Auth();
         auth.setUserId(userId);
@@ -162,17 +154,7 @@ public class UserWebController extends BaseWebController {
         HttpSession httpSession = httpServletRequest.getSession(false);
         httpSession.removeAttribute(AuthConfigConstant.SESSION_USER_AUTH_KEY);
 
-        int maxAge = 0;
-
-        Cookie usernameCookie = new Cookie(TokenSignInConfigConstant.COOKIE_USERNAME_KEY,  TokenSignInConfigConstant.COOKIE_USERNAME_KEY);
-        usernameCookie.setPath("/");
-        usernameCookie.setMaxAge(maxAge);
-        httpServletResponse.addCookie(usernameCookie);
-
-        Cookie accessTokenCookie = new Cookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_KEY, TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_KEY);
-        accessTokenCookie.setPath("/");
-        accessTokenCookie.setMaxAge(maxAge);
-        httpServletResponse.addCookie(accessTokenCookie);
+        userServiceTool.clearSignInCookie(httpServletResponse);
 
         UserSignOutWebVo userSignOutWebVo = new UserSignOutWebVo();
 
@@ -224,17 +206,7 @@ public class UserWebController extends BaseWebController {
 
         String userId = user.getId();
 
-        int maxAge = 60 * 60 * 24 * 30;
-
-        Cookie usernameCookie = new Cookie(TokenSignInConfigConstant.COOKIE_USERNAME_KEY,  userId);
-        usernameCookie.setPath("/");
-        usernameCookie.setMaxAge(maxAge);
-        httpServletResponse.addCookie(usernameCookie);
-
-        Cookie accessTokenCookie = new Cookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_KEY, user.getAccessToken());
-        accessTokenCookie.setPath("/");
-        accessTokenCookie.setMaxAge(maxAge);
-        httpServletResponse.addCookie(accessTokenCookie);
+        userServiceTool.handleTokenSignInCookie(userId, user.getAccessToken(), httpServletResponse);
 
         UserPasswordChangeWebVo userPasswordUpdateWebVo = new UserPasswordChangeWebVo();
 

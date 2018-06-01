@@ -4,8 +4,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.RegexUtil;
+import pers.laineyc.blackdream.usercenter.constant.TokenSignInConfigConstant;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.regex.Pattern;
 
 /**
@@ -44,6 +48,28 @@ public class UserServiceTool{
             return false;
         }
         return Pattern.matches(REGEX_USERNAME, username);
+    }
+
+    public void clearSignInCookie(HttpServletResponse httpServletResponse){
+        handleTokenSignInCookie(0, "", "", httpServletResponse);
+    }
+
+    public void handleTokenSignInCookie(String userId, String accessToken, HttpServletResponse httpServletResponse){
+        handleTokenSignInCookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_EXPIRE_DAYS, userId, accessToken, httpServletResponse);
+    }
+
+    public void handleTokenSignInCookie(int days, String userId, String accessToken, HttpServletResponse httpServletResponse){
+        int maxAge = 60 * 60 * 24 * days;
+
+        Cookie usernameCookie = new Cookie(TokenSignInConfigConstant.COOKIE_USERNAME_KEY,  userId);
+        usernameCookie.setPath("/");
+        usernameCookie.setMaxAge(maxAge);
+        httpServletResponse.addCookie(usernameCookie);
+
+        Cookie accessTokenCookie = new Cookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_KEY, accessToken);
+        accessTokenCookie.setPath("/");
+        accessTokenCookie.setMaxAge(maxAge);
+        httpServletResponse.addCookie(accessTokenCookie);
     }
 
     /**

@@ -17,6 +17,7 @@ import pers.laineyc.blackdream.usercenter.constant.TokenSignInConfigConstant;
 import pers.laineyc.blackdream.usercenter.service.UserService;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 import pers.laineyc.blackdream.usercenter.service.parameter.UserTokenSignInParameter;
+import pers.laineyc.blackdream.usercenter.tool.UserServiceTool;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,6 +32,9 @@ public class TokenSignInInterceptor {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserServiceTool userServiceTool;
 
     @Around("execution(public * pers.laineyc.blackdream.*.action.*.controller.*.*(..))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
@@ -70,6 +74,8 @@ public class TokenSignInInterceptor {
                 User user = userService.tokenSignIn(userTokenSignInParameter);
 
                 String userId = user.getId();
+
+                userServiceTool.handleTokenSignInCookie(userId, user.getAccessToken(), attributes.getResponse());
 
                 auth = new Auth();
                 auth.setUserId(userId);
