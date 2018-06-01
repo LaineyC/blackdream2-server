@@ -120,7 +120,7 @@ public class DataModelCreateWebRequest extends Request {
         @ApiModelProperty(value = "字段注释")
         private String comment;
 
-        @ApiModelProperty(value = "数据类型：1Boolean；2Integer；3Decimal；4Text；5Enum；6Date；7Time；8Model")
+        @ApiModelProperty(value = "数据类型：1Boolean；2Integer；3Decimal；4Text；5Enum；6Date；7Time；8DateTime；9Model")
         private Integer dataType;
 
         @ApiModelProperty(value = "默认值")
@@ -135,7 +135,7 @@ public class DataModelCreateWebRequest extends Request {
         @ApiModelProperty(value = "显示宽度")
         private Double displayWidth;
 
-        @ApiModelProperty(value = "显示方式：1默认显示；2默认隐藏下拉；3强制显示")
+        @ApiModelProperty(value = "显示方式：1默认显示；2默认隐藏；3强制显示；4强制隐藏")
         private Integer displayType;
 
         @ApiModelProperty(value = "是否只读控件")

@@ -229,7 +229,7 @@ public class DataModelGetWebVo extends Vo {
         @ApiModelProperty(value = "字段注释")
         private String comment;
 
-        @ApiModelProperty(value = "数据类型：1Boolean；2Integer；3Decimal；4Text；5Enum；6Date；7Time；8Model")
+        @ApiModelProperty(value = "数据类型：1Boolean；2Integer；3Decimal；4Text；5Enum；6Date；7Time；8DateTime；9Model")
         private Integer dataType;
 
         @ApiModelProperty(value = "默认值")
@@ -244,14 +244,14 @@ public class DataModelGetWebVo extends Vo {
         @ApiModelProperty(value = "显示宽度")
         private Double displayWidth;
 
+        @ApiModelProperty(value = "显示方式：1默认显示；2默认隐藏；3强制显示；4强制隐藏")
+        private Integer displayType;
+
         @ApiModelProperty(value = "是否只读控件")
         private Boolean isReadonly;
 
         @ApiModelProperty(value = "是否禁用控件")
         private Boolean isDisabled;
-
-        @ApiModelProperty(value = "默认记录列表")
-        private Boolean isDropdown;
 
         @ApiModelProperty(value = "必填项")
         private Boolean isRequired;
@@ -348,6 +348,14 @@ public class DataModelGetWebVo extends Vo {
             this.displayWidth = displayWidth;
         }
 
+        public Integer getDisplayType() {
+            return displayType;
+        }
+
+        public void setDisplayType(Integer displayType) {
+            this.displayType = displayType;
+        }
+
         public Boolean getIsReadonly() {
             return isReadonly;
         }
@@ -362,14 +370,6 @@ public class DataModelGetWebVo extends Vo {
 
         public void setIsDisabled(Boolean isDisabled) {
             this.isDisabled = isDisabled;
-        }
-
-        public Boolean getIsDropdown() {
-            return isDropdown;
-        }
-
-        public void setIsDropdown(Boolean isDropdown) {
-            this.isDropdown = isDropdown;
         }
 
         public Boolean getIsRequired() {

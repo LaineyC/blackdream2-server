@@ -1,31 +1,29 @@
-package pers.laineyc.blackdream.generator.service.parameter;
+package pers.laineyc.blackdream.generator.action.web.request;
 
-import pers.laineyc.blackdream.framework.service.parameter.Parameter;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import pers.laineyc.blackdream.framework.controller.request.Request;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 生成器实例生成Parameter
+ * 生成器实例生成Request
  * @author LaineyC
  */
-public class GeneratorInstanceMakeParameter extends Parameter {
+@ApiModel
+public class GeneratorInstanceMakeTestWebRequest extends Request {
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     private String id;
 
-    /**
-     * 生成器生成策略主键
-     */
+    @ApiModelProperty(value = "生成器生成策略主键")
     private String creationStrategyId;
 
-    /**
-     * 不包括的生成器数据模型主键
-     */
+    @ApiModelProperty(value = "不包括的生成器数据模型主键")
     private List<String> excludeDataModelIdList = new ArrayList<>();
 
-    public GeneratorInstanceMakeParameter() {
+    public GeneratorInstanceMakeTestWebRequest() {
 
     }
 

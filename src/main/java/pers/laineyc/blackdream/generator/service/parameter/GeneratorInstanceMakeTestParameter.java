@@ -8,7 +8,7 @@ import java.util.List;
  * 生成器实例生成Parameter
  * @author LaineyC
  */
-public class GeneratorInstanceMakeParameter extends Parameter {
+public class GeneratorInstanceMakeTestParameter extends Parameter {
 
     /**
      * 主键
@@ -25,7 +25,7 @@ public class GeneratorInstanceMakeParameter extends Parameter {
      */
     private List<String> excludeDataModelIdList = new ArrayList<>();
 
-    public GeneratorInstanceMakeParameter() {
+    public GeneratorInstanceMakeTestParameter() {
 
     }
 

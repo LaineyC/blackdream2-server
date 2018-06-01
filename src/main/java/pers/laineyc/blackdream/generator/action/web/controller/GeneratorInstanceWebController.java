@@ -10,43 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pers.laineyc.blackdream.configuration.config.Security;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceCreateParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceCreateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceCreateWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceCreateWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceDeleteParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceDeleteWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceDeleteWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceDeleteWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceUpdateParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceUpdateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceUpdateWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceUpdateWebVo;
+import pers.laineyc.blackdream.generator.action.web.request.*;
+import pers.laineyc.blackdream.generator.action.web.response.*;
+import pers.laineyc.blackdream.generator.action.web.vo.*;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceSearchParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceGetWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceGetWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceGetWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceQueryWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceQueryWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceQueryWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceSearchWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceSearchWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceInfoSearchParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceInfoSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceInfoSearchWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceInfoSearchWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceMakeParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceMakeWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceMakeWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceMakeWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceVersionSyncParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceVersionSyncWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorInstanceVersionSyncWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorInstanceVersionSyncWebVo;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstance;
 import pers.laineyc.blackdream.generator.service.GeneratorInstanceService;
 import java.util.List;
@@ -198,6 +166,21 @@ public class GeneratorInstanceWebController extends BaseWebController {
         BeanUtils.copyProperties(generatorInstance, generatorInstanceMakeWebVo);
 
         return new GeneratorInstanceMakeWebResponse(generatorInstanceMakeWebVo);
+    }
+
+    @Security
+    @ApiOperation(value = "生成器实例生成测试")
+    @PostMapping(value = "/generatorInstance/makeTest")
+    public @ResponseBody GeneratorInstanceMakeTestWebResponse makeTest(@RequestBody GeneratorInstanceMakeTestWebRequest request) {
+        GeneratorInstanceMakeTestParameter parameter = new GeneratorInstanceMakeTestParameter();
+        BeanUtils.copyProperties(request, parameter);
+
+        GeneratorInstance generatorInstance = generatorInstanceService.makeTest(parameter);
+
+        GeneratorInstanceMakeTestWebVo generatorInstanceMakeTestWebVo = new GeneratorInstanceMakeTestWebVo();
+        BeanUtils.copyProperties(generatorInstance, generatorInstanceMakeTestWebVo);
+
+        return new GeneratorInstanceMakeTestWebResponse(generatorInstanceMakeTestWebVo);
     }
 
     @Security

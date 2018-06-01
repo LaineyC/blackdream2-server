@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
 import pers.laineyc.blackdream.generator.service.domain.DataModelFieldConfig;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,13 +72,11 @@ public class GeneratorInstanceConfigPo extends Po {
     /**
      * 属性列表
      */
-    @FetchLazy
     private List<DataModelFieldConfig> propertyList = new ArrayList<>();
 
     /**
      * 字段列表
      */
-    @FetchLazy
     private List<DataModelFieldConfig> fieldList = new ArrayList<>();
 
     /**

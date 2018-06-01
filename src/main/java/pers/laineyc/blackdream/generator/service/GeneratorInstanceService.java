@@ -1,16 +1,8 @@
 package pers.laineyc.blackdream.generator.service;
 
 import pers.laineyc.blackdream.framework.service.Service;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceCreateParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceDeleteParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceUpdateParameter;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceSearchParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceInfoSearchParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceMakeParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceVersionSyncParameter;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstance;
 import java.util.List; 
 
@@ -59,6 +51,11 @@ public interface GeneratorInstanceService extends Service{
      * 生成器实例生成
      */
     GeneratorInstance make(GeneratorInstanceMakeParameter parameter);
+
+    /**
+     * 生成器实例生成
+     */
+    GeneratorInstance makeTest(GeneratorInstanceMakeTestParameter parameter);
     
     /**
      * 生成器实例版本同步
