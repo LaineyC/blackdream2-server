@@ -54,6 +54,11 @@ public class DataModelField extends Domain {
     private Double displayWidth;
 
     /**
+     * 显示方式：1默认显示；2默认隐藏下拉；3强制显示
+     */
+    private Integer displayType;
+
+    /**
      * 是否只读控件
      */
     private Boolean isReadonly;
@@ -62,11 +67,6 @@ public class DataModelField extends Domain {
      * 是否禁用控件
      */
     private Boolean isDisabled;
-
-    /**
-     * 是否下拉
-     */
-    private Boolean isDropdown;
 
     /**
      * 必填项
@@ -181,6 +181,14 @@ public class DataModelField extends Domain {
         this.displayWidth = displayWidth;
     }
 
+    public Integer getDisplayType() {
+        return displayType;
+    }
+
+    public void setDisplayType(Integer displayType) {
+        this.displayType = displayType;
+    }
+
     public Boolean getIsReadonly() {
         return isReadonly;
     }
@@ -195,14 +203,6 @@ public class DataModelField extends Domain {
 
     public void setIsDisabled(Boolean isDisabled) {
         this.isDisabled = isDisabled;
-    }
-
-    public Boolean getIsDropdown() {
-        return isDropdown;
-    }
-
-    public void setIsDropdown(Boolean isDropdown) {
-        this.isDropdown = isDropdown;
     }
 
     public Boolean getIsRequired() {

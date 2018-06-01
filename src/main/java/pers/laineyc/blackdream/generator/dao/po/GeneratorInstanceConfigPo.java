@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
+import pers.laineyc.blackdream.generator.service.domain.DataModelFieldConfig;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,6 +69,18 @@ public class GeneratorInstanceConfigPo extends Po {
 	 *  修改时间
 	 */
 	private Date updateTime;
+
+    /**
+     * 属性列表
+     */
+    @FetchLazy
+    private List<DataModelFieldConfig> propertyList = new ArrayList<>();
+
+    /**
+     * 字段列表
+     */
+    @FetchLazy
+    private List<DataModelFieldConfig> fieldList = new ArrayList<>();
 
     /**
      * 是否直接添加默认记录
@@ -155,6 +168,22 @@ public class GeneratorInstanceConfigPo extends Po {
 
 	public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<DataModelFieldConfig> getPropertyList() {
+        return propertyList;
+    }
+
+    public void setPropertyList(List<DataModelFieldConfig> propertyList) {
+        this.propertyList = propertyList;
+    }
+
+    public List<DataModelFieldConfig> getFieldList() {
+        return fieldList;
+    }
+
+    public void setFieldList(List<DataModelFieldConfig> fieldList) {
+        this.fieldList = fieldList;
     }
 
     public Boolean getIsAddDefaultRecordList() {

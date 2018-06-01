@@ -89,6 +89,10 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
 
         generatorInstanceConfigPo.setCreateTime(now);
 
+        generatorInstanceConfigPo.setPropertyList(parameter.getPropertyList());
+
+        generatorInstanceConfigPo.setFieldList(parameter.getFieldList());
+
         generatorInstanceConfigPo.setIsAddDefaultRecordList(parameter.getIsAddDefaultRecordList());
 
         generatorInstanceConfigPo.setDefaultRecordList(parameter.getDefaultRecordList());
@@ -160,6 +164,10 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
         generatorInstanceConfigPo.setDescription(description);
 
         generatorInstanceConfigPo.setUpdateTime(now);
+
+        generatorInstanceConfigPo.setPropertyList(parameter.getPropertyList());
+
+        generatorInstanceConfigPo.setFieldList(parameter.getFieldList());
 
         generatorInstanceConfigPo.setIsAddDefaultRecordList(parameter.getIsAddDefaultRecordList());
 
@@ -239,6 +247,10 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
         generatorInstanceConfig.setCreateTime(generatorInstanceConfigPo.getCreateTime());
 
         generatorInstanceConfig.setUpdateTime(generatorInstanceConfigPo.getUpdateTime());
+
+        generatorInstanceConfig.setPropertyList(generatorInstanceConfigPo.getPropertyList());
+
+        generatorInstanceConfig.setFieldList(generatorInstanceConfigPo.getFieldList());
 
         generatorInstanceConfig.setIsAddDefaultRecordList(generatorInstanceConfigPo.getIsAddDefaultRecordList());
 

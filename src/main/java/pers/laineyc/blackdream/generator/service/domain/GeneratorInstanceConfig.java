@@ -56,6 +56,16 @@ public class GeneratorInstanceConfig extends Domain {
     private Date updateTime;
 
     /**
+     * 属性列表
+     */
+    private List<DataModelFieldConfig> propertyList = new ArrayList<>();
+
+    /**
+     * 字段列表
+     */
+    private List<DataModelFieldConfig> fieldList = new ArrayList<>();
+
+    /**
      * 是否直接添加默认记录
      */
     private Boolean isAddDefaultRecordList;
@@ -131,6 +141,22 @@ public class GeneratorInstanceConfig extends Domain {
 
 	public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<DataModelFieldConfig> getPropertyList() {
+        return propertyList;
+    }
+
+    public void setPropertyList(List<DataModelFieldConfig> propertyList) {
+        this.propertyList = propertyList;
+    }
+
+    public List<DataModelFieldConfig> getFieldList() {
+        return fieldList;
+    }
+
+    public void setFieldList(List<DataModelFieldConfig> fieldList) {
+        this.fieldList = fieldList;
     }
 
     public Boolean getIsAddDefaultRecordList() {
