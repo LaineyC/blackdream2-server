@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pers.laineyc.blackdream.configuration.config.Security;
+import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
@@ -18,7 +18,6 @@ import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.TemplateFile;
 import pers.laineyc.blackdream.generator.service.TemplateFileService;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * 生成器模板文件Controller
@@ -35,7 +34,7 @@ public class TemplateFileWebController extends BaseWebController {
 
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件创建")
     @PostMapping(value = "/templateFile/create")
     public @ResponseBody TemplateFileCreateWebResponse create(@RequestBody TemplateFileCreateWebRequest request) {
@@ -50,7 +49,7 @@ public class TemplateFileWebController extends BaseWebController {
         return new TemplateFileCreateWebResponse(templateFileCreateWebVo);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件删除")
     @PostMapping(value = "/templateFile/delete")
     public @ResponseBody TemplateFileDeleteWebResponse delete(@RequestBody TemplateFileDeleteWebRequest request) {
@@ -65,7 +64,7 @@ public class TemplateFileWebController extends BaseWebController {
         return new TemplateFileDeleteWebResponse(templateFileDeleteWebVo);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件修改")
     @PostMapping(value = "/templateFile/update")
     public @ResponseBody TemplateFileUpdateWebResponse update(@RequestBody TemplateFileUpdateWebRequest request) {
@@ -132,7 +131,7 @@ public class TemplateFileWebController extends BaseWebController {
         return new TemplateFileSearchWebResponse(templateFileSearchWebVoPageResult);
     }
 */
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件排序")
     @PostMapping(value = "/templateFile/sort")
     public @ResponseBody TemplateFileSortWebResponse sort(@RequestBody TemplateFileSortWebRequest request) {
@@ -147,7 +146,7 @@ public class TemplateFileWebController extends BaseWebController {
         return new TemplateFileSortWebResponse(templateFileSortWebVo);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件分页查询")
     @PostMapping(value = "/templateFile/infoSearch")
     public @ResponseBody TemplateFileInfoSearchWebResponse infoSearch(@RequestBody TemplateFileInfoSearchWebRequest request) {

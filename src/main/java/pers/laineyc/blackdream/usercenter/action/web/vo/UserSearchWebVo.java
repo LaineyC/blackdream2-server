@@ -20,6 +20,9 @@ public class UserSearchWebVo extends Vo {
     @ApiModelProperty(value = "状态：1冻结；2启用")
     private Integer status;
 
+    @ApiModelProperty(value = "状态：1一般用户；2开发用户")
+    private Integer type;
+
     @ApiModelProperty(value = "昵称")
     private String nickname;
 
@@ -68,6 +71,14 @@ public class UserSearchWebVo extends Vo {
 
 	public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getNickname() {

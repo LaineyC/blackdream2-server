@@ -21,6 +21,9 @@ public class UserInfoGetWebVo extends Vo {
     @ApiModelProperty(value = "状态：1冻结；2启用")
     private Integer status;
 
+    @ApiModelProperty(value = "状态：1一般用户；2开发用户")
+    private Integer type;
+
     @ApiModelProperty(value = "昵称")
     private String nickname;
 
@@ -67,7 +70,15 @@ public class UserInfoGetWebVo extends Vo {
         return this.status;
     }
 
-	public void setStatus(Integer status) {
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

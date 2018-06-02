@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pers.laineyc.blackdream.configuration.config.Security;
+import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorCreateParameter;
@@ -24,25 +24,9 @@ import pers.laineyc.blackdream.generator.action.web.response.GeneratorUpdateWebR
 import pers.laineyc.blackdream.generator.action.web.vo.GeneratorUpdateWebVo;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorSearchParameter;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorGetWebRequest;
 import pers.laineyc.blackdream.generator.action.web.response.GeneratorGetWebResponse;
 import pers.laineyc.blackdream.generator.action.web.vo.GeneratorGetWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorQueryWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorQueryWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorQueryWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorSearchWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorSearchWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorExportParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorExportWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorExportWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorExportWebVo;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorImportParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorImportWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorImportWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorImportWebVo;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorInfoSearchParameter;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorInfoSearchWebRequest;
 import pers.laineyc.blackdream.generator.action.web.response.GeneratorInfoSearchWebResponse;
@@ -54,7 +38,6 @@ import pers.laineyc.blackdream.generator.action.web.vo.GeneratorReleaseWebVo;
 import pers.laineyc.blackdream.generator.service.domain.Generator;
 import pers.laineyc.blackdream.generator.service.GeneratorService;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * 生成器Controller
@@ -71,7 +54,7 @@ public class GeneratorWebController extends BaseWebController {
 
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器创建")
     @PostMapping(value = "/generator/create")
     public @ResponseBody GeneratorCreateWebResponse create(@RequestBody GeneratorCreateWebRequest request) {
@@ -86,7 +69,7 @@ public class GeneratorWebController extends BaseWebController {
         return new GeneratorCreateWebResponse(generatorCreateWebVo);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器删除")
     @PostMapping(value = "/generator/delete")
     public @ResponseBody GeneratorDeleteWebResponse delete(@RequestBody GeneratorDeleteWebRequest request) {
@@ -101,7 +84,7 @@ public class GeneratorWebController extends BaseWebController {
         return new GeneratorDeleteWebResponse(generatorDeleteWebVo);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器修改")
     @PostMapping(value = "/generator/update")
     public @ResponseBody GeneratorUpdateWebResponse update(@RequestBody GeneratorUpdateWebRequest request) {
@@ -198,7 +181,7 @@ public class GeneratorWebController extends BaseWebController {
         return new GeneratorImportWebResponse(generatorImportWebVo);
     }
 */
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器分页查询")
     @PostMapping(value = "/generator/infoSearch")
     public @ResponseBody GeneratorInfoSearchWebResponse infoSearch(@RequestBody GeneratorInfoSearchWebRequest request) {
@@ -218,7 +201,7 @@ public class GeneratorWebController extends BaseWebController {
         return new GeneratorInfoSearchWebResponse(generatorSearchWebVoPageResult);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器发布")
     @PostMapping(value = "/generator/release")
     public @ResponseBody GeneratorReleaseWebResponse release(@RequestBody GeneratorReleaseWebRequest request) {

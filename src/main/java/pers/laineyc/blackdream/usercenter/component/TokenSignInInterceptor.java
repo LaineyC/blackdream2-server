@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import pers.laineyc.blackdream.configuration.config.Security;
+import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.configuration.constant.AccessLevelEnum;
 import pers.laineyc.blackdream.framework.constant.AuthConfigConstant;
 import pers.laineyc.blackdream.framework.controller.request.Request;
@@ -46,7 +46,7 @@ public class TokenSignInInterceptor {
         HttpSession httpSession = httpServletRequest.getSession(false);
         Auth auth = (Auth)httpSession.getAttribute(AuthConfigConstant.SESSION_USER_AUTH_KEY);
 
-        Security security = targetMethod.getAnnotation(Security.class);
+        AuthSecurity security = targetMethod.getAnnotation(AuthSecurity.class);
         boolean isPublic = false;
         if(security == null || AccessLevelEnum.PUBLIC == security.accessLevel()){
             isPublic = true;
@@ -78,6 +78,7 @@ public class TokenSignInInterceptor {
                 userServiceTool.handleTokenSignInCookie(userId, user.getAccessToken(), attributes.getResponse());
 
                 auth = new Auth();
+                auth.setUserType(user.getType());
                 auth.setUserId(userId);
 
                 httpSession.setAttribute(AuthConfigConstant.SESSION_USER_AUTH_KEY, auth);

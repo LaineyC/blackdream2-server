@@ -22,6 +22,11 @@ public class User extends Domain {
     private Integer status;
 
     /**
+     * 状态：1一般用户；2开发用户
+     */
+    private Integer type;
+
+    /**
      * 昵称
      */
     private String nickname;
@@ -99,6 +104,14 @@ public class User extends Domain {
 
 	public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getNickname() {

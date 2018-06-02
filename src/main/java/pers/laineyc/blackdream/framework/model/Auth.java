@@ -12,6 +12,8 @@ public class Auth implements Serializable {
 
     private String userId;
 
+    private Integer userType;
+
     public Auth() {
 
     }
@@ -24,4 +26,11 @@ public class Auth implements Serializable {
         this.userId = userId;
     }
 
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
 }
