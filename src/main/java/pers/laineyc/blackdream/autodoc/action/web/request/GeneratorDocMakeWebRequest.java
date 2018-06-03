@@ -11,10 +11,10 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 @ApiModel
 public class GeneratorDocMakeWebRequest extends Request {
 
-    @ApiModelProperty(value = "所属生成器")
-    private String generatorId;
+    @ApiModelProperty(value = "所属生成器实例")
+    private String generatorInstanceId;
 
-    @ApiModelProperty(value = "文档语言")
+    @ApiModelProperty(value = "文档语言：1Java")
     private Integer docLanguage;
 
     @ApiModelProperty(value = "是否生成文档")
@@ -27,12 +27,12 @@ public class GeneratorDocMakeWebRequest extends Request {
 
     }
 
-    public String getGeneratorId() {
-        return generatorId;
+    public String getGeneratorInstanceId() {
+        return generatorInstanceId;
     }
 
-    public void setGeneratorId(String generatorId) {
-        this.generatorId = generatorId;
+    public void setGeneratorInstanceId(String generatorInstanceId) {
+        this.generatorInstanceId = generatorInstanceId;
     }
 
     public Integer getDocLanguage() {

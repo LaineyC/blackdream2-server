@@ -9,12 +9,12 @@ import pers.laineyc.blackdream.framework.service.parameter.Parameter;
 public class GeneratorDocMakeParameter extends Parameter {
 
     /**
-     * 所属生成器
+     * 所属生成器实例
      */
-    private String generatorId;
+    private String generatorInstanceId;
 
     /**
-     * 文档语言
+     * 文档语言：1Java
      */
     private Integer docLanguage;
 
@@ -32,12 +32,12 @@ public class GeneratorDocMakeParameter extends Parameter {
 
     }
 
-    public String getGeneratorId() {
-        return generatorId;
+    public String getGeneratorInstanceId() {
+        return generatorInstanceId;
     }
 
-    public void setGeneratorId(String generatorId) {
-        this.generatorId = generatorId;
+    public void setGeneratorInstanceId(String generatorInstanceId) {
+        this.generatorInstanceId = generatorInstanceId;
     }
 
     public Integer getDocLanguage() {

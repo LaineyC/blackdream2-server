@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.autodoc.service.parameter.GeneratorDocMakeParameter;
@@ -30,7 +31,8 @@ public class GeneratorDocWebController extends BaseWebController {
     public GeneratorDocWebController() {
 
     }
-    
+
+    @AuthSecurity
     @ApiOperation(value = "生成器文档生成")
     @PostMapping(value = "/generatorDoc/make")
     public @ResponseBody GeneratorDocMakeWebResponse make(@RequestBody GeneratorDocMakeWebRequest request) {
