@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface AuthSecurity {
 
-    boolean notNull() default false;
+    boolean notNull() default true;
 
     boolean developer() default false;
 
