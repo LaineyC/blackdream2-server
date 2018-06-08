@@ -1,8 +1,8 @@
 package pers.laineyc.blackdream.framework.dao.support.mongo;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import com.mongodb.WriteResult;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
+import org.bson.Document;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
@@ -60,8 +60,8 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
 
     @Override
     public int deleteList(Query<E> query) {
-        WriteResult writeResult = mongoTemplate.remove(createQuery(query), entityClass);
-        return writeResult.getN();
+        DeleteResult result = mongoTemplate.remove(createQuery(query), entityClass);
+        return (int)result.getDeletedCount();
     }
 
     @Override
@@ -78,8 +78,8 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
             String propertyAlias = propertyInformation.getPropertyAlias();
             update.set(propertyAlias, value);
         });
-        WriteResult writeResult = mongoTemplate.updateMulti(mongodbQuery, update, entityClass);
-        return writeResult.getN();
+        UpdateResult result = mongoTemplate.updateMulti(mongodbQuery, update, entityClass);
+        return (int)result.getModifiedCount();
     }
 
     @Override
@@ -99,8 +99,8 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
             String propertyAlias = propertyInformation.getPropertyAlias();
             update.set(propertyAlias, value);
         });
-        WriteResult writeResult = mongoTemplate.updateMulti(mongodbQuery, update, entityClass);
-        return writeResult.getN();
+        UpdateResult result = mongoTemplate.updateMulti(mongodbQuery, update, entityClass);
+        return (int)result.getModifiedCount();
     }
 
     @Override
@@ -119,8 +119,8 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
             update.set(propertyAlias, value);
         });
 
-        WriteResult writeResult = mongoTemplate.updateMulti(mongodbQuery, update, entityClass);
-        return writeResult.getN();
+        UpdateResult result = mongoTemplate.updateMulti(mongodbQuery, update, entityClass);
+        return (int)result.getModifiedCount();
     }
 
     @Override
@@ -189,7 +189,7 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
             mongodbQuery.with(sort);
         }
 
-        DBObject fieldsObject = new BasicDBObject();
+        Document fieldsObject = new Document();
         if(query.getIsFetchLazy()) {
             entityInformation.getPropertyInformationList().forEach(propertyInformation -> {
                 if (propertyInformation.getIsFetchLazy()) {
