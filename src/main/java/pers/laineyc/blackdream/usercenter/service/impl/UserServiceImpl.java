@@ -16,6 +16,7 @@ import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.usercenter.constant.UserStatusEnum;
+import pers.laineyc.blackdream.usercenter.constant.UserTypeEnum;
 import pers.laineyc.blackdream.usercenter.service.UserService;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.usercenter.tool.UserServiceTool;
@@ -125,6 +126,8 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         user.setStatus(userPo.getStatus());
 
+        user.setType(userPo.getType());
+
         user.setNickname(userPo.getNickname());
 
         user.setIconFileId(userPo.getIconFileId());
@@ -159,6 +162,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         
         UserQuery userQuery = new UserQuery();
         userQuery.setStatus(parameter.getStatus());
+        userQuery.setType(parameter.getType());
         userQuery.setNickname(parameter.getNickname());
         userQuery.setIconFileId(parameter.getIconFileId());
         userQuery.setUsername(parameter.getUsername());
@@ -177,6 +181,8 @@ public class UserServiceImpl extends BaseService implements UserService {
             user.setId(po.getId());
 
             user.setStatus(po.getStatus());
+
+            user.setType(po.getType());
 
             user.setNickname(po.getNickname());
 
@@ -222,6 +228,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         UserQuery userQuery = new UserQuery();
         userQuery.setStatus(parameter.getStatus());
+        userQuery.setType(parameter.getType());
         userQuery.setNickname(parameter.getNickname());
         userQuery.setIconFileId(parameter.getIconFileId());
         userQuery.setUsername(parameter.getUsername());
@@ -237,6 +244,8 @@ public class UserServiceImpl extends BaseService implements UserService {
             user.setId(po.getId());
 
             user.setStatus(po.getStatus());
+
+            user.setType(po.getType());
 
             user.setNickname(po.getNickname());
 
@@ -313,6 +322,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         User user = new User();
         user.setId(userPo.getId());
+        user.setType(userPo.getType());
         user.setAccessToken(accessToken);
 
         return user;
@@ -357,6 +367,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 */
         User user = new User();
         user.setId(userPo.getId());
+        user.setType(userPo.getType());
         user.setAccessToken(accessToken);
 
         return user;
@@ -426,6 +437,8 @@ public class UserServiceImpl extends BaseService implements UserService {
         userPo.setSignInCount(0);
 
         userPo.setStatus(UserStatusEnum.ENABLE.getCode());
+
+        userPo.setType(UserTypeEnum.GENERAL.getCode());
 
         userPo.setSignUpTime(now);
 

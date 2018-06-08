@@ -9,17 +9,9 @@ import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.generator.service.GeneratorInstanceService;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.GeneratorInstanceServiceTool;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceCreateParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceDeleteParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceUpdateParameter;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceSearchParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceInfoSearchParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceMakeParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceVersionSyncParameter;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstance;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorInstancePo;
 import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceQuery;
@@ -450,7 +442,15 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
         return generatorInstance;
     }
-    
+
+    /**
+     * 生成器实例生成参数
+     */
+    @Transactional
+    public GeneratorInstance makeTest(GeneratorInstanceMakeTestParameter parameter) {
+        return null;
+    }
+
     /**
      * 生成器实例版本同步
      */

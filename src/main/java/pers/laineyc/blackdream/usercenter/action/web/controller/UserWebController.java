@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pers.laineyc.blackdream.configuration.config.Security;
+import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.constant.AuthConfigConstant;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
@@ -17,7 +17,6 @@ import pers.laineyc.blackdream.usercenter.action.web.response.*;
 import pers.laineyc.blackdream.usercenter.action.web.vo.*;
 import pers.laineyc.blackdream.usercenter.constant.UserSignUpEmailValidCode;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
-import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 import pers.laineyc.blackdream.usercenter.service.UserService;
@@ -134,6 +133,7 @@ public class UserWebController extends BaseWebController {
 
         Auth auth = new Auth();
         auth.setUserId(userId);
+        auth.setUserType(user.getType());
 
         HttpSession httpSession = httpServletRequest.getSession(false);
         httpSession.setAttribute(AuthConfigConstant.SESSION_USER_AUTH_KEY, auth);
@@ -194,7 +194,7 @@ public class UserWebController extends BaseWebController {
         return new UserSignUpWebResponse(userSignUpWebVo);
     }
 
-    @Security
+    @AuthSecurity
     @ApiOperation(value = "用户密码更改")
     @PostMapping(value = "/user/passwordChange")
     public @ResponseBody
@@ -238,6 +238,7 @@ public class UserWebController extends BaseWebController {
         return new UserIconChangeWebResponse(userIconChangeWebVo);
     }
 
+    @AuthSecurity
     @ApiOperation(value = "用户单个查询")
     @PostMapping(value = "/user/infoGet")
     public @ResponseBody UserInfoGetWebResponse infoGet(@RequestBody UserInfoGetWebRequest request) {

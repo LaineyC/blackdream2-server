@@ -7,13 +7,12 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import pers.laineyc.blackdream.configuration.constant.AccessLevelEnum;
-import pers.laineyc.blackdream.configuration.config.Security;
+import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.constant.AuthConfigConstant;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.exception.ErrorCodes;
 import pers.laineyc.blackdream.framework.model.Auth;
-
+import pers.laineyc.blackdream.usercenter.constant.UserTypeEnum;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
@@ -35,16 +34,21 @@ public class SecurityInterceptor {
         HttpSession httpSession = httpServletRequest.getSession();
         Auth auth = (Auth) httpSession.getAttribute(AuthConfigConstant.SESSION_USER_AUTH_KEY);
 
-        Security security = targetMethod.getAnnotation(Security.class);
+        AuthSecurity authSecurity = targetMethod.getAnnotation(AuthSecurity.class);
 
-        if(security == null){
+        if(authSecurity == null){
             return point.proceed();
         }
 
-        AccessLevelEnum accessLevel = security.accessLevel();
+        boolean authNotNull = authSecurity.notNull();
 
-        if(accessLevel == AccessLevelEnum.PROTECTED){
+        if(authNotNull){
             if(auth == null || auth.getUserId() == null){
+                throw new BusinessException(ErrorCodes.EC_001002);
+            }
+
+            boolean authDeveloper = authSecurity.developer();
+            if(authDeveloper && (auth.getUserType() != UserTypeEnum.DEVELOPER.getCode())){
                 throw new BusinessException(ErrorCodes.EC_001002);
             }
         }

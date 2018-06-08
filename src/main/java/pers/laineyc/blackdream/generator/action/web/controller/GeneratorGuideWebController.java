@@ -7,18 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pers.laineyc.blackdream.configuration.config.Security;
+import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
 import pers.laineyc.blackdream.generator.action.web.response.*;
 import pers.laineyc.blackdream.generator.action.web.vo.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
-import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorGuide;
 import pers.laineyc.blackdream.generator.service.GeneratorGuideService;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * 生成器指南Controller
@@ -135,7 +132,7 @@ public class GeneratorGuideWebController extends BaseWebController {
         return new GeneratorGuideSearchWebResponse(generatorGuideSearchWebVoPageResult);
     }
 */
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器指南保存")
     @PostMapping(value = "/generatorGuide/save")
     public @ResponseBody GeneratorGuideSaveWebResponse save(@RequestBody GeneratorGuideSaveWebRequest request) {

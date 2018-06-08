@@ -1,7 +1,5 @@
 package pers.laineyc.blackdream.configuration.config;
 
-import pers.laineyc.blackdream.configuration.constant.AccessLevelEnum;
-
 import java.lang.annotation.*;
 
 /**
@@ -10,8 +8,10 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Security {
+public @interface AuthSecurity {
 
-    AccessLevelEnum accessLevel() default AccessLevelEnum.PROTECTED;
+    boolean notNull() default true;
+
+    boolean developer() default false;
 
 }

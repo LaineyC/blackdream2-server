@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pers.laineyc.blackdream.configuration.config.Security;
+import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
@@ -18,7 +18,6 @@ import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.DataModel;
 import pers.laineyc.blackdream.generator.service.DataModelService;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * 生成器数据模型Controller
@@ -35,7 +34,7 @@ public class DataModelWebController extends BaseWebController {
 
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型创建")
     @PostMapping(value = "/dataModel/create")
     public @ResponseBody DataModelCreateWebResponse create(@RequestBody DataModelCreateWebRequest request) {
@@ -50,7 +49,7 @@ public class DataModelWebController extends BaseWebController {
         return new DataModelCreateWebResponse(dataModelCreateWebVo);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型删除")
     @PostMapping(value = "/dataModel/delete")
     public @ResponseBody DataModelDeleteWebResponse delete(@RequestBody DataModelDeleteWebRequest request) {
@@ -65,7 +64,7 @@ public class DataModelWebController extends BaseWebController {
         return new DataModelDeleteWebResponse(dataModelDeleteWebVo);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型修改")
     @PostMapping(value = "/dataModel/update")
     public @ResponseBody DataModelUpdateWebResponse update(@RequestBody DataModelUpdateWebRequest request) {
@@ -132,7 +131,7 @@ public class DataModelWebController extends BaseWebController {
         return new DataModelSearchWebResponse(dataModelSearchWebVoPageResult);
     }
 */
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型排序")
     @PostMapping(value = "/dataModel/sort")
     public @ResponseBody DataModelSortWebResponse sort(@RequestBody DataModelSortWebRequest request) {
@@ -147,7 +146,7 @@ public class DataModelWebController extends BaseWebController {
         return new DataModelSortWebResponse(dataModelSortWebVo);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型分页查询")
     @PostMapping(value = "/dataModel/infoSearch")
     public @ResponseBody DataModelInfoSearchWebResponse infoSearch(@RequestBody DataModelInfoSearchWebRequest request) {

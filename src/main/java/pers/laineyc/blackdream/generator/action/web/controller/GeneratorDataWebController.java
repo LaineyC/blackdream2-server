@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pers.laineyc.blackdream.configuration.config.Security;
+import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataCreateParameter;
@@ -22,19 +22,10 @@ import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataUpdatePa
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataUpdateWebRequest;
 import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataUpdateWebResponse;
 import pers.laineyc.blackdream.generator.action.web.vo.GeneratorDataUpdateWebVo;
-import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataSearchParameter;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataGetWebRequest;
 import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataGetWebResponse;
 import pers.laineyc.blackdream.generator.action.web.vo.GeneratorDataGetWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataQueryWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataQueryWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorDataQueryWebVo;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataSearchWebResponse;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorDataSearchWebVo;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataTreeParameter;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataTreeWebRequest;
 import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataTreeWebResponse;
@@ -63,7 +54,7 @@ public class GeneratorDataWebController extends BaseWebController {
 
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据创建")
     @PostMapping(value = "/generatorData/create")
     public @ResponseBody GeneratorDataCreateWebResponse create(@RequestBody GeneratorDataCreateWebRequest request) {
@@ -78,7 +69,7 @@ public class GeneratorDataWebController extends BaseWebController {
         return new GeneratorDataCreateWebResponse(generatorDataCreateWebVo);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据删除")
     @PostMapping(value = "/generatorData/delete")
     public @ResponseBody GeneratorDataDeleteWebResponse delete(@RequestBody GeneratorDataDeleteWebRequest request) {
@@ -93,7 +84,7 @@ public class GeneratorDataWebController extends BaseWebController {
         return new GeneratorDataDeleteWebResponse(generatorDataDeleteWebVo);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据修改")
     @PostMapping(value = "/generatorData/update")
     public @ResponseBody GeneratorDataUpdateWebResponse update(@RequestBody GeneratorDataUpdateWebRequest request) {
@@ -160,7 +151,7 @@ public class GeneratorDataWebController extends BaseWebController {
         return new GeneratorDataSearchWebResponse(generatorDataSearchWebVoPageResult);
     }
 */
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据树形查询")
     @PostMapping(value = "/generatorData/tree")
     public @ResponseBody GeneratorDataTreeWebResponse tree(@RequestBody GeneratorDataTreeWebRequest request) {
@@ -174,7 +165,7 @@ public class GeneratorDataWebController extends BaseWebController {
         return new GeneratorDataTreeWebResponse(generatorDataTreeWebVoList);
     }
 
-    @Security
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据排序")
     @PostMapping(value = "/generatorData/sort")
     public @ResponseBody GeneratorDataSortWebResponse sort(@RequestBody GeneratorDataSortWebRequest request) {
