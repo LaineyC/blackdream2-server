@@ -3,23 +3,16 @@ package pers.laineyc.blackdream.generator.test;
 import org.junit.Test;
 import org.junit.Assert;
 import pers.laineyc.blackdream.framework.controller.BaseWebControllerTest;
+import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataCreateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataCreateWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataDeleteWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataDeleteWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataUpdateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataUpdateWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataGetWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataGetWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataQueryWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataQueryWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataSearchWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataTreeWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataTreeWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataSortWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.GeneratorDataSortWebResponse;
-import java.util.Date; 
+import pers.laineyc.blackdream.generator.action.web.vo.*;
 
 /**
  * 生成器数据ControllerTest
@@ -42,7 +35,7 @@ public class GeneratorDataWebControllerTest extends BaseWebControllerTest {
         request.setName("");
         request.setIsExpanded(false);
         request.setParentId("");
-        GeneratorDataCreateWebResponse response = execute(request, GeneratorDataCreateWebResponse.class, "/generatorData/create");
+        Response<GeneratorDataCreateWebVo> response = execute(request, GeneratorDataCreateWebVo.class, "/generatorData/create");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -53,7 +46,7 @@ public class GeneratorDataWebControllerTest extends BaseWebControllerTest {
     public void delete() throws Exception {
         GeneratorDataDeleteWebRequest request = new GeneratorDataDeleteWebRequest();
         request.setId("");
-        GeneratorDataDeleteWebResponse response = execute(request, GeneratorDataDeleteWebResponse.class, "/generatorData/delete");
+        Response<GeneratorDataDeleteWebVo> response = execute(request, GeneratorDataDeleteWebVo.class, "/generatorData/delete");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -67,7 +60,7 @@ public class GeneratorDataWebControllerTest extends BaseWebControllerTest {
         request.setName("");
         request.setIsExpanded(false);
         request.setParentId("");
-        GeneratorDataUpdateWebResponse response = execute(request, GeneratorDataUpdateWebResponse.class, "/generatorData/update");
+        Response<GeneratorDataUpdateWebVo> response = execute(request, GeneratorDataUpdateWebVo.class, "/generatorData/update");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -78,7 +71,7 @@ public class GeneratorDataWebControllerTest extends BaseWebControllerTest {
     public void get() throws Exception {
         GeneratorDataGetWebRequest request = new GeneratorDataGetWebRequest();
         request.setId("");
-        GeneratorDataGetWebResponse response = execute(request, GeneratorDataGetWebResponse.class, "/generatorData/get");
+        Response<GeneratorDataGetWebVo> response = execute(request, GeneratorDataGetWebVo.class, "/generatorData/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -94,7 +87,7 @@ public class GeneratorDataWebControllerTest extends BaseWebControllerTest {
         request.setDataModelId("");
         request.setName("");
         request.setParentId("");
-        GeneratorDataQueryWebResponse response = execute(request, GeneratorDataQueryWebResponse.class, "/generatorData/query");
+        Response<GeneratorDataQueryWebVo> response = execute(request, GeneratorDataQueryWebVo.class, "/generatorData/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -112,7 +105,7 @@ public class GeneratorDataWebControllerTest extends BaseWebControllerTest {
         request.setDataModelId("");
         request.setName("");
         request.setParentId("");
-        GeneratorDataSearchWebResponse response = execute(request, GeneratorDataSearchWebResponse.class, "/generatorData/search");
+        Response<GeneratorDataSearchWebVo> response = execute(request, GeneratorDataSearchWebVo.class, "/generatorData/search");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -122,7 +115,7 @@ public class GeneratorDataWebControllerTest extends BaseWebControllerTest {
     @Test
     public void tree() throws Exception {
         GeneratorDataTreeWebRequest request = new GeneratorDataTreeWebRequest();
-        GeneratorDataTreeWebResponse response = execute(request, GeneratorDataTreeWebResponse.class, "/generatorData/tree");
+        Response<GeneratorDataTreeWebVo> response = execute(request, GeneratorDataTreeWebVo.class, "/generatorData/tree");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -132,7 +125,7 @@ public class GeneratorDataWebControllerTest extends BaseWebControllerTest {
     @Test
     public void sort() throws Exception {
         GeneratorDataSortWebRequest request = new GeneratorDataSortWebRequest();
-        GeneratorDataSortWebResponse response = execute(request, GeneratorDataSortWebResponse.class, "/generatorData/sort");
+        Response<GeneratorDataSortWebVo> response = execute(request, GeneratorDataSortWebVo.class, "/generatorData/sort");
         Assert.assertNotNull(response.getBody());
     }
 

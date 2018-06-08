@@ -3,21 +3,9 @@ package pers.laineyc.blackdream.generator.test;
 import org.junit.Test;
 import org.junit.Assert;
 import pers.laineyc.blackdream.framework.controller.BaseWebControllerTest;
-import pers.laineyc.blackdream.generator.action.web.request.TemplateFileCreateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.TemplateFileCreateWebResponse;
-import pers.laineyc.blackdream.generator.action.web.request.TemplateFileDeleteWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.TemplateFileDeleteWebResponse;
-import pers.laineyc.blackdream.generator.action.web.request.TemplateFileUpdateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.TemplateFileUpdateWebResponse;
-import pers.laineyc.blackdream.generator.action.web.request.TemplateFileGetWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.TemplateFileGetWebResponse;
-import pers.laineyc.blackdream.generator.action.web.request.TemplateFileQueryWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.TemplateFileQueryWebResponse;
-import pers.laineyc.blackdream.generator.action.web.request.TemplateFileSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.TemplateFileSearchWebResponse;
-import pers.laineyc.blackdream.generator.action.web.request.TemplateFileSortWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.TemplateFileSortWebResponse;
-import java.util.Date; 
+import pers.laineyc.blackdream.framework.controller.response.Response;
+import pers.laineyc.blackdream.generator.action.web.request.*;
+import pers.laineyc.blackdream.generator.action.web.vo.*;
 
 /**
  * 生成器模板文件ControllerTest
@@ -41,7 +29,7 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
         request.setEngineType(0);
         request.setDisplayGroup("");
         request.setDescription("");
-        TemplateFileCreateWebResponse response = execute(request, TemplateFileCreateWebResponse.class, "/templateFile/create");
+        Response<TemplateFileCreateWebVo> response = execute(request, TemplateFileCreateWebVo.class, "/templateFile/create");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -52,7 +40,7 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
     public void delete() throws Exception {
         TemplateFileDeleteWebRequest request = new TemplateFileDeleteWebRequest();
         request.setId("");
-        TemplateFileDeleteWebResponse response = execute(request, TemplateFileDeleteWebResponse.class, "/templateFile/delete");
+        Response<TemplateFileDeleteWebVo> response = execute(request, TemplateFileDeleteWebVo.class, "/templateFile/delete");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -68,7 +56,7 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
         request.setEngineType(0);
         request.setDisplayGroup("");
         request.setDescription("");
-        TemplateFileUpdateWebResponse response = execute(request, TemplateFileUpdateWebResponse.class, "/templateFile/update");
+        Response<TemplateFileUpdateWebVo> response = execute(request, TemplateFileUpdateWebVo.class, "/templateFile/update");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -79,7 +67,7 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
     public void get() throws Exception {
         TemplateFileGetWebRequest request = new TemplateFileGetWebRequest();
         request.setId("");
-        TemplateFileGetWebResponse response = execute(request, TemplateFileGetWebResponse.class, "/templateFile/get");
+        Response<TemplateFileGetWebVo> response = execute(request, TemplateFileGetWebVo.class, "/templateFile/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -95,7 +83,7 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
         request.setCode("");
         request.setEngineType(0);
         request.setDisplayGroup("");
-        TemplateFileQueryWebResponse response = execute(request, TemplateFileQueryWebResponse.class, "/templateFile/query");
+        Response<TemplateFileQueryWebVo> response = execute(request, TemplateFileQueryWebVo.class, "/templateFile/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -113,7 +101,7 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
         request.setCode("");
         request.setEngineType(0);
         request.setDisplayGroup("");
-        TemplateFileSearchWebResponse response = execute(request, TemplateFileSearchWebResponse.class, "/templateFile/search");
+        Response<TemplateFileSearchWebVo> response = execute(request, TemplateFileSearchWebVo.class, "/templateFile/search");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -123,7 +111,7 @@ public class TemplateFileWebControllerTest extends BaseWebControllerTest {
     @Test
     public void sort() throws Exception {
         TemplateFileSortWebRequest request = new TemplateFileSortWebRequest();
-        TemplateFileSortWebResponse response = execute(request, TemplateFileSortWebResponse.class, "/templateFile/sort");
+        Response<TemplateFileSortWebVo> response = execute(request, TemplateFileSortWebVo.class, "/templateFile/sort");
         Assert.assertNotNull(response.getBody());
     }
 

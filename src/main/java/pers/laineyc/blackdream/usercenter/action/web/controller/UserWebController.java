@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.constant.AuthConfigConstant;
+import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.usercenter.action.web.request.*;
-import pers.laineyc.blackdream.usercenter.action.web.response.*;
 import pers.laineyc.blackdream.usercenter.action.web.vo.*;
 import pers.laineyc.blackdream.usercenter.constant.UserSignUpEmailValidCode;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
@@ -53,7 +53,7 @@ public class UserWebController extends BaseWebController {
 /*
     @ApiOperation(value = "用户修改")
     @PostMapping(value = "/user/update")
-    public @ResponseBody UserUpdateWebResponse update(@RequestBody UserUpdateWebRequest request) {
+    public @ResponseBody Response<UserUpdateWebVo> update(@RequestBody UserUpdateWebRequest request) {
 
         UserUpdateParameter parameter = new UserUpdateParameter();
         BeanUtils.copyProperties(request, parameter);
@@ -63,13 +63,13 @@ public class UserWebController extends BaseWebController {
         UserUpdateWebVo userUpdateWebVo = new UserUpdateWebVo();
         BeanUtils.copyProperties(user, userUpdateWebVo);
 
-        return new UserUpdateWebResponse(userUpdateWebVo);
+        return new Response<>(userUpdateWebVo);
 
     }
-
+*/
     @ApiOperation(value = "用户单个查询")
     @PostMapping(value = "/user/get")
-    public @ResponseBody UserGetWebResponse get(@RequestBody UserGetWebRequest request) {
+    public @ResponseBody Response<UserGetWebVo> get(@RequestBody UserGetWebRequest request) {
         UserGetParameter parameter = new UserGetParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -78,12 +78,12 @@ public class UserWebController extends BaseWebController {
         UserGetWebVo userGetWebVo = new UserGetWebVo();
         BeanUtils.copyProperties(user, userGetWebVo);
 
-        return new UserGetWebResponse(userGetWebVo);
+        return new Response<>(userGetWebVo);
     }
-
+/*
     @ApiOperation(value="用户多个查询")
     @PostMapping(value = "/user/query")
-    public @ResponseBody UserQueryWebResponse query(@RequestBody UserQueryWebRequest request) {
+    public @ResponseBody Response<List<UserQueryWebVo>> query(@RequestBody UserQueryWebRequest request) {
         UserQueryParameter parameter = new UserQueryParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -96,12 +96,12 @@ public class UserWebController extends BaseWebController {
             userQueryWebVoList.add(userQueryWebVo);
         });
 
-        return new UserQueryWebResponse(userQueryWebVoList);
+        return new Response<>(userQueryWebVoList);
     }
 
     @ApiOperation(value = "用户分页查询")
     @PostMapping(value = "/user/search")
-    public @ResponseBody UserSearchWebResponse search(@RequestBody UserSearchWebRequest request) {
+    public @ResponseBody Response<PageResult<UserSearchWebVo>> search(@RequestBody UserSearchWebRequest request) {
         UserSearchParameter parameter = new UserSearchParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -116,12 +116,12 @@ public class UserWebController extends BaseWebController {
             userSearchWebVoList.add(userSearchWebVo);
         });
 
-        return new UserSearchWebResponse(userSearchWebVoPageResult);
+        return new Response<>(userSearchWebVoPageResult);
     }
 */
     @ApiOperation(value = "用户登录")
     @PostMapping(value = "/user/signIn")
-    public @ResponseBody UserSignInWebResponse signIn(@RequestBody UserSignInWebRequest request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+    public @ResponseBody Response<UserSignInWebVo> signIn(@RequestBody UserSignInWebRequest request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         UserSignInParameter parameter = new UserSignInParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -140,12 +140,12 @@ public class UserWebController extends BaseWebController {
 
         UserSignInWebVo userSignInWebVo = new UserSignInWebVo();
 
-        return new UserSignInWebResponse(userSignInWebVo);
+        return new Response<>(userSignInWebVo);
     }
     
     @ApiOperation(value = "用户退出")
     @PostMapping(value = "/user/signOut")
-    public @ResponseBody UserSignOutWebResponse signOut(@RequestBody UserSignOutWebRequest request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+    public @ResponseBody Response<UserSignOutWebVo> signOut(@RequestBody UserSignOutWebRequest request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         UserSignOutParameter parameter = new UserSignOutParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -158,12 +158,12 @@ public class UserWebController extends BaseWebController {
 
         UserSignOutWebVo userSignOutWebVo = new UserSignOutWebVo();
 
-        return new UserSignOutWebResponse(userSignOutWebVo);
+        return new Response<>(userSignOutWebVo);
     }
 
     @ApiOperation(value = "用户注册邮箱验证码发送")
     @PostMapping(value = "/user/signUpEmailValidCodeSend")
-    public @ResponseBody UserSignUpEmailValidCodeSendWebResponse signUpEmailValidCodeSend(@RequestBody UserSignUpEmailValidCodeSendWebRequest request, HttpServletRequest httpServletRequest) {
+    public @ResponseBody Response<UserSignUpEmailValidCodeSendWebVo> signUpEmailValidCodeSend(@RequestBody UserSignUpEmailValidCodeSendWebRequest request, HttpServletRequest httpServletRequest) {
         UserSignUpParameter parameter = new UserSignUpParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -173,12 +173,12 @@ public class UserWebController extends BaseWebController {
         UserSignUpEmailValidCodeSendWebVo userSignUpEmailValidCodeSendWebVo = new UserSignUpEmailValidCodeSendWebVo();
         BeanUtils.copyProperties(validCode, userSignUpEmailValidCodeSendWebVo);
 
-        return new UserSignUpEmailValidCodeSendWebResponse(userSignUpEmailValidCodeSendWebVo);
+        return new Response<>(userSignUpEmailValidCodeSendWebVo);
     }
     
     @ApiOperation(value = "用户注册")
     @PostMapping(value = "/user/signUp")
-    public @ResponseBody UserSignUpWebResponse signUp(@RequestBody UserSignUpWebRequest request, HttpServletRequest httpServletRequest) {
+    public @ResponseBody Response<UserSignUpWebVo> signUp(@RequestBody UserSignUpWebRequest request, HttpServletRequest httpServletRequest) {
         String email = request.getEmail();
         String validCode = request.getValidCode();
         emailValidCodeTool.check(email, validCode, UserSignUpEmailValidCode.class.getName(), httpServletRequest);
@@ -191,14 +191,13 @@ public class UserWebController extends BaseWebController {
         UserSignUpWebVo userSignUpWebVo = new UserSignUpWebVo();
         BeanUtils.copyProperties(user, userSignUpWebVo);
 
-        return new UserSignUpWebResponse(userSignUpWebVo);
+        return new Response<>(userSignUpWebVo);
     }
 
     @AuthSecurity
     @ApiOperation(value = "用户密码更改")
     @PostMapping(value = "/user/passwordChange")
-    public @ResponseBody
-    UserPasswordChangeWebResponse passwordChange(@RequestBody UserPasswordChangeWebRequest request, HttpServletResponse httpServletResponse) {
+    public @ResponseBody Response<UserPasswordChangeWebVo> passwordChange(@RequestBody UserPasswordChangeWebRequest request, HttpServletResponse httpServletResponse) {
         UserPasswordChangeParameter parameter = new UserPasswordChangeParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -210,23 +209,23 @@ public class UserWebController extends BaseWebController {
 
         UserPasswordChangeWebVo userPasswordUpdateWebVo = new UserPasswordChangeWebVo();
 
-        return new UserPasswordChangeWebResponse(userPasswordUpdateWebVo);
+        return new Response<>(userPasswordUpdateWebVo);
     }
 
     @ApiOperation(value = "用户名测存在")
     @PostMapping(value = "/user/usernameExist")
-    public @ResponseBody UserUsernameExistWebResponse usernameExist(@RequestBody UserUsernameExistWebRequest request) {
+    public @ResponseBody Response<Boolean> usernameExist(@RequestBody UserUsernameExistWebRequest request) {
         UserUsernameExistParameter parameter = new UserUsernameExistParameter();
         BeanUtils.copyProperties(request, parameter);
 
         Boolean usernameExist = userService.usernameExist(parameter);
 
-        return new UserUsernameExistWebResponse(usernameExist);
+        return new Response<>(usernameExist);
     }
 
     @ApiOperation(value = "用户头像更改")
     @PostMapping(value = "/user/iconChange")
-    public @ResponseBody UserIconChangeWebResponse iconChange(@RequestBody UserIconChangeWebRequest request) {
+    public @ResponseBody Response<UserIconChangeWebVo> iconChange(@RequestBody UserIconChangeWebRequest request) {
         UserIconChangeParameter parameter = new UserIconChangeParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -235,13 +234,13 @@ public class UserWebController extends BaseWebController {
         UserIconChangeWebVo userIconChangeWebVo = new UserIconChangeWebVo();
         BeanUtils.copyProperties(user, userIconChangeWebVo);
 
-        return new UserIconChangeWebResponse(userIconChangeWebVo);
+        return new Response<>(userIconChangeWebVo);
     }
 
     @AuthSecurity
     @ApiOperation(value = "用户单个查询")
     @PostMapping(value = "/user/infoGet")
-    public @ResponseBody UserInfoGetWebResponse infoGet(@RequestBody UserInfoGetWebRequest request) {
+    public @ResponseBody Response<UserInfoGetWebVo> infoGet(@RequestBody UserInfoGetWebRequest request) {
         UserInfoGetParameter parameter = new UserInfoGetParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -250,7 +249,7 @@ public class UserWebController extends BaseWebController {
         UserInfoGetWebVo userInfoGetWebVo = new UserInfoGetWebVo();
         BeanUtils.copyProperties(user, userInfoGetWebVo);
 
-        return new UserInfoGetWebResponse(userInfoGetWebVo);
+        return new Response<>(userInfoGetWebVo);
     }
     
 }

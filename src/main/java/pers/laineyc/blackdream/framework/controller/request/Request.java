@@ -1,5 +1,6 @@
 package pers.laineyc.blackdream.framework.controller.request;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.model.Auth;
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.io.Serializable;
  * @author LaineyC
  *
  */
+@ApiModel
 public class Request implements Serializable {
 
     private static final long serialVersionUID = 1L;

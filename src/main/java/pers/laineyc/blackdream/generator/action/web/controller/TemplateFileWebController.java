@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pers.laineyc.blackdream.configuration.config.AuthSecurity;
+import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
-import pers.laineyc.blackdream.generator.action.web.response.*;
 import pers.laineyc.blackdream.generator.action.web.vo.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
@@ -37,7 +37,7 @@ public class TemplateFileWebController extends BaseWebController {
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件创建")
     @PostMapping(value = "/templateFile/create")
-    public @ResponseBody TemplateFileCreateWebResponse create(@RequestBody TemplateFileCreateWebRequest request) {
+    public @ResponseBody Response<TemplateFileCreateWebVo> create(@RequestBody TemplateFileCreateWebRequest request) {
         TemplateFileCreateParameter parameter = new TemplateFileCreateParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -46,13 +46,13 @@ public class TemplateFileWebController extends BaseWebController {
         TemplateFileCreateWebVo templateFileCreateWebVo = new TemplateFileCreateWebVo();
         BeanUtils.copyProperties(templateFile, templateFileCreateWebVo);
 
-        return new TemplateFileCreateWebResponse(templateFileCreateWebVo);
+        return new Response<>(templateFileCreateWebVo);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件删除")
     @PostMapping(value = "/templateFile/delete")
-    public @ResponseBody TemplateFileDeleteWebResponse delete(@RequestBody TemplateFileDeleteWebRequest request) {
+    public @ResponseBody Response<TemplateFileDeleteWebVo> delete(@RequestBody TemplateFileDeleteWebRequest request) {
         TemplateFileDeleteParameter parameter = new TemplateFileDeleteParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -61,13 +61,13 @@ public class TemplateFileWebController extends BaseWebController {
         TemplateFileDeleteWebVo templateFileDeleteWebVo = new TemplateFileDeleteWebVo();
         BeanUtils.copyProperties(templateFile, templateFileDeleteWebVo);
 
-        return new TemplateFileDeleteWebResponse(templateFileDeleteWebVo);
+        return new Response<>(templateFileDeleteWebVo);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件修改")
     @PostMapping(value = "/templateFile/update")
-    public @ResponseBody TemplateFileUpdateWebResponse update(@RequestBody TemplateFileUpdateWebRequest request) {
+    public @ResponseBody Response<TemplateFileUpdateWebVo> update(@RequestBody TemplateFileUpdateWebRequest request) {
         TemplateFileUpdateParameter parameter = new TemplateFileUpdateParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -76,12 +76,12 @@ public class TemplateFileWebController extends BaseWebController {
         TemplateFileUpdateWebVo templateFileUpdateWebVo = new TemplateFileUpdateWebVo();
         BeanUtils.copyProperties(templateFile, templateFileUpdateWebVo);
 
-        return new TemplateFileUpdateWebResponse(templateFileUpdateWebVo);
+        return new Response<>(templateFileUpdateWebVo);
     }
 
     @ApiOperation(value = "生成器模板文件单个查询")
     @PostMapping(value = "/templateFile/get")
-    public @ResponseBody TemplateFileGetWebResponse get(@RequestBody TemplateFileGetWebRequest request) {
+    public @ResponseBody Response<TemplateFileGetWebVo> get(@RequestBody TemplateFileGetWebRequest request) {
         TemplateFileGetParameter parameter = new TemplateFileGetParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -90,12 +90,12 @@ public class TemplateFileWebController extends BaseWebController {
         TemplateFileGetWebVo templateFileGetWebVo = new TemplateFileGetWebVo();
         BeanUtils.copyProperties(templateFile, templateFileGetWebVo);
         
-        return new TemplateFileGetWebResponse(templateFileGetWebVo);
+        return new Response<>(templateFileGetWebVo);
     }
 /*
     @ApiOperation(value="生成器模板文件多个查询")
     @PostMapping(value = "/templateFile/query")
-    public @ResponseBody TemplateFileQueryWebResponse query(@RequestBody TemplateFileQueryWebRequest request) {
+    public @ResponseBody Response<List<TemplateFileQueryWebVo>> query(@RequestBody TemplateFileQueryWebRequest request) {
         TemplateFileQueryParameter parameter = new TemplateFileQueryParameter();
         BeanUtils.copyProperties(request, parameter);
         
@@ -108,12 +108,12 @@ public class TemplateFileWebController extends BaseWebController {
             templateFileQueryWebVoList.add(templateFileQueryWebVo);
         });
 
-        return new TemplateFileQueryWebResponse(templateFileQueryWebVoList);
+        return new Response<>(templateFileQueryWebVoList);
     }
 
     @ApiOperation(value = "生成器模板文件分页查询")
     @PostMapping(value = "/templateFile/search")
-    public @ResponseBody TemplateFileSearchWebResponse search(@RequestBody TemplateFileSearchWebRequest request) {
+    public @ResponseBody Response<PageResult<TemplateFileSearchWebVo>> search(@RequestBody TemplateFileSearchWebRequest request) {
         TemplateFileSearchParameter parameter = new TemplateFileSearchParameter();
         BeanUtils.copyProperties(request, parameter);
         
@@ -128,13 +128,13 @@ public class TemplateFileWebController extends BaseWebController {
             templateFileSearchWebVoList.add(templateFileSearchWebVo);
         });
 
-        return new TemplateFileSearchWebResponse(templateFileSearchWebVoPageResult);
+        return new Response<>(templateFileSearchWebVoPageResult);
     }
 */
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件排序")
     @PostMapping(value = "/templateFile/sort")
-    public @ResponseBody TemplateFileSortWebResponse sort(@RequestBody TemplateFileSortWebRequest request) {
+    public @ResponseBody Response<TemplateFileSortWebVo> sort(@RequestBody TemplateFileSortWebRequest request) {
         TemplateFileSortParameter parameter = new TemplateFileSortParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -143,13 +143,13 @@ public class TemplateFileWebController extends BaseWebController {
         TemplateFileSortWebVo templateFileSortWebVo = new TemplateFileSortWebVo();
         BeanUtils.copyProperties(templateFile, templateFileSortWebVo);
 
-        return new TemplateFileSortWebResponse(templateFileSortWebVo);
+        return new Response<>(templateFileSortWebVo);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件分页查询")
     @PostMapping(value = "/templateFile/infoSearch")
-    public @ResponseBody TemplateFileInfoSearchWebResponse infoSearch(@RequestBody TemplateFileInfoSearchWebRequest request) {
+    public @ResponseBody Response<PageResult<TemplateFileInfoSearchWebVo>> infoSearch(@RequestBody TemplateFileInfoSearchWebRequest request) {
         TemplateFileInfoSearchParameter parameter = new TemplateFileInfoSearchParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -164,7 +164,7 @@ public class TemplateFileWebController extends BaseWebController {
             templateFileSearchWebVoList.add(templateFileSearchWebVo);
         });
 
-        return new TemplateFileInfoSearchWebResponse(templateFileSearchWebVoPageResult);
+        return new Response<>(templateFileSearchWebVoPageResult);
     }
 
 }

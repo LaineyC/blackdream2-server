@@ -3,22 +3,16 @@ package pers.laineyc.blackdream.usercenter.test;
 import org.junit.Test;
 import org.junit.Assert;
 import pers.laineyc.blackdream.framework.controller.BaseWebControllerTest;
+import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.usercenter.action.web.request.UserUpdateWebRequest;
-import pers.laineyc.blackdream.usercenter.action.web.response.UserUpdateWebResponse;
 import pers.laineyc.blackdream.usercenter.action.web.request.UserGetWebRequest;
-import pers.laineyc.blackdream.usercenter.action.web.response.UserGetWebResponse;
 import pers.laineyc.blackdream.usercenter.action.web.request.UserQueryWebRequest;
-import pers.laineyc.blackdream.usercenter.action.web.response.UserQueryWebResponse;
 import pers.laineyc.blackdream.usercenter.action.web.request.UserSearchWebRequest;
-import pers.laineyc.blackdream.usercenter.action.web.response.UserSearchWebResponse;
 import pers.laineyc.blackdream.usercenter.action.web.request.UserSignInWebRequest;
-import pers.laineyc.blackdream.usercenter.action.web.response.UserSignInWebResponse;
 import pers.laineyc.blackdream.usercenter.action.web.request.UserSignOutWebRequest;
-import pers.laineyc.blackdream.usercenter.action.web.response.UserSignOutWebResponse;
 import pers.laineyc.blackdream.usercenter.action.web.request.UserSignUpWebRequest;
-import pers.laineyc.blackdream.usercenter.action.web.response.UserSignUpWebResponse;
 import pers.laineyc.blackdream.usercenter.action.web.request.UserPasswordChangeWebRequest;
-import pers.laineyc.blackdream.usercenter.action.web.response.UserPasswordChangeWebResponse;
+import pers.laineyc.blackdream.usercenter.action.web.vo.*;
 
 /**
  * 用户ControllerTest
@@ -42,7 +36,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
         request.setIconFileId("");
         request.setUsername("");
         request.setEmail("");
-        UserUpdateWebResponse response = execute(request, UserUpdateWebResponse.class, "/user/update");
+        Response<UserUpdateWebVo> response = execute(request, UserUpdateWebVo.class, "/user/update");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -52,8 +46,8 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void get() throws Exception {
         UserGetWebRequest request = new UserGetWebRequest();
-        request.setId("");
-        UserGetWebResponse response = execute(request, UserGetWebResponse.class, "/user/get");
+        request.setId("5b101a0060e09bc92b9cd876");
+        Response<UserGetWebVo> response = execute(request, UserGetWebVo.class, "/user/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -68,7 +62,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
         request.setIconFileId("");
         request.setUsername("");
         request.setEmail("");
-        UserQueryWebResponse response = execute(request, UserQueryWebResponse.class, "/user/query");
+        Response<UserQueryWebVo> response = execute(request, UserQueryWebVo.class, "/user/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -85,7 +79,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
         request.setIconFileId("");
         request.setUsername("");
         request.setEmail("");
-        UserSearchWebResponse response = execute(request, UserSearchWebResponse.class, "/user/search");
+        Response<UserSearchWebVo> response = execute(request, UserSearchWebVo.class, "/user/search");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -95,7 +89,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void signIn() throws Exception {
         UserSignInWebRequest request = new UserSignInWebRequest();
-        UserSignInWebResponse response = execute(request, UserSignInWebResponse.class, "/user/signIn");
+        Response<UserSignInWebVo> response = execute(request, UserSignInWebVo.class, "/user/signIn");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -105,7 +99,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void signOut() throws Exception {
         UserSignOutWebRequest request = new UserSignOutWebRequest();
-        UserSignOutWebResponse response = execute(request, UserSignOutWebResponse.class, "/user/signOut");
+        Response<UserSignOutWebVo> response = execute(request, UserSignOutWebVo.class, "/user/signOut");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -115,7 +109,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void signUp() throws Exception {
         UserSignUpWebRequest request = new UserSignUpWebRequest();
-        UserSignUpWebResponse response = execute(request, UserSignUpWebResponse.class, "/user/signUp");
+        Response<UserSignUpWebVo> response = execute(request, UserSignUpWebVo.class, "/user/signUp");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -125,7 +119,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void passwordUpdate() throws Exception {
         UserPasswordChangeWebRequest request = new UserPasswordChangeWebRequest();
-        UserPasswordChangeWebResponse response = execute(request, UserPasswordChangeWebResponse.class, "/user/passwordChange");
+        Response<UserPasswordChangeWebVo> response = execute(request, UserPasswordChangeWebVo.class, "/user/passwordChange");
         Assert.assertNotNull(response.getBody());
     }
 

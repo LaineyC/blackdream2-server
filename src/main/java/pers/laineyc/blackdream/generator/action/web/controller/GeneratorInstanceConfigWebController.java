@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pers.laineyc.blackdream.configuration.config.AuthSecurity;
+import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
-import pers.laineyc.blackdream.generator.action.web.response.*;
 import pers.laineyc.blackdream.generator.action.web.vo.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceConfig;
@@ -35,7 +35,7 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
     @Security
     @ApiOperation(value = "生成器实例设置创建")
     @PostMapping(value = "/generatorInstanceConfig/create")
-    public @ResponseBody GeneratorInstanceConfigCreateWebResponse create(@RequestBody GeneratorInstanceConfigCreateWebRequest request) {
+    public @ResponseBody Response<GeneratorInstanceConfigCreateWebVo> create(@RequestBody GeneratorInstanceConfigCreateWebRequest request) {
         GeneratorInstanceConfigCreateParameter parameter = new GeneratorInstanceConfigCreateParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -44,13 +44,13 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
         GeneratorInstanceConfigCreateWebVo generatorInstanceConfigCreateWebVo = new GeneratorInstanceConfigCreateWebVo();
         BeanUtils.copyProperties(generatorInstanceConfig, generatorInstanceConfigCreateWebVo);
 
-        return new GeneratorInstanceConfigCreateWebResponse(generatorInstanceConfigCreateWebVo);
+        return new Response<>(generatorInstanceConfigCreateWebVo);
     }
 
     @Security
     @ApiOperation(value = "生成器实例设置删除")
     @PostMapping(value = "/generatorInstanceConfig/delete")
-    public @ResponseBody GeneratorInstanceConfigDeleteWebResponse delete(@RequestBody GeneratorInstanceConfigDeleteWebRequest request) {
+    public @ResponseBody Response<GeneratorInstanceConfigDeleteWebVo> delete(@RequestBody GeneratorInstanceConfigDeleteWebRequest request) {
         GeneratorInstanceConfigDeleteParameter parameter = new GeneratorInstanceConfigDeleteParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -59,13 +59,13 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
         GeneratorInstanceConfigDeleteWebVo generatorInstanceConfigDeleteWebVo = new GeneratorInstanceConfigDeleteWebVo();
         BeanUtils.copyProperties(generatorInstanceConfig, generatorInstanceConfigDeleteWebVo);
 
-        return new GeneratorInstanceConfigDeleteWebResponse(generatorInstanceConfigDeleteWebVo);
+        return new Response<>(generatorInstanceConfigDeleteWebVo);
     }
 
     @Security
     @ApiOperation(value = "生成器实例设置修改")
     @PostMapping(value = "/generatorInstanceConfig/update")
-    public @ResponseBody GeneratorInstanceConfigUpdateWebResponse update(@RequestBody GeneratorInstanceConfigUpdateWebRequest request) {
+    public @ResponseBody Response<GeneratorInstanceConfigUpdateWebVo> update(@RequestBody GeneratorInstanceConfigUpdateWebRequest request) {
         GeneratorInstanceConfigUpdateParameter parameter = new GeneratorInstanceConfigUpdateParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -74,12 +74,12 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
         GeneratorInstanceConfigUpdateWebVo generatorInstanceConfigUpdateWebVo = new GeneratorInstanceConfigUpdateWebVo();
         BeanUtils.copyProperties(generatorInstanceConfig, generatorInstanceConfigUpdateWebVo);
 
-        return new GeneratorInstanceConfigUpdateWebResponse(generatorInstanceConfigUpdateWebVo);
+        return new Response<>(generatorInstanceConfigUpdateWebVo);
     }
 */
     @ApiOperation(value = "生成器实例设置单个查询")
     @PostMapping(value = "/generatorInstanceConfig/get")
-    public @ResponseBody GeneratorInstanceConfigGetWebResponse get(@RequestBody GeneratorInstanceConfigGetWebRequest request) {
+    public @ResponseBody Response<GeneratorInstanceConfigGetWebVo> get(@RequestBody GeneratorInstanceConfigGetWebRequest request) {
         GeneratorInstanceConfigGetParameter parameter = new GeneratorInstanceConfigGetParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -91,12 +91,12 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
             BeanUtils.copyProperties(generatorInstanceConfig, generatorInstanceConfigGetWebVo);
         }
 
-        return new GeneratorInstanceConfigGetWebResponse(generatorInstanceConfigGetWebVo);
+        return new Response<>(generatorInstanceConfigGetWebVo);
     }
 /*
     @ApiOperation(value="生成器实例设置多个查询")
     @PostMapping(value = "/generatorInstanceConfig/query")
-    public @ResponseBody GeneratorInstanceConfigQueryWebResponse query(@RequestBody GeneratorInstanceConfigQueryWebRequest request) {
+    public @ResponseBody Response<List<GeneratorInstanceConfigQueryWebVo>> query(@RequestBody GeneratorInstanceConfigQueryWebRequest request) {
         GeneratorInstanceConfigQueryParameter parameter = new GeneratorInstanceConfigQueryParameter();
         BeanUtils.copyProperties(request, parameter);
         
@@ -109,12 +109,12 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
             generatorInstanceConfigQueryWebVoList.add(generatorInstanceConfigQueryWebVo);
         });
 
-        return new GeneratorInstanceConfigQueryWebResponse(generatorInstanceConfigQueryWebVoList);
+        return new Response<>(generatorInstanceConfigQueryWebVoList);
     }
 
     @ApiOperation(value = "生成器实例设置分页查询")
     @PostMapping(value = "/generatorInstanceConfig/search")
-    public @ResponseBody GeneratorInstanceConfigSearchWebResponse search(@RequestBody GeneratorInstanceConfigSearchWebRequest request) {
+    public @ResponseBody Response<PageResult<GeneratorInstanceConfigSearchWebVo>> search(@RequestBody GeneratorInstanceConfigSearchWebRequest request) {
         GeneratorInstanceConfigSearchParameter parameter = new GeneratorInstanceConfigSearchParameter();
         BeanUtils.copyProperties(request, parameter);
         
@@ -129,14 +129,14 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
             generatorInstanceConfigSearchWebVoList.add(generatorInstanceConfigSearchWebVo);
         });
 
-        return new GeneratorInstanceConfigSearchWebResponse(generatorInstanceConfigSearchWebVoPageResult);
+        return new Response<>(generatorInstanceConfigSearchWebVoPageResult);
     }
 */
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器实例设置保存")
     @PostMapping(value = "/generatorInstanceConfig/save")
-    public @ResponseBody GeneratorInstanceConfigSaveWebResponse save(@RequestBody GeneratorInstanceConfigSaveWebRequest request) {
+    public @ResponseBody Response<GeneratorInstanceConfigSaveWebVo> save(@RequestBody GeneratorInstanceConfigSaveWebRequest request) {
         GeneratorInstanceConfigSaveParameter parameter = new GeneratorInstanceConfigSaveParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -145,6 +145,6 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
         GeneratorInstanceConfigSaveWebVo generatorInstanceConfigSaveWebVo = new GeneratorInstanceConfigSaveWebVo();
         BeanUtils.copyProperties(generatorInstanceConfig, generatorInstanceConfigSaveWebVo);
 
-        return new GeneratorInstanceConfigSaveWebResponse(generatorInstanceConfigSaveWebVo);
+        return new Response<>(generatorInstanceConfigSaveWebVo);
     }
 }

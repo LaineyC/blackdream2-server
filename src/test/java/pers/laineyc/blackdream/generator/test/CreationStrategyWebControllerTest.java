@@ -3,21 +3,15 @@ package pers.laineyc.blackdream.generator.test;
 import org.junit.Test;
 import org.junit.Assert;
 import pers.laineyc.blackdream.framework.controller.BaseWebControllerTest;
+import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.generator.action.web.request.CreationStrategyCreateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.CreationStrategyCreateWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.CreationStrategyDeleteWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.CreationStrategyDeleteWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.CreationStrategyUpdateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.CreationStrategyUpdateWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.CreationStrategyGetWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.CreationStrategyGetWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.CreationStrategyQueryWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.CreationStrategyQueryWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.CreationStrategySearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.CreationStrategySearchWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.CreationStrategySortWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.CreationStrategySortWebResponse;
-import java.util.Date; 
+import pers.laineyc.blackdream.generator.action.web.vo.*;
 
 /**
  * 生成器生成策略ControllerTest
@@ -38,7 +32,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
         request.setGeneratorId("");
         request.setName("");
         request.setDescription("");
-        CreationStrategyCreateWebResponse response = execute(request, CreationStrategyCreateWebResponse.class, "/creationStrategy/create");
+        Response<CreationStrategyCreateWebVo> response = execute(request, CreationStrategyCreateWebVo.class, "/creationStrategy/create");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -49,7 +43,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
     public void delete() throws Exception {
         CreationStrategyDeleteWebRequest request = new CreationStrategyDeleteWebRequest();
         request.setId("");
-        CreationStrategyDeleteWebResponse response = execute(request, CreationStrategyDeleteWebResponse.class, "/creationStrategy/delete");
+        Response<CreationStrategyDeleteWebVo> response = execute(request, CreationStrategyDeleteWebVo.class, "/creationStrategy/delete");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -62,7 +56,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
         request.setId("");
         request.setName("");
         request.setDescription("");
-        CreationStrategyUpdateWebResponse response = execute(request, CreationStrategyUpdateWebResponse.class, "/creationStrategy/update");
+        Response<CreationStrategyUpdateWebVo> response = execute(request, CreationStrategyUpdateWebVo.class, "/creationStrategy/update");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -73,7 +67,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
     public void get() throws Exception {
         CreationStrategyGetWebRequest request = new CreationStrategyGetWebRequest();
         request.setId("");
-        CreationStrategyGetWebResponse response = execute(request, CreationStrategyGetWebResponse.class, "/creationStrategy/get");
+        Response<CreationStrategyGetWebVo> response = execute(request, CreationStrategyGetWebVo.class, "/creationStrategy/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -86,7 +80,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
         request.setUserId("");
         request.setGeneratorId("");
         request.setName("");
-        CreationStrategyQueryWebResponse response = execute(request, CreationStrategyQueryWebResponse.class, "/creationStrategy/query");
+        Response<CreationStrategyQueryWebVo> response = execute(request, CreationStrategyQueryWebVo.class, "/creationStrategy/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -101,7 +95,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
         request.setUserId("");
         request.setGeneratorId("");
         request.setName("");
-        CreationStrategySearchWebResponse response = execute(request, CreationStrategySearchWebResponse.class, "/creationStrategy/search");
+        Response<CreationStrategySearchWebVo> response = execute(request, CreationStrategySearchWebVo.class, "/creationStrategy/search");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -111,7 +105,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
     @Test
     public void sort() throws Exception {
         CreationStrategySortWebRequest request = new CreationStrategySortWebRequest();
-        CreationStrategySortWebResponse response = execute(request, CreationStrategySortWebResponse.class, "/creationStrategy/sort");
+        Response<CreationStrategySortWebVo> response = execute(request, CreationStrategySortWebVo.class, "/creationStrategy/sort");
         Assert.assertNotNull(response.getBody());
     }
 

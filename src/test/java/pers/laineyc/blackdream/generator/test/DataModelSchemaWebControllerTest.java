@@ -3,19 +3,14 @@ package pers.laineyc.blackdream.generator.test;
 import org.junit.Test;
 import org.junit.Assert;
 import pers.laineyc.blackdream.framework.controller.BaseWebControllerTest;
+import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaCreateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaCreateWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaDeleteWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaDeleteWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaUpdateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaUpdateWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaGetWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaGetWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaQueryWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaQueryWebResponse;
 import pers.laineyc.blackdream.generator.action.web.request.DataModelSchemaSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.response.DataModelSchemaSearchWebResponse;
-import java.util.Date; 
+import pers.laineyc.blackdream.generator.action.web.vo.*;
 
 /**
  * 生成器数据模型模式ControllerTest
@@ -36,7 +31,7 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
         request.setGeneratorId("");
         request.setName("");
         request.setDescription("");
-        DataModelSchemaCreateWebResponse response = execute(request, DataModelSchemaCreateWebResponse.class, "/dataModelSchema/create");
+        Response<DataModelSchemaCreateWebVo> response = execute(request, DataModelSchemaCreateWebVo.class, "/dataModelSchema/create");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -47,7 +42,7 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
     public void delete() throws Exception {
         DataModelSchemaDeleteWebRequest request = new DataModelSchemaDeleteWebRequest();
         request.setId("");
-        DataModelSchemaDeleteWebResponse response = execute(request, DataModelSchemaDeleteWebResponse.class, "/dataModelSchema/delete");
+        Response<DataModelSchemaDeleteWebVo> response = execute(request, DataModelSchemaDeleteWebVo.class, "/dataModelSchema/delete");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -60,7 +55,7 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
         request.setId("");
         request.setName("");
         request.setDescription("");
-        DataModelSchemaUpdateWebResponse response = execute(request, DataModelSchemaUpdateWebResponse.class, "/dataModelSchema/update");
+        Response<DataModelSchemaUpdateWebVo> response = execute(request, DataModelSchemaUpdateWebVo.class, "/dataModelSchema/update");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -71,7 +66,7 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
     public void get() throws Exception {
         DataModelSchemaGetWebRequest request = new DataModelSchemaGetWebRequest();
         request.setId("");
-        DataModelSchemaGetWebResponse response = execute(request, DataModelSchemaGetWebResponse.class, "/dataModelSchema/get");
+        Response<DataModelSchemaGetWebVo> response = execute(request, DataModelSchemaGetWebVo.class, "/dataModelSchema/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -84,7 +79,7 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
         request.setUserId("");
         request.setGeneratorId("");
         request.setName("");
-        DataModelSchemaQueryWebResponse response = execute(request, DataModelSchemaQueryWebResponse.class, "/dataModelSchema/query");
+        Response<DataModelSchemaSearchWebVo> response = execute(request, DataModelSchemaSearchWebVo.class, "/dataModelSchema/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -99,7 +94,7 @@ public class DataModelSchemaWebControllerTest extends BaseWebControllerTest {
         request.setUserId("");
         request.setGeneratorId("");
         request.setName("");
-        DataModelSchemaSearchWebResponse response = execute(request, DataModelSchemaSearchWebResponse.class, "/dataModelSchema/search");
+        Response<DataModelSchemaSearchWebVo> response = execute(request, DataModelSchemaSearchWebVo.class, "/dataModelSchema/search");
         Assert.assertNotNull(response.getBody());
     }
 

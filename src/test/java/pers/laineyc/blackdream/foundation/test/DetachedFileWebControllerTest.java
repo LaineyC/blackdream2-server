@@ -2,16 +2,16 @@ package pers.laineyc.blackdream.foundation.test;
 
 import org.junit.Test;
 import org.junit.Assert;
+import pers.laineyc.blackdream.foundation.action.web.vo.DetachedFileGetWebVo;
+import pers.laineyc.blackdream.foundation.action.web.vo.DetachedFileQueryWebVo;
+import pers.laineyc.blackdream.foundation.action.web.vo.DetachedFileSearchWebVo;
+import pers.laineyc.blackdream.foundation.action.web.vo.DetachedFileUploadWebVo;
 import pers.laineyc.blackdream.framework.controller.BaseWebControllerTest;
 import pers.laineyc.blackdream.foundation.action.web.request.DetachedFileGetWebRequest;
-import pers.laineyc.blackdream.foundation.action.web.response.DetachedFileGetWebResponse;
 import pers.laineyc.blackdream.foundation.action.web.request.DetachedFileQueryWebRequest;
-import pers.laineyc.blackdream.foundation.action.web.response.DetachedFileQueryWebResponse;
 import pers.laineyc.blackdream.foundation.action.web.request.DetachedFileSearchWebRequest;
-import pers.laineyc.blackdream.foundation.action.web.response.DetachedFileSearchWebResponse;
 import pers.laineyc.blackdream.foundation.action.web.request.DetachedFileUploadWebRequest;
-import pers.laineyc.blackdream.foundation.action.web.response.DetachedFileUploadWebResponse;
-import pers.laineyc.blackdream.foundation.action.web.request.StorageFileFileDownloadWebRequest;
+import pers.laineyc.blackdream.framework.controller.response.Response;
 
 /**
  * 游离文件ControllerTest
@@ -30,7 +30,7 @@ public class DetachedFileWebControllerTest extends BaseWebControllerTest {
     public void get() throws Exception {
         DetachedFileGetWebRequest request = new DetachedFileGetWebRequest();
         request.setId("");
-        DetachedFileGetWebResponse response = execute(request, DetachedFileGetWebResponse.class, "/detachedFile/get");
+        Response<DetachedFileGetWebVo> response = execute(request, DetachedFileGetWebVo.class, "/detachedFile/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -45,7 +45,7 @@ public class DetachedFileWebControllerTest extends BaseWebControllerTest {
         request.setName("");
         request.setExtension("");
         request.setContentType("");
-        DetachedFileQueryWebResponse response = execute(request, DetachedFileQueryWebResponse.class, "/detachedFile/query");
+        Response<DetachedFileQueryWebVo> response = execute(request, DetachedFileQueryWebVo.class, "/detachedFile/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -62,7 +62,7 @@ public class DetachedFileWebControllerTest extends BaseWebControllerTest {
         request.setName("");
         request.setExtension("");
         request.setContentType("");
-        DetachedFileSearchWebResponse response = execute(request, DetachedFileSearchWebResponse.class, "/detachedFile/search");
+        Response<DetachedFileSearchWebVo> response = execute(request, DetachedFileSearchWebVo.class, "/detachedFile/search");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -72,7 +72,7 @@ public class DetachedFileWebControllerTest extends BaseWebControllerTest {
     @Test
     public void upload() throws Exception {
         DetachedFileUploadWebRequest request = new DetachedFileUploadWebRequest();
-        DetachedFileUploadWebResponse response = execute(request, DetachedFileUploadWebResponse.class, "/detachedFile/upload");
+        Response<DetachedFileUploadWebVo> response = execute(request, DetachedFileUploadWebVo.class, "/detachedFile/upload");
         Assert.assertNotNull(response.getBody());
     }
 

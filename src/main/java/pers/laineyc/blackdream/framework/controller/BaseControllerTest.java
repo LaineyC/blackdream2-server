@@ -1,5 +1,7 @@
 package pers.laineyc.blackdream.framework.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 import pers.laineyc.blackdream.framework.constant.AuthConfigConstant;
 import pers.laineyc.blackdream.framework.controller.request.Request;
 import pers.laineyc.blackdream.framework.controller.response.Response;
+import pers.laineyc.blackdream.framework.exception.ErrorCode;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.util.JsonObjectMapper;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -32,8 +35,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@Rollback
-@Transactional
+//@Rollback
+//@Transactional
 public abstract class BaseControllerTest {
 
     private static String ACTION_NAME = "action";
@@ -51,8 +54,6 @@ public abstract class BaseControllerTest {
 
     private Auth auth;
 
-    private ObjectMapper objectMapper;
-
     public BaseControllerTest(){
 
     }
@@ -62,8 +63,6 @@ public abstract class BaseControllerTest {
         mockMvc = webAppContextSetup(webApplicationContext).build();
 
         mockHttpSession = new MockHttpSession();
-
-        objectMapper = new JsonObjectMapper();
     }
 
     @After
@@ -71,19 +70,19 @@ public abstract class BaseControllerTest {
 
     }
 
-    protected <T extends Response> T execute(Request request, Class<T> responseClass, String action) throws Exception {
+    protected <E> Response<E> execute(Request request, Class<E> bodyClass, String action) throws Exception {
         Assert.assertNotNull(request);
-        Assert.assertNotNull(responseClass);
+        Assert.assertNotNull(bodyClass);
         Assert.assertNotNull(action);
         if(action.contains(".")){
-            String [] values  = action.split("\\.");
+            String [] values = action.split("\\.");
             action = "/" + values[0] + "/" + values[1];
         }
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder = post(serverUri + action)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request));
+                .content(JSON.toJSONString(request));
 
         if(mockHttpSession != null){
             Auth auth = request.getAuth();
@@ -100,8 +99,23 @@ public abstract class BaseControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        byte[] responseContent = mvcResult.getResponse().getContentAsByteArray();
-        return objectMapper.readValue(responseContent, responseClass);
+        String responseContent = mvcResult.getResponse().getContentAsString();
+
+        JSONObject jsonObject = JSON.parseObject(responseContent);
+
+        JSONObject error = jsonObject.getJSONObject("error");
+
+        JSONObject body = jsonObject.getJSONObject("body");
+
+        Response<E> response = new Response<>();
+        if(error != null){
+            response.setError(JSON.toJavaObject(body, ErrorCode.class));
+        }
+        if(body != null){
+            response.setBody(JSON.toJavaObject(body, bodyClass));
+        }
+
+        return response;
     }
 
     public static String getActionName() {
@@ -158,14 +172,6 @@ public abstract class BaseControllerTest {
 
     public void setAuth(Auth auth) {
         this.auth = auth;
-    }
-
-    public ObjectMapper getObjectMapper() {
-        return objectMapper;
-    }
-
-    public void setObjectMapper(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
     }
 
 }

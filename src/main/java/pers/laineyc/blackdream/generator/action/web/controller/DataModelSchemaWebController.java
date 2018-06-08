@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pers.laineyc.blackdream.configuration.config.AuthSecurity;
+import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
-import pers.laineyc.blackdream.generator.action.web.response.*;
 import pers.laineyc.blackdream.generator.action.web.vo.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.service.domain.DataModelSchema;
@@ -35,7 +35,7 @@ public class DataModelSchemaWebController extends BaseWebController {
     @Security
     @ApiOperation(value = "生成器数据模型模式创建")
     @PostMapping(value = "/dataModelSchema/create")
-    public @ResponseBody DataModelSchemaCreateWebResponse create(@RequestBody DataModelSchemaCreateWebRequest request) {
+    public @ResponseBody Response<DataModelSchemaCreateWebVo> create(@RequestBody DataModelSchemaCreateWebRequest request) {
         DataModelSchemaCreateParameter parameter = new DataModelSchemaCreateParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -44,12 +44,12 @@ public class DataModelSchemaWebController extends BaseWebController {
         DataModelSchemaCreateWebVo dataModelSchemaCreateWebVo = new DataModelSchemaCreateWebVo();
         BeanUtils.copyProperties(dataModelSchema, dataModelSchemaCreateWebVo);
 
-        return new DataModelSchemaCreateWebResponse(dataModelSchemaCreateWebVo);
+        return new Response<>(dataModelSchemaCreateWebVo);
     }
 
     @ApiOperation(value = "生成器数据模型模式删除")
     @PostMapping(value = "/dataModelSchema/delete")
-    public @ResponseBody DataModelSchemaDeleteWebResponse delete(@RequestBody DataModelSchemaDeleteWebRequest request) {
+    public @ResponseBody Response<DataModelSchemaDeleteWebVo> delete(@RequestBody DataModelSchemaDeleteWebRequest request) {
         DataModelSchemaDeleteParameter parameter = new DataModelSchemaDeleteParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -58,13 +58,13 @@ public class DataModelSchemaWebController extends BaseWebController {
         DataModelSchemaDeleteWebVo dataModelSchemaDeleteWebVo = new DataModelSchemaDeleteWebVo();
         BeanUtils.copyProperties(dataModelSchema, dataModelSchemaDeleteWebVo);
 
-        return new DataModelSchemaDeleteWebResponse(dataModelSchemaDeleteWebVo);
+        return new Response<>(dataModelSchemaDeleteWebVo);
     }
 
     @Security
     @ApiOperation(value = "生成器数据模型模式修改")
     @PostMapping(value = "/dataModelSchema/update")
-    public @ResponseBody DataModelSchemaUpdateWebResponse update(@RequestBody DataModelSchemaUpdateWebRequest request) {
+    public @ResponseBody Response<DataModelSchemaUpdateWebVo> update(@RequestBody DataModelSchemaUpdateWebRequest request) {
         DataModelSchemaUpdateParameter parameter = new DataModelSchemaUpdateParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -73,12 +73,12 @@ public class DataModelSchemaWebController extends BaseWebController {
         DataModelSchemaUpdateWebVo dataModelSchemaUpdateWebVo = new DataModelSchemaUpdateWebVo();
         BeanUtils.copyProperties(dataModelSchema, dataModelSchemaUpdateWebVo);
 
-        return new DataModelSchemaUpdateWebResponse(dataModelSchemaUpdateWebVo);
+        return new Response<>(dataModelSchemaUpdateWebVo);
     }
 */
     @ApiOperation(value = "生成器数据模型模式单个查询")
     @PostMapping(value = "/dataModelSchema/get")
-    public @ResponseBody DataModelSchemaGetWebResponse get(@RequestBody DataModelSchemaGetWebRequest request) {
+    public @ResponseBody Response<DataModelSchemaGetWebVo> get(@RequestBody DataModelSchemaGetWebRequest request) {
         DataModelSchemaGetParameter parameter = new DataModelSchemaGetParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -90,12 +90,12 @@ public class DataModelSchemaWebController extends BaseWebController {
             BeanUtils.copyProperties(dataModelSchema, dataModelSchemaGetWebVo);
         }
         
-        return new DataModelSchemaGetWebResponse(dataModelSchemaGetWebVo);
+        return new Response<>(dataModelSchemaGetWebVo);
     }
 /*
     @ApiOperation(value="生成器数据模型模式多个查询")
     @PostMapping(value = "/dataModelSchema/query")
-    public @ResponseBody DataModelSchemaQueryWebResponse query(@RequestBody DataModelSchemaQueryWebRequest request) {
+    public @ResponseBody Response<List<DataModelSchemaQueryWebVo>> query(@RequestBody DataModelSchemaQueryWebRequest request) {
         DataModelSchemaQueryParameter parameter = new DataModelSchemaQueryParameter();
         BeanUtils.copyProperties(request, parameter);
         
@@ -108,12 +108,12 @@ public class DataModelSchemaWebController extends BaseWebController {
             dataModelSchemaQueryWebVoList.add(dataModelSchemaQueryWebVo);
         });
 
-        return new DataModelSchemaQueryWebResponse(dataModelSchemaQueryWebVoList);
+        return new Response<>(dataModelSchemaQueryWebVoList);
     }
 
     @ApiOperation(value = "生成器数据模型模式分页查询")
     @PostMapping(value = "/dataModelSchema/search")
-    public @ResponseBody DataModelSchemaSearchWebResponse search(@RequestBody DataModelSchemaSearchWebRequest request) {
+    public @ResponseBody Response<PageResult<DataModelSchemaSearchWebVo>> search(@RequestBody DataModelSchemaSearchWebRequest request) {
         DataModelSchemaSearchParameter parameter = new DataModelSchemaSearchParameter();
         BeanUtils.copyProperties(request, parameter);
         
@@ -128,13 +128,13 @@ public class DataModelSchemaWebController extends BaseWebController {
             dataModelSchemaSearchWebVoList.add(dataModelSchemaSearchWebVo);
         });
 
-        return new DataModelSchemaSearchWebResponse(dataModelSchemaSearchWebVoPageResult);
+        return new Response<>(dataModelSchemaSearchWebVoPageResult);
     }
 */
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型模式保存")
     @PostMapping(value = "/dataModelSchema/save")
-    public @ResponseBody DataModelSchemaSaveWebResponse save(@RequestBody DataModelSchemaSaveWebRequest request) {
+    public @ResponseBody Response<DataModelSchemaSaveWebVo> save(@RequestBody DataModelSchemaSaveWebRequest request) {
         DataModelSchemaSaveParameter parameter = new DataModelSchemaSaveParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -143,7 +143,7 @@ public class DataModelSchemaWebController extends BaseWebController {
         DataModelSchemaSaveWebVo dataModelSchemaSaveWebVo = new DataModelSchemaSaveWebVo();
         BeanUtils.copyProperties(dataModelSchema, dataModelSchemaSaveWebVo);
 
-        return new DataModelSchemaSaveWebResponse(dataModelSchemaSaveWebVo);
+        return new Response<>(dataModelSchemaSaveWebVo);
     }
 
 }

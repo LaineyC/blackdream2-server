@@ -1,5 +1,7 @@
 package pers.laineyc.blackdream.framework.controller.response;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.exception.ErrorCode;
 import java.io.Serializable;
 
@@ -7,12 +9,15 @@ import java.io.Serializable;
  * @author LaineyC
  *
  */
+@ApiModel
 public class Response<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "错误")
     private ErrorCode error;
 
+    @ApiModelProperty(value = "数据")
     private T body;
 
     public Response(){

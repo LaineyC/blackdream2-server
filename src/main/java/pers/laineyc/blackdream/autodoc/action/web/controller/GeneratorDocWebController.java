@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pers.laineyc.blackdream.configuration.config.AuthSecurity;
+import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.autodoc.service.parameter.GeneratorDocMakeParameter;
 import pers.laineyc.blackdream.autodoc.action.web.request.GeneratorDocMakeWebRequest;
-import pers.laineyc.blackdream.autodoc.action.web.response.GeneratorDocMakeWebResponse;
 import pers.laineyc.blackdream.autodoc.action.web.vo.GeneratorDocMakeWebVo;
 import pers.laineyc.blackdream.autodoc.service.domain.GeneratorDoc;
 import pers.laineyc.blackdream.autodoc.service.GeneratorDocService;
@@ -35,7 +35,7 @@ public class GeneratorDocWebController extends BaseWebController {
     @AuthSecurity
     @ApiOperation(value = "生成器文档生成")
     @PostMapping(value = "/generatorDoc/make")
-    public @ResponseBody GeneratorDocMakeWebResponse make(@RequestBody GeneratorDocMakeWebRequest request) {
+    public @ResponseBody Response<GeneratorDocMakeWebVo> make(@RequestBody GeneratorDocMakeWebRequest request) {
         GeneratorDocMakeParameter parameter = new GeneratorDocMakeParameter();
         BeanUtils.copyProperties(request, parameter);
 
@@ -44,7 +44,7 @@ public class GeneratorDocWebController extends BaseWebController {
         GeneratorDocMakeWebVo generatorDocMakeWebVo = new GeneratorDocMakeWebVo();
         BeanUtils.copyProperties(generatorDoc, generatorDocMakeWebVo);
 
-        return new GeneratorDocMakeWebResponse(generatorDocMakeWebVo);
+        return new Response<>(generatorDocMakeWebVo);
     }
     
 }
