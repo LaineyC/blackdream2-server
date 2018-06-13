@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.configuration.constant.SystemConstant;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
+import pers.laineyc.blackdream.generator.constant.CreationStrategyLanguageEnum;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.service.domain.CreationStrategy;
 import pers.laineyc.blackdream.generator.dao.po.CreationStrategyPo;
@@ -67,6 +68,14 @@ public class CreationStrategyServiceTool{
             throw new BusinessException("名称长度不能大于255");
         }
 
+        Integer scriptLanguage = parameter.getScriptLanguage();
+        if(scriptLanguage == null){
+            throw new BusinessException("缺少脚本类型参数");
+        }
+        if(!CreationStrategyLanguageEnum.hasCode(scriptLanguage)){
+            throw new BusinessException("脚本类型参数值不合法");
+        }
+
         String description = parameter.getDescription();
         if(StringUtils.hasText(description)){
             if(description.length() > 255){
@@ -108,6 +117,14 @@ public class CreationStrategyServiceTool{
         }
         if(name.length() > 255){
             throw new BusinessException("名称长度不能大于255");
+        }
+
+        Integer scriptLanguage = parameter.getScriptLanguage();
+        if(scriptLanguage == null){
+            throw new BusinessException("缺少脚本类型参数");
+        }
+        if(!CreationStrategyLanguageEnum.hasCode(scriptLanguage)){
+            throw new BusinessException("脚本类型参数值不合法");
         }
 
         String description = parameter.getDescription();

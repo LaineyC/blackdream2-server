@@ -19,6 +19,11 @@ public class CreationStrategyUpdateParameter extends Parameter {
     private String name;
 
     /**
+     * 脚本语言：1javascript
+     */
+    private Integer scriptLanguage;
+
+    /**
      * 描述
      */
     private String description;
@@ -46,6 +51,14 @@ public class CreationStrategyUpdateParameter extends Parameter {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getScriptLanguage() {
+        return scriptLanguage;
+    }
+
+    public void setScriptLanguage(Integer scriptLanguage) {
+        this.scriptLanguage = scriptLanguage;
     }
 
     public String getDescription() {

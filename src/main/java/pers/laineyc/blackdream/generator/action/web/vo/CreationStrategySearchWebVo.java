@@ -26,6 +26,9 @@ public class CreationStrategySearchWebVo extends Vo {
     @ApiModelProperty(value = "名称")
     private String name;
 
+    @ApiModelProperty(value = "脚本语言：1javascript", required = true)
+    private Integer scriptLanguage;
+
     @ApiModelProperty(value = "显示顺序")
     private Integer displayOrder;
 
@@ -72,6 +75,14 @@ public class CreationStrategySearchWebVo extends Vo {
 
 	public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getScriptLanguage() {
+        return scriptLanguage;
+    }
+
+    public void setScriptLanguage(Integer scriptLanguage) {
+        this.scriptLanguage = scriptLanguage;
     }
 
     public Integer getDisplayOrder() {

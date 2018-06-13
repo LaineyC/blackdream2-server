@@ -41,6 +41,11 @@ public class CreationStrategyQuery extends Query<CreationStrategyPo> {
      * 名称
      */
     private String name;
+
+    /**
+     * 脚本语言：1javascript
+     */
+    private Integer scriptLanguage;
 	
     /**
      * 名称Like
@@ -135,7 +140,18 @@ public class CreationStrategyQuery extends Query<CreationStrategyPo> {
             this.addWhereExpression(ExpressionBuilder.equal("name", this.name));
         }
     }
-    
+
+    public Integer getScriptLanguage() {
+        return scriptLanguage;
+    }
+
+    public void setScriptLanguage(Integer scriptLanguage) {
+        this.scriptLanguage = scriptLanguage;
+        if(this.scriptLanguage != null){
+            this.addWhereExpression(ExpressionBuilder.equal("scriptLanguage", this.scriptLanguage));
+        }
+    }
+
     public String getNameLike() {
         return nameLike;
     }

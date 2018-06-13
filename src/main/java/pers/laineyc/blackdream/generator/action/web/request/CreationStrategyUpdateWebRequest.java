@@ -17,6 +17,9 @@ public class CreationStrategyUpdateWebRequest extends Request {
     @ApiModelProperty(value = "名称", required = true)
     private String name;
 
+    @ApiModelProperty(value = "脚本语言：1javascript", required = true)
+    private Integer scriptLanguage;
+
     @ApiModelProperty(value = "描述")
     private String description;
 
@@ -41,6 +44,14 @@ public class CreationStrategyUpdateWebRequest extends Request {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getScriptLanguage() {
+        return scriptLanguage;
+    }
+
+    public void setScriptLanguage(Integer scriptLanguage) {
+        this.scriptLanguage = scriptLanguage;
     }
 
     public String getDescription() {

@@ -3,27 +3,9 @@ package pers.laineyc.blackdream.generator.constant;
 /**
  * @author LaineyC
  */
-public enum DataModelFieldTypeEnum {
+public enum CreationStrategyLanguageEnum {
 
-    //1Boolean；2Integer；3Decimal；4Text；5Enum；6Date；7Time；8DateTime；9Model
-
-    BOOLEAN(1, "BOOLEAN"),
-
-    INTEGER(2, "INTEGER"),
-
-    DECIMAL(3, "DECIMAL"),
-
-    TEXT(4, "TEXT"),
-
-    ENUM(5, "ENUM"),
-
-    DATE(6, "DATE"),
-
-    TIME(7, "TIME"),
-
-    DATETIME(8, "DATETIME"),
-
-    MODEL(9, "MODEL"),
+    JAVASCRIPT(1, "JAVASCRIPT"),
 
     ;
 
@@ -34,17 +16,17 @@ public enum DataModelFieldTypeEnum {
 
     private String suffix;
 
-    DataModelFieldTypeEnum(int code, String suffix) {
+    CreationStrategyLanguageEnum(int code, String suffix) {
         this.code = code;
         this.suffix = suffix;
     }
 
-    public static DataModelFieldTypeEnum value(Integer code){
+    public static CreationStrategyLanguageEnum value(Integer code){
         if(code == null){
             return null;
         }
 
-        for(DataModelFieldTypeEnum item:values()){
+        for(CreationStrategyLanguageEnum item:values()){
             if(item.code == code){
                 return item;
             }

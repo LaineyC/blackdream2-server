@@ -40,6 +40,11 @@ public class CreationStrategyPo extends Po {
 	 */
 	private String name;
 
+    /**
+     * 脚本语言：1javascript
+     */
+    private Integer scriptLanguage;
+
 	/**
 	 *  显示顺序
 	 */
@@ -105,6 +110,14 @@ public class CreationStrategyPo extends Po {
 
 	public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getScriptLanguage() {
+        return scriptLanguage;
+    }
+
+    public void setScriptLanguage(Integer scriptLanguage) {
+        this.scriptLanguage = scriptLanguage;
     }
 
     public Integer getDisplayOrder() {

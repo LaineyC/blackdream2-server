@@ -76,6 +76,9 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         String name = parameter.getName();
         creationStrategyPo.setName(name);
 
+        Integer scriptLanguage = parameter.getScriptLanguage();
+        creationStrategyPo.setScriptLanguage(scriptLanguage);
+
         creationStrategyPo.setDisplayOrder(1000);
 
         String description = parameter.getDescription();
@@ -151,6 +154,9 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         String name = parameter.getName();
         creationStrategyPo.setName(name);
 
+        Integer scriptLanguage = parameter.getScriptLanguage();
+        creationStrategyPo.setScriptLanguage(scriptLanguage);
+
         String description = parameter.getDescription();
         creationStrategyPo.setDescription(description);
 
@@ -208,6 +214,8 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
 
         creationStrategy.setName(creationStrategyPo.getName());
 
+        creationStrategy.setScriptLanguage(creationStrategyPo.getScriptLanguage());
+
         creationStrategy.setDisplayOrder(creationStrategyPo.getDisplayOrder());
 
         creationStrategy.setDescription(creationStrategyPo.getDescription());
@@ -235,6 +243,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         creationStrategyQuery.setUserId(parameter.getUserId());
         creationStrategyQuery.setGeneratorId(parameter.getGeneratorId());
         creationStrategyQuery.setName(parameter.getName());
+        creationStrategyQuery.setScriptLanguage(parameter.getScriptLanguage());
 
         List<CreationStrategyPo> creationStrategyPoList = creationStrategyDao.selectList(creationStrategyQuery);
 
@@ -279,6 +288,8 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
             }
 
             creationStrategy.setName(po.getName());
+
+            creationStrategy.setScriptLanguage(po.getScriptLanguage());
 
             creationStrategy.setDisplayOrder(po.getDisplayOrder());
 
@@ -337,6 +348,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         creationStrategyQuery.setUserId(parameter.getUserId());
         creationStrategyQuery.setGeneratorId(parameter.getGeneratorId());
         creationStrategyQuery.setName(parameter.getName());
+        creationStrategyQuery.setScriptLanguage(parameter.getScriptLanguage());
         creationStrategyQuery.limit((page - 1) * pageSize, pageSize);
         
         PageResult<CreationStrategyPo> creationStrategyPoPageResult = creationStrategyDao.selectPage(creationStrategyQuery);
@@ -378,6 +390,8 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
             }
 
             creationStrategy.setName(po.getName());
+
+            creationStrategy.setScriptLanguage(po.getScriptLanguage());
 
             creationStrategy.setDisplayOrder(po.getDisplayOrder());
 

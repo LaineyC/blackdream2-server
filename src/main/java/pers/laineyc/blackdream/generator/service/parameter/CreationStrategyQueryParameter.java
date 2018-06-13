@@ -23,6 +23,11 @@ public class CreationStrategyQueryParameter extends Parameter {
      */
     private String name;
 
+    /**
+     * 脚本语言：1javascript
+     */
+    private Integer scriptLanguage;
+
     public CreationStrategyQueryParameter() {
 
     }
@@ -51,4 +56,11 @@ public class CreationStrategyQueryParameter extends Parameter {
         this.name = name;
     }
 
+    public Integer getScriptLanguage() {
+        return scriptLanguage;
+    }
+
+    public void setScriptLanguage(Integer scriptLanguage) {
+        this.scriptLanguage = scriptLanguage;
+    }
 }

@@ -33,6 +33,11 @@ public class CreationStrategy extends Domain {
     private String name;
 
     /**
+     * 脚本语言
+     */
+    private Integer scriptLanguage;
+
+    /**
      * 显示顺序
      */
     private Integer displayOrder;
@@ -91,6 +96,14 @@ public class CreationStrategy extends Domain {
 
 	public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getScriptLanguage() {
+        return scriptLanguage;
+    }
+
+    public void setScriptLanguage(Integer scriptLanguage) {
+        this.scriptLanguage = scriptLanguage;
     }
 
     public Integer getDisplayOrder() {
