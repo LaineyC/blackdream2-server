@@ -1,8 +1,8 @@
 package pers.laineyc.blackdream.usercenter.dao.query;
 
-import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
 import pers.laineyc.blackdream.framework.dao.query.Query;
 import pers.laineyc.blackdream.framework.dao.query.expression.ExpressionBuilder;
+import pers.laineyc.blackdream.usercenter.dao.po.UserAuthPo;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * 用户Query
  * @author LaineyC
  */
-public class UserQuery extends Query<UserPo> {
+public class UserAuthQuery extends Query<UserAuthPo> {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,24 +26,14 @@ public class UserQuery extends Query<UserPo> {
     private List<String> idList = new ArrayList<>();
 
     /**
-     * 状态：1一般用户；2开发用户
+     * 所属用户
      */
-    private Integer type;
+    private String userId;
 
     /**
-     * 昵称
+     * 状态：1冻结；2启用
      */
-    private String nickname;
-	
-    /**
-     * 昵称Like
-     */
-    private String nicknameLike;
-
-    /**
-     * 头像文件Id
-     */
-    private String iconFileId;
+    private Integer status;
 
     /**
      * 用户名
@@ -66,6 +56,26 @@ public class UserQuery extends Query<UserPo> {
     private String emailLike;
 
     /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 密码Like
+     */
+    private String passwordLike;
+
+    /**
+     * 访问令牌
+     */
+    private String accessToken;
+
+    /**
+     * 访问令牌Like
+     */
+    private String accessTokenLike;
+
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -75,7 +85,7 @@ public class UserQuery extends Query<UserPo> {
      */
     private Date updateTime;
 
-	public UserQuery() {
+	public UserAuthQuery() {
 
 	}
 	
@@ -101,66 +111,43 @@ public class UserQuery extends Query<UserPo> {
         }
     }
 
-    public Integer getType() {
-        return type;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
-        if(this.type != null){
-            this.addWhereExpression(ExpressionBuilder.equal("type", this.type));
+    public void setUserId(String userId) {
+        this.userId = userId;
+        if(this.userId != null){
+            this.addWhereExpression(ExpressionBuilder.equal("userId", this.userId));
         }
     }
 
-    public String getNickname() {
-        return nickname;
+    public Integer getStatus() {
+        return status;
     }
     
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-        if(this.nickname != null){
-            this.addWhereExpression(ExpressionBuilder.equal("nickname", this.nickname));
-        }
-    }
-    
-    public String getNicknameLike() {
-        return nicknameLike;
-    }
-    
-    public void setNicknameLike(String nicknameLike) {
-        if(nicknameLike == null || nicknameLike.isEmpty()){
-            return;
-        }
-        this.nicknameLike = nicknameLike;
-        this.addWhereExpression(ExpressionBuilder.like("nickname", this.nicknameLike));
-    }
-
-    public String getIconFileId() {
-        return iconFileId;
-    }
-    
-    public void setIconFileId(String iconFileId) {
-        this.iconFileId = iconFileId;
-        if(this.iconFileId != null){
-            this.addWhereExpression(ExpressionBuilder.equal("iconFileId", this.iconFileId));
+    public void setStatus(Integer status) {
+        this.status = status;
+        if(this.status != null){
+            this.addWhereExpression(ExpressionBuilder.equal("status", this.status));
         }
     }
 
     public String getUsername() {
         return username;
     }
-
+    
     public void setUsername(String username) {
         this.username = username;
         if(this.username != null){
             this.addWhereExpression(ExpressionBuilder.equal("username", this.username));
         }
     }
-
+    
     public String getUsernameLike() {
         return usernameLike;
     }
-
+    
     public void setUsernameLike(String usernameLike) {
         if(usernameLike == null || usernameLike.isEmpty()){
             return;
@@ -172,24 +159,70 @@ public class UserQuery extends Query<UserPo> {
     public String getEmail() {
         return email;
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
         if(this.email != null){
             this.addWhereExpression(ExpressionBuilder.equal("email", this.email));
         }
     }
-
+    
     public String getEmailLike() {
         return emailLike;
     }
-
+    
     public void setEmailLike(String emailLike) {
         if(emailLike == null || emailLike.isEmpty()){
             return;
         }
         this.emailLike = emailLike;
         this.addWhereExpression(ExpressionBuilder.like("email", this.emailLike));
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+        if(this.password != null){
+            this.addWhereExpression(ExpressionBuilder.equal("password", this.password));
+        }
+    }
+    
+    public String getPasswordLike() {
+        return passwordLike;
+    }
+    
+    public void setPasswordLike(String passwordLike) {
+        if(passwordLike == null || passwordLike.isEmpty()){
+            return;
+        }
+        this.passwordLike = passwordLike;
+        this.addWhereExpression(ExpressionBuilder.like("password", this.passwordLike));
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+    
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+        if(this.accessToken != null){
+            this.addWhereExpression(ExpressionBuilder.equal("accessToken", this.accessToken));
+        }
+    }
+    
+    public String getAccessTokenLike() {
+        return accessTokenLike;
+    }
+    
+    public void setAccessTokenLike(String accessTokenLike) {
+        if(accessTokenLike == null || accessTokenLike.isEmpty()){
+            return;
+        }
+        this.accessTokenLike = accessTokenLike;
+        this.addWhereExpression(ExpressionBuilder.like("accessToken", this.accessTokenLike));
     }
 
     public Date getCreateTime() {

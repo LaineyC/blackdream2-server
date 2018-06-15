@@ -17,9 +17,6 @@ public class UserGetWebVo extends Vo {
     @ApiModelProperty(value = "主键")
     private String id;
 
-    @ApiModelProperty(value = "状态：1冻结；2启用")
-    private Integer status;
-
     @ApiModelProperty(value = "状态：1一般用户；2开发用户")
     private Integer type;
 
@@ -34,18 +31,6 @@ public class UserGetWebVo extends Vo {
 
     @ApiModelProperty(value = "邮箱")
     private String email;
-
-    @ApiModelProperty(value = "登录次数")
-    private Integer signInCount;
-
-    @ApiModelProperty(value = "登录IP")
-    private String signInIp;
-
-    @ApiModelProperty(value = "登录时间")
-    private Date signInTime;
-
-    @ApiModelProperty(value = "注册时间")
-    private Date signUpTime;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
@@ -63,14 +48,6 @@ public class UserGetWebVo extends Vo {
 
 	public void setId(String id) {
         this.id = id;
-    }
-
-    public Integer getStatus() {
-        return this.status;
-    }
-
-	public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public Integer getType() {
@@ -112,38 +89,6 @@ public class UserGetWebVo extends Vo {
 
 	public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Integer getSignInCount() {
-        return this.signInCount;
-    }
-
-	public void setSignInCount(Integer signInCount) {
-        this.signInCount = signInCount;
-    }
-
-    public String getSignInIp() {
-        return this.signInIp;
-    }
-
-	public void setSignInIp(String signInIp) {
-        this.signInIp = signInIp;
-    }
-
-    public Date getSignInTime() {
-        return this.signInTime;
-    }
-
-	public void setSignInTime(Date signInTime) {
-        this.signInTime = signInTime;
-    }
-
-    public Date getSignUpTime() {
-        return this.signUpTime;
-    }
-
-	public void setSignUpTime(Date signUpTime) {
-        this.signUpTime = signUpTime;
     }
 
     public Date getCreateTime() {

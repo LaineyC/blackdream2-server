@@ -11,9 +11,6 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
 @ApiModel
 public class UserQueryWebRequest extends Request {
 
-    @ApiModelProperty(value = "状态：1冻结；2启用")
-    private Integer status;
-
     @ApiModelProperty(value = "状态：1一般用户；2开发用户")
     private Integer type;
 
@@ -31,14 +28,6 @@ public class UserQueryWebRequest extends Request {
 
     public UserQueryWebRequest() {
 
-    }
-
-    public Integer getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public Integer getType() {

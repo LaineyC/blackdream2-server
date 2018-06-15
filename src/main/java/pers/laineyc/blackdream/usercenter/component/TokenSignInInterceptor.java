@@ -74,7 +74,7 @@ public class TokenSignInInterceptor {
 
                 String userId = user.getId();
 
-                userServiceTool.handleTokenSignInCookie(userId, user.getAccessToken(), attributes.getResponse());
+                userServiceTool.handleTokenSignInCookie(user.getUserAuth(), attributes.getResponse());
 
                 auth = new Auth();
                 auth.setUserType(user.getType());

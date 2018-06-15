@@ -14,9 +14,6 @@ public class UserUpdateWebRequest extends Request {
     @ApiModelProperty(value = "主键", required = true)
     private String id;
 
-    @ApiModelProperty(value = "状态：1冻结；2启用")
-    private Integer status;
-
     @ApiModelProperty(value = "昵称")
     private String nickname;
 
@@ -39,14 +36,6 @@ public class UserUpdateWebRequest extends Request {
 
     public void setId (String id) {
         this.id = id;
-    }
-
-    public Integer getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public String getNickname() {

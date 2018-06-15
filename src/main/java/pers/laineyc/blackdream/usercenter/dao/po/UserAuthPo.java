@@ -4,14 +4,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
+
 import java.util.Date;
 
 /**
- * 用户Po
+ * 用户认证Po
  * @author LaineyC
  */
-@Document(collection = "User")
-public class UserPo extends Po {
+@Document(collection = "UserAuth")
+public class UserAuthPo extends Po {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,29 +23,37 @@ public class UserPo extends Po {
 	private String id;
 
     /**
-     * 状态：1一般用户；2开发用户
+     * 所属用户
      */
-    private Integer type;
+    @Indexed(unique = true)
+    private String userId;
 
 	/**
-	 *  昵称
+	 *  状态：1冻结；2启用
 	 */
-	private String nickname;
+	private Integer status;
 
 	/**
-	 *  头像文件Id
+	 *  用户名
 	 */
-	private String iconFileId;
+    @Indexed(unique = true)
+	private String username;
 
-    /**
-     * 用户名
-     */
-    private String username;
+	/**
+	 *  邮箱
+	 */
+    @Indexed(unique = true)
+	private String email;
 
-    /**
-     * 邮箱
-     */
-    private String email;
+	/**
+	 *  密码
+	 */
+	private String password;
+
+	/**
+	 *  访问令牌
+	 */
+	private String accessToken;
 
 	/**
 	 *  创建时间
@@ -56,7 +65,7 @@ public class UserPo extends Po {
 	 */
 	private Date updateTime;
 
-	public UserPo() {
+	public UserAuthPo() {
 
 	}
 
@@ -68,35 +77,27 @@ public class UserPo extends Po {
         this.id = id;
     }
 
-    public Integer getType() {
-        return type;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getNickname() {
-        return nickname;
+    public Integer getStatus() {
+        return status;
     }
 
-	public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getIconFileId() {
-        return iconFileId;
-    }
-
-	public void setIconFileId(String iconFileId) {
-        this.iconFileId = iconFileId;
+	public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+	public void setUsername(String username) {
         this.username = username;
     }
 
@@ -104,8 +105,24 @@ public class UserPo extends Po {
         return email;
     }
 
-    public void setEmail(String email) {
+	public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+	public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+	public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public Date getCreateTime() {

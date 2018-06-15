@@ -9,11 +9,6 @@ import pers.laineyc.blackdream.framework.service.parameter.Parameter;
 public class UserQueryParameter extends Parameter {
 
     /**
-     * 状态：1冻结；2启用
-     */
-    private Integer status;
-
-    /**
      * 状态：1一般用户；2开发用户
      */
     private Integer type;
@@ -40,14 +35,6 @@ public class UserQueryParameter extends Parameter {
 
     public UserQueryParameter() {
 
-    }
-
-    public Integer getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public Integer getType() {

@@ -38,7 +38,6 @@ public class UserServiceTest extends BaseServiceTest {
         UserUpdateParameter parameter = new UserUpdateParameter();
         parameter.setAuth(getAuth());
         parameter.setId("");
-        parameter.setStatus(0);
         parameter.setNickname("");
         parameter.setIconFileId("");
         parameter.setUsername("");
@@ -66,7 +65,6 @@ public class UserServiceTest extends BaseServiceTest {
     public void query() {
         UserQueryParameter parameter = new UserQueryParameter();
         parameter.setAuth(getAuth());
-        parameter.setStatus(0);
         parameter.setNickname("");
         parameter.setIconFileId("");
         parameter.setUsername("");
@@ -84,7 +82,6 @@ public class UserServiceTest extends BaseServiceTest {
         parameter.setAuth(getAuth());
         parameter.setPage(1);
         parameter.setPageSize(10);
-        parameter.setStatus(0);
         parameter.setNickname("");
         parameter.setIconFileId("");
         parameter.setUsername("");

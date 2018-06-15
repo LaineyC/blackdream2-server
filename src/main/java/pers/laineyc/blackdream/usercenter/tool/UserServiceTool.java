@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.RegexUtil;
 import pers.laineyc.blackdream.usercenter.constant.TokenSignInConfigConstant;
+import pers.laineyc.blackdream.usercenter.service.domain.UserAuth;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
 
@@ -51,22 +52,22 @@ public class UserServiceTool{
     }
 
     public void clearSignInCookie(HttpServletResponse httpServletResponse){
-        handleTokenSignInCookie(0, "", "", httpServletResponse);
+        handleTokenSignInCookie(0, new UserAuth(), httpServletResponse);
     }
 
-    public void handleTokenSignInCookie(String userId, String accessToken, HttpServletResponse httpServletResponse){
-        handleTokenSignInCookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_EXPIRE_DAYS, userId, accessToken, httpServletResponse);
+    public void handleTokenSignInCookie(UserAuth userAuth, HttpServletResponse httpServletResponse){
+        handleTokenSignInCookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_EXPIRE_DAYS, userAuth, httpServletResponse);
     }
 
-    public void handleTokenSignInCookie(int days, String userId, String accessToken, HttpServletResponse httpServletResponse){
+    public void handleTokenSignInCookie(int days, UserAuth userAuth, HttpServletResponse httpServletResponse){
         int maxAge = 60 * 60 * 24 * days;
 
-        Cookie usernameCookie = new Cookie(TokenSignInConfigConstant.COOKIE_USERNAME_KEY,  userId);
+        Cookie usernameCookie = new Cookie(TokenSignInConfigConstant.COOKIE_USERNAME_KEY,  userAuth.getId());
         usernameCookie.setPath("/");
         usernameCookie.setMaxAge(maxAge);
         httpServletResponse.addCookie(usernameCookie);
 
-        Cookie accessTokenCookie = new Cookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_KEY, accessToken);
+        Cookie accessTokenCookie = new Cookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_KEY, userAuth.getAccessToken());
         accessTokenCookie.setPath("/");
         accessTokenCookie.setMaxAge(maxAge);
         httpServletResponse.addCookie(accessTokenCookie);
@@ -80,8 +81,6 @@ public class UserServiceTool{
         if(id == null){
             throw new BusinessException("缺少主键");
         }
-        
-        Integer status = parameter.getStatus();
 
         String nickname = parameter.getNickname();
 

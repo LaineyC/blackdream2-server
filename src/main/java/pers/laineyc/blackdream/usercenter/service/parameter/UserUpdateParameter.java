@@ -14,11 +14,6 @@ public class UserUpdateParameter extends Parameter {
     private String id;
 
     /**
-     * 状态：1冻结；2启用
-     */
-    private Integer status;
-
-    /**
      * 昵称
      */
     private String nickname;
@@ -48,14 +43,6 @@ public class UserUpdateParameter extends Parameter {
 
     public void setId (String id) {
         this.id = id;
-    }
-
-    public Integer getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public String getNickname() {

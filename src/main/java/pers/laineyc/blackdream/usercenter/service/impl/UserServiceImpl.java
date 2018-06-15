@@ -17,7 +17,11 @@ import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.usercenter.constant.UserStatusEnum;
 import pers.laineyc.blackdream.usercenter.constant.UserTypeEnum;
+import pers.laineyc.blackdream.usercenter.dao.UserAuthDao;
+import pers.laineyc.blackdream.usercenter.dao.po.UserAuthPo;
+import pers.laineyc.blackdream.usercenter.dao.query.UserAuthQuery;
 import pers.laineyc.blackdream.usercenter.service.UserService;
+import pers.laineyc.blackdream.usercenter.service.domain.UserAuth;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.usercenter.tool.UserServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
@@ -43,6 +47,9 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserAuthDao userAuthDao;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -71,9 +78,6 @@ public class UserServiceImpl extends BaseService implements UserService {
             throw new BusinessException("用户不存在");
         }
         userPo.setId(id);
-        
-        Integer status = parameter.getStatus();
-        userPo.setStatus(status);
 
         String nickname = parameter.getNickname();
         userPo.setNickname(nickname);
@@ -86,12 +90,6 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         String email = parameter.getEmail();
         userPo.setEmail(email);
-
-        userPo.setSignInCount(0);
-
-        userPo.setSignInTime(new Date());
-
-        userPo.setSignUpTime(new Date());
 
         userPo.setCreateTime(new Date());
 
@@ -124,8 +122,6 @@ public class UserServiceImpl extends BaseService implements UserService {
         
         user.setId(userPo.getId());
 
-        user.setStatus(userPo.getStatus());
-
         user.setType(userPo.getType());
 
         user.setNickname(userPo.getNickname());
@@ -135,14 +131,6 @@ public class UserServiceImpl extends BaseService implements UserService {
         user.setUsername(userPo.getUsername());
 
         user.setEmail(userPo.getEmail());
-
-        user.setSignInCount(userPo.getSignInCount());
-
-        user.setSignInIp(userPo.getSignInIp());
-
-        user.setSignInTime(userPo.getSignInTime());
-
-        user.setSignUpTime(userPo.getSignUpTime());
 
         user.setCreateTime(userPo.getCreateTime());
 
@@ -161,7 +149,6 @@ public class UserServiceImpl extends BaseService implements UserService {
         Auth auth = parameter.getAuth();
         
         UserQuery userQuery = new UserQuery();
-        userQuery.setStatus(parameter.getStatus());
         userQuery.setType(parameter.getType());
         userQuery.setNickname(parameter.getNickname());
         userQuery.setIconFileId(parameter.getIconFileId());
@@ -180,8 +167,6 @@ public class UserServiceImpl extends BaseService implements UserService {
 
             user.setId(po.getId());
 
-            user.setStatus(po.getStatus());
-
             user.setType(po.getType());
 
             user.setNickname(po.getNickname());
@@ -191,14 +176,6 @@ public class UserServiceImpl extends BaseService implements UserService {
             user.setUsername(po.getUsername());
 
             user.setEmail(po.getEmail());
-
-            user.setSignInCount(po.getSignInCount());
-
-            user.setSignInIp(po.getSignInIp());
-
-            user.setSignInTime(po.getSignInTime());
-
-            user.setSignUpTime(po.getSignUpTime());
 
             user.setCreateTime(po.getCreateTime());
 
@@ -227,7 +204,6 @@ public class UserServiceImpl extends BaseService implements UserService {
         List<User> records = pageResult.getRecords();
 
         UserQuery userQuery = new UserQuery();
-        userQuery.setStatus(parameter.getStatus());
         userQuery.setType(parameter.getType());
         userQuery.setNickname(parameter.getNickname());
         userQuery.setIconFileId(parameter.getIconFileId());
@@ -243,8 +219,6 @@ public class UserServiceImpl extends BaseService implements UserService {
 
             user.setId(po.getId());
 
-            user.setStatus(po.getStatus());
-
             user.setType(po.getType());
 
             user.setNickname(po.getNickname());
@@ -254,14 +228,6 @@ public class UserServiceImpl extends BaseService implements UserService {
             user.setUsername(po.getUsername());
 
             user.setEmail(po.getEmail());
-
-            user.setSignInCount(po.getSignInCount());
-
-            user.setSignInIp(po.getSignInIp());
-
-            user.setSignInTime(po.getSignInTime());
-
-            user.setSignUpTime(po.getSignUpTime());
 
             user.setCreateTime(po.getCreateTime());
 
@@ -283,47 +249,51 @@ public class UserServiceImpl extends BaseService implements UserService {
         Auth auth = parameter.getAuth();
         Date now = new Date();
 
-        UserPo userPo;
+        UserAuthPo userAuthPo;
 
         String username = parameter.getUsername();
 
         String password = parameter.getPassword();
 
-        UserQuery userQuery = new UserQuery();
+        UserAuthQuery userAuthQuery = new UserAuthQuery();
         if(username.contains("@")){
-            userQuery.setEmail(username);
+            userAuthQuery.setEmail(username);
         }
         else{
-            userQuery.setUsername(username);
+            userAuthQuery.setUsername(username);
         }
-        userPo = userDao.selectOne(userQuery);
+        userAuthPo = userAuthDao.selectOne(userAuthQuery);
 
-        if(userPo == null){
+        if(userAuthPo == null){
             throw new BusinessException("用户名或密码错误");
         }
 
-        Integer status = userPo.getStatus();
+        Integer status = userAuthPo.getStatus();
         if(status == UserStatusEnum.FROZEN.getCode()){
             throw new BusinessException("账号已冻结");
         }
 
-        if(!passwordEncoder.matches(password, userPo.getPassword())){
+        if(!passwordEncoder.matches(password, userAuthPo.getPassword())){
             throw new BusinessException("用户名或密码错误");
         }
 
         String accessToken = UUID.randomUUID().toString();
-        UserPo userPoUpdate = new UserPo();
-        userPoUpdate.setId(userPo.getId());
-        userPoUpdate.setSignInCount(userPo.getSignInCount() + 1);
-        userPoUpdate.setSignInTime(now);
-        userPoUpdate.setUpdateTime(now);
-        userPoUpdate.setAccessToken(accessToken);
-        userDao.updateSelective(userPoUpdate);
+        UserAuthPo userPoAuthUpdate = new UserAuthPo();
+        userPoAuthUpdate.setId(userAuthPo.getId());
+        userPoAuthUpdate.setUpdateTime(now);
+        userPoAuthUpdate.setAccessToken(accessToken);
+        userAuthDao.updateSelective(userPoAuthUpdate);
 
+        UserAuth userAuth = new UserAuth();
+        userAuth.setId(userAuthPo.getId());
+        userAuth.setAccessToken(accessToken);
+
+        String userId = userAuthPo.getUserId();
+        UserPo userPo = userDao.selectById(userId);
         User user = new User();
         user.setId(userPo.getId());
         user.setType(userPo.getType());
-        user.setAccessToken(accessToken);
+        user.setUserAuth(userAuth);
 
         return user;
     }
@@ -336,39 +306,35 @@ public class UserServiceImpl extends BaseService implements UserService {
         userServiceTool.tokenSignInValidate(parameter);
 
         Auth auth = parameter.getAuth();
-        Date now = new Date();
 
         String username = parameter.getUsername();
 
         String accessToken = parameter.getAccessToken();
 
-        String userId = username;
-
-        UserPo userPo = userDao.selectById(userId);
-        if(userPo == null){
+        UserAuthPo userAuthPo = userAuthDao.selectById(username);
+        if(userAuthPo == null){
             throw new BusinessException("用户名或密码错误");
         }
 
-        Integer status = userPo.getStatus();
+        Integer status = userAuthPo.getStatus();
         if(status == UserStatusEnum.FROZEN.getCode()){
             throw new BusinessException("账号已冻结");
         }
 
-        if(!accessToken.equals(userPo.getAccessToken())){
+        if(!accessToken.equals(userAuthPo.getAccessToken())){
             throw new BusinessException("用户名或密码错误");
         }
-/*
-        UserPo userPoUpdate = new UserPo();
-        userPoUpdate.setId(userPo.getId());
-        userPoUpdate.setSignInCount(userPo.getSignInCount() + 1);
-        userPoUpdate.setSignInTime(now);
-        userPoUpdate.setUpdateTime(now);
-        userDao.updateSelective(userPoUpdate);
-*/
+
+        UserAuth userAuth = new UserAuth();
+        userAuth.setId(userAuthPo.getId());
+        userAuth.setAccessToken(accessToken);
+
+        String userId = userAuthPo.getUserId();
+        UserPo userPo = userDao.selectById(userId);
         User user = new User();
         user.setId(userPo.getId());
         user.setType(userPo.getType());
-        user.setAccessToken(accessToken);
+        user.setUserAuth(userAuth);
 
         return user;
     }
@@ -381,18 +347,6 @@ public class UserServiceImpl extends BaseService implements UserService {
         userServiceTool.signOutValidate(parameter);
 
         Auth auth = parameter.getAuth();
-        Date now = new Date();
-
-        if(auth != null){
-            String authUserId = auth.getUserId();
-            String accessToken = UUID.randomUUID().toString();
-
-            UserPo userPoUpdate = new UserPo();
-            userPoUpdate.setId(authUserId);
-            userPoUpdate.setUpdateTime(now);
-            userPoUpdate.setAccessToken(accessToken);
-            userDao.updateSelective(userPoUpdate);
-        }
 
         User user = new User();
 
@@ -409,42 +363,45 @@ public class UserServiceImpl extends BaseService implements UserService {
         Auth auth = parameter.getAuth();
         Date now = new Date();
 
-        UserPo userPo = new UserPo();
+        UserAuthPo userAuthPo = new UserAuthPo();
 
         String username = parameter.getUsername();
-        UserQuery userQueryUsernameExist = new UserQuery();
-        userQueryUsernameExist.setUsername(username);
-        UserPo userPoUsernameExist = userDao.selectOne(userQueryUsernameExist);
-        if(userPoUsernameExist != null){
+        UserAuthQuery userAuthQueryUsernameExist = new UserAuthQuery();
+        userAuthQueryUsernameExist.setUsername(username);
+        UserAuthPo userAuthPoUsernameExist = userAuthDao.selectOne(userAuthQueryUsernameExist);
+        if(userAuthPoUsernameExist != null){
             throw new BusinessException("用户名被已注册");
         }
-        userPo.setUsername(username);
-        userPo.setNickname(username);
+        userAuthPo.setUsername(username);
 
         String email = parameter.getEmail();
-        UserQuery userQueryEmailExist = new UserQuery();
-        userQueryEmailExist.setEmail(email);
-        UserPo userPoEmailExist = userDao.selectOne(userQueryEmailExist);
-        if(userPoEmailExist != null){
+        UserAuthQuery userAuthQueryEmailExist = new UserAuthQuery();
+        userAuthQueryEmailExist.setEmail(email);
+        UserAuthPo userAuthPoEmailExist = userAuthDao.selectOne(userAuthQueryEmailExist);
+        if(userAuthPoEmailExist != null){
             throw new BusinessException("邮箱被已注册");
         }
-        userPo.setEmail(email);
+        userAuthPo.setEmail(email);
 
         String password = parameter.getPassword();
         String encodePassword = passwordEncoder.encode(password);
-        userPo.setPassword(encodePassword);
+        userAuthPo.setPassword(encodePassword);
 
-        userPo.setSignInCount(0);
+        userAuthPo.setStatus(UserStatusEnum.ENABLE.getCode());
 
-        userPo.setStatus(UserStatusEnum.ENABLE.getCode());
+        userAuthPo.setCreateTime(now);
 
+        UserPo userPo = new UserPo();
         userPo.setType(UserTypeEnum.GENERAL.getCode());
-
-        userPo.setSignUpTime(now);
-
+        userPo.setNickname(username);
+        userPo.setUsername(username);
+        userPo.setEmail(email);
         userPo.setCreateTime(now);
-
         userDao.insert(userPo);
+
+        userAuthPo.setUserId(userPo.getId());
+
+        userAuthDao.insert(userAuthPo);
 
         User user = new User();
         user.setId(userPo.getId());
@@ -462,13 +419,15 @@ public class UserServiceImpl extends BaseService implements UserService {
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
 
-        UserPo userPo = userDao.selectById(authUserId);
-        if(userPo == null){
+        UserAuthQuery userAuthQuery = new UserAuthQuery();
+        userAuthQuery.setUserId(authUserId);
+        UserAuthPo userAuthPo = userAuthDao.selectOne(userAuthQuery);
+        if(userAuthPo == null){
             throw new BusinessException("用户不存在");
         }
 
         String oldPassword = parameter.getOldPassword();
-        if(!passwordEncoder.matches(oldPassword, userPo.getPassword())){
+        if(!passwordEncoder.matches(oldPassword, userAuthPo.getPassword())){
             throw new BusinessException("旧密码不正确");
         }
 
@@ -476,15 +435,19 @@ public class UserServiceImpl extends BaseService implements UserService {
         String encodeNewPassword = passwordEncoder.encode(newPassword);
         String newAccessToken = UUID.randomUUID().toString();
 
-        UserPo userPoUpdate = new UserPo();
-        userPoUpdate.setId(userPo.getId());
-        userPoUpdate.setPassword(encodeNewPassword);
-        userPoUpdate.setAccessToken(newAccessToken);
-        userDao.updateSelective(userPoUpdate);
+        UserAuthPo userAuthPoUpdate = new UserAuthPo();
+        userAuthPoUpdate.setId(userAuthPo.getId());
+        userAuthPoUpdate.setPassword(encodeNewPassword);
+        userAuthPoUpdate.setAccessToken(newAccessToken);
+        userAuthDao.updateSelective(userAuthPoUpdate);
+
+        UserAuth userAuth = new UserAuth();
+        userAuth.setId(userAuthPo.getId());
+        userAuth.setAccessToken(newAccessToken);
 
         User user = new User();
         user.setId(authUserId);
-        user.setAccessToken(newAccessToken);
+        user.setUserAuth(userAuth);
 
         return user;
     }
@@ -497,16 +460,16 @@ public class UserServiceImpl extends BaseService implements UserService {
         userServiceTool.usernameExistValidate(parameter);
 
         String username = parameter.getUsername();
-        UserQuery userQuery = new UserQuery();
+        UserAuthQuery userAuthQuery = new UserAuthQuery();
         if(username.contains("@")){
-            userQuery.setEmail(username);
+            userAuthQuery.setEmail(username);
         }
         else{
-            userQuery.setUsername(username);
+            userAuthQuery.setUsername(username);
         }
-        UserPo userPo = userDao.selectOne(userQuery);
+        UserAuthPo userAuthPo = userAuthDao.selectOne(userAuthQuery);
 
-        return userPo != null;
+        return userAuthPo != null;
     }
 
     /**

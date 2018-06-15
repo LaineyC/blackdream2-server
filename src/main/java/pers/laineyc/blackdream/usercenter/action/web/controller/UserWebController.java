@@ -17,6 +17,7 @@ import pers.laineyc.blackdream.usercenter.action.web.request.*;
 import pers.laineyc.blackdream.usercenter.action.web.vo.*;
 import pers.laineyc.blackdream.usercenter.constant.UserSignUpEmailValidCode;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
+import pers.laineyc.blackdream.usercenter.service.domain.UserAuth;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 import pers.laineyc.blackdream.usercenter.service.UserService;
@@ -129,7 +130,7 @@ public class UserWebController extends BaseWebController {
 
         String userId = user.getId();
 
-        userServiceTool.handleTokenSignInCookie(userId, user.getAccessToken(), httpServletResponse);
+        userServiceTool.handleTokenSignInCookie(user.getUserAuth(), httpServletResponse);
 
         Auth auth = new Auth();
         auth.setUserId(userId);
@@ -203,9 +204,7 @@ public class UserWebController extends BaseWebController {
 
         User user = userService.passwordChange(parameter);
 
-        String userId = user.getId();
-
-        userServiceTool.handleTokenSignInCookie(userId, user.getAccessToken(), httpServletResponse);
+        userServiceTool.handleTokenSignInCookie(user.getUserAuth(), httpServletResponse);
 
         UserPasswordChangeWebVo userPasswordUpdateWebVo = new UserPasswordChangeWebVo();
 

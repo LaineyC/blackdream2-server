@@ -31,7 +31,6 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     public void update() throws Exception {
         UserUpdateWebRequest request = new UserUpdateWebRequest();
         request.setId("");
-        request.setStatus(0);
         request.setNickname("");
         request.setIconFileId("");
         request.setUsername("");
@@ -57,7 +56,6 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void query() throws Exception {
         UserQueryWebRequest request = new UserQueryWebRequest();
-        request.setStatus(0);
         request.setNickname("");
         request.setIconFileId("");
         request.setUsername("");
@@ -74,7 +72,6 @@ public class UserWebControllerTest extends BaseWebControllerTest {
         UserSearchWebRequest request = new UserSearchWebRequest();
         request.setPage(1);
         request.setPageSize(10);
-        request.setStatus(0);
         request.setNickname("");
         request.setIconFileId("");
         request.setUsername("");

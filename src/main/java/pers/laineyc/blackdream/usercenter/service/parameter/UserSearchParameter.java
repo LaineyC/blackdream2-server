@@ -19,11 +19,6 @@ public class UserSearchParameter extends Parameter {
     private Integer pageSize;
 
     /**
-     * 状态：1冻结；2启用
-     */
-    private Integer status;
-
-    /**
      * 状态：1一般用户；2开发用户
      */
     private Integer type;
@@ -66,14 +61,6 @@ public class UserSearchParameter extends Parameter {
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
-    }
-
-    public Integer getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public Integer getType() {

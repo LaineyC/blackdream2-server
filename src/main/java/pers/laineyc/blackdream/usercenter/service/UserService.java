@@ -1,6 +1,7 @@
 package pers.laineyc.blackdream.usercenter.service;
 
 import pers.laineyc.blackdream.framework.service.Service;
+import pers.laineyc.blackdream.usercenter.service.domain.UserAuth;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
