@@ -48,8 +48,8 @@ public interface CreationStrategyService extends Service{
     CreationStrategy sort(CreationStrategySortParameter parameter);
 
     /**
-     * 生成器生成策略分页查询
+     * 生成器生成策略多个查询
      */
-    PageResult<CreationStrategy> infoSearch(CreationStrategyInfoSearchParameter parameter);
+    List<CreationStrategy> infoQuery(CreationStrategyInfoQueryParameter parameter);
 
 }

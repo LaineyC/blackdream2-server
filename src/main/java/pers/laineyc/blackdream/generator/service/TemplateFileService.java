@@ -48,9 +48,9 @@ public interface TemplateFileService extends Service{
     TemplateFile sort(TemplateFileSortParameter parameter);
 
     /**
-     * 生成器模板文件分页查询
+     * 生成器模板文件多个查询
      */
-    PageResult<TemplateFile> infoSearch(TemplateFileInfoSearchParameter parameter);
+    List<TemplateFile> infoQuery(TemplateFileInfoQueryParameter parameter);
 
     /**
      * 构建资源

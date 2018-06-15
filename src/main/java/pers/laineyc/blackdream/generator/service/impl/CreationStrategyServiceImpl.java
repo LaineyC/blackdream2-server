@@ -489,19 +489,19 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
     }
 
     /**
-     * 生成器生成策略分页查询
+     * 生成器生成策略多个查询
      */
     //@Transactional(readOnly = true)
-    public PageResult<CreationStrategy> infoSearch(CreationStrategyInfoSearchParameter parameter) {
-        creationStrategyServiceTool.infoSearchValidate(parameter);
+    public List<CreationStrategy> infoQuery(CreationStrategyInfoQueryParameter parameter) {
+        creationStrategyServiceTool.infoQueryValidate(parameter);
 
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
 
-        CreationStrategySearchParameter creationStrategySearchParameter = new CreationStrategySearchParameter();
-        BeanUtils.copyProperties(parameter, creationStrategySearchParameter);
-        creationStrategySearchParameter.setUserId(authUserId);
+        CreationStrategyQueryParameter creationStrategyQueryParameter = new CreationStrategyQueryParameter();
+        BeanUtils.copyProperties(parameter, creationStrategyQueryParameter);
+        creationStrategyQueryParameter.setUserId(authUserId);
 
-        return this.search(creationStrategySearchParameter);
+        return this.query(creationStrategyQueryParameter);
     }
 }

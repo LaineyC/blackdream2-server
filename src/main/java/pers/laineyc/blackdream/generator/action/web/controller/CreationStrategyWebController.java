@@ -17,6 +17,7 @@ import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.CreationStrategy;
 import pers.laineyc.blackdream.generator.service.CreationStrategyService;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -147,24 +148,22 @@ public class CreationStrategyWebController extends BaseWebController {
     }
 
     @AuthSecurity(developer = true)
-    @ApiOperation(value = "生成器生成策略分页查询")
-    @PostMapping(value = "/creationStrategy/infoSearch")
-    public @ResponseBody Response<PageResult<CreationStrategyInfoSearchWebVo>> infoSearch(@RequestBody CreationStrategyInfoSearchWebRequest request) {
-        CreationStrategyInfoSearchParameter parameter = new CreationStrategyInfoSearchParameter();
+    @ApiOperation(value = "生成器生成策略多个查询")
+    @PostMapping(value = "/creationStrategy/infoQuery")
+    public @ResponseBody Response<List<CreationStrategyInfoQueryWebVo>> infoQuery(@RequestBody CreationStrategyInfoQueryWebRequest request) {
+        CreationStrategyInfoQueryParameter parameter = new CreationStrategyInfoQueryParameter();
         BeanUtils.copyProperties(request, parameter);
 
-        PageResult<CreationStrategy> creationStrategyPageResult = creationStrategyService.infoSearch(parameter);
+        List<CreationStrategy> creationStrategyList = creationStrategyService.infoQuery(parameter);
 
-        PageResult<CreationStrategyInfoSearchWebVo> creationStrategyInfoSearchWebVoPageResult = new PageResult<>();
-        creationStrategyInfoSearchWebVoPageResult.setTotal(creationStrategyPageResult.getTotal());
-        List<CreationStrategyInfoSearchWebVo> creationStrategySearchWebVoList = creationStrategyInfoSearchWebVoPageResult.getRecords();
-        creationStrategyPageResult.getRecords().forEach(creationStrategy -> {
-            CreationStrategyInfoSearchWebVo creationStrategySearchWebVo = new CreationStrategyInfoSearchWebVo();
-            BeanUtils.copyProperties(creationStrategy, creationStrategySearchWebVo);
-            creationStrategySearchWebVoList.add(creationStrategySearchWebVo);
+        List<CreationStrategyInfoQueryWebVo> creationStrategyQueryWebVoList = new ArrayList<>();
+        creationStrategyList.forEach(creationStrategy -> {
+            CreationStrategyInfoQueryWebVo creationStrategyQueryWebVo = new CreationStrategyInfoQueryWebVo();
+            BeanUtils.copyProperties(creationStrategy, creationStrategyQueryWebVo);
+            creationStrategyQueryWebVoList.add(creationStrategyQueryWebVo);
         });
 
-        return new Response<>(creationStrategyInfoSearchWebVoPageResult);
+        return new Response<>(creationStrategyQueryWebVoList);
     }
     
 }

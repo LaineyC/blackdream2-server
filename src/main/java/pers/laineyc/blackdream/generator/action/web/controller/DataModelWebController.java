@@ -17,6 +17,7 @@ import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.DataModel;
 import pers.laineyc.blackdream.generator.service.DataModelService;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -147,24 +148,22 @@ public class DataModelWebController extends BaseWebController {
     }
 
     @AuthSecurity(developer = true)
-    @ApiOperation(value = "生成器数据模型分页查询")
-    @PostMapping(value = "/dataModel/infoSearch")
-    public @ResponseBody Response<PageResult<DataModelInfoSearchWebVo>> infoSearch(@RequestBody DataModelInfoSearchWebRequest request) {
-        DataModelInfoSearchParameter parameter = new DataModelInfoSearchParameter();
+    @ApiOperation(value = "生成器数据模型多个查询")
+    @PostMapping(value = "/dataModel/infoQuery")
+    public @ResponseBody Response<List<DataModelInfoQueryWebVo>> infoQuery(@RequestBody DataModelInfoQueryWebRequest request) {
+        DataModelInfoQueryParameter parameter = new DataModelInfoQueryParameter();
         BeanUtils.copyProperties(request, parameter);
 
-        PageResult<DataModel> dataModelPageResult = dataModelService.infoSearch(parameter);
+        List<DataModel> dataModelList = dataModelService.infoQuery(parameter);
 
-        PageResult<DataModelInfoSearchWebVo> dataModelSearchWebVoPageResult = new PageResult<>();
-        dataModelSearchWebVoPageResult.setTotal(dataModelPageResult.getTotal());
-        List<DataModelInfoSearchWebVo> dataModelSearchWebVoList = dataModelSearchWebVoPageResult.getRecords();
-        dataModelPageResult.getRecords().forEach(dataModel -> {
-            DataModelInfoSearchWebVo dataModelSearchWebVo = new DataModelInfoSearchWebVo();
-            BeanUtils.copyProperties(dataModel, dataModelSearchWebVo);
-            dataModelSearchWebVoList.add(dataModelSearchWebVo);
+        List<DataModelInfoQueryWebVo> dataModelQueryWebVoList = new ArrayList<>();
+        dataModelList.forEach(dataModel -> {
+            DataModelInfoQueryWebVo dataModelQueryWebVo = new DataModelInfoQueryWebVo();
+            BeanUtils.copyProperties(dataModel, dataModelQueryWebVo);
+            dataModelQueryWebVoList.add(dataModelQueryWebVo);
         });
 
-        return new Response<>(dataModelSearchWebVoPageResult);
+        return new Response<>(dataModelQueryWebVoList);
     }
     
 }

@@ -5,17 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.generator.service.parameter.*;
-import pers.laineyc.blackdream.generator.service.domain.DataModel;
-import pers.laineyc.blackdream.generator.dao.po.DataModelPo;
-import pers.laineyc.blackdream.generator.dao.query.DataModelQuery;
 import pers.laineyc.blackdream.generator.dao.DataModelDao;
-import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
-import pers.laineyc.blackdream.usercenter.dao.query.UserQuery;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
-import pers.laineyc.blackdream.generator.dao.query.GeneratorQuery;
 import pers.laineyc.blackdream.generator.dao.GeneratorDao;
-import java.util.Date; 
 
 /**
  * 生成器数据模型ServiceTool
@@ -182,18 +175,10 @@ public class DataModelServiceTool{
     }
 
     /**
-     * 生成器数据模型分页查询Validate
+     * 生成器数据模型多个查询Validate
      */
-    public void infoSearchValidate(DataModelInfoSearchParameter parameter) {
-        Integer page = parameter.getPage();
-        if(page == null || page < 1){
-            throw new BusinessException("页数不合法");
-        }
+    public void infoQueryValidate(DataModelInfoQueryParameter parameter) {
 
-        Integer pageSize = parameter.getPageSize();
-        if(pageSize == null || pageSize < 1 || pageSize > 100){
-            throw new BusinessException("每页数量不合法");
-        }
     }
     
 }

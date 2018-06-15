@@ -48,8 +48,8 @@ public interface DataModelService extends Service{
     DataModel sort(DataModelSortParameter parameter);
 
     /**
-     * 生成器数据模型分页查询
+     * 生成器数据模型多个查询
      */
-    PageResult<DataModel> infoSearch(DataModelInfoSearchParameter parameter);
+    List<DataModel> infoQuery(DataModelInfoQueryParameter parameter);
 
 }

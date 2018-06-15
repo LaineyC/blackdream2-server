@@ -3,14 +3,15 @@ package pers.laineyc.blackdream.generator.action.web.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.controller.response.Vo;
+
 import java.util.Date;
 
 /**
- * 生成器模板文件分页查询Vo
+ * 生成器数据模型多个查询Vo
  * @author LaineyC
  */
 @ApiModel
-public class TemplateFileInfoSearchWebVo extends Vo {
+public class DataModelInfoQueryWebVo extends Vo {
 
     @ApiModelProperty(value = "主键")
     private String id;
@@ -27,11 +28,8 @@ public class TemplateFileInfoSearchWebVo extends Vo {
     @ApiModelProperty(value = "编号")
     private String code;
 
-    @ApiModelProperty(value = "引擎类型：1Velocity；2FreeMarker")
-    private Integer engineType;
-
-    @ApiModelProperty(value = "显示分组")
-    private String displayGroup;
+    @ApiModelProperty(value = "图标样式")
+    private String iconStyle;
 
     @ApiModelProperty(value = "显示顺序")
     private Integer displayOrder;
@@ -45,7 +43,7 @@ public class TemplateFileInfoSearchWebVo extends Vo {
     @ApiModelProperty(value = "修改时间")
     private Date updateTime;
 
-    public TemplateFileInfoSearchWebVo() {
+    public DataModelInfoQueryWebVo() {
 
     }
 
@@ -89,20 +87,12 @@ public class TemplateFileInfoSearchWebVo extends Vo {
         this.code = code;
     }
 
-    public Integer getEngineType() {
-        return this.engineType;
+    public String getIconStyle() {
+        return this.iconStyle;
     }
 
-    public void setEngineType(Integer engineType) {
-        this.engineType = engineType;
-    }
-
-    public String getDisplayGroup() {
-        return this.displayGroup;
-    }
-
-    public void setDisplayGroup(String displayGroup) {
-        this.displayGroup = displayGroup;
+    public void setIconStyle(String iconStyle) {
+        this.iconStyle = iconStyle;
     }
 
     public Integer getDisplayOrder() {
@@ -188,4 +178,5 @@ public class TemplateFileInfoSearchWebVo extends Vo {
             this.name = name;
         }
     }
+
 }

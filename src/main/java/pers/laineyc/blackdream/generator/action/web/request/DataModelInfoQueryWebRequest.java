@@ -5,17 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.controller.request.Request;
 
 /**
- * 生成器数据模型分页查询Request
+ * 生成器数据模型多个查询Request
  * @author LaineyC
  */
 @ApiModel
-public class DataModelInfoSearchWebRequest extends Request {
-
-    @ApiModelProperty(value = "页数", required = true)
-    private Integer page;
-
-    @ApiModelProperty(value = "每页数量", required = true)
-    private Integer pageSize;
+public class DataModelInfoQueryWebRequest extends Request {
 
     @ApiModelProperty(value = "所属生成器")
     private String generatorId;
@@ -29,24 +23,8 @@ public class DataModelInfoSearchWebRequest extends Request {
     @ApiModelProperty(value = "图标样式", required = true)
     private String iconStyle;
 
-    public DataModelInfoSearchWebRequest() {
+    public DataModelInfoQueryWebRequest() {
 
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
     }
 
     public String getGeneratorId() {

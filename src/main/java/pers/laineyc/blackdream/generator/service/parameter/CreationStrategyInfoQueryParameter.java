@@ -3,20 +3,10 @@ package pers.laineyc.blackdream.generator.service.parameter;
 import pers.laineyc.blackdream.framework.service.parameter.Parameter;
 
 /**
- * 生成器生成策略分页查询Parameter
+ * 生成器生成策略多个查询Parameter
  * @author LaineyC
  */
-public class CreationStrategyInfoSearchParameter extends Parameter {
-
-    /**
-     * 页数
-     */
-    private Integer page;
-
-    /**
-     * 每页数量
-     */
-    private Integer pageSize;
+public class CreationStrategyInfoQueryParameter extends Parameter {
 
     /**
      * 所属生成器
@@ -33,24 +23,8 @@ public class CreationStrategyInfoSearchParameter extends Parameter {
      */
     private Integer scriptLanguage;
 
-    public CreationStrategyInfoSearchParameter() {
+    public CreationStrategyInfoQueryParameter() {
 
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
     }
 
     public String getGeneratorId() {

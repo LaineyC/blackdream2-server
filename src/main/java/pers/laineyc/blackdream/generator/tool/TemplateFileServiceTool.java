@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.configuration.constant.SystemConstant;
-import pers.laineyc.blackdream.configuration.tool.PathTool;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.generator.constant.TemplateEngineTypeEnum;
 import pers.laineyc.blackdream.generator.service.parameter.*;
@@ -220,18 +219,10 @@ public class TemplateFileServiceTool{
     }
 
     /**
-     * 生成器模板文件分页查询Validate
+     * 生成器模板文件多个查询Validate
      */
-    public void infoSearchValidate(TemplateFileInfoSearchParameter parameter) {
-        Integer page = parameter.getPage();
-        if(page == null || page < 1){
-            throw new BusinessException("页数不合法");
-        }
+    public void infoQueryValidate(TemplateFileInfoQueryParameter parameter) {
 
-        Integer pageSize = parameter.getPageSize();
-        if(pageSize == null || pageSize < 1 || pageSize > 100){
-            throw new BusinessException("每页数量不合法");
-        }
     }
 
     /**

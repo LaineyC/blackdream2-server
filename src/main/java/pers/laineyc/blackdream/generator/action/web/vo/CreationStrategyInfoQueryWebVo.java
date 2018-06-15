@@ -7,11 +7,11 @@ import pers.laineyc.blackdream.framework.controller.response.Vo;
 import java.util.Date;
 
 /**
- * 生成器生成策略分页查询Vo
+ * 生成器生成策略多个查询Vo
  * @author LaineyC
  */
 @ApiModel
-public class CreationStrategyInfoSearchWebVo extends Vo {
+public class CreationStrategyInfoQueryWebVo extends Vo {
 
     @ApiModelProperty(value = "主键")
     private String id;
@@ -40,7 +40,7 @@ public class CreationStrategyInfoSearchWebVo extends Vo {
     @ApiModelProperty(value = "修改时间")
     private Date updateTime;
 
-    public CreationStrategyInfoSearchWebVo() {
+    public CreationStrategyInfoQueryWebVo() {
 
     }
 

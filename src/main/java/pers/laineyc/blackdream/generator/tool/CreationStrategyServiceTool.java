@@ -7,18 +7,11 @@ import pers.laineyc.blackdream.configuration.constant.SystemConstant;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.generator.constant.CreationStrategyLanguageEnum;
 import pers.laineyc.blackdream.generator.service.parameter.*;
-import pers.laineyc.blackdream.generator.service.domain.CreationStrategy;
-import pers.laineyc.blackdream.generator.dao.po.CreationStrategyPo;
-import pers.laineyc.blackdream.generator.dao.query.CreationStrategyQuery;
 import pers.laineyc.blackdream.generator.dao.CreationStrategyDao;
-import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
-import pers.laineyc.blackdream.usercenter.dao.query.UserQuery;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
-import pers.laineyc.blackdream.generator.dao.query.GeneratorQuery;
 import pers.laineyc.blackdream.generator.dao.GeneratorDao;
 import java.io.File;
-import java.util.Date;
 
 /**
  * 生成器生成策略ServiceTool
@@ -196,18 +189,10 @@ public class CreationStrategyServiceTool{
     }
 
     /**
-     * 生成器生成策略分页查询Validate
+     * 生成器生成策略分多个询Validate
      */
-    public void infoSearchValidate(CreationStrategyInfoSearchParameter parameter) {
-        Integer page = parameter.getPage();
-        if(page == null || page < 1){
-            throw new BusinessException("页数不合法");
-        }
+    public void infoQueryValidate(CreationStrategyInfoQueryParameter parameter) {
 
-        Integer pageSize = parameter.getPageSize();
-        if(pageSize == null || pageSize < 1 || pageSize > 100){
-            throw new BusinessException("每页数量不合法");
-        }
     }
     
 }

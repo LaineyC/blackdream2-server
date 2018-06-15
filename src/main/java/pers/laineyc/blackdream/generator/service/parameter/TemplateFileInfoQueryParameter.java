@@ -3,20 +3,10 @@ package pers.laineyc.blackdream.generator.service.parameter;
 import pers.laineyc.blackdream.framework.service.parameter.Parameter;
 
 /**
- * 生成器数据模型分页查询Parameter
+ * 生成器模板文件多个查询Parameter
  * @author LaineyC
  */
-public class DataModelInfoSearchParameter extends Parameter {
-
-    /**
-     * 页数
-     */
-    private Integer page;
-
-    /**
-     * 每页数量
-     */
-    private Integer pageSize;
+public class TemplateFileInfoQueryParameter extends Parameter {
 
     /**
      * 所属生成器
@@ -34,28 +24,17 @@ public class DataModelInfoSearchParameter extends Parameter {
     private String code;
 
     /**
-     * 图标样式
+     * 引擎类型：1Velocity；2FreeMarker
      */
-    private String iconStyle;
+    private Integer engineType;
 
-    public DataModelInfoSearchParameter() {
+    /**
+     * 显示分组
+     */
+    private String displayGroup;
 
-    }
+    public TemplateFileInfoQueryParameter() {
 
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
     }
 
     public String getGeneratorId() {
@@ -82,12 +61,20 @@ public class DataModelInfoSearchParameter extends Parameter {
         this.code = code;
     }
 
-    public String getIconStyle() {
-        return iconStyle;
+    public Integer getEngineType() {
+        return engineType;
     }
 
-    public void setIconStyle(String iconStyle) {
-        this.iconStyle = iconStyle;
+    public void setEngineType(Integer engineType) {
+        this.engineType = engineType;
+    }
+
+    public String getDisplayGroup() {
+        return displayGroup;
+    }
+
+    public void setDisplayGroup(String displayGroup) {
+        this.displayGroup = displayGroup;
     }
 
 }

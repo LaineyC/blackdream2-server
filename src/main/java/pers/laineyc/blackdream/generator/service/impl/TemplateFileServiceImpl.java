@@ -522,20 +522,20 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
     }
 
     /**
-     * 生成器模板文件分页查询
+     * 生成器模板文件多个查询
      */
     //@Transactional(readOnly = true)
-    public PageResult<TemplateFile> infoSearch(TemplateFileInfoSearchParameter parameter) {
-        templateFileServiceTool.infoSearchValidate(parameter);
+    public List<TemplateFile> infoQuery(TemplateFileInfoQueryParameter parameter) {
+        templateFileServiceTool.infoQueryValidate(parameter);
 
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
 
-        TemplateFileSearchParameter templateFileSearchParameter = new TemplateFileSearchParameter();
-        BeanUtils.copyProperties(parameter, templateFileSearchParameter);
-        templateFileSearchParameter.setUserId(authUserId);
+        TemplateFileQueryParameter templateFileQueryParameter = new TemplateFileQueryParameter();
+        BeanUtils.copyProperties(parameter, templateFileQueryParameter);
+        templateFileQueryParameter.setUserId(authUserId);
 
-        return this.search(templateFileSearchParameter);
+        return this.query(templateFileQueryParameter);
     }
 
     /**

@@ -518,20 +518,20 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
     }
 
     /**
-     * 生成器数据模型分页查询
+     * 生成器数据模型多个查询
      */
     //@Transactional(readOnly = true)
-    public PageResult<DataModel> infoSearch(DataModelInfoSearchParameter parameter) {
-        dataModelServiceTool.infoSearchValidate(parameter);
+    public List<DataModel> infoQuery(DataModelInfoQueryParameter parameter) {
+        dataModelServiceTool.infoQueryValidate(parameter);
 
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
 
-        DataModelSearchParameter dataModelSearchParameter = new DataModelSearchParameter();
-        BeanUtils.copyProperties(parameter, dataModelSearchParameter);
-        dataModelSearchParameter.setUserId(authUserId);
+        DataModelQueryParameter dataModelQueryParameter = new DataModelQueryParameter();
+        BeanUtils.copyProperties(parameter, dataModelQueryParameter);
+        dataModelQueryParameter.setUserId(authUserId);
 
-        return this.search(dataModelSearchParameter);
+        return this.query(dataModelQueryParameter);
     }
 
 }

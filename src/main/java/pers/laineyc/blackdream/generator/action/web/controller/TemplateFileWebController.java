@@ -17,6 +17,7 @@ import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.TemplateFile;
 import pers.laineyc.blackdream.generator.service.TemplateFileService;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -148,23 +149,21 @@ public class TemplateFileWebController extends BaseWebController {
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件分页查询")
-    @PostMapping(value = "/templateFile/infoSearch")
-    public @ResponseBody Response<PageResult<TemplateFileInfoSearchWebVo>> infoSearch(@RequestBody TemplateFileInfoSearchWebRequest request) {
-        TemplateFileInfoSearchParameter parameter = new TemplateFileInfoSearchParameter();
+    @PostMapping(value = "/templateFile/infoQuery")
+    public @ResponseBody Response<List<TemplateFileInfoQueryWebVo>> infoQuery(@RequestBody TemplateFileInfoQueryWebRequest request) {
+        TemplateFileInfoQueryParameter parameter = new TemplateFileInfoQueryParameter();
         BeanUtils.copyProperties(request, parameter);
 
-        PageResult<TemplateFile> templateFilePageResult = templateFileService.infoSearch(parameter);
+        List<TemplateFile> templateFileList = templateFileService.infoQuery(parameter);
 
-        PageResult<TemplateFileInfoSearchWebVo> templateFileSearchWebVoPageResult = new PageResult<>();
-        templateFileSearchWebVoPageResult.setTotal(templateFilePageResult.getTotal());
-        List<TemplateFileInfoSearchWebVo> templateFileSearchWebVoList = templateFileSearchWebVoPageResult.getRecords();
-        templateFilePageResult.getRecords().forEach(templateFile -> {
-            TemplateFileInfoSearchWebVo templateFileSearchWebVo = new TemplateFileInfoSearchWebVo();
-            BeanUtils.copyProperties(templateFile, templateFileSearchWebVo);
-            templateFileSearchWebVoList.add(templateFileSearchWebVo);
+        List<TemplateFileInfoQueryWebVo> templateFileQueryWebVoList = new ArrayList<>();
+        templateFileList.forEach(templateFile -> {
+            TemplateFileInfoQueryWebVo templateFileQueryWebVo = new TemplateFileInfoQueryWebVo();
+            BeanUtils.copyProperties(templateFile, templateFileQueryWebVo);
+            templateFileQueryWebVoList.add(templateFileQueryWebVo);
         });
 
-        return new Response<>(templateFileSearchWebVoPageResult);
+        return new Response<>(templateFileQueryWebVoList);
     }
 
 }
