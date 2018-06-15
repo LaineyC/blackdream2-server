@@ -79,7 +79,7 @@ public class GeneratorDataServiceTool{
             throw new BusinessException("缺少所属生成器数据模型");
         }
         DataModelPo dataModelPo = dataModelDao.selectById(dataModelId);
-        if(dataModelPo == null){
+        if(dataModelPo == null || dataModelPo.getIsDeleted()){
             throw new BusinessException("所属生成器数据模型不存在");
         }
 
@@ -135,7 +135,7 @@ public class GeneratorDataServiceTool{
         String parentId = parameter.getParentId();
         if(parentId != null){
             GeneratorDataPo parentPo = generatorDataDao.selectById(parentId);
-            if(parentPo == null){
+            if(parentPo == null || parentPo.getIsDeleted()){
                 throw new BusinessException("父节点不存在");
             }
         }

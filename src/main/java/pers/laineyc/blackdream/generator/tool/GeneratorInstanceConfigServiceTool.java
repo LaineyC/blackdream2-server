@@ -61,7 +61,7 @@ public class GeneratorInstanceConfigServiceTool{
             throw new BusinessException("缺少所属生成器实例");
         }
         GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(generatorInstanceId);
-        if(generatorInstancePo == null){
+        if(generatorInstancePo == null || generatorInstancePo.getIsDeleted()){
             throw new BusinessException("所属生成器实例不存在");
         }
 

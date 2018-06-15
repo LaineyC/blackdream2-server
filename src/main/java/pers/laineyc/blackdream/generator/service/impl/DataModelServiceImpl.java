@@ -122,10 +122,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
                
         String id = parameter.getId();
         DataModelPo dataModelPo = dataModelDao.selectById(id);
-        if(dataModelPo == null){
-            throw new BusinessException("生成器数据模型不存在");
-        }
-        if(!dataModelPo.getUserId().equals(authUserId)){
+        if(dataModelPo == null || dataModelPo.getIsDeleted() || !dataModelPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器数据模型不存在");
         }
 
@@ -154,10 +151,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         String id = parameter.getId();
         DataModelPo dataModelPo = dataModelDao.selectById(id);
-        if(dataModelPo == null){
-            throw new BusinessException("生成器数据模型不存在");
-        }
-        if(!dataModelPo.getUserId().equals(authUserId)){
+        if(dataModelPo == null || dataModelPo.getIsDeleted() || !dataModelPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器数据模型不存在");
         }
 
@@ -203,7 +197,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         
         String id = parameter.getId();
         DataModelPo dataModelPo = dataModelDao.selectById(id);
-        if(dataModelPo == null) {
+        if(dataModelPo == null || dataModelPo.getIsDeleted()){
             throw new BusinessException("生成器数据模型不存在");
         }
 
@@ -473,10 +467,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         String id = parameter.getId();
         DataModelPo dataModelPo = dataModelDao.selectById(id);
-        if(dataModelPo == null) {
-            throw new BusinessException("生成器数据模型不存在");
-        }
-        if(!dataModelPo.getUserId().equals(authUserId)){
+        if(dataModelPo == null || dataModelPo.getIsDeleted() || !dataModelPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器数据模型不存在");
         }
 

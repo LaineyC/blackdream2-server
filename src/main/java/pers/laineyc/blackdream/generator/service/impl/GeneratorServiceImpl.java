@@ -105,10 +105,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
                
         String id = parameter.getId();
         GeneratorPo generatorPo = generatorDao.selectById(id);
-        if(generatorPo == null){
-            throw new BusinessException("生成器不存在");
-        }
-        if(!generatorPo.getUserId().equals(authUserId)){
+        if(generatorPo == null || generatorPo.getIsDeleted() || !generatorPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器不存在");
         }
 
@@ -137,10 +134,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
         String id = parameter.getId();
         GeneratorPo generatorPo = generatorDao.selectById(id);
-        if(generatorPo == null){
-            throw new BusinessException("生成器不存在");
-        }
-        if(!generatorPo.getUserId().equals(authUserId)){
+        if(generatorPo == null || generatorPo.getIsDeleted() || !generatorPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器不存在");
         }
 
@@ -174,8 +168,8 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         
         String id = parameter.getId();
         GeneratorPo generatorPo = generatorDao.selectById(id);
-        if(generatorPo == null) {
-            throw new BusinessException("生成器不存在");
+        if(generatorPo == null || generatorPo.getIsDeleted()){
+            throw new BusinessException("生成器实不存在");
         }
 
         Generator generator = new Generator();
@@ -431,10 +425,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
         String id = parameter.getId();
         GeneratorPo generatorPo = generatorDao.selectById(id);
-        if(generatorPo == null){
-            throw new BusinessException("生成器不存在");
-        }
-        if(!generatorPo.getUserId().equals(authUserId)){
+        if(generatorPo == null || generatorPo.getIsDeleted() || !generatorPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器不存在");
         }
 

@@ -92,7 +92,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         String generatorInstanceId = parameter.getGeneratorInstanceId();
         GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(generatorInstanceId);
-        if(generatorInstancePo == null){
+        if(generatorInstancePo == null || generatorInstancePo.getIsDeleted()){
             throw new BusinessException("所属生成器实例不存在");
         }
         generatorDataPo.setGeneratorInstanceId(generatorInstanceId);
@@ -141,12 +141,9 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
                
         String id = parameter.getId();
         GeneratorDataPo generatorDataPo = generatorDataDao.selectById(id);
-        if(generatorDataPo == null){
-            throw new BusinessException("生成器数据不存在");
-        }
 
-        if(!generatorDataPo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器实例设置不存在");
+        if(generatorDataPo == null || generatorDataPo.getIsDeleted() || !generatorDataPo.getUserId().equals(authUserId)){
+            throw new BusinessException("生成器数据不存在");
         }
 
         GeneratorDataPo generatorDataPoUpdate = new GeneratorDataPo();
@@ -174,11 +171,8 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         String id = parameter.getId();
         GeneratorDataPo generatorDataPo = generatorDataDao.selectById(id);
-        if(generatorDataPo == null){
+        if(generatorDataPo == null || generatorDataPo.getIsDeleted() || !generatorDataPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器数据不存在");
-        }
-        if(!generatorDataPo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器实例设置不存在");
         }
 
         String name = parameter.getName();
@@ -215,7 +209,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         
         String id = parameter.getId();
         GeneratorDataPo generatorDataPo = generatorDataDao.selectById(id);
-        if(generatorDataPo == null) {
+        if(generatorDataPo == null || generatorDataPo.getIsDeleted()){
             throw new BusinessException("生成器数据不存在");
         }
 
@@ -706,11 +700,8 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         String id = parameter.getId();
         GeneratorDataPo generatorDataPo = generatorDataDao.selectById(id);
-        if(generatorDataPo == null) {
-            throw new BusinessException("生成器模板文件不存在");
-        }
-        if(!generatorDataPo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器模板文件不存在");
+        if(generatorDataPo == null || generatorDataPo.getIsDeleted() || !generatorDataPo.getUserId().equals(authUserId)){
+            throw new BusinessException("生成器数据不存在");
         }
 
         GeneratorDataQuery generatorDataQuery = new GeneratorDataQuery();

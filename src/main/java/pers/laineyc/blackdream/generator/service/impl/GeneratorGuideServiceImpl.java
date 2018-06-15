@@ -109,10 +109,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
                
         String id = parameter.getId();
         GeneratorGuidePo generatorGuidePo = generatorGuideDao.selectById(id);
-        if(generatorGuidePo == null){
-            throw new BusinessException("生成器指南不存在");
-        }
-        if(!generatorGuidePo.getUserId().equals(authUserId)){
+        if(generatorGuidePo == null || generatorGuidePo.getIsDeleted() || !generatorGuidePo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器指南不存在");
         }
 
@@ -141,10 +138,7 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
 
         String id = parameter.getId();
         GeneratorGuidePo generatorGuidePo = generatorGuideDao.selectById(id);
-        if(generatorGuidePo == null){
-            throw new BusinessException("生成器指南不存在");
-        }
-        if(!generatorGuidePo.getUserId().equals(authUserId)){
+        if(generatorGuidePo == null || generatorGuidePo.getIsDeleted() || !generatorGuidePo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器指南不存在");
         }
 

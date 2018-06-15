@@ -71,7 +71,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
         String generatorId = parameter.getGeneratorId();
         GeneratorPo generatorPo = generatorDao.selectById(generatorId);
-        if(generatorPo == null){
+        if(generatorPo == null || generatorPo.getIsDeleted()){
             throw new BusinessException("所属生成器不存在");
         }
         generatorInstancePo.setGeneratorId(generatorId);
@@ -109,10 +109,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                
         String id = parameter.getId();
         GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(id);
-        if(generatorInstancePo == null){
-            throw new BusinessException("生成器实例不存在");
-        }
-        if(!generatorInstancePo.getUserId().equals(authUserId)){
+        if(generatorInstancePo == null || generatorInstancePo.getIsDeleted() || !generatorInstancePo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器实例不存在");
         }
 
@@ -141,10 +138,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
         String id = parameter.getId();
         GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(id);
-        if(generatorInstancePo == null){
-            throw new BusinessException("生成器实例不存在");
-        }
-        if(!generatorInstancePo.getUserId().equals(authUserId)){
+        if(generatorInstancePo == null || generatorInstancePo.getIsDeleted() || !generatorInstancePo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器实例不存在");
         }
 
@@ -175,7 +169,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         
         String id = parameter.getId();
         GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(id);
-        if(generatorInstancePo == null) {
+        if(generatorInstancePo == null || generatorInstancePo.getIsDeleted()){
             throw new BusinessException("生成器实例不存在");
         }
 
@@ -464,16 +458,13 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
         String id = parameter.getId();
         GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(id);
-        if(generatorInstancePo == null){
-            throw new BusinessException("生成器实例不存在");
-        }
-        if(!generatorInstancePo.getUserId().equals(authUserId)){
+        if(generatorInstancePo == null || generatorInstancePo.getIsDeleted() || !generatorInstancePo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器实例不存在");
         }
 
         String generatorId = generatorInstancePo.getGeneratorId();
         GeneratorPo generatorPo = generatorDao.selectById(generatorId);
-        if(generatorPo == null){
+        if(generatorPo == null || generatorPo.getIsDeleted()){
             throw new BusinessException("所属生成器不存在");
         }
 

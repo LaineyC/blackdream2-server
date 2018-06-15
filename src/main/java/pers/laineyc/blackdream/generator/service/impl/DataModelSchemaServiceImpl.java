@@ -107,10 +107,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
                
         String id = parameter.getId();
         DataModelSchemaPo dataModelSchemaPo = dataModelSchemaDao.selectById(id);
-        if(dataModelSchemaPo == null){
-            throw new BusinessException("生成器数据模型模式不存在");
-        }
-        if(!dataModelSchemaPo.getUserId().equals(authUserId)){
+        if(dataModelSchemaPo == null || dataModelSchemaPo.getIsDeleted() || !dataModelSchemaPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器数据模型模式不存在");
         }
 
@@ -139,10 +136,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
 
         String id = parameter.getId();
         DataModelSchemaPo dataModelSchemaPo = dataModelSchemaDao.selectById(id);
-        if(dataModelSchemaPo == null){
-            throw new BusinessException("生成器数据模型模式不存在");
-        }
-        if(!dataModelSchemaPo.getUserId().equals(authUserId)){
+        if(dataModelSchemaPo == null || dataModelSchemaPo.getIsDeleted() || !dataModelSchemaPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器数据模型模式不存在");
         }
 

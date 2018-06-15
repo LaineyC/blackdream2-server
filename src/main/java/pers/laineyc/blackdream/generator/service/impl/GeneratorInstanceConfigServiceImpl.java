@@ -118,10 +118,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
                
         String id = parameter.getId();
         GeneratorInstanceConfigPo generatorInstanceConfigPo = generatorInstanceConfigDao.selectById(id);
-        if(generatorInstanceConfigPo == null){
-            throw new BusinessException("生成器实例设置不存在");
-        }
-        if(!generatorInstanceConfigPo.getUserId().equals(authUserId)){
+        if(generatorInstanceConfigPo == null || generatorInstanceConfigPo.getIsDeleted() || !generatorInstanceConfigPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器实例设置不存在");
         }
 
@@ -150,10 +147,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
 
         String id = parameter.getId();
         GeneratorInstanceConfigPo generatorInstanceConfigPo = generatorInstanceConfigDao.selectById(id);
-        if(generatorInstanceConfigPo == null){
-            throw new BusinessException("生成器实例设置不存在");
-        }
-        if(!generatorInstanceConfigPo.getUserId().equals(authUserId)){
+        if(generatorInstanceConfigPo == null || generatorInstanceConfigPo.getIsDeleted() || !generatorInstanceConfigPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器实例设置不存在");
         }
 

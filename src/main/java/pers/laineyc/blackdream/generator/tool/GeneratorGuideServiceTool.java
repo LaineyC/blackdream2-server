@@ -57,7 +57,7 @@ public class GeneratorGuideServiceTool{
             throw new BusinessException("缺少所属生成器参数");
         }
         GeneratorPo generatorPo = generatorDao.selectById(generatorId);
-        if(generatorPo == null){
+        if(generatorPo == null || generatorPo.getIsDeleted()){
             throw new BusinessException("所属生成器不存在");
         }
 

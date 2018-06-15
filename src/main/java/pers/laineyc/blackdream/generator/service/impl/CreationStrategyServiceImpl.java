@@ -112,10 +112,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
                
         String id = parameter.getId();
         CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(id);
-        if(creationStrategyPo == null){
-            throw new BusinessException("生成器生成策略不存在");
-        }
-        if(!creationStrategyPo.getUserId().equals(authUserId)){
+        if(creationStrategyPo == null || creationStrategyPo.getIsDeleted() || !creationStrategyPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器生成策略不存在");
         }
 
@@ -144,10 +141,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
 
         String id = parameter.getId();
         CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(id);
-        if(creationStrategyPo == null){
-            throw new BusinessException("生成器生成策略不存在");
-        }
-        if(!creationStrategyPo.getUserId().equals(authUserId)){
+        if(creationStrategyPo == null || creationStrategyPo.getIsDeleted() || !creationStrategyPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器生成策略不存在");
         }
 
@@ -184,7 +178,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         
         String id = parameter.getId();
         CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(id);
-        if(creationStrategyPo == null) {
+        if(creationStrategyPo == null || creationStrategyPo.getIsDeleted()){
             throw new BusinessException("生成器生成策略不存在");
         }
 
@@ -443,10 +437,7 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
 
         String id = parameter.getId();
         CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(id);
-        if(creationStrategyPo == null) {
-            throw new BusinessException("生成器生成策略不存在");
-        }
-        if(!creationStrategyPo.getUserId().equals(authUserId)){
+        if(creationStrategyPo == null || creationStrategyPo.getIsDeleted() || !creationStrategyPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器生成策略不存在");
         }
 

@@ -126,10 +126,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         String id = parameter.getId();
         TemplateFilePo templateFilePo = templateFileDao.selectById(id);
-        if(templateFilePo == null){
-            throw new BusinessException("生成器模板文件不存在");
-        }
-        if(!templateFilePo.getUserId().equals(authUserId)){
+        if(templateFilePo == null || templateFilePo.getIsDeleted() || !templateFilePo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器模板文件不存在");
         }
 
@@ -158,10 +155,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         String id = parameter.getId();
         TemplateFilePo templateFilePo = templateFileDao.selectById(id);
-        if(templateFilePo == null){
-            throw new BusinessException("生成器模板文件不存在");
-        }
-        if(!templateFilePo.getUserId().equals(authUserId)){
+        if(templateFilePo == null || templateFilePo.getIsDeleted() || !templateFilePo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器模板文件不存在");
         }
 
@@ -207,7 +201,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         String id = parameter.getId();
         TemplateFilePo templateFilePo = templateFileDao.selectById(id);
-        if(templateFilePo == null) {
+        if(templateFilePo == null || templateFilePo.getIsDeleted()){
             throw new BusinessException("生成器模板文件不存在");
         }
 
@@ -477,10 +471,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         String id = parameter.getId();
         TemplateFilePo templateFilePo = templateFileDao.selectById(id);
-        if(templateFilePo == null) {
-            throw new BusinessException("生成器模板文件不存在");
-        }
-        if(!templateFilePo.getUserId().equals(authUserId)){
+        if(templateFilePo == null || templateFilePo.getIsDeleted() || !templateFilePo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器模板文件不存在");
         }
 
@@ -539,7 +530,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
     }
 
     /**
-     * 构建资源
+     * 构建资源到OS文件系统
      */
     //@Transactional(readOnly = true)
     public void buildResource(TemplateFileBuildResourceParameter parameter) {

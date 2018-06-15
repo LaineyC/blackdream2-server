@@ -50,7 +50,7 @@ public class TemplateFileServiceTool{
             throw new BusinessException("缺少所属生成器参数");
         }
         GeneratorPo generatorPo = generatorDao.selectById(generatorId);
-        if(generatorPo == null){
+        if(generatorPo == null || generatorPo.getIsDeleted()){
             throw new BusinessException("所属生成器不存在");
         }
 
@@ -226,7 +226,7 @@ public class TemplateFileServiceTool{
     }
 
     /**
-     * 生成器模板文件排序Validate
+     * 构建资源到OS文件系统Validate
      */
     public void buildResourceValidate(TemplateFileBuildResourceParameter parameter) {
         String generatorId = parameter.getGeneratorId();
