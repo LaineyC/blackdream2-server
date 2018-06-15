@@ -5,7 +5,7 @@ import pers.laineyc.blackdream.framework.service.domain.Domain;
 import java.util.Date;
 
 /**
- * 用户
+ * 用户认证
  * @author LaineyC
  */
 public class UserAuth extends Domain {

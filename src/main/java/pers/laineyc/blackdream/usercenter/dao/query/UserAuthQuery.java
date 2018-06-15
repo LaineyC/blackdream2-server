@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 用户Query
+ * 用户认证Query
  * @author LaineyC
  */
 public class UserAuthQuery extends Query<UserAuthPo> {

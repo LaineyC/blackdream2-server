@@ -1,12 +1,10 @@
 package pers.laineyc.blackdream.generator.service.domain;
 
 import pers.laineyc.blackdream.framework.service.domain.Domain;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 
 /**

@@ -32,11 +32,11 @@ public enum DataModelFieldTypeEnum {
      */
     private int code;
 
-    private String suffix;
+    private String description;
 
-    DataModelFieldTypeEnum(int code, String suffix) {
+    DataModelFieldTypeEnum(int code, String description) {
         this.code = code;
-        this.suffix = suffix;
+        this.description = description;
     }
 
     public static DataModelFieldTypeEnum value(Integer code){
@@ -60,7 +60,7 @@ public enum DataModelFieldTypeEnum {
         return code;
     }
 
-    public String getSuffix() {
-        return suffix;
+    public String getDescription() {
+        return description;
     }
 }

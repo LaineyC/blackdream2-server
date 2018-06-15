@@ -3,6 +3,7 @@ package pers.laineyc.blackdream.framework.dao.support.mongo;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
@@ -16,7 +17,6 @@ import pers.laineyc.blackdream.framework.dao.query.Query;
 import pers.laineyc.blackdream.framework.dao.query.expression.*;
 import pers.laineyc.blackdream.framework.dao.support.EntityInformation;
 import pers.laineyc.blackdream.framework.util.ReflectionUtil;
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> implements Dao<E, K> {
 
-    @Resource
+    @Autowired
     private MongoTemplate mongoTemplate;
 
     private Class<E> entityClass;
@@ -68,6 +68,9 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
     public int update(E po) {
         org.springframework.data.mongodb.core.query.Query mongodbQuery = new org.springframework.data.mongodb.core.query.Query();
         Object idValue = ReflectionUtil.getFieldValue(entityInformation.getIdPropertyInformation().getPropertyField(), po);
+        if(idValue == null){
+            throw new RuntimeException("主键为null");
+        }
         mongodbQuery.addCriteria(Criteria.where(entityInformation.getIdPropertyInformation().getPropertyAlias()).is(idValue));
         Update update = new Update();
         entityInformation.getPropertyInformationList().forEach(propertyInformation -> {
@@ -86,6 +89,9 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
     public int updateSelective(E po) {
         org.springframework.data.mongodb.core.query.Query mongodbQuery = new org.springframework.data.mongodb.core.query.Query();
         Object idValue = ReflectionUtil.getFieldValue(entityInformation.getIdPropertyInformation().getPropertyField(), po);
+        if(idValue == null){
+            throw new RuntimeException("主键为null");
+        }
         mongodbQuery.addCriteria(Criteria.where(entityInformation.getIdPropertyInformation().getPropertyAlias()).is(idValue));
         Update update = new Update();
         entityInformation.getPropertyInformationList().forEach(propertyInformation -> {

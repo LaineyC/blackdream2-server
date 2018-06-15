@@ -6,7 +6,7 @@ import pers.laineyc.blackdream.usercenter.dao.UserAuthDao;
 import pers.laineyc.blackdream.usercenter.dao.po.UserAuthPo;
 
 /**
- * 用户Dao
+ * 用户认证Dao
  * @author LaineyC
  */
 @Repository
