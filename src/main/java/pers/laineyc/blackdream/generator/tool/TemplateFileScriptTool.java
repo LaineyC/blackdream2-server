@@ -25,8 +25,12 @@ public class TemplateFileScriptTool {
         this.templateRootPath = templateRootPath;
         this.outputRootPath = outputRootPath;
         if(templateFileList != null){
-            templateFileList.forEach(templateFile -> templateFileCache.put(templateFile.id, templateFile));
+            templateFileList.forEach(templateFile -> templateFileCache.put(templateFile.code, templateFile));
         }
+    }
+
+    public $File newFile(String name, String templateCode){
+        return newFile(name, new $Template(templateCode));
     }
 
     public $File newFile(String name, $Template template){
@@ -38,11 +42,11 @@ public class TemplateFileScriptTool {
             throw new BusinessException("定义File时，缺少template参数");
         }
 
-        if(!templateFileCache.containsKey(template.id)){
+        if(!templateFileCache.containsKey(template.code)){
             throw new BusinessException("定义File时，template不存在");
         }
 
-        return new $File(name, template, templateRootPath, outputRootPath);
+        return new $File(name, templateFileCache.get(template.code), templateRootPath, outputRootPath);
     }
 
     public $Var newVar(String name, Object value){
@@ -57,16 +61,12 @@ public class TemplateFileScriptTool {
         return new $Var(name, value);
     }
 
-    public $Template newTmpl(String id, String name){
-        if(!StringUtils.hasText(id)){
+    public $Template newTmpl(String code){
+        if(!StringUtils.hasText(code)){
             throw new BusinessException("定义Tmpl时，缺少id参数");
         }
 
-        if(!StringUtils.hasText(name)){
-            throw new BusinessException("定义Tmpl时，缺少name参数");
-        }
-
-        return new $Template(id, name);
+        return new $Template(code);
     }
 
     public $Directory newDir(String name){
@@ -91,13 +91,17 @@ public class TemplateFileScriptTool {
 
     public static class $Template{
 
-        private String id;
+        private String code;
 
-        private String name;
+        private Integer engineType;
 
-        public $Template(String id, String name){
-            this.id = id;
-            this.name = name;
+        public $Template(String code, Integer engineType){
+            this.code = code;
+            this.engineType = engineType;
+        }
+
+        public $Template(String code){
+            this.code = code;
         }
     }
 
@@ -161,7 +165,7 @@ public class TemplateFileScriptTool {
         public void make(){
             String path = outputRootPath.getAbsolutePath() + File.separator + name.replace(File.separator, "/");
             File pathFile = new File(path);
-            if(!pathFile.exists()){
+            if(!pathFile.exists()) {
                 pathFile.mkdirs();
             }
         }

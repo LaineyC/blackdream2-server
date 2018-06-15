@@ -296,7 +296,7 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
             }
         });
 
-        return  new Sort(jpaOrderList);
+        return new Sort(jpaOrderList);
     }
 /*
     private List<javax.persistence.criteria.Expression<?>> handleGroup(pers.laineyc.blackdream.framework.dao.query.Group group, Root<E> root){

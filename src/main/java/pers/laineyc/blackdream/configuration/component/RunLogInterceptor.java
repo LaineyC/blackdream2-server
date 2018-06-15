@@ -49,7 +49,7 @@ public class RunLogInterceptor {
 
 		String uri = httpServletRequest.getRequestURI();
 		String[] values = uri.split("/");
-		String action = values[values.length - 2] + "/" + values[values.length - 1];
+		String action = values[values.length - 3] + "/" + values[values.length - 2] + "/" + values[values.length - 1];
 
 		Request request = (Request) point.getArgs()[0];
 		request.setAuth(auth);
