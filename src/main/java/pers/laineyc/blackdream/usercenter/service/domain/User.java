@@ -1,5 +1,7 @@
 package pers.laineyc.blackdream.usercenter.service.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.service.domain.Domain;
 import java.util.Date;
 
@@ -7,53 +9,36 @@ import java.util.Date;
  * 用户
  * @author LaineyC
  */
+@ApiModel
 public class User extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     private String id;
 
-    /**
-     * 用户认证
-     */
+    @ApiModelProperty(value = "用户认证")
     private UserAuth userAuth;
 
-    /**
-     * 状态：1一般用户；2开发用户
-     */
+    @ApiModelProperty(value = "状态：1一般用户；2开发用户")
     private Integer type;
 
-    /**
-     * 昵称
-     */
+    @ApiModelProperty(value = "昵称")
     private String nickname;
 
-    /**
-     * 头像文件
-     */
+    @ApiModelProperty(value = "头像文件")
     private String iconFileId;
 
-    /**
-     * 用户名
-     */
+    @ApiModelProperty(value = "用户名")
     private String username;
 
-    /**
-     * 邮箱
-     */
+    @ApiModelProperty(value = "邮箱")
     private String email;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    /**
-     * 修改时间
-     */
+    @ApiModelProperty(value = "修改时间")
     private Date updateTime;
 
 	public User() {

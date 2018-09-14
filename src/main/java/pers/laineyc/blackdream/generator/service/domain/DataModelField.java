@@ -29,7 +29,7 @@ public class DataModelField extends Domain {
     private String comment;
 
     /**
-     * 数据类型：1Boolean；2Integer；3Decimal；4Text；5Enum；6Date；7Time；8DateTime；9Model
+     * 数据类型：1BOOLEAN；2INTEGER；NUMBER；4TEXT；5ENUM_SINGLE；6ENUM_MULTIPLE；7DATE；8TIME；9DATETIME；10MODEL_REF
      */
     private Integer dataType;
 

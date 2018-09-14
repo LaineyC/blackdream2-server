@@ -24,7 +24,6 @@ import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.foundation.service.parameter.DetachedFileUploadParameter;
 import pers.laineyc.blackdream.foundation.action.web.request.DetachedFileUploadWebRequest;
-import pers.laineyc.blackdream.foundation.action.web.vo.DetachedFileUploadWebVo;
 import pers.laineyc.blackdream.foundation.service.domain.DetachedFile;
 import pers.laineyc.blackdream.foundation.service.DetachedFileService;
 import javax.servlet.http.HttpServletRequest;
@@ -51,59 +50,40 @@ public class FileWebController extends BaseWebController {
 /*
     @ApiOperation(value = "游离文件单个查询")
     @PostMapping(value = "/detachedFile/get")
-    public @ResponseBody Response<DetachedFileGetWebVo> get(@RequestBody DetachedFileGetWebRequest request) {
+    public @ResponseBody Response<DetachedFile> get(@RequestBody DetachedFileGetWebRequest request) {
         DetachedFileGetParameter parameter = new DetachedFileGetParameter();
         BeanUtils.copyProperties(request, parameter);
 
         DetachedFile detachedFile = detachedFileService.get(parameter);
         
-        DetachedFileGetWebVo detachedFileGetWebVo = new DetachedFileGetWebVo();
-        BeanUtils.copyProperties(detachedFile, detachedFileGetWebVo);
-        
-        return new Response<>(detachedFileGetWebVo);
+        return new Response<>(detachedFile);
     }
 
     @ApiOperation(value="游离文件多个查询")
     @PostMapping(value = "/detachedFile/query")
-    public @ResponseBody Response<List<DetachedFileQueryWebVo>> query(@RequestBody DetachedFileQueryWebRequest request) {
+    public @ResponseBody Response<List<DetachedFile>> query(@RequestBody DetachedFileQueryWebRequest request) {
         DetachedFileQueryParameter parameter = new DetachedFileQueryParameter();
         BeanUtils.copyProperties(request, parameter);
         
         List<DetachedFile> detachedFileList = detachedFileService.query(parameter);
-        
-        List<DetachedFileQueryWebVo> detachedFileQueryWebVoList = new ArrayList<>();
-        detachedFileList.forEach(detachedFile -> {
-            DetachedFileQueryWebVo detachedFileQueryWebVo = new DetachedFileQueryWebVo();
-            BeanUtils.copyProperties(detachedFile, detachedFileQueryWebVo);
-            detachedFileQueryWebVoList.add(detachedFileQueryWebVo);
-        });
 
-        return new Response<>(detachedFileQueryWebVoList);
+        return new Response<>(detachedFileList);
     }
 
     @ApiOperation(value = "游离文件分页查询")
     @PostMapping(value = "/detachedFile/search")
-    public @ResponseBody Response<PageResult<DetachedFileSearchWebVo>> search(@RequestBody DetachedFileSearchWebRequest request) {
+    public @ResponseBody Response<PageResult<DetachedFile>> search(@RequestBody DetachedFileSearchWebRequest request) {
         DetachedFileSearchParameter parameter = new DetachedFileSearchParameter();
         BeanUtils.copyProperties(request, parameter);
         
         PageResult<DetachedFile> detachedFilePageResult = detachedFileService.search(parameter);
-        
-        PageResult<DetachedFileSearchWebVo> detachedFileSearchWebVoPageResult = new PageResult<>();
-        detachedFileSearchWebVoPageResult.setTotal(detachedFilePageResult.getTotal());
-        List<DetachedFileSearchWebVo> detachedFileSearchWebVoList = detachedFileSearchWebVoPageResult.getRecords();
-        detachedFilePageResult.getRecords().forEach(detachedFile -> {
-            DetachedFileSearchWebVo detachedFileSearchWebVo = new DetachedFileSearchWebVo();
-            BeanUtils.copyProperties(detachedFile, detachedFileSearchWebVo);
-            detachedFileSearchWebVoList.add(detachedFileSearchWebVo);
-        });
 
-        return new Response<>(detachedFileSearchWebVoPageResult);
+        return new Response<>(detachedFilePageResult);
     }
 */
     @ApiOperation(value = "文件上传")
     @PostMapping(value = "/file/upload", consumes = "multipart/*", headers = "content-type=multipart/form-data")
-    public @ResponseBody Response<DetachedFileUploadWebVo> upload(DetachedFileUploadWebRequest request) {
+    public @ResponseBody Response<DetachedFile> upload(DetachedFileUploadWebRequest request) {
         MultipartFile multipartFile = request.getFile();
 
         DetachedFileUploadParameter parameter = new DetachedFileUploadParameter();
@@ -124,10 +104,7 @@ public class FileWebController extends BaseWebController {
 
         DetachedFile detachedFile = detachedFileService.upload(parameter);
 
-        DetachedFileUploadWebVo detachedFileUploadWebVo = new DetachedFileUploadWebVo();
-        BeanUtils.copyProperties(detachedFile, detachedFileUploadWebVo);
-
-        return new Response<>(detachedFileUploadWebVo);
+        return new Response<>(detachedFile);
     }
 
     @ApiOperation(value = "文件下载")

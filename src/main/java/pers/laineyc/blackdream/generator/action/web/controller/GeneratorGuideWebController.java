@@ -12,7 +12,6 @@ import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
-import pers.laineyc.blackdream.generator.action.web.vo.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorGuide;
 import pers.laineyc.blackdream.generator.service.GeneratorGuideService;
@@ -35,115 +34,81 @@ public class GeneratorGuideWebController extends BaseWebController {
     @Security
     @ApiOperation(value = "生成器指南创建")
     @PostMapping(value = "/generatorGuide/create")
-    public @ResponseBody Response<GeneratorGuideCreateWebVo> create(@RequestBody GeneratorGuideCreateWebRequest request) {
+    public @ResponseBody Response<GeneratorGuide> create(@RequestBody GeneratorGuideCreateWebRequest request) {
         GeneratorGuideCreateParameter parameter = new GeneratorGuideCreateParameter();
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorGuide generatorGuide = generatorGuideService.create(parameter);
 
-        GeneratorGuideCreateWebVo generatorGuideCreateWebVo = new GeneratorGuideCreateWebVo();
-        BeanUtils.copyProperties(generatorGuide, generatorGuideCreateWebVo);
-
-        return new Response<>(generatorGuideCreateWebVo);
+        return new Response<>(generatorGuide);
     }
 
     @Security
     @ApiOperation(value = "生成器指南删除")
     @PostMapping(value = "/generatorGuide/delete")
-    public @ResponseBody Response<GeneratorGuideDeleteWebVo> delete(@RequestBody GeneratorGuideDeleteWebRequest request) {
+    public @ResponseBody Response<GeneratorGuide> delete(@RequestBody GeneratorGuideDeleteWebRequest request) {
         GeneratorGuideDeleteParameter parameter = new GeneratorGuideDeleteParameter();
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorGuide generatorGuide = generatorGuideService.delete(parameter);
 
-        GeneratorGuideDeleteWebVo generatorGuideDeleteWebVo = new GeneratorGuideDeleteWebVo();
-        BeanUtils.copyProperties(generatorGuide, generatorGuideDeleteWebVo);
-
-        return new Response<>(generatorGuideDeleteWebVo);
+        return new Response<>(generatorGuide);
     }
 
     @Security
     @ApiOperation(value = "生成器指南修改")
     @PostMapping(value = "/generatorGuide/update")
-    public @ResponseBody Response<GeneratorGuideUpdateWebVo> update(@RequestBody GeneratorGuideUpdateWebRequest request) {
+    public @ResponseBody Response<GeneratorGuide> update(@RequestBody GeneratorGuideUpdateWebRequest request) {
         GeneratorGuideUpdateParameter parameter = new GeneratorGuideUpdateParameter();
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorGuide generatorGuide = generatorGuideService.update(parameter);
 
-        GeneratorGuideUpdateWebVo generatorGuideUpdateWebVo = new GeneratorGuideUpdateWebVo();
-        BeanUtils.copyProperties(generatorGuide, generatorGuideUpdateWebVo);
-
-        return new Response<>(generatorGuideUpdateWebVo);
+        return new Response<>(generatorGuide);
     }
 */
     @ApiOperation(value = "生成器指南单个查询")
     @PostMapping(value = "/generatorGuide/get")
-    public @ResponseBody Response<GeneratorGuideGetWebVo> get(@RequestBody GeneratorGuideGetWebRequest request) {
+    public @ResponseBody Response<GeneratorGuide> get(@RequestBody GeneratorGuideGetWebRequest request) {
         GeneratorGuideGetParameter parameter = new GeneratorGuideGetParameter();
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorGuide generatorGuide = generatorGuideService.get(parameter);
 
-        GeneratorGuideGetWebVo generatorGuideGetWebVo = null;
-        if(generatorGuide != null){
-            generatorGuideGetWebVo = new GeneratorGuideGetWebVo();
-            BeanUtils.copyProperties(generatorGuide, generatorGuideGetWebVo);
-        }
-
-        return new Response<>(generatorGuideGetWebVo);
+        return new Response<>(generatorGuide);
     }
 /*
     @ApiOperation(value="生成器指南多个查询")
     @PostMapping(value = "/generatorGuide/query")
-    public @ResponseBody Response<List<GeneratorGuideQueryWebVo>> query(@RequestBody GeneratorGuideQueryWebRequest request) {
+    public @ResponseBody Response<List<GeneratorGuide>> query(@RequestBody GeneratorGuideQueryWebRequest request) {
         GeneratorGuideQueryParameter parameter = new GeneratorGuideQueryParameter();
         BeanUtils.copyProperties(request, parameter);
         
         List<GeneratorGuide> generatorGuideList = generatorGuideService.query(parameter);
-        
-        List<GeneratorGuideQueryWebVo> generatorGuideQueryWebVoList = new ArrayList<>();
-        generatorGuideList.forEach(generatorGuide -> {
-            GeneratorGuideQueryWebVo generatorGuideQueryWebVo = new GeneratorGuideQueryWebVo();
-            BeanUtils.copyProperties(generatorGuide, generatorGuideQueryWebVo);
-            generatorGuideQueryWebVoList.add(generatorGuideQueryWebVo);
-        });
 
-        return new Response<>(generatorGuideQueryWebVoList);
+        return new Response<>(generatorGuideList);
     }
 
     @ApiOperation(value = "生成器指南分页查询")
     @PostMapping(value = "/generatorGuide/search")
-    public @ResponseBody Response<PageResult<GeneratorGuideSearchWebVo>> search(@RequestBody GeneratorGuideSearchWebRequest request) {
+    public @ResponseBody Response<PageResult<GeneratorGuide>> search(@RequestBody GeneratorGuideSearchWebRequest request) {
         GeneratorGuideSearchParameter parameter = new GeneratorGuideSearchParameter();
         BeanUtils.copyProperties(request, parameter);
         
         PageResult<GeneratorGuide> generatorGuidePageResult = generatorGuideService.search(parameter);
-        
-        PageResult<GeneratorGuideSearchWebVo> generatorGuideSearchWebVoPageResult = new PageResult<>();
-        generatorGuideSearchWebVoPageResult.setTotal(generatorGuidePageResult.getTotal());
-        List<GeneratorGuideSearchWebVo> generatorGuideSearchWebVoList = generatorGuideSearchWebVoPageResult.getRecords();
-        generatorGuidePageResult.getRecords().forEach(generatorGuide -> {
-            GeneratorGuideSearchWebVo generatorGuideSearchWebVo = new GeneratorGuideSearchWebVo();
-            BeanUtils.copyProperties(generatorGuide, generatorGuideSearchWebVo);
-            generatorGuideSearchWebVoList.add(generatorGuideSearchWebVo);
-        });
 
-        return new Response<>(generatorGuideSearchWebVoPageResult);
+        return new Response<>(generatorGuidePageResult);
     }
 */
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器指南保存")
     @PostMapping(value = "/generatorGuide/save")
-    public @ResponseBody Response<GeneratorGuideSaveWebVo> save(@RequestBody GeneratorGuideSaveWebRequest request) {
+    public @ResponseBody Response<GeneratorGuide> save(@RequestBody GeneratorGuideSaveWebRequest request) {
         GeneratorGuideSaveParameter parameter = new GeneratorGuideSaveParameter();
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorGuide generatorGuide = generatorGuideService.save(parameter);
 
-        GeneratorGuideSaveWebVo generatorGuideSaveWebVo = new GeneratorGuideSaveWebVo();
-        BeanUtils.copyProperties(generatorGuide, generatorGuideSaveWebVo);
-
-        return new Response<>(generatorGuideSaveWebVo);
+        return new Response<>(generatorGuide);
     }
 }

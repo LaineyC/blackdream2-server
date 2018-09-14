@@ -12,7 +12,6 @@ import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
-import pers.laineyc.blackdream.generator.action.web.vo.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.DataModel;
@@ -38,132 +37,94 @@ public class DataModelWebController extends BaseWebController {
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型创建")
     @PostMapping(value = "/dataModel/create")
-    public @ResponseBody Response<DataModelCreateWebVo> create(@RequestBody DataModelCreateWebRequest request) {
+    public @ResponseBody Response<DataModel> create(@RequestBody DataModelCreateWebRequest request) {
         DataModelCreateParameter parameter = new DataModelCreateParameter();
         BeanUtils.copyProperties(request, parameter);
 
         DataModel dataModel = dataModelService.create(parameter);
 
-        DataModelCreateWebVo dataModelCreateWebVo = new DataModelCreateWebVo();
-        BeanUtils.copyProperties(dataModel, dataModelCreateWebVo);
-
-        return new Response<>(dataModelCreateWebVo);
+        return new Response<>(dataModel);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型删除")
     @PostMapping(value = "/dataModel/delete")
-    public @ResponseBody Response<DataModelDeleteWebVo> delete(@RequestBody DataModelDeleteWebRequest request) {
+    public @ResponseBody Response<DataModel> delete(@RequestBody DataModelDeleteWebRequest request) {
         DataModelDeleteParameter parameter = new DataModelDeleteParameter();
         BeanUtils.copyProperties(request, parameter);
 
         DataModel dataModel = dataModelService.delete(parameter);
 
-        DataModelDeleteWebVo dataModelDeleteWebVo = new DataModelDeleteWebVo();
-        BeanUtils.copyProperties(dataModel, dataModelDeleteWebVo);
-
-        return new Response<>(dataModelDeleteWebVo);
+        return new Response<>(dataModel);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型修改")
     @PostMapping(value = "/dataModel/update")
-    public @ResponseBody Response<DataModelUpdateWebVo> update(@RequestBody DataModelUpdateWebRequest request) {
+    public @ResponseBody Response<DataModel> update(@RequestBody DataModelUpdateWebRequest request) {
         DataModelUpdateParameter parameter = new DataModelUpdateParameter();
         BeanUtils.copyProperties(request, parameter);
 
         DataModel dataModel = dataModelService.update(parameter);
-        
-        DataModelUpdateWebVo dataModelUpdateWebVo = new DataModelUpdateWebVo();
-        BeanUtils.copyProperties(dataModel, dataModelUpdateWebVo);
 
-        return new Response<>(dataModelUpdateWebVo);
+        return new Response<>(dataModel);
     }
 
     @ApiOperation(value = "生成器数据模型单个查询")
     @PostMapping(value = "/dataModel/get")
-    public @ResponseBody Response<DataModelGetWebVo> get(@RequestBody DataModelGetWebRequest request) {
+    public @ResponseBody Response<DataModel> get(@RequestBody DataModelGetWebRequest request) {
         DataModelGetParameter parameter = new DataModelGetParameter();
         BeanUtils.copyProperties(request, parameter);
 
         DataModel dataModel = dataModelService.get(parameter);
         
-        DataModelGetWebVo dataModelGetWebVo = new DataModelGetWebVo();
-        BeanUtils.copyProperties(dataModel, dataModelGetWebVo);
-        
-        return new Response<>(dataModelGetWebVo);
+        return new Response<>(dataModel);
     }
 /*
     @ApiOperation(value="生成器数据模型多个查询")
     @PostMapping(value = "/dataModel/query")
-    public @ResponseBody Response<List<DataModelQueryWebVo>> query(@RequestBody DataModelQueryWebRequest request) {
+    public @ResponseBody Response<List<DataModel>> query(@RequestBody DataModelQueryWebRequest request) {
         DataModelQueryParameter parameter = new DataModelQueryParameter();
         BeanUtils.copyProperties(request, parameter);
         
         List<DataModel> dataModelList = dataModelService.query(parameter);
-        
-        List<DataModelQueryWebVo> dataModelQueryWebVoList = new ArrayList<>();
-        dataModelList.forEach(dataModel -> {
-            DataModelQueryWebVo dataModelQueryWebVo = new DataModelQueryWebVo();
-            BeanUtils.copyProperties(dataModel, dataModelQueryWebVo);
-            dataModelQueryWebVoList.add(dataModelQueryWebVo);
-        });
 
-        return new Response<>(dataModelQueryWebVoList);
+        return new Response<>(dataModelList);
     }
 
     @ApiOperation(value = "生成器数据模型分页查询")
     @PostMapping(value = "/dataModel/search")
-    public @ResponseBody Response<PageResult<DataModelSearchWebVo>> search(@RequestBody DataModelSearchWebRequest request) {
+    public @ResponseBody Response<PageResult<DataModel>> search(@RequestBody DataModelSearchWebRequest request) {
         DataModelSearchParameter parameter = new DataModelSearchParameter();
         BeanUtils.copyProperties(request, parameter);
         
         PageResult<DataModel> dataModelPageResult = dataModelService.search(parameter);
-        
-        PageResult<DataModelSearchWebVo> dataModelSearchWebVoPageResult = new PageResult<>();
-        dataModelSearchWebVoPageResult.setTotal(dataModelPageResult.getTotal());
-        List<DataModelSearchWebVo> dataModelSearchWebVoList = dataModelSearchWebVoPageResult.getRecords();
-        dataModelPageResult.getRecords().forEach(dataModel -> {
-            DataModelSearchWebVo dataModelSearchWebVo = new DataModelSearchWebVo();
-            BeanUtils.copyProperties(dataModel, dataModelSearchWebVo);
-            dataModelSearchWebVoList.add(dataModelSearchWebVo);
-        });
 
-        return new Response<>(dataModelSearchWebVoPageResult);
+        return new Response<>(dataModelPageResult);
     }
 */
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型排序")
     @PostMapping(value = "/dataModel/sort")
-    public @ResponseBody Response<DataModelSortWebVo> sort(@RequestBody DataModelSortWebRequest request) {
+    public @ResponseBody Response<DataModel> sort(@RequestBody DataModelSortWebRequest request) {
         DataModelSortParameter parameter = new DataModelSortParameter();
         BeanUtils.copyProperties(request, parameter);
 
         DataModel dataModel = dataModelService.sort(parameter);
 
-        DataModelSortWebVo dataModelSortWebVo = new DataModelSortWebVo();
-        BeanUtils.copyProperties(dataModel, dataModelSortWebVo);
-
-        return new Response<>(dataModelSortWebVo);
+        return new Response<>(dataModel);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型多个查询")
     @PostMapping(value = "/dataModel/infoQuery")
-    public @ResponseBody Response<List<DataModelInfoQueryWebVo>> infoQuery(@RequestBody DataModelInfoQueryWebRequest request) {
+    public @ResponseBody Response<List<DataModel>> infoQuery(@RequestBody DataModelInfoQueryWebRequest request) {
         DataModelInfoQueryParameter parameter = new DataModelInfoQueryParameter();
         BeanUtils.copyProperties(request, parameter);
 
         List<DataModel> dataModelList = dataModelService.infoQuery(parameter);
 
-        List<DataModelInfoQueryWebVo> dataModelQueryWebVoList = new ArrayList<>();
-        dataModelList.forEach(dataModel -> {
-            DataModelInfoQueryWebVo dataModelQueryWebVo = new DataModelInfoQueryWebVo();
-            BeanUtils.copyProperties(dataModel, dataModelQueryWebVo);
-            dataModelQueryWebVoList.add(dataModelQueryWebVo);
-        });
-
-        return new Response<>(dataModelQueryWebVoList);
+        return new Response<>(dataModelList);
     }
     
 }

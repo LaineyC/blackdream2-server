@@ -13,7 +13,6 @@ import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.autodoc.service.parameter.GeneratorDocMakeParameter;
 import pers.laineyc.blackdream.autodoc.action.web.request.GeneratorDocMakeWebRequest;
-import pers.laineyc.blackdream.autodoc.action.web.vo.GeneratorDocMakeWebVo;
 import pers.laineyc.blackdream.autodoc.service.domain.GeneratorDoc;
 import pers.laineyc.blackdream.autodoc.service.GeneratorDocService;
 
@@ -35,16 +34,13 @@ public class GeneratorDocWebController extends BaseWebController {
     @AuthSecurity
     @ApiOperation(value = "生成器文档生成")
     @PostMapping(value = "/generatorDoc/make")
-    public @ResponseBody Response<GeneratorDocMakeWebVo> make(@RequestBody GeneratorDocMakeWebRequest request) {
+    public @ResponseBody Response<GeneratorDoc> make(@RequestBody GeneratorDocMakeWebRequest request) {
         GeneratorDocMakeParameter parameter = new GeneratorDocMakeParameter();
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorDoc generatorDoc = generatorDocService.make(parameter);
 
-        GeneratorDocMakeWebVo generatorDocMakeWebVo = new GeneratorDocMakeWebVo();
-        BeanUtils.copyProperties(generatorDoc, generatorDocMakeWebVo);
-
-        return new Response<>(generatorDocMakeWebVo);
+        return new Response<>(generatorDoc);
     }
     
 }

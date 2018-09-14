@@ -10,7 +10,7 @@ import pers.laineyc.blackdream.generator.action.web.request.GeneratorGuideUpdate
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorGuideGetWebRequest;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorGuideQueryWebRequest;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorGuideSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.vo.*;
+import pers.laineyc.blackdream.generator.service.domain.*;
 
 /**
  * 生成器指南ControllerTest
@@ -31,7 +31,7 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
         request.setGeneratorId("");
         request.setName("");
         request.setDescription("");
-        Response<GeneratorGuideCreateWebVo> response = execute(request, GeneratorGuideCreateWebVo.class, "/generatorGuide/create");
+        Response<GeneratorGuide> response = execute(request, GeneratorGuide.class, "/generatorGuide/create");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -42,7 +42,7 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
     public void delete() throws Exception {
         GeneratorGuideDeleteWebRequest request = new GeneratorGuideDeleteWebRequest();
         request.setId("");
-        Response<GeneratorGuideDeleteWebVo> response = execute(request, GeneratorGuideDeleteWebVo.class, "/generatorGuide/delete");
+        Response<GeneratorGuide> response = execute(request, GeneratorGuide.class, "/generatorGuide/delete");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -55,7 +55,7 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
         request.setId("");
         request.setName("");
         request.setDescription("");
-        Response<GeneratorGuideUpdateWebVo> response = execute(request, GeneratorGuideUpdateWebVo.class, "/generatorGuide/update");
+        Response<GeneratorGuide> response = execute(request, GeneratorGuide.class, "/generatorGuide/update");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -66,7 +66,7 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
     public void get() throws Exception {
         GeneratorGuideGetWebRequest request = new GeneratorGuideGetWebRequest();
         request.setId("");
-        Response<GeneratorGuideGetWebVo> response = execute(request, GeneratorGuideGetWebVo.class, "/generatorGuide/get");
+        Response<GeneratorGuide> response = execute(request, GeneratorGuide.class, "/generatorGuide/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -79,7 +79,7 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
         request.setUserId("");
         request.setGeneratorId("");
         request.setName("");
-        Response<GeneratorGuideQueryWebVo> response = execute(request, GeneratorGuideQueryWebVo.class, "/generatorGuide/query");
+        Response<GeneratorGuide> response = execute(request, GeneratorGuide.class, "/generatorGuide/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -94,7 +94,7 @@ public class GeneratorGuideWebControllerTest extends BaseWebControllerTest {
         request.setUserId("");
         request.setGeneratorId("");
         request.setName("");
-        Response<GeneratorGuideSearchWebVo> response = execute(request, GeneratorGuideSearchWebVo.class, "/generatorGuide/search");
+        Response<GeneratorGuide> response = execute(request, GeneratorGuide.class, "/generatorGuide/search");
         Assert.assertNotNull(response.getBody());
     }
 

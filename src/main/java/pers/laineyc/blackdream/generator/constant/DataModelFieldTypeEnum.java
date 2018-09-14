@@ -5,25 +5,28 @@ package pers.laineyc.blackdream.generator.constant;
  */
 public enum DataModelFieldTypeEnum {
 
-    //1Boolean；2Integer；3Decimal；4Text；5Enum；6Date；7Time；8DateTime；9Model
-
+    /**
+     * 1BOOLEAN；2INTEGER；NUMBER；4TEXT；5ENUM_SINGLE；6ENUM_MULTIPLE；7DATE；8TIME；9DATETIME；10MODEL_REF
+     */
     BOOLEAN(1, "BOOLEAN"),
 
     INTEGER(2, "INTEGER"),
 
-    DECIMAL(3, "DECIMAL"),
+    NUMBER(3, "NUMBER"),
 
     TEXT(4, "TEXT"),
 
-    ENUM(5, "ENUM"),
+    ENUM_SINGLE(5, "ENUM_SINGLE"),
 
-    DATE(6, "DATE"),
+    ENUM_MULTIPLE(6, "ENUM_MULTIPLE"),
 
-    TIME(7, "TIME"),
+    DATE(7, "DATE"),
 
-    DATETIME(8, "DATETIME"),
+    TIME(8, "TIME"),
 
-    MODEL(9, "MODEL"),
+    DATETIME(9, "DATETIME"),
+
+    MODEL_REF(10, "MODEL_REF"),
 
     ;
 

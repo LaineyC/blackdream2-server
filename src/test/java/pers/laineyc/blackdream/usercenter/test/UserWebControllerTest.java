@@ -12,7 +12,7 @@ import pers.laineyc.blackdream.usercenter.action.web.request.UserSignInWebReques
 import pers.laineyc.blackdream.usercenter.action.web.request.UserSignOutWebRequest;
 import pers.laineyc.blackdream.usercenter.action.web.request.UserSignUpWebRequest;
 import pers.laineyc.blackdream.usercenter.action.web.request.UserPasswordChangeWebRequest;
-import pers.laineyc.blackdream.usercenter.action.web.vo.*;
+import pers.laineyc.blackdream.usercenter.service.domain.*;
 
 /**
  * 用户ControllerTest
@@ -35,7 +35,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
         request.setIconFileId("");
         request.setUsername("");
         request.setEmail("");
-        Response<UserUpdateWebVo> response = execute(request, UserUpdateWebVo.class, "/user/update");
+        Response<User> response = execute(request, User.class, "/user/update");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -46,7 +46,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     public void get() throws Exception {
         UserGetWebRequest request = new UserGetWebRequest();
         request.setId("5b101a0060e09bc92b9cd876");
-        Response<UserGetWebVo> response = execute(request, UserGetWebVo.class, "/user/get");
+        Response<User> response = execute(request, User.class, "/user/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -60,7 +60,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
         request.setIconFileId("");
         request.setUsername("");
         request.setEmail("");
-        Response<UserQueryWebVo> response = execute(request, UserQueryWebVo.class, "/user/query");
+        Response<User> response = execute(request, User.class, "/user/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -76,7 +76,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
         request.setIconFileId("");
         request.setUsername("");
         request.setEmail("");
-        Response<UserSearchWebVo> response = execute(request, UserSearchWebVo.class, "/user/search");
+        Response<User> response = execute(request, User.class, "/user/search");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -86,7 +86,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void signIn() throws Exception {
         UserSignInWebRequest request = new UserSignInWebRequest();
-        Response<UserSignInWebVo> response = execute(request, UserSignInWebVo.class, "/user/signIn");
+        Response<User> response = execute(request, User.class, "/user/signIn");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -96,7 +96,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void signOut() throws Exception {
         UserSignOutWebRequest request = new UserSignOutWebRequest();
-        Response<UserSignOutWebVo> response = execute(request, UserSignOutWebVo.class, "/user/signOut");
+        Response<User> response = execute(request, User.class, "/user/signOut");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -106,7 +106,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void signUp() throws Exception {
         UserSignUpWebRequest request = new UserSignUpWebRequest();
-        Response<UserSignUpWebVo> response = execute(request, UserSignUpWebVo.class, "/user/signUp");
+        Response<User> response = execute(request, User.class, "/user/signUp");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -116,7 +116,7 @@ public class UserWebControllerTest extends BaseWebControllerTest {
     @Test
     public void passwordUpdate() throws Exception {
         UserPasswordChangeWebRequest request = new UserPasswordChangeWebRequest();
-        Response<UserPasswordChangeWebVo> response = execute(request, UserPasswordChangeWebVo.class, "/user/passwordChange");
+        Response<User> response = execute(request, User.class, "/user/passwordChange");
         Assert.assertNotNull(response.getBody());
     }
 

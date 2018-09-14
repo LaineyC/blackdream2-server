@@ -12,7 +12,6 @@ import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
-import pers.laineyc.blackdream.generator.action.web.vo.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.CreationStrategy;
@@ -38,132 +37,94 @@ public class CreationStrategyWebController extends BaseWebController {
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器生成策略创建")
     @PostMapping(value = "/creationStrategy/create")
-    public @ResponseBody Response<CreationStrategyCreateWebVo> create(@RequestBody CreationStrategyCreateWebRequest request) {
+    public @ResponseBody Response<CreationStrategy> create(@RequestBody CreationStrategyCreateWebRequest request) {
         CreationStrategyCreateParameter parameter = new CreationStrategyCreateParameter();
         BeanUtils.copyProperties(request, parameter);
 
         CreationStrategy creationStrategy = creationStrategyService.create(parameter);
 
-        CreationStrategyCreateWebVo creationStrategyCreateWebVo = new CreationStrategyCreateWebVo();
-        BeanUtils.copyProperties(creationStrategy, creationStrategyCreateWebVo);
-
-        return new Response<>(creationStrategyCreateWebVo);
+        return new Response<>(creationStrategy);
     }
 /*
     @Security
     @ApiOperation(value = "生成器生成策略删除")
     @PostMapping(value = "/creationStrategy/delete")
-    public @ResponseBody Response<CreationStrategyDeleteWebVo> delete(@RequestBody CreationStrategyDeleteWebRequest request) {
+    public @ResponseBody Response<CreationStrategy> delete(@RequestBody CreationStrategyDeleteWebRequest request) {
         CreationStrategyDeleteParameter parameter = new CreationStrategyDeleteParameter();
         BeanUtils.copyProperties(request, parameter);
 
         CreationStrategy creationStrategy = creationStrategyService.delete(parameter);
 
-        CreationStrategyDeleteWebVo creationStrategyDeleteWebVo = new CreationStrategyDeleteWebVo();
-        BeanUtils.copyProperties(creationStrategy, creationStrategyDeleteWebVo);
-
-        return new Response<>(creationStrategyDeleteWebVo);
+        return new Response<>(creationStrategy);
     }
 */
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器生成策略修改")
     @PostMapping(value = "/creationStrategy/update")
-    public @ResponseBody Response<CreationStrategyUpdateWebVo> update(@RequestBody CreationStrategyUpdateWebRequest request) {
+    public @ResponseBody Response<CreationStrategy> update(@RequestBody CreationStrategyUpdateWebRequest request) {
         CreationStrategyUpdateParameter parameter = new CreationStrategyUpdateParameter();
         BeanUtils.copyProperties(request, parameter);
 
         CreationStrategy creationStrategy = creationStrategyService.update(parameter);
-        
-        CreationStrategyUpdateWebVo creationStrategyUpdateWebVo = new CreationStrategyUpdateWebVo();
-        BeanUtils.copyProperties(creationStrategy, creationStrategyUpdateWebVo);
 
-        return new Response<>(creationStrategyUpdateWebVo);
+        return new Response<>(creationStrategy);
     }
 
     @ApiOperation(value = "生成器生成策略单个查询")
     @PostMapping(value = "/creationStrategy/get")
-    public @ResponseBody Response<CreationStrategyGetWebVo> get(@RequestBody CreationStrategyGetWebRequest request) {
+    public @ResponseBody Response<CreationStrategy> get(@RequestBody CreationStrategyGetWebRequest request) {
         CreationStrategyGetParameter parameter = new CreationStrategyGetParameter();
         BeanUtils.copyProperties(request, parameter);
 
         CreationStrategy creationStrategy = creationStrategyService.get(parameter);
         
-        CreationStrategyGetWebVo creationStrategyGetWebVo = new CreationStrategyGetWebVo();
-        BeanUtils.copyProperties(creationStrategy, creationStrategyGetWebVo);
-        
-        return new Response<>(creationStrategyGetWebVo);
+        return new Response<>(creationStrategy);
     }
 /*
     @ApiOperation(value="生成器生成策略多个查询")
     @PostMapping(value = "/creationStrategy/query")
-    public @ResponseBody Response<List<CreationStrategyQueryWebVo>> query(@RequestBody CreationStrategyQueryWebRequest request) {
+    public @ResponseBody Response<List<CreationStrategy>> query(@RequestBody CreationStrategyQueryWebRequest request) {
         CreationStrategyQueryParameter parameter = new CreationStrategyQueryParameter();
         BeanUtils.copyProperties(request, parameter);
         
         List<CreationStrategy> creationStrategyList = creationStrategyService.query(parameter);
-        
-        List<CreationStrategyQueryWebVo> creationStrategyQueryWebVoList = new ArrayList<>();
-        creationStrategyList.forEach(creationStrategy -> {
-            CreationStrategyQueryWebVo creationStrategyQueryWebVo = new CreationStrategyQueryWebVo();
-            BeanUtils.copyProperties(creationStrategy, creationStrategyQueryWebVo);
-            creationStrategyQueryWebVoList.add(creationStrategyQueryWebVo);
-        });
 
-        return new Response<>(creationStrategyQueryWebVoList);
+        return new Response<>(creationStrategyList);
     }
 
     @ApiOperation(value = "生成器生成策略分页查询")
     @PostMapping(value = "/creationStrategy/search")
-    public @ResponseBody Response<PageResult<CreationStrategySearchWebVo>> search(@RequestBody CreationStrategySearchWebRequest request) {
+    public @ResponseBody Response<PageResult<CreationStrategy>> search(@RequestBody CreationStrategySearchWebRequest request) {
         CreationStrategySearchParameter parameter = new CreationStrategySearchParameter();
         BeanUtils.copyProperties(request, parameter);
         
         PageResult<CreationStrategy> creationStrategyPageResult = creationStrategyService.search(parameter);
-        
-        PageResult<CreationStrategySearchWebVo> creationStrategySearchWebVoPageResult = new PageResult<>();
-        creationStrategySearchWebVoPageResult.setTotal(creationStrategyPageResult.getTotal());
-        List<CreationStrategySearchWebVo> creationStrategySearchWebVoList = creationStrategySearchWebVoPageResult.getRecords();
-        creationStrategyPageResult.getRecords().forEach(creationStrategy -> {
-            CreationStrategySearchWebVo creationStrategySearchWebVo = new CreationStrategySearchWebVo();
-            BeanUtils.copyProperties(creationStrategy, creationStrategySearchWebVo);
-            creationStrategySearchWebVoList.add(creationStrategySearchWebVo);
-        });
 
-        return new Response<>(creationStrategySearchWebVoPageResult);
+        return new Response<>(creationStrategyPageResult);
     }
 */
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器生成策略排序")
     @PostMapping(value = "/creationStrategy/sort")
-    public @ResponseBody Response<CreationStrategySortWebVo> sort(@RequestBody CreationStrategySortWebRequest request) {
+    public @ResponseBody Response<CreationStrategy> sort(@RequestBody CreationStrategySortWebRequest request) {
         CreationStrategySortParameter parameter = new CreationStrategySortParameter();
         BeanUtils.copyProperties(request, parameter);
 
         CreationStrategy creationStrategy = creationStrategyService.sort(parameter);
 
-        CreationStrategySortWebVo creationStrategySortWebVo = new CreationStrategySortWebVo();
-        BeanUtils.copyProperties(creationStrategy, creationStrategySortWebVo);
-
-        return new Response<>(creationStrategySortWebVo);
+        return new Response<>(creationStrategy);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器生成策略多个查询")
     @PostMapping(value = "/creationStrategy/infoQuery")
-    public @ResponseBody Response<List<CreationStrategyInfoQueryWebVo>> infoQuery(@RequestBody CreationStrategyInfoQueryWebRequest request) {
+    public @ResponseBody Response<List<CreationStrategy>> infoQuery(@RequestBody CreationStrategyInfoQueryWebRequest request) {
         CreationStrategyInfoQueryParameter parameter = new CreationStrategyInfoQueryParameter();
         BeanUtils.copyProperties(request, parameter);
 
         List<CreationStrategy> creationStrategyList = creationStrategyService.infoQuery(parameter);
 
-        List<CreationStrategyInfoQueryWebVo> creationStrategyQueryWebVoList = new ArrayList<>();
-        creationStrategyList.forEach(creationStrategy -> {
-            CreationStrategyInfoQueryWebVo creationStrategyQueryWebVo = new CreationStrategyInfoQueryWebVo();
-            BeanUtils.copyProperties(creationStrategy, creationStrategyQueryWebVo);
-            creationStrategyQueryWebVoList.add(creationStrategyQueryWebVo);
-        });
-
-        return new Response<>(creationStrategyQueryWebVoList);
+        return new Response<>(creationStrategyList);
     }
     
 }

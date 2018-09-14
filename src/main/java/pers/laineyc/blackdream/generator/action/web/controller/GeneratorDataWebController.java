@@ -13,22 +13,16 @@ import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataCreateParameter;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataCreateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorDataCreateWebVo;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataDeleteParameter;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataDeleteWebRequest;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorDataDeleteWebVo;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataUpdateParameter;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataUpdateWebRequest;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorDataUpdateWebVo;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataGetParameter;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataGetWebRequest;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorDataGetWebVo;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataTreeParameter;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataTreeWebRequest;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorDataTreeWebVo;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataSortParameter;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataSortWebRequest;
-import pers.laineyc.blackdream.generator.action.web.vo.GeneratorDataSortWebVo;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorData;
 import pers.laineyc.blackdream.generator.service.GeneratorDataService;
 import java.util.List;
@@ -52,127 +46,94 @@ public class GeneratorDataWebController extends BaseWebController {
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据创建")
     @PostMapping(value = "/generatorData/create")
-    public @ResponseBody Response<GeneratorDataCreateWebVo> create(@RequestBody GeneratorDataCreateWebRequest request) {
+    public @ResponseBody Response<GeneratorData> create(@RequestBody GeneratorDataCreateWebRequest request) {
         GeneratorDataCreateParameter parameter = new GeneratorDataCreateParameter();
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorData generatorData = generatorDataService.create(parameter);
 
-        GeneratorDataCreateWebVo generatorDataCreateWebVo = new GeneratorDataCreateWebVo();
-        BeanUtils.copyProperties(generatorData, generatorDataCreateWebVo);
-
-        return new Response<>(generatorDataCreateWebVo);
+        return new Response<>(generatorData);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据删除")
     @PostMapping(value = "/generatorData/delete")
-    public @ResponseBody Response<GeneratorDataDeleteWebVo> delete(@RequestBody GeneratorDataDeleteWebRequest request) {
+    public @ResponseBody Response<GeneratorData> delete(@RequestBody GeneratorDataDeleteWebRequest request) {
         GeneratorDataDeleteParameter parameter = new GeneratorDataDeleteParameter();
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorData generatorData = generatorDataService.delete(parameter);
 
-        GeneratorDataDeleteWebVo generatorDataDeleteWebVo = new GeneratorDataDeleteWebVo();
-        BeanUtils.copyProperties(generatorData, generatorDataDeleteWebVo);
-
-        return new Response<>(generatorDataDeleteWebVo);
+        return new Response<>(generatorData);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据修改")
     @PostMapping(value = "/generatorData/update")
-    public @ResponseBody Response<GeneratorDataUpdateWebVo> update(@RequestBody GeneratorDataUpdateWebRequest request) {
+    public @ResponseBody Response<GeneratorData> update(@RequestBody GeneratorDataUpdateWebRequest request) {
         GeneratorDataUpdateParameter parameter = new GeneratorDataUpdateParameter();
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorData generatorData = generatorDataService.update(parameter);
-        
-        GeneratorDataUpdateWebVo generatorDataUpdateWebVo = new GeneratorDataUpdateWebVo();
-        BeanUtils.copyProperties(generatorData, generatorDataUpdateWebVo);
 
-        return new Response<>(generatorDataUpdateWebVo);
+        return new Response<>(generatorData);
     }
 
     @ApiOperation(value = "生成器数据单个查询")
     @PostMapping(value = "/generatorData/get")
-    public @ResponseBody Response<GeneratorDataGetWebVo> get(@RequestBody GeneratorDataGetWebRequest request) {
+    public @ResponseBody Response<GeneratorData> get(@RequestBody GeneratorDataGetWebRequest request) {
         GeneratorDataGetParameter parameter = new GeneratorDataGetParameter();
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorData generatorData = generatorDataService.get(parameter);
         
-        GeneratorDataGetWebVo generatorDataGetWebVo = new GeneratorDataGetWebVo();
-        BeanUtils.copyProperties(generatorData, generatorDataGetWebVo);
-        
-        return new Response<>(generatorDataGetWebVo);
+        return new Response<>(generatorData);
     }
 /*
     @ApiOperation(value="生成器数据多个查询")
     @PostMapping(value = "/generatorData/query")
-    public @ResponseBody Response<List<GeneratorDataQueryWebVo>> query(@RequestBody GeneratorDataQueryWebRequest request) {
+    public @ResponseBody Response<List<GeneratorData>> query(@RequestBody GeneratorDataQueryWebRequest request) {
         GeneratorDataQueryParameter parameter = new GeneratorDataQueryParameter();
         BeanUtils.copyProperties(request, parameter);
 
         List<GeneratorData> generatorDataList = generatorDataService.query(parameter);
 
-        List<GeneratorDataQueryWebVo> generatorDataQueryWebVoList = new ArrayList<>();
-        generatorDataList.forEach(generatorData -> {
-            GeneratorDataQueryWebVo generatorDataQueryWebVo = new GeneratorDataQueryWebVo();
-            BeanUtils.copyProperties(generatorData, generatorDataQueryWebVo);
-            generatorDataQueryWebVoList.add(generatorDataQueryWebVo);
-        });
-
-        return new Response<>(generatorDataQueryWebVoList);
+        return new Response<>(generatorDataList);
     }
 
     @ApiOperation(value = "生成器数据分页查询")
     @PostMapping(value = "/generatorData/search")
-    public @ResponseBody Response<PageResult<GeneratorDataSearchWebVo>> search(@RequestBody GeneratorDataSearchWebRequest request) {
+    public @ResponseBody Response<PageResult<GeneratorData>> search(@RequestBody GeneratorDataSearchWebRequest request) {
         GeneratorDataSearchParameter parameter = new GeneratorDataSearchParameter();
         BeanUtils.copyProperties(request, parameter);
 
         PageResult<GeneratorData> generatorDataPageResult = generatorDataService.search(parameter);
 
-        PageResult<GeneratorDataSearchWebVo> generatorDataSearchWebVoPageResult = new PageResult<>();
-        generatorDataSearchWebVoPageResult.setTotal(generatorDataPageResult.getTotal());
-        List<GeneratorDataSearchWebVo> generatorDataSearchWebVoList = generatorDataSearchWebVoPageResult.getRecords();
-        generatorDataPageResult.getRecords().forEach(generatorData -> {
-            GeneratorDataSearchWebVo generatorDataSearchWebVo = new GeneratorDataSearchWebVo();
-            BeanUtils.copyProperties(generatorData, generatorDataSearchWebVo);
-            generatorDataSearchWebVoList.add(generatorDataSearchWebVo);
-        });
-
-        return new Response<>(generatorDataSearchWebVoPageResult);
+        return new Response<>(generatorDataPageResult);
     }
 */
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据树形查询")
     @PostMapping(value = "/generatorData/tree")
-    public @ResponseBody Response<List<GeneratorDataTreeWebVo>> tree(@RequestBody GeneratorDataTreeWebRequest request) {
+    public @ResponseBody Response<List<GeneratorData>> tree(@RequestBody GeneratorDataTreeWebRequest request) {
         GeneratorDataTreeParameter parameter = new GeneratorDataTreeParameter();
         BeanUtils.copyProperties(request, parameter);
 
         List<GeneratorData> generatorDataList = generatorDataService.tree(parameter);
-        
-        List<GeneratorDataTreeWebVo> generatorDataTreeWebVoList = new ArrayList<>();
 
-        return new Response<>(generatorDataTreeWebVoList);
+        return new Response<>(generatorDataList);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据排序")
     @PostMapping(value = "/generatorData/sort")
-    public @ResponseBody Response<GeneratorDataSortWebVo> sort(@RequestBody GeneratorDataSortWebRequest request) {
+    public @ResponseBody Response<GeneratorData> sort(@RequestBody GeneratorDataSortWebRequest request) {
         GeneratorDataSortParameter parameter = new GeneratorDataSortParameter();
         BeanUtils.copyProperties(request, parameter);
 
         GeneratorData generatorData = generatorDataService.sort(parameter);
 
-        GeneratorDataSortWebVo generatorDataSortWebVo = new GeneratorDataSortWebVo();
-        BeanUtils.copyProperties(generatorData, generatorDataSortWebVo);
-
-        return new Response<>(generatorDataSortWebVo);
+        return new Response<>(generatorData);
     }
     
 }

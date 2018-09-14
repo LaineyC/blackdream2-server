@@ -5,8 +5,7 @@ import org.junit.Assert;
 import pers.laineyc.blackdream.framework.controller.BaseWebControllerTest;
 import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.generator.action.web.request.*;
-import pers.laineyc.blackdream.generator.action.web.vo.*;
-
+import pers.laineyc.blackdream.generator.service.domain.*;
 /**
  * 生成器实例ControllerTest
  * @author LaineyC
@@ -26,7 +25,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
         request.setGeneratorId("");
         request.setName("");
         request.setDescription("");
-        Response<GeneratorInstanceCreateWebVo> response = execute(request, GeneratorInstanceCreateWebVo.class, "/generatorInstance/create");
+        Response<GeneratorInstance> response = execute(request, GeneratorInstance.class, "/generatorInstance/create");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -37,7 +36,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
     public void delete() throws Exception {
         GeneratorInstanceDeleteWebRequest request = new GeneratorInstanceDeleteWebRequest();
         request.setId("");
-        Response<GeneratorInstanceDeleteWebVo> response = execute(request, GeneratorInstanceDeleteWebVo.class, "/generatorInstance/delete");
+        Response<GeneratorInstance> response = execute(request, GeneratorInstance.class, "/generatorInstance/delete");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -50,7 +49,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
         request.setId("");
         request.setName("");
         request.setDescription("");
-        Response<GeneratorInstanceUpdateWebVo> response = execute(request, GeneratorInstanceUpdateWebVo.class, "/generatorInstance/update");
+        Response<GeneratorInstance> response = execute(request, GeneratorInstance.class, "/generatorInstance/update");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -61,7 +60,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
     public void get() throws Exception {
         GeneratorInstanceGetWebRequest request = new GeneratorInstanceGetWebRequest();
         request.setId("");
-        Response<GeneratorInstanceGetWebVo> response = execute(request, GeneratorInstanceGetWebVo.class, "/generatorInstance/get");
+        Response<GeneratorInstance> response = execute(request, GeneratorInstance.class, "/generatorInstance/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -74,7 +73,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
         request.setUserId("");
         request.setGeneratorId("");
         request.setName("");
-        Response<GeneratorInstanceQueryWebVo> response = execute(request, GeneratorInstanceQueryWebVo.class, "/generatorInstance/query");
+        Response<GeneratorInstance> response = execute(request, GeneratorInstance.class, "/generatorInstance/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -89,7 +88,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
         request.setUserId("");
         request.setGeneratorId("");
         request.setName("");
-        Response<GeneratorInstanceSearchWebVo> response = execute(request, GeneratorInstanceSearchWebVo.class, "/generatorInstance/search");
+        Response<GeneratorInstance> response = execute(request, GeneratorInstance.class, "/generatorInstance/search");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -99,7 +98,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
     @Test
     public void infoSearch() throws Exception {
         GeneratorInstanceInfoSearchWebRequest request = new GeneratorInstanceInfoSearchWebRequest();
-        Response<GeneratorInstanceInfoSearchWebVo> response = execute(request, GeneratorInstanceInfoSearchWebVo.class, "/generatorInstance/infoSearch");
+        Response<GeneratorInstance> response = execute(request, GeneratorInstance.class, "/generatorInstance/infoSearch");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -109,7 +108,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
     @Test
     public void make() throws Exception {
         GeneratorInstanceMakeWebRequest request = new GeneratorInstanceMakeWebRequest();
-        Response<GeneratorInstanceMakeWebVo> response = execute(request, GeneratorInstanceMakeWebVo.class, "/generatorInstance/make");
+        Response<GeneratorInstance> response = execute(request, GeneratorInstance.class, "/generatorInstance/make");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -119,7 +118,7 @@ public class GeneratorInstanceWebControllerTest extends BaseWebControllerTest {
     @Test
     public void versionSync() throws Exception {
         GeneratorInstanceVersionSyncWebRequest request = new GeneratorInstanceVersionSyncWebRequest();
-        Response<GeneratorInstanceVersionSyncWebVo> response = execute(request, GeneratorInstanceVersionSyncWebVo.class, "/generatorInstance/versionSync");
+        Response<GeneratorInstance> response = execute(request, GeneratorInstance.class, "/generatorInstance/versionSync");
         Assert.assertNotNull(response.getBody());
     }
 

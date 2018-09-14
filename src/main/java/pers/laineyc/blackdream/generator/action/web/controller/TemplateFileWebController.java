@@ -12,7 +12,6 @@ import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
-import pers.laineyc.blackdream.generator.action.web.vo.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.TemplateFile;
@@ -38,132 +37,94 @@ public class TemplateFileWebController extends BaseWebController {
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件创建")
     @PostMapping(value = "/templateFile/create")
-    public @ResponseBody Response<TemplateFileCreateWebVo> create(@RequestBody TemplateFileCreateWebRequest request) {
+    public @ResponseBody Response<TemplateFile> create(@RequestBody TemplateFileCreateWebRequest request) {
         TemplateFileCreateParameter parameter = new TemplateFileCreateParameter();
         BeanUtils.copyProperties(request, parameter);
 
         TemplateFile templateFile = templateFileService.create(parameter);
 
-        TemplateFileCreateWebVo templateFileCreateWebVo = new TemplateFileCreateWebVo();
-        BeanUtils.copyProperties(templateFile, templateFileCreateWebVo);
-
-        return new Response<>(templateFileCreateWebVo);
+        return new Response<>(templateFile);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件删除")
     @PostMapping(value = "/templateFile/delete")
-    public @ResponseBody Response<TemplateFileDeleteWebVo> delete(@RequestBody TemplateFileDeleteWebRequest request) {
+    public @ResponseBody Response<TemplateFile> delete(@RequestBody TemplateFileDeleteWebRequest request) {
         TemplateFileDeleteParameter parameter = new TemplateFileDeleteParameter();
         BeanUtils.copyProperties(request, parameter);
 
         TemplateFile templateFile = templateFileService.delete(parameter);
 
-        TemplateFileDeleteWebVo templateFileDeleteWebVo = new TemplateFileDeleteWebVo();
-        BeanUtils.copyProperties(templateFile, templateFileDeleteWebVo);
-
-        return new Response<>(templateFileDeleteWebVo);
+        return new Response<>(templateFile);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件修改")
     @PostMapping(value = "/templateFile/update")
-    public @ResponseBody Response<TemplateFileUpdateWebVo> update(@RequestBody TemplateFileUpdateWebRequest request) {
+    public @ResponseBody Response<TemplateFile> update(@RequestBody TemplateFileUpdateWebRequest request) {
         TemplateFileUpdateParameter parameter = new TemplateFileUpdateParameter();
         BeanUtils.copyProperties(request, parameter);
 
         TemplateFile templateFile = templateFileService.update(parameter);
-        
-        TemplateFileUpdateWebVo templateFileUpdateWebVo = new TemplateFileUpdateWebVo();
-        BeanUtils.copyProperties(templateFile, templateFileUpdateWebVo);
 
-        return new Response<>(templateFileUpdateWebVo);
+        return new Response<>(templateFile);
     }
 
     @ApiOperation(value = "生成器模板文件单个查询")
     @PostMapping(value = "/templateFile/get")
-    public @ResponseBody Response<TemplateFileGetWebVo> get(@RequestBody TemplateFileGetWebRequest request) {
+    public @ResponseBody Response<TemplateFile> get(@RequestBody TemplateFileGetWebRequest request) {
         TemplateFileGetParameter parameter = new TemplateFileGetParameter();
         BeanUtils.copyProperties(request, parameter);
 
         TemplateFile templateFile = templateFileService.get(parameter);
         
-        TemplateFileGetWebVo templateFileGetWebVo = new TemplateFileGetWebVo();
-        BeanUtils.copyProperties(templateFile, templateFileGetWebVo);
-        
-        return new Response<>(templateFileGetWebVo);
+        return new Response<>(templateFile);
     }
 /*
     @ApiOperation(value="生成器模板文件多个查询")
     @PostMapping(value = "/templateFile/query")
-    public @ResponseBody Response<List<TemplateFileQueryWebVo>> query(@RequestBody TemplateFileQueryWebRequest request) {
+    public @ResponseBody Response<List<TemplateFile>> query(@RequestBody TemplateFileQueryWebRequest request) {
         TemplateFileQueryParameter parameter = new TemplateFileQueryParameter();
         BeanUtils.copyProperties(request, parameter);
         
         List<TemplateFile> templateFileList = templateFileService.query(parameter);
-        
-        List<TemplateFileQueryWebVo> templateFileQueryWebVoList = new ArrayList<>();
-        templateFileList.forEach(templateFile -> {
-            TemplateFileQueryWebVo templateFileQueryWebVo = new TemplateFileQueryWebVo();
-            BeanUtils.copyProperties(templateFile, templateFileQueryWebVo);
-            templateFileQueryWebVoList.add(templateFileQueryWebVo);
-        });
 
-        return new Response<>(templateFileQueryWebVoList);
+        return new Response<>(templateFileList);
     }
 
     @ApiOperation(value = "生成器模板文件分页查询")
     @PostMapping(value = "/templateFile/search")
-    public @ResponseBody Response<PageResult<TemplateFileSearchWebVo>> search(@RequestBody TemplateFileSearchWebRequest request) {
+    public @ResponseBody Response<PageResult<TemplateFile>> search(@RequestBody TemplateFileSearchWebRequest request) {
         TemplateFileSearchParameter parameter = new TemplateFileSearchParameter();
         BeanUtils.copyProperties(request, parameter);
         
         PageResult<TemplateFile> templateFilePageResult = templateFileService.search(parameter);
-        
-        PageResult<TemplateFileSearchWebVo> templateFileSearchWebVoPageResult = new PageResult<>();
-        templateFileSearchWebVoPageResult.setTotal(templateFilePageResult.getTotal());
-        List<TemplateFileSearchWebVo> templateFileSearchWebVoList = templateFileSearchWebVoPageResult.getRecords();
-        templateFilePageResult.getRecords().forEach(templateFile -> {
-            TemplateFileSearchWebVo templateFileSearchWebVo = new TemplateFileSearchWebVo();
-            BeanUtils.copyProperties(templateFile, templateFileSearchWebVo);
-            templateFileSearchWebVoList.add(templateFileSearchWebVo);
-        });
 
-        return new Response<>(templateFileSearchWebVoPageResult);
+        return new Response<>(templateFilePageResult);
     }
 */
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件排序")
     @PostMapping(value = "/templateFile/sort")
-    public @ResponseBody Response<TemplateFileSortWebVo> sort(@RequestBody TemplateFileSortWebRequest request) {
+    public @ResponseBody Response<TemplateFile> sort(@RequestBody TemplateFileSortWebRequest request) {
         TemplateFileSortParameter parameter = new TemplateFileSortParameter();
         BeanUtils.copyProperties(request, parameter);
 
         TemplateFile templateFile = templateFileService.sort(parameter);
 
-        TemplateFileSortWebVo templateFileSortWebVo = new TemplateFileSortWebVo();
-        BeanUtils.copyProperties(templateFile, templateFileSortWebVo);
-
-        return new Response<>(templateFileSortWebVo);
+        return new Response<>(templateFile);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件分页查询")
     @PostMapping(value = "/templateFile/infoQuery")
-    public @ResponseBody Response<List<TemplateFileInfoQueryWebVo>> infoQuery(@RequestBody TemplateFileInfoQueryWebRequest request) {
+    public @ResponseBody Response<List<TemplateFile>> infoQuery(@RequestBody TemplateFileInfoQueryWebRequest request) {
         TemplateFileInfoQueryParameter parameter = new TemplateFileInfoQueryParameter();
         BeanUtils.copyProperties(request, parameter);
 
         List<TemplateFile> templateFileList = templateFileService.infoQuery(parameter);
 
-        List<TemplateFileInfoQueryWebVo> templateFileQueryWebVoList = new ArrayList<>();
-        templateFileList.forEach(templateFile -> {
-            TemplateFileInfoQueryWebVo templateFileQueryWebVo = new TemplateFileInfoQueryWebVo();
-            BeanUtils.copyProperties(templateFile, templateFileQueryWebVo);
-            templateFileQueryWebVoList.add(templateFileQueryWebVo);
-        });
-
-        return new Response<>(templateFileQueryWebVoList);
+        return new Response<>(templateFileList);
     }
 
 }

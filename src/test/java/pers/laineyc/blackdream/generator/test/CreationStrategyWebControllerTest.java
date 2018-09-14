@@ -11,7 +11,7 @@ import pers.laineyc.blackdream.generator.action.web.request.CreationStrategyGetW
 import pers.laineyc.blackdream.generator.action.web.request.CreationStrategyQueryWebRequest;
 import pers.laineyc.blackdream.generator.action.web.request.CreationStrategySearchWebRequest;
 import pers.laineyc.blackdream.generator.action.web.request.CreationStrategySortWebRequest;
-import pers.laineyc.blackdream.generator.action.web.vo.*;
+import pers.laineyc.blackdream.generator.service.domain.*;
 
 /**
  * 生成器生成策略ControllerTest
@@ -32,7 +32,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
         request.setGeneratorId("");
         request.setName("");
         request.setDescription("");
-        Response<CreationStrategyCreateWebVo> response = execute(request, CreationStrategyCreateWebVo.class, "/creationStrategy/create");
+        Response<CreationStrategy> response = execute(request, CreationStrategy.class, "/creationStrategy/create");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -43,7 +43,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
     public void delete() throws Exception {
         CreationStrategyDeleteWebRequest request = new CreationStrategyDeleteWebRequest();
         request.setId("");
-        Response<CreationStrategyDeleteWebVo> response = execute(request, CreationStrategyDeleteWebVo.class, "/creationStrategy/delete");
+        Response<CreationStrategy> response = execute(request, CreationStrategy.class, "/creationStrategy/delete");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -56,7 +56,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
         request.setId("");
         request.setName("");
         request.setDescription("");
-        Response<CreationStrategyUpdateWebVo> response = execute(request, CreationStrategyUpdateWebVo.class, "/creationStrategy/update");
+        Response<CreationStrategy> response = execute(request, CreationStrategy.class, "/creationStrategy/update");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -67,7 +67,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
     public void get() throws Exception {
         CreationStrategyGetWebRequest request = new CreationStrategyGetWebRequest();
         request.setId("");
-        Response<CreationStrategyGetWebVo> response = execute(request, CreationStrategyGetWebVo.class, "/creationStrategy/get");
+        Response<CreationStrategy> response = execute(request, CreationStrategy.class, "/creationStrategy/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -80,7 +80,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
         request.setUserId("");
         request.setGeneratorId("");
         request.setName("");
-        Response<CreationStrategyQueryWebVo> response = execute(request, CreationStrategyQueryWebVo.class, "/creationStrategy/query");
+        Response<CreationStrategy> response = execute(request, CreationStrategy.class, "/creationStrategy/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -95,7 +95,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
         request.setUserId("");
         request.setGeneratorId("");
         request.setName("");
-        Response<CreationStrategySearchWebVo> response = execute(request, CreationStrategySearchWebVo.class, "/creationStrategy/search");
+        Response<CreationStrategy> response = execute(request, CreationStrategy.class, "/creationStrategy/search");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -105,7 +105,7 @@ public class CreationStrategyWebControllerTest extends BaseWebControllerTest {
     @Test
     public void sort() throws Exception {
         CreationStrategySortWebRequest request = new CreationStrategySortWebRequest();
-        Response<CreationStrategySortWebVo> response = execute(request, CreationStrategySortWebVo.class, "/creationStrategy/sort");
+        Response<CreationStrategy> response = execute(request, CreationStrategy.class, "/creationStrategy/sort");
         Assert.assertNotNull(response.getBody());
     }
 

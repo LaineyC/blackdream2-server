@@ -10,7 +10,7 @@ import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceCon
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceConfigGetWebRequest;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceConfigQueryWebRequest;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorInstanceConfigSearchWebRequest;
-import pers.laineyc.blackdream.generator.action.web.vo.*;
+import pers.laineyc.blackdream.generator.service.domain.*;
 
 /**
  * 生成器实例设置ControllerTest
@@ -31,7 +31,7 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
         request.setGeneratorInstanceId("");
         request.setName("");
         request.setDescription("");
-        Response<GeneratorInstanceConfigCreateWebVo> response = execute(request, GeneratorInstanceConfigCreateWebVo.class, "/generatorInstanceConfig/create");
+        Response<GeneratorInstanceConfig> response = execute(request, GeneratorInstanceConfig.class, "/generatorInstanceConfig/create");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -42,7 +42,7 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
     public void delete() throws Exception {
         GeneratorInstanceConfigDeleteWebRequest request = new GeneratorInstanceConfigDeleteWebRequest();
         request.setId("");
-        Response<GeneratorInstanceConfigCreateWebVo> response = execute(request, GeneratorInstanceConfigCreateWebVo.class, "/generatorInstanceConfig/delete");
+        Response<GeneratorInstanceConfig> response = execute(request, GeneratorInstanceConfig.class, "/generatorInstanceConfig/delete");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -55,7 +55,7 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
         request.setId("");
         request.setName("");
         request.setDescription("");
-        Response<GeneratorInstanceConfigUpdateWebVo> response = execute(request, GeneratorInstanceConfigUpdateWebVo.class, "/generatorInstanceConfig/update");
+        Response<GeneratorInstanceConfig> response = execute(request, GeneratorInstanceConfig.class, "/generatorInstanceConfig/update");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -66,7 +66,7 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
     public void get() throws Exception {
         GeneratorInstanceConfigGetWebRequest request = new GeneratorInstanceConfigGetWebRequest();
         request.setId("");
-        Response<GeneratorInstanceConfigGetWebVo> response = execute(request, GeneratorInstanceConfigGetWebVo.class, "/generatorInstanceConfig/get");
+        Response<GeneratorInstanceConfig> response = execute(request, GeneratorInstanceConfig.class, "/generatorInstanceConfig/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -81,7 +81,7 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
         request.setGeneratorInstanceId("");
         request.setName("");
         request.setDescription("");
-        Response<GeneratorInstanceConfigQueryWebVo> response = execute(request, GeneratorInstanceConfigQueryWebVo.class, "/generatorInstanceConfig/query");
+        Response<GeneratorInstanceConfig> response = execute(request, GeneratorInstanceConfig.class, "/generatorInstanceConfig/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -98,7 +98,7 @@ public class GeneratorInstanceConfigWebControllerTest extends BaseWebControllerT
         request.setGeneratorInstanceId("");
         request.setName("");
         request.setDescription("");
-        Response<GeneratorInstanceConfigSearchWebVo> response = execute(request, GeneratorInstanceConfigSearchWebVo.class, "/generatorInstanceConfig/search");
+        Response<GeneratorInstanceConfig> response = execute(request, GeneratorInstanceConfig.class, "/generatorInstanceConfig/search");
         Assert.assertNotNull(response.getBody());
     }
 

@@ -2,10 +2,7 @@ package pers.laineyc.blackdream.foundation.test;
 
 import org.junit.Test;
 import org.junit.Assert;
-import pers.laineyc.blackdream.foundation.action.web.vo.DetachedFileGetWebVo;
-import pers.laineyc.blackdream.foundation.action.web.vo.DetachedFileQueryWebVo;
-import pers.laineyc.blackdream.foundation.action.web.vo.DetachedFileSearchWebVo;
-import pers.laineyc.blackdream.foundation.action.web.vo.DetachedFileUploadWebVo;
+import pers.laineyc.blackdream.foundation.service.domain.*;
 import pers.laineyc.blackdream.framework.controller.BaseWebControllerTest;
 import pers.laineyc.blackdream.foundation.action.web.request.DetachedFileGetWebRequest;
 import pers.laineyc.blackdream.foundation.action.web.request.DetachedFileQueryWebRequest;
@@ -30,7 +27,7 @@ public class DetachedFileWebControllerTest extends BaseWebControllerTest {
     public void get() throws Exception {
         DetachedFileGetWebRequest request = new DetachedFileGetWebRequest();
         request.setId("");
-        Response<DetachedFileGetWebVo> response = execute(request, DetachedFileGetWebVo.class, "/detachedFile/get");
+        Response<DetachedFile> response = execute(request, DetachedFile.class, "/detachedFile/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -45,7 +42,7 @@ public class DetachedFileWebControllerTest extends BaseWebControllerTest {
         request.setName("");
         request.setExtension("");
         request.setContentType("");
-        Response<DetachedFileQueryWebVo> response = execute(request, DetachedFileQueryWebVo.class, "/detachedFile/query");
+        Response<DetachedFile> response = execute(request, DetachedFile.class, "/detachedFile/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -62,7 +59,7 @@ public class DetachedFileWebControllerTest extends BaseWebControllerTest {
         request.setName("");
         request.setExtension("");
         request.setContentType("");
-        Response<DetachedFileSearchWebVo> response = execute(request, DetachedFileSearchWebVo.class, "/detachedFile/search");
+        Response<DetachedFile> response = execute(request, DetachedFile.class, "/detachedFile/search");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -72,7 +69,7 @@ public class DetachedFileWebControllerTest extends BaseWebControllerTest {
     @Test
     public void upload() throws Exception {
         DetachedFileUploadWebRequest request = new DetachedFileUploadWebRequest();
-        Response<DetachedFileUploadWebVo> response = execute(request, DetachedFileUploadWebVo.class, "/detachedFile/upload");
+        Response<DetachedFile> response = execute(request, DetachedFile.class, "/detachedFile/upload");
         Assert.assertNotNull(response.getBody());
     }
 

@@ -2,7 +2,7 @@ package pers.laineyc.blackdream.autodoc.test;
 
 import org.junit.Test;
 import org.junit.Assert;
-import pers.laineyc.blackdream.autodoc.action.web.vo.GeneratorDocMakeWebVo;
+import pers.laineyc.blackdream.autodoc.service.domain.*;
 import pers.laineyc.blackdream.framework.controller.BaseWebControllerTest;
 import pers.laineyc.blackdream.autodoc.action.web.request.GeneratorDocMakeWebRequest;
 import pers.laineyc.blackdream.framework.controller.response.Response;
@@ -23,7 +23,7 @@ public class GeneratorDocWebControllerTest extends BaseWebControllerTest {
     @Test
     public void make() throws Exception {
         GeneratorDocMakeWebRequest request = new GeneratorDocMakeWebRequest();
-        Response<GeneratorDocMakeWebVo> response = execute(request, GeneratorDocMakeWebVo.class, "/generatorDoc/make");
+        Response<GeneratorDoc> response = execute(request, GeneratorDoc.class, "/generatorDoc/make");
         Assert.assertNotNull(response.getBody());
     }
 

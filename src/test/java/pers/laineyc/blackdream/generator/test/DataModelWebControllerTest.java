@@ -11,7 +11,7 @@ import pers.laineyc.blackdream.generator.action.web.request.DataModelGetWebReque
 import pers.laineyc.blackdream.generator.action.web.request.DataModelQueryWebRequest;
 import pers.laineyc.blackdream.generator.action.web.request.DataModelSearchWebRequest;
 import pers.laineyc.blackdream.generator.action.web.request.DataModelSortWebRequest;
-import pers.laineyc.blackdream.generator.action.web.vo.*;
+import pers.laineyc.blackdream.generator.service.domain.*;
 
 /**
  * 生成器数据模型ControllerTest
@@ -34,7 +34,7 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
         request.setCode("");
         request.setIconStyle("");
         request.setDescription("");
-        Response<DataModelCreateWebVo> response = execute(request, DataModelCreateWebVo.class, "/dataModel/create");
+        Response<DataModel> response = execute(request, DataModel.class, "/dataModel/create");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -45,7 +45,7 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
     public void delete() throws Exception {
         DataModelDeleteWebRequest request = new DataModelDeleteWebRequest();
         request.setId("");
-        Response<DataModelDeleteWebVo> response = execute(request, DataModelDeleteWebVo.class, "/dataModel/delete");
+        Response<DataModel> response = execute(request, DataModel.class, "/dataModel/delete");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -60,7 +60,7 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
         request.setCode("");
         request.setIconStyle("");
         request.setDescription("");
-        Response<DataModelUpdateWebVo> response = execute(request, DataModelUpdateWebVo.class, "/dataModel/update");
+        Response<DataModel> response = execute(request, DataModel.class, "/dataModel/update");
         Assert.assertNotNull(response.getBody());
     }
     
@@ -71,7 +71,7 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
     public void get() throws Exception {
         DataModelGetWebRequest request = new DataModelGetWebRequest();
         request.setId("");
-        Response<DataModelGetWebVo> response = execute(request, DataModelGetWebVo.class, "/dataModel/get");
+        Response<DataModel> response = execute(request, DataModel.class, "/dataModel/get");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -86,7 +86,7 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
         request.setName("");
         request.setCode("");
         request.setIconStyle("");
-        Response<DataModelQueryWebVo> response = execute(request, DataModelQueryWebVo.class, "/dataModel/query");
+        Response<DataModel> response = execute(request, DataModel.class, "/dataModel/query");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -103,7 +103,7 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
         request.setName("");
         request.setCode("");
         request.setIconStyle("");
-        Response<DataModelSearchWebVo> response = execute(request, DataModelSearchWebVo.class, "/dataModel/search");
+        Response<DataModel> response = execute(request, DataModel.class, "/dataModel/search");
         Assert.assertNotNull(response.getBody());
     }
 
@@ -113,7 +113,7 @@ public class DataModelWebControllerTest extends BaseWebControllerTest {
     @Test
     public void sort() throws Exception {
         DataModelSortWebRequest request = new DataModelSortWebRequest();
-        Response<DataModelSortWebVo> response = execute(request, DataModelSortWebVo.class, "/dataModel/sort");
+        Response<DataModel> response = execute(request, DataModel.class, "/dataModel/sort");
         Assert.assertNotNull(response.getBody());
     }
 
