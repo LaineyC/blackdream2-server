@@ -25,13 +25,13 @@ public class DataModelField extends Domain {
     @ApiModelProperty(value = "字段注释")
     private String comment;
 
-    @ApiModelProperty(value = "数据类型：1BOOLEAN；2INTEGER；NUMBER；4TEXT；5ENUM_SINGLE；6ENUM_MULTIPLE；7DATE；8TIME；9DATETIME；10MODEL_REF")
+    @ApiModelProperty(value = "数据类型：1BOOLEAN；2INTEGER；3FLOAT；4NUMBER；5TEXT；6ENUM_SINGLE；7ENUM_MULTIPLE；8DATE；9TIME；10DATETIME；15MODEL_REF")
     private Integer dataType;
 
     @ApiModelProperty(value = "默认值")
     private Object defaultValue;
 
-    @ApiModelProperty(value = "可选值列表数据")
+    @ApiModelProperty(value = "可选值数据列表")
     private List<Map.Entry<String, Object>> optionValueList = new ArrayList<>();
 
     @ApiModelProperty(value = "显示分组")
@@ -53,10 +53,10 @@ public class DataModelField extends Domain {
     private Boolean isRequired;
 
     @ApiModelProperty(value = "最小值")
-    private Double min;
+    private Double minValue;
 
     @ApiModelProperty(value = "最大值")
-    private Double max;
+    private Double maxValue;
 
     @ApiModelProperty(value = "最小长度")
     private Integer minLength;
@@ -64,14 +64,14 @@ public class DataModelField extends Domain {
     @ApiModelProperty(value = "最大长度")
     private Integer maxLength;
 
-    @ApiModelProperty(value = "正则")
-    private String pattern;
+    @ApiModelProperty(value = "正则表达式")
+    private String regex;
 
-    @ApiModelProperty(value = "正则提示")
-    private String patternMessage;
+    @ApiModelProperty(value = "错误提示")
+    private String errorMessage;
 
-    @ApiModelProperty(value = "约束脚本")
-    private String constraintScript;
+    @ApiModelProperty(value = "验证脚本")
+    private String validateScript;
 
     @ApiModelProperty(value = "级联脚本")
     private String cascadeScript;
@@ -176,20 +176,20 @@ public class DataModelField extends Domain {
         this.isRequired = isRequired;
     }
 
-    public Double getMin() {
-        return min;
+    public Double getMinValue() {
+        return minValue;
     }
 
-    public void setMin(Double min) {
-        this.min = min;
+    public void setMinValue(Double minValue) {
+        this.minValue = minValue;
     }
 
-    public Double getMax() {
-        return max;
+    public Double getMaxValue() {
+        return maxValue;
     }
 
-    public void setMax(Double max) {
-        this.max = max;
+    public void setMaxValue(Double maxValue) {
+        this.maxValue = maxValue;
     }
 
     public Integer getMinLength() {
@@ -208,28 +208,28 @@ public class DataModelField extends Domain {
         this.maxLength = maxLength;
     }
 
-    public String getPattern() {
-        return pattern;
+    public String getRegex() {
+        return regex;
     }
 
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
+    public void setRegex(String regex) {
+        this.regex = regex;
     }
 
-    public String getPatternMessage() {
-        return patternMessage;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
-    public void setPatternMessage(String patternMessage) {
-        this.patternMessage = patternMessage;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
-    public String getConstraintScript() {
-        return constraintScript;
+    public String getValidateScript() {
+        return validateScript;
     }
 
-    public void setConstraintScript(String constraintScript) {
-        this.constraintScript = constraintScript;
+    public void setValidateScript(String validateScript) {
+        this.validateScript = validateScript;
     }
 
     public String getCascadeScript() {

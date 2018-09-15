@@ -3,30 +3,18 @@ package pers.laineyc.blackdream.generator.constant;
 /**
  * @author LaineyC
  */
-public enum DataModelFieldTypeEnum {
+public enum DataModelFieldDisplayTypeEnum {
 
     /**
-     * 1BOOLEAN；2INTEGER；NUMBER；4TEXT；5ENUM_SINGLE；6ENUM_MULTIPLE；7DATE；8TIME；9DATETIME；10MODEL_REF
+     * 显示方式：1默认显示；2默认隐藏；3强制显示；4强制隐藏
      */
-    BOOLEAN(1, "BOOLEAN"),
+    DEFAULT_DISPLAY(1, "DEFAULT_DISPLAY"),
 
-    INTEGER(2, "INTEGER"),
+    DEFAULT_HIDDEN(2, "DEFAULT_HIDDEN"),
 
-    NUMBER(3, "NUMBER"),
+    DISPLAY_ONLY(3, "DISPLAY_ONLY"),
 
-    TEXT(4, "TEXT"),
-
-    ENUM_SINGLE(5, "ENUM_SINGLE"),
-
-    ENUM_MULTIPLE(6, "ENUM_MULTIPLE"),
-
-    DATE(7, "DATE"),
-
-    TIME(8, "TIME"),
-
-    DATETIME(9, "DATETIME"),
-
-    MODEL_REF(10, "MODEL_REF"),
+    HIDDEN_ONLY(4, "HIDDEN_ONLY"),
 
     ;
 
@@ -37,17 +25,17 @@ public enum DataModelFieldTypeEnum {
 
     private String description;
 
-    DataModelFieldTypeEnum(int code, String description) {
+    DataModelFieldDisplayTypeEnum(int code, String description) {
         this.code = code;
         this.description = description;
     }
 
-    public static DataModelFieldTypeEnum value(Integer code){
+    public static DataModelFieldDisplayTypeEnum value(Integer code){
         if(code == null){
             return null;
         }
 
-        for(DataModelFieldTypeEnum item:values()){
+        for(DataModelFieldDisplayTypeEnum item:values()){
             if(item.code == code){
                 return item;
             }
