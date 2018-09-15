@@ -1,5 +1,7 @@
 package pers.laineyc.blackdream.generator.service.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.service.domain.Domain;
 
 import java.util.*;
@@ -10,78 +12,51 @@ import pers.laineyc.blackdream.usercenter.service.domain.User;
  * 生成器数据
  * @author LaineyC
  */
+@ApiModel
 public class GeneratorData extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     private String id;
 
-    /**
-     * 所属用户
-     */
+    @ApiModelProperty(value = "所属用户")
     private User user;
 
-    /**
-     * 所属生成器
-     */
+    @ApiModelProperty(value = "所属生成器")
     private Generator generator;
 
-    /**
-     * 所属生成器实例
-     */
+    @ApiModelProperty(value = "所属生成器实例")
     private GeneratorInstance generatorInstance;
 
-    /**
-     * 所属生成器数据模型
-     */
+    @ApiModelProperty(value = "所属生成器数据模型")
     private DataModel dataModel;
 
-    /**
-     * 名称
-     */
+    @ApiModelProperty(value = "名称")
     private String name;
 
-    /**
-     * 是否展开
-     */
+    @ApiModelProperty(value = "是否展开")
     private Boolean isExpanded;
 
-    /**
-     * 显示顺序
-     */
+    @ApiModelProperty(value = "显示顺序")
     private Integer displayOrder;
 
-    /**
-     * 父节点
-     */
+    @ApiModelProperty(value = "父节点")
     private GeneratorData parent;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    /**
-     * 修改时间
-     */
+    @ApiModelProperty(value = "修改时间")
     private Date updateTime;
 
-     /**
-     * 子节点集合
-     */
+     @ApiModelProperty(value = "子节点集合")
     private List<GeneratorData> children = new ArrayList<>();
 
-    /**
-     * 属性集
-     */
+    @ApiModelProperty(value = "属性集")
     private Map<String, Object> property = new LinkedHashMap<>();
 
-    /**
-     * 记录列表
-     */
+    @ApiModelProperty(value = "记录列表")
     private List<Map<String, Object>> recordList = new ArrayList<>();
 
 	public GeneratorData() {

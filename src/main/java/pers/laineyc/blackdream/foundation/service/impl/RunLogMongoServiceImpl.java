@@ -129,7 +129,7 @@ public class RunLogMongoServiceImpl extends BaseService implements RunLogService
             runLog.setException(exceptionString);
         }
 
-        mongoTemplate.insert(runLog, "RunLog");
+        mongoTemplate.insert(runLog);
 
     }
 

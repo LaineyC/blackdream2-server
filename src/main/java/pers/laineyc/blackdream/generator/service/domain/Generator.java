@@ -1,5 +1,7 @@
 package pers.laineyc.blackdream.generator.service.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.service.domain.Domain;
 import java.util.Date;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
@@ -8,63 +10,42 @@ import pers.laineyc.blackdream.usercenter.service.domain.User;
  * 生成器
  * @author LaineyC
  */
+@ApiModel
 public class Generator extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     private String id;
 
-    /**
-     * 所属用户
-     */
+    @ApiModelProperty(value = "所属用户")
     private User user;
 
-    /**
-     * 名称
-     */
+    @ApiModelProperty(value = "名称")
     private String name;
 
-    /**
-     * 状态：1开发；2发布
-     */
+    @ApiModelProperty(value = "状态：1开发；2发布")
     private Integer status;
 
-    /**
-     * 版本号
-     */
+    @ApiModelProperty(value = "版本号")
     private Integer releaseVersion;
 
-    /**
-     * 发布时间
-     */
+    @ApiModelProperty(value = "发布时间")
     private Date releaseTime;
 
-    /**
-     * 开发时间
-     */
+    @ApiModelProperty(value = "开发时间")
     private Date developTime;
 
-    /**
-     * 引擎类型：1Velocity；2FreeMarker
-     */
+    @ApiModelProperty(value = "引擎类型：1Velocity；2FreeMarker")
     private Integer engineType;
 
-    /**
-     * 描述
-     */
+    @ApiModelProperty(value = "描述")
     private String description;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    /**
-     * 修改时间
-     */
+    @ApiModelProperty(value = "修改时间")
     private Date updateTime;
 
 	public Generator() {

@@ -1,5 +1,7 @@
 package pers.laineyc.blackdream.generator.service.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.service.domain.Domain;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,68 +13,45 @@ import pers.laineyc.blackdream.usercenter.service.domain.User;
  * 生成器实例设置
  * @author LaineyC
  */
+@ApiModel
 public class GeneratorInstanceConfig extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     private String id;
 
-    /**
-     * 所属用户
-     */
+    @ApiModelProperty(value = "所属用户")
     private User user;
 
-    /**
-     * 所属生成器
-     */
+    @ApiModelProperty(value = "所属生成器")
     private Generator generator;
 
-    /**
-     * 所属生成器实例
-     */
+    @ApiModelProperty(value = "所属生成器实例")
     private GeneratorInstance generatorInstance;
 
-    /**
-     * 名称
-     */
+    @ApiModelProperty(value = "名称")
     private String name;
 
-    /**
-     * 描述
-     */
+    @ApiModelProperty(value = "描述")
     private String description;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    /**
-     * 修改时间
-     */
+    @ApiModelProperty(value = "修改时间")
     private Date updateTime;
 
-    /**
-     * 属性列表
-     */
+    @ApiModelProperty(value = "属性列表")
     private List<DataModelFieldConfig> propertyList = new ArrayList<>();
 
-    /**
-     * 字段列表
-     */
+    @ApiModelProperty(value = "字段列表")
     private List<DataModelFieldConfig> fieldList = new ArrayList<>();
 
-    /**
-     * 是否直接添加默认记录
-     */
+    @ApiModelProperty(value = "是否直接添加默认记录")
     private Boolean isAddDefaultRecordList;
 
-    /**
-     * 默认记录集合数据
-     */
+    @ApiModelProperty(value = "默认记录集合数据")
     private List<Map<String, Object>> defaultRecordList = new ArrayList<>();
 
 	public GeneratorInstanceConfig() {

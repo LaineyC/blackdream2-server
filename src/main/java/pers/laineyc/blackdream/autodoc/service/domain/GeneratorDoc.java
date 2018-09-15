@@ -1,5 +1,7 @@
 package pers.laineyc.blackdream.autodoc.service.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.service.domain.Domain;
 import java.util.Date;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
@@ -9,43 +11,30 @@ import pers.laineyc.blackdream.generator.service.domain.Generator;
  * 生成器文档
  * @author LaineyC
  */
+@ApiModel
 public class GeneratorDoc extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     private Long id;
 
-    /**
-     * 所属用户
-     */
+    @ApiModelProperty(value = "所属用户")
     private User user;
 
-    /**
-     * 所属生成器
-     */
+    @ApiModelProperty(value = "所属生成器")
     private Generator generator;
 
-    /**
-     * 名称
-     */
+    @ApiModelProperty(value = "名称")
     private String name;
 
-    /**
-     * 描述
-     */
+    @ApiModelProperty(value = "描述")
     private String description;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    /**
-     * 修改时间
-     */
+    @ApiModelProperty(value = "修改时间")
     private Date updateTime;
 
 	public GeneratorDoc() {

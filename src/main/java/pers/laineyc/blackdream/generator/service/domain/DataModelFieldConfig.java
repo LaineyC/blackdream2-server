@@ -1,48 +1,37 @@
 package pers.laineyc.blackdream.generator.service.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.service.domain.Domain;
 
 /**
  * 生成器数据模型字段
  * @author LaineyC
  */
+@ApiModel
 public class DataModelFieldConfig extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     private String id;
 
-    /**
-     * 字段名称
-     */
+    @ApiModelProperty(value = "字段名称")
     private String name;
 
-    /**
-     * 字段注释
-     */
+    @ApiModelProperty(value = "字段注释")
     private String comment;
 
-    /**
-     * 默认值
-     */
+    @ApiModelProperty(value = "默认值")
     private Object defaultValue;
 
-    /**
-     * 显示分组
-     */
+    @ApiModelProperty(value = "显示分组")
     private String displayGroup;
 
-    /**
-     * 显示宽度
-     */
+    @ApiModelProperty(value = "显示宽度")
     private Double displayWidth;
 
-    /**
-     * 是否显示控件
-     */
+    @ApiModelProperty(value = "是否显示控件")
     private Boolean isShow;
 
 	public DataModelFieldConfig() {

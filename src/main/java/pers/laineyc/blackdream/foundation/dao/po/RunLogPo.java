@@ -1,5 +1,7 @@
 package pers.laineyc.blackdream.foundation.dao.po;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import java.util.Date;
 
@@ -7,10 +9,12 @@ import java.util.Date;
  * 用户
  * @author LaineyC
  */
+@Document(collection = "RunLog")
 public class RunLogPo extends Po {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
     private String id;
     /**
      * 日志级别

@@ -1,5 +1,7 @@
 package pers.laineyc.blackdream.generator.service.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.service.domain.Domain;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,108 +11,69 @@ import java.util.Map;
  * 生成器数据模型字段
  * @author LaineyC
  */
+@ApiModel
 public class DataModelField extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     private String id;
 
-    /**
-     * 字段名称
-     */
+    @ApiModelProperty(value = "字段名称")
     private String name;
 
-    /**
-     * 字段注释
-     */
+    @ApiModelProperty(value = "字段注释")
     private String comment;
 
-    /**
-     * 数据类型：1BOOLEAN；2INTEGER；NUMBER；4TEXT；5ENUM_SINGLE；6ENUM_MULTIPLE；7DATE；8TIME；9DATETIME；10MODEL_REF
-     */
+    @ApiModelProperty(value = "数据类型：1BOOLEAN；2INTEGER；NUMBER；4TEXT；5ENUM_SINGLE；6ENUM_MULTIPLE；7DATE；8TIME；9DATETIME；10MODEL_REF")
     private Integer dataType;
 
-    /**
-     * 默认值
-     */
+    @ApiModelProperty(value = "默认值")
     private Object defaultValue;
 
-    /**
-     * 可选值列表数据
-     */
+    @ApiModelProperty(value = "可选值列表数据")
     private List<Map.Entry<String, Object>> optionValueList = new ArrayList<>();
 
-    /**
-     * 显示分组
-     */
+    @ApiModelProperty(value = "显示分组")
     private String displayGroup;
 
-    /**
-     * 显示宽度
-     */
+    @ApiModelProperty(value = "显示宽度")
     private Double displayWidth;
 
-    /**
-     * 显示方式：1默认显示；2默认隐藏；3强制显示；4强制隐藏
-     */
+    @ApiModelProperty(value = "显示方式：1默认显示；2默认隐藏；3强制显示；4强制隐藏")
     private Integer displayType;
 
-    /**
-     * 是否只读控件
-     */
+    @ApiModelProperty(value = "是否只读控件")
     private Boolean isReadonly;
 
-    /**
-     * 是否禁用控件
-     */
+    @ApiModelProperty(value = "是否禁用控件")
     private Boolean isDisabled;
 
-    /**
-     * 必填项
-     */
+    @ApiModelProperty(value = "必填项")
     private Boolean isRequired;
 
-    /**
-     * 最小值
-     */
+    @ApiModelProperty(value = "最小值")
     private Double min;
 
-    /**
-     * 最大值
-     */
+    @ApiModelProperty(value = "最大值")
     private Double max;
 
-    /**
-     * 最小长度
-     */
+    @ApiModelProperty(value = "最小长度")
     private Integer minLength;
 
-    /**
-     * 最大长度
-     */
+    @ApiModelProperty(value = "最大长度")
     private Integer maxLength;
 
-    /**
-     * 正则
-     */
+    @ApiModelProperty(value = "正则")
     private String pattern;
 
-    /**
-     * 正则提示
-     */
+    @ApiModelProperty(value = "正则提示")
     private String patternMessage;
 
-    /**
-     * 约束脚本
-     */
+    @ApiModelProperty(value = "约束脚本")
     private String constraintScript;
 
-    /**
-     * 级联脚本
-     */
+    @ApiModelProperty(value = "级联脚本")
     private String cascadeScript;
 
 	public DataModelField() {
