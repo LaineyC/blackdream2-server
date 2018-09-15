@@ -2,6 +2,7 @@ package pers.laineyc.blackdream.usercenter.tool;
 
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.RegexUtil;
 import pers.laineyc.blackdream.usercenter.constant.TokenSignInConfigConstant;
@@ -149,6 +150,20 @@ public class UserServiceTool{
      */
     public void signUpValidate(UserSignUpParameter parameter) {
 
+    }
+
+    /**
+     * 用户注册验证码发送Validate
+     */
+    public void signUpEmailValidCodeSendValidate(UserSignUpEmailValidCodeSendParameter parameter) {
+        String email = parameter.getEmail();
+        if(!StringUtils.hasText(email)){
+            throw new BusinessException("缺少邮箱参数");
+        }
+
+        if(!RegexUtil.isEmail(email)){
+            throw new BusinessException("邮箱格式不正确");
+        }
     }
     
     /**

@@ -19,6 +19,11 @@ public class UserSignUpParameter extends Parameter {
     private String email;
 
     /**
+     * 验证码
+     */
+    private String validCode;
+
+    /**
      * 密码
      */
     private String password;
@@ -41,6 +46,14 @@ public class UserSignUpParameter extends Parameter {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getValidCode() {
+        return validCode;
+    }
+
+    public void setValidCode(String validCode) {
+        this.validCode = validCode;
     }
 
     public String getPassword() {

@@ -8,19 +8,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pers.laineyc.blackdream.configuration.config.AuthSecurity;
+import pers.laineyc.blackdream.foundation.service.domain.ValidCode;
 import pers.laineyc.blackdream.framework.constant.AuthConfigConstant;
 import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.usercenter.action.web.request.*;
-import pers.laineyc.blackdream.usercenter.constant.UserSignUpEmailValidCode;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 import pers.laineyc.blackdream.usercenter.service.UserService;
-import pers.laineyc.blackdream.usercenter.tool.EmailValidCode;
-import pers.laineyc.blackdream.usercenter.tool.EmailValidCodeTool;
 import pers.laineyc.blackdream.usercenter.tool.UserServiceTool;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,9 +34,6 @@ public class UserWebController extends BaseWebController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private EmailValidCodeTool emailValidCodeTool;
 
     @Autowired
     private UserDao userDao;
@@ -136,12 +131,11 @@ public class UserWebController extends BaseWebController {
 
     @ApiOperation(value = "用户注册邮箱验证码发送")
     @PostMapping(value = "/user/signUpEmailValidCodeSend")
-    public @ResponseBody Response<EmailValidCode> signUpEmailValidCodeSend(@RequestBody UserSignUpEmailValidCodeSendWebRequest request, HttpServletRequest httpServletRequest) {
-        UserSignUpParameter parameter = new UserSignUpParameter();
+    public @ResponseBody Response<ValidCode> signUpEmailValidCodeSend(@RequestBody UserSignUpEmailValidCodeSendWebRequest request, HttpServletRequest httpServletRequest) {
+        UserSignUpEmailValidCodeSendParameter parameter = new UserSignUpEmailValidCodeSendParameter();
         BeanUtils.copyProperties(request, parameter);
 
-        String email = request.getEmail();
-        EmailValidCode validCode = emailValidCodeTool.send(email, "欢迎注册BlackDream", "您的注册验证码：" + EmailValidCodeTool.VALID_CODE_PLACE, UserSignUpEmailValidCode.class.getName(), httpServletRequest);
+        ValidCode validCode = userService.signUpEmailValidCodeSend(parameter);
 
         return new Response<>(validCode);
     }
@@ -149,10 +143,6 @@ public class UserWebController extends BaseWebController {
     @ApiOperation(value = "用户注册")
     @PostMapping(value = "/user/signUp")
     public @ResponseBody Response<User> signUp(@RequestBody UserSignUpWebRequest request, HttpServletRequest httpServletRequest) {
-        String email = request.getEmail();
-        String validCode = request.getValidCode();
-        emailValidCodeTool.check(email, validCode, UserSignUpEmailValidCode.class.getName(), httpServletRequest);
-
         UserSignUpParameter parameter = new UserSignUpParameter();
         BeanUtils.copyProperties(request, parameter);
 

@@ -1,5 +1,6 @@
 package pers.laineyc.blackdream.usercenter.service;
 
+import pers.laineyc.blackdream.foundation.service.domain.ValidCode;
 import pers.laineyc.blackdream.framework.service.Service;
 import pers.laineyc.blackdream.usercenter.service.domain.UserAuth;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
@@ -52,6 +53,11 @@ public interface UserService extends Service{
      * 用户注册
      */
     User signUp(UserSignUpParameter parameter);
+
+    /**
+     * 注册验证码发送
+     */
+    ValidCode signUpEmailValidCodeSend(UserSignUpEmailValidCodeSendParameter parameter);
     
     /**
      * 用户密码更改

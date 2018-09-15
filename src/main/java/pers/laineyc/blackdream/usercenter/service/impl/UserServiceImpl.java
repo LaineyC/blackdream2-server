@@ -6,11 +6,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import pers.laineyc.blackdream.foundation.constant.ValidCodePlatformTypeEnum;
+import pers.laineyc.blackdream.foundation.constant.ValidCodeTypeEnum;
 import pers.laineyc.blackdream.foundation.service.DetachedFileService;
 import pers.laineyc.blackdream.foundation.service.StorageFileService;
+import pers.laineyc.blackdream.foundation.service.ValidCodeService;
 import pers.laineyc.blackdream.foundation.service.domain.DetachedFile;
+import pers.laineyc.blackdream.foundation.service.domain.ValidCode;
 import pers.laineyc.blackdream.foundation.service.parameter.DetachedFilePersistParameter;
 import pers.laineyc.blackdream.foundation.service.parameter.StorageFileDeleteParameter;
+import pers.laineyc.blackdream.foundation.service.parameter.ValidCodeSendParameter;
+import pers.laineyc.blackdream.foundation.service.parameter.ValidCodeCheckParameter;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
@@ -29,10 +35,8 @@ import pers.laineyc.blackdream.usercenter.service.domain.User;
 import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
 import pers.laineyc.blackdream.usercenter.dao.query.UserQuery;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
-import java.util.List; 
-import java.util.Date; 
-import java.util.ArrayList;
-import java.util.UUID;
+
+import java.util.*;
 
 /**
  * 用户ServiceImpl
@@ -58,6 +62,9 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Autowired
     private StorageFileService storageFileService;
+
+    @Autowired
+    private ValidCodeService validCodeService;
 
     public UserServiceImpl() {
 
@@ -381,6 +388,14 @@ public class UserServiceImpl extends BaseService implements UserService {
         if(userAuthPoEmailExist != null){
             throw new BusinessException("邮箱被已注册");
         }
+
+        String code = parameter.getValidCode();
+        ValidCodeCheckParameter validCodeValidateParameter = new ValidCodeCheckParameter();
+        validCodeValidateParameter.setAuth(auth);
+        validCodeValidateParameter.setType(ValidCodeTypeEnum.REGISTER);
+        validCodeValidateParameter.setPlatformAccount(email);
+        validCodeValidateParameter.setCode(code);
+        validCodeService.check(validCodeValidateParameter);
         userAuthPo.setEmail(email);
 
         String password = parameter.getPassword();
@@ -408,7 +423,41 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         return user;
     }
-    
+
+    /**
+     * 注册验证码发送
+     */
+    @Transactional
+    public ValidCode signUpEmailValidCodeSend(UserSignUpEmailValidCodeSendParameter parameter) {
+        userServiceTool.signUpEmailValidCodeSendValidate(parameter);
+
+        Auth auth = parameter.getAuth();
+
+        String email = parameter.getEmail();
+
+        String[] numberTable = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        String code = "";
+        for(int i = 0 ; i < 6 ; i++){
+            Random random = new Random();
+            int randomNumber = random.nextInt(numberTable.length);
+            code += numberTable[randomNumber];
+        }
+
+        ValidCodeSendParameter validCodeSendParameter = new ValidCodeSendParameter();
+        validCodeSendParameter.setAuth(auth);
+        validCodeSendParameter.setType(ValidCodeTypeEnum.REGISTER);
+        validCodeSendParameter.setPlatformType(ValidCodePlatformTypeEnum.EMAIL.getCode());
+        validCodeSendParameter.setPlatformAccount(email);
+        validCodeSendParameter.setCode(code);
+        Map<String, String> templateParameter = new HashMap<>();
+        templateParameter.put("validCode", code);
+        validCodeSendParameter.setTemplateParameter(templateParameter);
+
+        ValidCode validCode = validCodeService.send(validCodeSendParameter);
+
+        return validCode;
+    }
+
     /**
      * 用户密码修改
      */
