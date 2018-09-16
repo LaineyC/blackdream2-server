@@ -1,6 +1,7 @@
 package pers.laineyc.blackdream.configuration.config;
 
 import io.swagger.annotations.Api;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -16,6 +17,10 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author LaineyC
@@ -39,6 +44,21 @@ public class DevelopmentConfig {
     @Primary
     public RunLogService runLogMultipleServiceImpl(RunLogService runLogConsoleServiceImpl, RunLogService runLogMongoServiceImpl) {
         return new RunLogMultipleServiceImpl(runLogConsoleServiceImpl, runLogMongoServiceImpl);
+    }
+
+    @Bean
+    public FilterRegistrationBean<CorsFilter> corsFilter(){
+        FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setName("corsFilter");
+        registrationBean.setFilter(new CorsFilter());
+        registrationBean.setOrder(1);
+        List<String> urlList = new ArrayList<>();
+        urlList.add("/*");
+        registrationBean.setUrlPatterns(urlList);
+        Map<String, String> initParameters = new HashMap<>();
+        initParameters.put("cors.allowed.origins", "*");
+        registrationBean.setInitParameters(initParameters);
+        return registrationBean;
     }
 
     @Bean
