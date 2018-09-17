@@ -56,7 +56,7 @@ public class DevelopmentConfig {
         urlList.add("/*");
         registrationBean.setUrlPatterns(urlList);
         Map<String, String> initParameters = new HashMap<>();
-        initParameters.put("cors.allowed.origins", "*");
+        initParameters.put("cors.allowed.origins", "http://192.168.0.100:8080");
         registrationBean.setInitParameters(initParameters);
         return registrationBean;
     }

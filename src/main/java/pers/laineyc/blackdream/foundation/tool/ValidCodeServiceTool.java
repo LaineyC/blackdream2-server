@@ -160,8 +160,6 @@ public class ValidCodeServiceTool{
 
         Integer timeout = parameter.getTimeout();
 
-        Integer failCount = parameter.getFailCount();
-
         Integer maxFailCount = parameter.getMaxFailCount();
 
         Map<String, String> templateParameter = parameter.getTemplateParameter();

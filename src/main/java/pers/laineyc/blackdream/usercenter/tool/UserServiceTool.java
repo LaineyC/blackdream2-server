@@ -128,7 +128,22 @@ public class UserServiceTool{
      * 用户登录Validate
      */
     public void signInValidate(UserSignInParameter parameter) {
+        String username = parameter.getUsername();
+        if(!StringUtils.hasText(username)){
+            throw new BusinessException("缺少用户名参数");
+        }
 
+        if(username.length() > 100){
+            throw new BusinessException("用户名或邮箱长度不能超过100");
+        }
+
+        String password = parameter.getPassword();
+        if(!StringUtils.hasText(password)){
+            throw new BusinessException("缺少密码");
+        }
+        if(!RegexUtil.isPassword(password)){
+            throw new BusinessException("密码格式不正确");
+        }
     }
 
     /**
@@ -149,7 +164,44 @@ public class UserServiceTool{
      * 用户注册Validate
      */
     public void signUpValidate(UserSignUpParameter parameter) {
+        String username = parameter.getUsername();
+        if(!StringUtils.hasText(username)){
+            throw new BusinessException("缺少用户名参数");
+        }
 
+        if(!RegexUtil.isUsername(username)){
+            throw new BusinessException("用户名格式不正确（4到16位字母开头、数字）");
+        }
+
+        String email = parameter.getEmail();
+        if(!StringUtils.hasText(email)){
+            throw new BusinessException("缺少邮箱参数");
+        }
+
+        if(email.length() > 100){
+            throw new BusinessException("邮箱超度不鞥呢超过100");
+        }
+
+        if(!RegexUtil.isEmail(email)){
+            throw new BusinessException("邮箱格式不正确");
+        }
+
+        String validCode = parameter.getValidCode();
+        if(!StringUtils.hasText(validCode)){
+            throw new BusinessException("缺少验证码");
+        }
+
+        if(validCode.length() > 6){
+            throw new BusinessException("验证码格式不正确（4到24位字母、数字）");
+        }
+
+        String password = parameter.getPassword();
+        if(!StringUtils.hasText(password)){
+            throw new BusinessException("缺少密码");
+        }
+        if(!RegexUtil.isPassword(password)){
+            throw new BusinessException("密码格式不正确");
+        }
     }
 
     /**

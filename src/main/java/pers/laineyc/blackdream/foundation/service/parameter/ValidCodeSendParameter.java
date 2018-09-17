@@ -43,11 +43,6 @@ public class ValidCodeSendParameter extends Parameter {
     private Integer timeout;
 
     /**
-     * 验证失败次数
-     */
-    private Integer failCount;
-
-    /**
      * 允许验证次数
      */
     private Integer maxFailCount;
@@ -107,14 +102,6 @@ public class ValidCodeSendParameter extends Parameter {
 
     public void setTimeout(Integer timeout) {
         this.timeout = timeout;
-    }
-
-    public Integer getFailCount() {
-        return this.failCount;
-    }
-
-    public void setFailCount(Integer failCount) {
-        this.failCount = failCount;
     }
 
     public Integer getMaxFailCount() {

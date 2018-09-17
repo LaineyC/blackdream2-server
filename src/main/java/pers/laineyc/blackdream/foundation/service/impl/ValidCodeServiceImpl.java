@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.configuration.constant.SystemConstant;
 import pers.laineyc.blackdream.foundation.constant.ValidCodePlatformTypeEnum;
 import pers.laineyc.blackdream.foundation.constant.ValidCodeTypeEnum;
@@ -20,10 +21,8 @@ import pers.laineyc.blackdream.foundation.service.domain.ValidCode;
 import pers.laineyc.blackdream.foundation.dao.po.ValidCodePo;
 import pers.laineyc.blackdream.foundation.dao.query.ValidCodeQuery;
 import pers.laineyc.blackdream.foundation.dao.ValidCodeDao;
-import java.util.List; 
-import java.util.Date; 
-import java.util.ArrayList; 
-import java.util.Map;
+
+import java.util.*;
 
 /**
  * 验证码ServiceImpl
@@ -338,7 +337,12 @@ public class ValidCodeServiceImpl extends BaseService implements ValidCodeServic
         validCodeServiceTool.sendValidate(parameter);
 
         Auth auth = parameter.getAuth();
-        String authUserId = auth.getUserId();
+
+        String authUserId = null;
+        if(auth != null){
+            authUserId = auth.getUserId();
+        }
+
         Date now = new Date();
 
         ValidCodeTypeEnum typeEnum = parameter.getType();
@@ -383,18 +387,30 @@ public class ValidCodeServiceImpl extends BaseService implements ValidCodeServic
         validCodePo.setPlatformAccount(platformAccount);
 
         String code = parameter.getCode();
+        if(!StringUtils.hasText(code)){
+            code = "";
+            String[] numberTable = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+            for(int i = 0 ; i < 6 ; i++){
+                Random random = new Random();
+                int randomNumber = random.nextInt(numberTable.length);
+                code += numberTable[randomNumber];
+            }
+        }
         validCodePo.setCode(code);
 
         Integer interval = parameter.getInterval();
+        interval = interval == null ? 60 : interval;
         validCodePo.setInterval(interval);
 
         Integer timeout = parameter.getTimeout();
+        timeout = timeout == null ? 600 : timeout;
         validCodePo.setTimeout(timeout);
 
-        Integer failCount = parameter.getFailCount();
+        Integer failCount = 0;
         validCodePo.setFailCount(failCount);
 
         Integer maxFailCount = parameter.getMaxFailCount();
+        maxFailCount = maxFailCount == null ? 5 : maxFailCount;
         validCodePo.setMaxFailCount(maxFailCount);
 
         validCodePo.setIsDeleted(false);
@@ -405,8 +421,10 @@ public class ValidCodeServiceImpl extends BaseService implements ValidCodeServic
 
         validCodeDao.insert(validCodePo);
 
-        Map<String, String> templateParameter = parameter.getTemplateParameter();
         String messageTemplate = typeEnum.getTemplate();
+        messageTemplate = messageTemplate.replaceAll(ValidCodeTypeEnum.VALID_CODE_REPLACE, code);
+
+        Map<String, String> templateParameter = parameter.getTemplateParameter();
         for(Map.Entry<String, String> entry : templateParameter.entrySet()){
             messageTemplate = messageTemplate.replaceAll("\\$\\{" + entry.getKey() + "\\}", entry.getValue());
         }

@@ -401,10 +401,9 @@ public class UserServiceImpl extends BaseService implements UserService {
         String password = parameter.getPassword();
         String encodePassword = passwordEncoder.encode(password);
         userAuthPo.setPassword(encodePassword);
-
         userAuthPo.setStatus(UserStatusEnum.ENABLE.getCode());
-
         userAuthPo.setCreateTime(now);
+        userAuthPo.setUpdateTime(now);
 
         UserPo userPo = new UserPo();
         userPo.setType(UserTypeEnum.GENERAL.getCode());
@@ -412,6 +411,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         userPo.setUsername(username);
         userPo.setEmail(email);
         userPo.setCreateTime(now);
+        userPo.setUpdateTime(now);
         userDao.insert(userPo);
 
         userAuthPo.setUserId(userPo.getId());
@@ -435,23 +435,11 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         String email = parameter.getEmail();
 
-        String[] numberTable = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-        String code = "";
-        for(int i = 0 ; i < 6 ; i++){
-            Random random = new Random();
-            int randomNumber = random.nextInt(numberTable.length);
-            code += numberTable[randomNumber];
-        }
-
         ValidCodeSendParameter validCodeSendParameter = new ValidCodeSendParameter();
         validCodeSendParameter.setAuth(auth);
         validCodeSendParameter.setType(ValidCodeTypeEnum.REGISTER);
         validCodeSendParameter.setPlatformType(ValidCodePlatformTypeEnum.EMAIL.getCode());
         validCodeSendParameter.setPlatformAccount(email);
-        validCodeSendParameter.setCode(code);
-        Map<String, String> templateParameter = new HashMap<>();
-        templateParameter.put("validCode", code);
-        validCodeSendParameter.setTemplateParameter(templateParameter);
 
         ValidCode validCode = validCodeService.send(validCodeSendParameter);
 
