@@ -84,6 +84,8 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
         generatorPo.setCreateTime(now);
 
+        generatorPo.setUpdateTime(now);
+
         generatorDao.insert(generatorPo);
 
         Generator generator = new Generator();
@@ -169,7 +171,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         String id = parameter.getId();
         GeneratorPo generatorPo = generatorDao.selectById(id);
         if(generatorPo == null || generatorPo.getIsDeleted()){
-            throw new BusinessException("生成器实不存在");
+            throw new BusinessException("生成器不存在");
         }
 
         Generator generator = new Generator();
@@ -182,6 +184,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
             if(userPo != null){
                 User user = new User();
                 user.setId(userPo.getId());
+                user.setUsername(userPo.getUsername());
                 generator.setUser(user);
             }
         }
@@ -361,6 +364,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
                 String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
+                user.setUsername(po.getUsername());
             });
         }
 

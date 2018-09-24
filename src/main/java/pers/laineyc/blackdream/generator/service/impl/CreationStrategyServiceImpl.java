@@ -88,6 +88,8 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
 
         creationStrategyPo.setCreateTime(now);
 
+        creationStrategyPo.setUpdateTime(now);
+
         String script = parameter.getScript();
         creationStrategyPo.setScript(script);
 

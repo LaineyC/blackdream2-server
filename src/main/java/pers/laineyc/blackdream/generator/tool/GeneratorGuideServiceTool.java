@@ -72,7 +72,7 @@ public class GeneratorGuideServiceTool{
         if(docType == null){
             throw new BusinessException("缺少文档类型");
         }
-        if(GeneratorGuideDocTypeEnum.hasCode(docType)){
+        if(!GeneratorGuideDocTypeEnum.hasCode(docType)){
             throw new BusinessException("文档类型值不合法");
         }
 
@@ -115,7 +115,7 @@ public class GeneratorGuideServiceTool{
         if(docType == null){
             throw new BusinessException("缺少文档类型");
         }
-        if(GeneratorGuideDocTypeEnum.hasCode(docType)){
+        if(!GeneratorGuideDocTypeEnum.hasCode(docType)){
             throw new BusinessException("文档类型值不合法");
         }
 
@@ -181,7 +181,7 @@ public class GeneratorGuideServiceTool{
         if(docType == null){
             throw new BusinessException("缺少文档类型");
         }
-        if(GeneratorGuideDocTypeEnum.hasCode(docType)){
+        if(!GeneratorGuideDocTypeEnum.hasCode(docType)){
             throw new BusinessException("文档类型值不合法");
         }
 

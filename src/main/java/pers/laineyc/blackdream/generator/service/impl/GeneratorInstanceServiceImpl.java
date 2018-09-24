@@ -88,6 +88,8 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
         generatorInstancePo.setCreateTime(now);
 
+        generatorInstancePo.setUpdateTime(now);
+
         generatorInstanceDao.insert(generatorInstancePo);
 
         GeneratorInstance generatorInstance = new GeneratorInstance();
@@ -387,6 +389,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                 String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
+                user.setUsername(po.getUsername());
             });
         }
 
@@ -398,6 +401,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                 String id = po.getId();
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
+                generator.setName(po.getName());
             });
         }
 

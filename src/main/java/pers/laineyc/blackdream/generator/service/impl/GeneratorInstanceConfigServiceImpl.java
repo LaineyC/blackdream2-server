@@ -89,6 +89,8 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
 
         generatorInstanceConfigPo.setCreateTime(now);
 
+        generatorInstanceConfigPo.setUpdateTime(now);
+
         generatorInstanceConfigPo.setPropertyList(parameter.getPropertyList());
 
         generatorInstanceConfigPo.setFieldList(parameter.getFieldList());

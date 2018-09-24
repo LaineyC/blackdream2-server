@@ -92,6 +92,8 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         dataModelPo.setCreateTime(now);
 
+        dataModelPo.setUpdateTime(now);
+
         dataModelPo.setPropertyList(parameter.getPropertyList());
 
         dataModelPo.setFieldList(parameter.getFieldList());

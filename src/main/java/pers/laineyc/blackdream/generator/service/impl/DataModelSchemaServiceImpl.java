@@ -83,6 +83,8 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
 
         dataModelSchemaPo.setCreateTime(now);
 
+        dataModelSchemaPo.setUpdateTime(now);
+
         List<DataModelSchemaRule> ruleList = parameter.getRuleList();
         dataModelSchemaPo.setRuleList(ruleList);
 

@@ -116,7 +116,7 @@ public class TemplateFileWebController extends BaseWebController {
     }
 
     @AuthSecurity(developer = true)
-    @ApiOperation(value = "生成器模板文件分页查询")
+    @ApiOperation(value = "生成器模板文件查询")
     @PostMapping(value = "/templateFile/infoQuery")
     public @ResponseBody Response<List<TemplateFile>> infoQuery(@RequestBody TemplateFileInfoQueryWebRequest request) {
         TemplateFileInfoQueryParameter parameter = new TemplateFileInfoQueryParameter();

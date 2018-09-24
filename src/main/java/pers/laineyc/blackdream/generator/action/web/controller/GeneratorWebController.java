@@ -11,19 +11,9 @@ import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorCreateParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorCreateWebRequest;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorDeleteParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorDeleteWebRequest;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorUpdateParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorUpdateWebRequest;
+import pers.laineyc.blackdream.generator.action.web.request.*;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorGetParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorGetWebRequest;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInfoSearchParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorInfoSearchWebRequest;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorReleaseParameter;
-import pers.laineyc.blackdream.generator.action.web.request.GeneratorReleaseWebRequest;
 import pers.laineyc.blackdream.generator.service.domain.Generator;
 import pers.laineyc.blackdream.generator.service.GeneratorService;
 import java.util.List;
@@ -100,7 +90,7 @@ public class GeneratorWebController extends BaseWebController {
 
         return new Response<>(generatorList);
     }
-
+*/
     @ApiOperation(value = "生成器分页查询")
     @PostMapping(value = "/generator/search")
     public @ResponseBody Response<PageResult<Generator>> search(@RequestBody GeneratorSearchWebRequest request) {
@@ -111,7 +101,7 @@ public class GeneratorWebController extends BaseWebController {
 
         return new Response<>(generatorPageResult);
     }
-
+/*
     @Security
     @ApiOperation(value = "生成器导出")
     @PostMapping(value = "/generator/export")

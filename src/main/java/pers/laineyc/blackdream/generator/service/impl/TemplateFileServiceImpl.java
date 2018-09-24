@@ -99,6 +99,8 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         templateFilePo.setCreateTime(now);
 
+        templateFilePo.setUpdateTime(now);
+
         String script = parameter.getScript();
         templateFilePo.setScript(script);
 
@@ -167,7 +169,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         String code = parameter.getCode();
         if(!StringUtils.hasText(code)){
-            code = id.toString();
+            code = id;
         }
         templateFilePo.setCode(code);
 

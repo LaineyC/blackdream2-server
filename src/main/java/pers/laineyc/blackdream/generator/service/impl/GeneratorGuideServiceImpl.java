@@ -85,6 +85,8 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
 
         generatorGuidePo.setCreateTime(now);
 
+        generatorGuidePo.setUpdateTime(now);
+
         String content = parameter.getContent();
         generatorGuidePo.setContent(content);
 
@@ -183,6 +185,9 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
             GeneratorGuideQuery generatorGuideQuery = new GeneratorGuideQuery();
             generatorGuideQuery.setGeneratorId(parameterGeneratorId);
             generatorGuidePo = generatorGuideDao.selectOne(generatorGuideQuery);
+            if(generatorGuidePo != null){
+                generatorGuidePo = generatorGuideDao.selectById(generatorGuidePo.getId());
+            }
         }
 
         if(generatorGuidePo == null) {

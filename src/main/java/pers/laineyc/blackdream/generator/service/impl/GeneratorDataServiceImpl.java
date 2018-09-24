@@ -116,6 +116,8 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         generatorDataPo.setCreateTime(now);
 
+        generatorDataPo.setUpdateTime(now);
+
         generatorDataPo.setProperty(parameter.getProperty());
 
         generatorDataPo.setRecordList(parameter.getRecordList());
