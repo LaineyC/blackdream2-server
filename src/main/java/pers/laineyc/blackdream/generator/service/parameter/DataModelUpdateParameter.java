@@ -1,11 +1,10 @@
 package pers.laineyc.blackdream.generator.service.parameter;
 
 import pers.laineyc.blackdream.framework.service.parameter.Parameter;
-import pers.laineyc.blackdream.generator.service.domain.DataModelField;
+import pers.laineyc.blackdream.generator.service.domain.DataModelAttribute;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 生成器数据模型修改Parameter
@@ -41,17 +40,12 @@ public class DataModelUpdateParameter extends Parameter {
     /**
      * 属性列表
      */
-    private List<DataModelField> propertyList = new ArrayList<>();
+    private List<DataModelAttribute> propertyList = new ArrayList<>();
 
     /**
      * 字段列表
      */
-    private List<DataModelField> fieldList = new ArrayList<>();
-
-    /**
-     * 默认记录列表
-     */
-    private List<Map<String, Object>> defaultRecordList = new ArrayList<>();
+    private List<DataModelAttribute> fieldList = new ArrayList<>();
 
     public DataModelUpdateParameter() {
 
@@ -97,27 +91,20 @@ public class DataModelUpdateParameter extends Parameter {
         this.description = description;
     }
 
-    public List<DataModelField> getPropertyList() {
+    public List<DataModelAttribute> getPropertyList() {
         return propertyList;
     }
 
-    public void setPropertyList(List<DataModelField> propertyList) {
+    public void setPropertyList(List<DataModelAttribute> propertyList) {
         this.propertyList = propertyList;
     }
 
-    public List<DataModelField> getFieldList() {
+    public List<DataModelAttribute> getFieldList() {
         return fieldList;
     }
 
-    public void setFieldList(List<DataModelField> fieldList) {
+    public void setFieldList(List<DataModelAttribute> fieldList) {
         this.fieldList = fieldList;
     }
 
-    public List<Map<String, Object>> getDefaultRecordList() {
-        return defaultRecordList;
-    }
-
-    public void setDefaultRecordList(List<Map<String, Object>> defaultRecordList) {
-        this.defaultRecordList = defaultRecordList;
-    }
 }

@@ -6,7 +6,6 @@ import pers.laineyc.blackdream.framework.service.domain.Domain;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 
 /**
@@ -33,7 +32,7 @@ public class DataModel extends Domain {
     @ApiModelProperty(value = "编号")
     private String code;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "图标")
     private String iconStyle;
 
     @ApiModelProperty(value = "显示顺序")
@@ -49,13 +48,10 @@ public class DataModel extends Domain {
     private Date updateTime;
 
     @ApiModelProperty(value = "属性列表")
-    private List<DataModelField> propertyList = new ArrayList<>();
+    private List<DataModelAttribute> propertyList = new ArrayList<>();
 
     @ApiModelProperty(value = "字段列表")
-    private List<DataModelField> fieldList = new ArrayList<>();
-
-    @ApiModelProperty(value = "默认记录列表")
-    private List<Map<String, Object>> defaultRecordList = new ArrayList<>();
+    private List<DataModelAttribute> fieldList = new ArrayList<>();
 
 	public DataModel() {
 
@@ -141,27 +137,20 @@ public class DataModel extends Domain {
         this.updateTime = updateTime;
     }
 
-    public List<DataModelField> getPropertyList() {
+    public List<DataModelAttribute> getPropertyList() {
         return propertyList;
     }
 
-    public void setPropertyList(List<DataModelField> propertyList) {
+    public void setPropertyList(List<DataModelAttribute> propertyList) {
         this.propertyList = propertyList;
     }
 
-    public List<DataModelField> getFieldList() {
+    public List<DataModelAttribute> getFieldList() {
         return fieldList;
     }
 
-    public void setFieldList(List<DataModelField> fieldList) {
+    public void setFieldList(List<DataModelAttribute> fieldList) {
         this.fieldList = fieldList;
     }
 
-    public List<Map<String, Object>> getDefaultRecordList() {
-        return defaultRecordList;
-    }
-
-    public void setDefaultRecordList(List<Map<String, Object>> defaultRecordList) {
-        this.defaultRecordList = defaultRecordList;
-    }
 }

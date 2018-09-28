@@ -5,12 +5,11 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
-import pers.laineyc.blackdream.generator.service.domain.DataModelField;
+import pers.laineyc.blackdream.generator.service.domain.DataModelAttribute;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 生成器数据模型Po
@@ -83,19 +82,13 @@ public class DataModelPo extends Po {
      * 属性列表
      */
     @FetchLazy
-    private List<DataModelField> propertyList = new ArrayList<>();
+    private List<DataModelAttribute> propertyList = new ArrayList<>();
 
     /**
      * 字段列表
      */
     @FetchLazy
-    private List<DataModelField> fieldList = new ArrayList<>();
-
-    /**
-     * 默认记录列表
-     */
-    @FetchLazy
-    private List<Map<String, Object>> defaultRecordList = new ArrayList<>();
+    private List<DataModelAttribute> fieldList = new ArrayList<>();
 
 	public DataModelPo() {
 
@@ -189,27 +182,20 @@ public class DataModelPo extends Po {
         this.updateTime = updateTime;
     }
 
-    public List<DataModelField> getPropertyList() {
+    public List<DataModelAttribute> getPropertyList() {
         return propertyList;
     }
 
-    public void setPropertyList(List<DataModelField> propertyList) {
+    public void setPropertyList(List<DataModelAttribute> propertyList) {
         this.propertyList = propertyList;
     }
 
-    public List<DataModelField> getFieldList() {
+    public List<DataModelAttribute> getFieldList() {
         return fieldList;
     }
 
-    public void setFieldList(List<DataModelField> fieldList) {
+    public void setFieldList(List<DataModelAttribute> fieldList) {
         this.fieldList = fieldList;
     }
 
-    public List<Map<String, Object>> getDefaultRecordList() {
-        return defaultRecordList;
-    }
-
-    public void setDefaultRecordList(List<Map<String, Object>> defaultRecordList) {
-        this.defaultRecordList = defaultRecordList;
-    }
 }

@@ -98,8 +98,6 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         dataModelPo.setFieldList(parameter.getFieldList());
 
-        dataModelPo.setDefaultRecordList(parameter.getDefaultRecordList());
-
         dataModelDao.insert(dataModelPo);
 
         dataModelPo.setCode(dataModelPo.getId());
@@ -178,8 +176,6 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         dataModelPo.setFieldList(parameter.getFieldList());
 
-        dataModelPo.setDefaultRecordList(parameter.getDefaultRecordList());
-
         dataModelDao.update(dataModelPo);
 
         DataModel dataModel = new DataModel();
@@ -244,8 +240,6 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModel.setPropertyList(dataModelPo.getPropertyList());
 
         dataModel.setFieldList(dataModelPo.getFieldList());
-
-        dataModel.setDefaultRecordList(dataModelPo.getDefaultRecordList());
 
         return dataModel;
     }

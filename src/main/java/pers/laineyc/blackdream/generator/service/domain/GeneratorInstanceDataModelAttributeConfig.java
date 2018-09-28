@@ -9,21 +9,15 @@ import pers.laineyc.blackdream.framework.service.domain.Domain;
  * @author LaineyC
  */
 @ApiModel
-public class DataModelFieldConfig extends Domain {
+public class GeneratorInstanceDataModelAttributeConfig extends Domain {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "主键")
-    private String id;
 
     @ApiModelProperty(value = "字段名称")
     private String name;
 
     @ApiModelProperty(value = "字段注释")
     private String comment;
-
-    @ApiModelProperty(value = "默认值")
-    private Object defaultValue;
 
     @ApiModelProperty(value = "显示分组")
     private String displayGroup;
@@ -34,17 +28,9 @@ public class DataModelFieldConfig extends Domain {
     @ApiModelProperty(value = "是否显示控件")
     private Boolean isShow;
 
-	public DataModelFieldConfig() {
+	public GeneratorInstanceDataModelAttributeConfig() {
 
 	}
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -60,14 +46,6 @@ public class DataModelFieldConfig extends Domain {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public Object getDefaultValue() {
-        return defaultValue;
-    }
-
-    public void setDefaultValue(Object defaultValue) {
-        this.defaultValue = defaultValue;
     }
 
     public String getDisplayGroup() {

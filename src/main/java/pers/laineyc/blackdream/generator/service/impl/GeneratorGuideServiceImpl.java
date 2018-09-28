@@ -183,11 +183,9 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         }
         else if(parameterGeneratorId != null){
             GeneratorGuideQuery generatorGuideQuery = new GeneratorGuideQuery();
+            generatorGuideQuery.fetchLazy(false);
             generatorGuideQuery.setGeneratorId(parameterGeneratorId);
             generatorGuidePo = generatorGuideDao.selectOne(generatorGuideQuery);
-            if(generatorGuidePo != null){
-                generatorGuidePo = generatorGuideDao.selectById(generatorGuidePo.getId());
-            }
         }
 
         if(generatorGuidePo == null) {

@@ -5,19 +5,15 @@ import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.service.domain.Domain;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 生成器数据模型字段
  * @author LaineyC
  */
 @ApiModel
-public class DataModelField extends Domain {
+public class DataModelAttribute extends Domain {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "主键")
-    private String id;
 
     @ApiModelProperty(value = "字段名称")
     private String name;
@@ -25,14 +21,11 @@ public class DataModelField extends Domain {
     @ApiModelProperty(value = "字段注释")
     private String comment;
 
-    @ApiModelProperty(value = "数据类型：1BOOLEAN；2INTEGER；3FLOAT；4NUMBER；5TEXT；6ENUM_SINGLE；7ENUM_MULTIPLE；8DATE；9TIME；10DATETIME；15MODEL_REF")
+    @ApiModelProperty(value = "数据类型：1BOOLEAN；2INTEGER；3FLOAT；4NUMBER；5STRING；15MODEL")
     private Integer dataType;
 
     @ApiModelProperty(value = "默认值")
     private Object defaultValue;
-
-    @ApiModelProperty(value = "可选值数据列表")
-    private List<Map.Entry<String, Object>> optionValueList = new ArrayList<>();
 
     @ApiModelProperty(value = "显示分组")
     private String displayGroup;
@@ -40,16 +33,16 @@ public class DataModelField extends Domain {
     @ApiModelProperty(value = "显示宽度")
     private Double displayWidth;
 
-    @ApiModelProperty(value = "显示方式：1默认显示；2默认隐藏；3强制显示；4强制隐藏")
+    @ApiModelProperty(value = "显示方式：1默认显示；2默认隐藏；3强制显示；")
     private Integer displayType;
 
-    @ApiModelProperty(value = "是否只读控件")
-    private Boolean isReadonly;
+    @ApiModelProperty(value = "是否枚举")
+    private Boolean isEnum;
 
-    @ApiModelProperty(value = "是否禁用控件")
-    private Boolean isDisabled;
+    @ApiModelProperty(value = "可选值数据列表")
+    private List<DataModelAttributeOptionValue> optionValueList = new ArrayList<>();
 
-    @ApiModelProperty(value = "必填项")
+    @ApiModelProperty(value = "是否必填项")
     private Boolean isRequired;
 
     @ApiModelProperty(value = "最小值")
@@ -57,6 +50,9 @@ public class DataModelField extends Domain {
 
     @ApiModelProperty(value = "最大值")
     private Double maxValue;
+
+    @ApiModelProperty(value = "长度")
+    private Integer length;
 
     @ApiModelProperty(value = "最小长度")
     private Integer minLength;
@@ -67,26 +63,21 @@ public class DataModelField extends Domain {
     @ApiModelProperty(value = "正则表达式")
     private String regex;
 
-    @ApiModelProperty(value = "错误提示")
-    private String errorMessage;
+    @ApiModelProperty(value = "正则提示")
+    private String regexMessage;
 
     @ApiModelProperty(value = "验证脚本")
     private String validateScript;
 
+    @ApiModelProperty(value = "验证提示")
+    private String validateMessage;
+
     @ApiModelProperty(value = "级联脚本")
     private String cascadeScript;
 
-	public DataModelField() {
+	public DataModelAttribute() {
 
 	}
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -120,14 +111,6 @@ public class DataModelField extends Domain {
         this.defaultValue = defaultValue;
     }
 
-    public List<Map.Entry<String, Object>> getOptionValueList() {
-        return optionValueList;
-    }
-
-    public void setOptionValueList(List<Map.Entry<String, Object>> optionValueList) {
-        this.optionValueList = optionValueList;
-    }
-
     public String getDisplayGroup() {
         return displayGroup;
     }
@@ -152,20 +135,20 @@ public class DataModelField extends Domain {
         this.displayType = displayType;
     }
 
-    public Boolean getIsReadonly() {
-        return isReadonly;
+    public Boolean getIsEnum() {
+        return isEnum;
     }
 
-    public void setIsReadonly(Boolean isReadonly) {
-        this.isReadonly = isReadonly;
+    public void setIsEnum(Boolean isEnum) {
+        this.isEnum = isEnum;
     }
 
-    public Boolean getIsDisabled() {
-        return isDisabled;
+    public List<DataModelAttributeOptionValue> getOptionValueList() {
+        return optionValueList;
     }
 
-    public void setIsDisabled(Boolean isDisabled) {
-        this.isDisabled = isDisabled;
+    public void setOptionValueList(List<DataModelAttributeOptionValue> optionValueList) {
+        this.optionValueList = optionValueList;
     }
 
     public Boolean getIsRequired() {
@@ -192,6 +175,14 @@ public class DataModelField extends Domain {
         this.maxValue = maxValue;
     }
 
+    public Integer getLength() {
+        return length;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
     public Integer getMinLength() {
         return minLength;
     }
@@ -216,12 +207,12 @@ public class DataModelField extends Domain {
         this.regex = regex;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getRegexMessage() {
+        return regexMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setRegexMessage(String regexMessage) {
+        this.regexMessage = regexMessage;
     }
 
     public String getValidateScript() {
@@ -230,6 +221,14 @@ public class DataModelField extends Domain {
 
     public void setValidateScript(String validateScript) {
         this.validateScript = validateScript;
+    }
+
+    public String getValidateMessage() {
+        return validateMessage;
+    }
+
+    public void setValidateMessage(String validateMessage) {
+        this.validateMessage = validateMessage;
     }
 
     public String getCascadeScript() {

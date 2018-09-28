@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
-import pers.laineyc.blackdream.generator.service.domain.DataModelFieldConfig;
+import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceDataModelAttributeConfig;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -72,12 +72,12 @@ public class GeneratorInstanceConfigPo extends Po {
     /**
      * 属性列表
      */
-    private List<DataModelFieldConfig> propertyList = new ArrayList<>();
+    private List<GeneratorInstanceDataModelAttributeConfig> propertyList = new ArrayList<>();
 
     /**
      * 字段列表
      */
-    private List<DataModelFieldConfig> fieldList = new ArrayList<>();
+    private List<GeneratorInstanceDataModelAttributeConfig> fieldList = new ArrayList<>();
 
     /**
      * 是否直接添加默认记录
@@ -167,19 +167,19 @@ public class GeneratorInstanceConfigPo extends Po {
         this.updateTime = updateTime;
     }
 
-    public List<DataModelFieldConfig> getPropertyList() {
+    public List<GeneratorInstanceDataModelAttributeConfig> getPropertyList() {
         return propertyList;
     }
 
-    public void setPropertyList(List<DataModelFieldConfig> propertyList) {
+    public void setPropertyList(List<GeneratorInstanceDataModelAttributeConfig> propertyList) {
         this.propertyList = propertyList;
     }
 
-    public List<DataModelFieldConfig> getFieldList() {
+    public List<GeneratorInstanceDataModelAttributeConfig> getFieldList() {
         return fieldList;
     }
 
-    public void setFieldList(List<DataModelFieldConfig> fieldList) {
+    public void setFieldList(List<GeneratorInstanceDataModelAttributeConfig> fieldList) {
         this.fieldList = fieldList;
     }
 

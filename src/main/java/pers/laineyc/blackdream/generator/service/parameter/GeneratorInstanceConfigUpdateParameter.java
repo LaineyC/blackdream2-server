@@ -1,7 +1,7 @@
 package pers.laineyc.blackdream.generator.service.parameter;
 
 import pers.laineyc.blackdream.framework.service.parameter.Parameter;
-import pers.laineyc.blackdream.generator.service.domain.DataModelFieldConfig;
+import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceDataModelAttributeConfig;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,12 +30,12 @@ public class GeneratorInstanceConfigUpdateParameter extends Parameter {
     /**
      * 属性列表
      */
-    private List<DataModelFieldConfig> propertyList = new ArrayList<>();
+    private List<GeneratorInstanceDataModelAttributeConfig> propertyList = new ArrayList<>();
 
     /**
      * 字段列表
      */
-    private List<DataModelFieldConfig> fieldList = new ArrayList<>();
+    private List<GeneratorInstanceDataModelAttributeConfig> fieldList = new ArrayList<>();
 
     /**
      * 是否直接添加默认记录
@@ -75,19 +75,19 @@ public class GeneratorInstanceConfigUpdateParameter extends Parameter {
         this.description = description;
     }
 
-    public List<DataModelFieldConfig> getPropertyList() {
+    public List<GeneratorInstanceDataModelAttributeConfig> getPropertyList() {
         return propertyList;
     }
 
-    public void setPropertyList(List<DataModelFieldConfig> propertyList) {
+    public void setPropertyList(List<GeneratorInstanceDataModelAttributeConfig> propertyList) {
         this.propertyList = propertyList;
     }
 
-    public List<DataModelFieldConfig> getFieldList() {
+    public List<GeneratorInstanceDataModelAttributeConfig> getFieldList() {
         return fieldList;
     }
 
-    public void setFieldList(List<DataModelFieldConfig> fieldList) {
+    public void setFieldList(List<GeneratorInstanceDataModelAttributeConfig> fieldList) {
         this.fieldList = fieldList;
     }
 

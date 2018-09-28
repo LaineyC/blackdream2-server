@@ -49,7 +49,7 @@ public class SecurityInterceptor {
 
             boolean authDeveloper = authSecurity.developer();
             if(authDeveloper && (auth.getUserType() != UserTypeEnum.DEVELOPER.getCode())){
-                throw new BusinessException(ErrorCodes.EC_001002);
+                throw new BusinessException(ErrorCodes.EC_001003);
             }
         }
 
