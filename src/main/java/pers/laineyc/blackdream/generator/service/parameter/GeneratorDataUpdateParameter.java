@@ -1,5 +1,6 @@
 package pers.laineyc.blackdream.generator.service.parameter;
 
+import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
 import pers.laineyc.blackdream.framework.service.parameter.Parameter;
 
 import java.util.ArrayList;
@@ -36,12 +37,12 @@ public class GeneratorDataUpdateParameter extends Parameter {
     /**
      * 属性集
      */
-    private Map<String, Object> property = new LinkedHashMap<>();
+    private Map<String, Object> properties = new LinkedHashMap<>();
 
     /**
      * 记录列表
      */
-    private List<Map<String, Object>> recordList = new ArrayList<>();
+    private List<Map<String, Object>> tupleList = new ArrayList<>();
 
     public GeneratorDataUpdateParameter() {
 
@@ -79,19 +80,19 @@ public class GeneratorDataUpdateParameter extends Parameter {
         this.parentId = parentId;
     }
 
-    public Map<String, Object> getProperty() {
-        return property;
+    public Map<String, Object> getProperties() {
+        return properties;
     }
 
-    public void setProperty(Map<String, Object> property) {
-        this.property = property;
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
     }
 
-    public List<Map<String, Object>> getRecordList() {
-        return recordList;
+    public List<Map<String, Object>> getTupleList() {
+        return tupleList;
     }
 
-    public void setRecordList(List<Map<String, Object>> recordList) {
-        this.recordList = recordList;
+    public void setTupleList(List<Map<String, Object>> tupleList) {
+        this.tupleList = tupleList;
     }
 }

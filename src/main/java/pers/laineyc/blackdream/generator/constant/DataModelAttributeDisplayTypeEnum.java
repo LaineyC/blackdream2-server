@@ -3,14 +3,14 @@ package pers.laineyc.blackdream.generator.constant;
 /**
  * @author LaineyC
  */
-public enum DataModelFieldDisplayTypeEnum {
+public enum DataModelAttributeDisplayTypeEnum {
 
     /**
      * 显示方式：1默认显示；2默认隐藏；3强制显示；4强制隐藏
      */
-    DEFAULT_DISPLAY(1, "DEFAULT_DISPLAY"),
+    DISPLAY_DEFAULT(1, "DEFAULT_DISPLAY"),
 
-    DEFAULT_HIDDEN(2, "DEFAULT_HIDDEN"),
+    HIDDEN_DEFAULT(2, "DEFAULT_HIDDEN"),
 
     DISPLAY_ONLY(3, "DISPLAY_ONLY"),
 
@@ -25,17 +25,17 @@ public enum DataModelFieldDisplayTypeEnum {
 
     private String description;
 
-    DataModelFieldDisplayTypeEnum(int code, String description) {
+    DataModelAttributeDisplayTypeEnum(int code, String description) {
         this.code = code;
         this.description = description;
     }
 
-    public static DataModelFieldDisplayTypeEnum value(Integer code){
+    public static DataModelAttributeDisplayTypeEnum value(Integer code){
         if(code == null){
             return null;
         }
 
-        for(DataModelFieldDisplayTypeEnum item:values()){
+        for(DataModelAttributeDisplayTypeEnum item:values()){
             if(item.code == code){
                 return item;
             }

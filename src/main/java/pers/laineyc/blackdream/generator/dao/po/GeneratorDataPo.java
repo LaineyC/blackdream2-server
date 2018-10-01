@@ -85,15 +85,16 @@ public class GeneratorDataPo extends Po {
      * 属性集
      */
     @FetchLazy
-    private Map<String, Object> property = new LinkedHashMap<>();
+    private Map<String, Object> properties = new LinkedHashMap<>();
 
     /**
      * 记录列表
      */
     @FetchLazy
-    private List<Map<String, Object>> recordList = new ArrayList<>();
+    private List<Map<String, Object>> tupleList = new ArrayList<>();
 
-	public GeneratorDataPo() {
+
+    public GeneratorDataPo() {
 
 	}
 
@@ -193,19 +194,19 @@ public class GeneratorDataPo extends Po {
         this.updateTime = updateTime;
     }
 
-    public Map<String, Object> getProperty() {
-        return property;
+    public Map<String, Object> getProperties() {
+        return properties;
     }
 
-    public void setProperty(Map<String, Object> property) {
-        this.property = property;
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
     }
 
-    public List<Map<String, Object>> getRecordList() {
-        return recordList;
+    public List<Map<String, Object>> getTupleList() {
+        return tupleList;
     }
 
-    public void setRecordList(List<Map<String, Object>> recordList) {
-        this.recordList = recordList;
+    public void setTupleList(List<Map<String, Object>> tupleList) {
+        this.tupleList = tupleList;
     }
 }

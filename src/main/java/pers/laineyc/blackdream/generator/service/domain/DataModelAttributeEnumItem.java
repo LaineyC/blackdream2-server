@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author LaineyC
  */
 @ApiModel
-public class DataModelAttributeOptionValue {
+public class DataModelAttributeEnumItem {
 
     @ApiModelProperty(value = "选项")
     private String label;

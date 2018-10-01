@@ -15,13 +15,13 @@ public class DataModelAttribute extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "字段名称")
+    @ApiModelProperty(value = "属性名称")
     private String name;
 
-    @ApiModelProperty(value = "字段注释")
+    @ApiModelProperty(value = "属性注释")
     private String comment;
 
-    @ApiModelProperty(value = "数据类型：1BOOLEAN；2INTEGER；3FLOAT；4NUMBER；5STRING；15MODEL")
+    @ApiModelProperty(value = "数据类型：1BOOLEAN；2INTEGER；3NUMBER；4STRING；15MODEL_REF")
     private Integer dataType;
 
     @ApiModelProperty(value = "默认值")
@@ -39,8 +39,8 @@ public class DataModelAttribute extends Domain {
     @ApiModelProperty(value = "是否枚举")
     private Boolean isEnum;
 
-    @ApiModelProperty(value = "可选值数据列表")
-    private List<DataModelAttributeOptionValue> optionValueList = new ArrayList<>();
+    @ApiModelProperty(value = "枚举值列表")
+    private List<DataModelAttributeEnumItem> enumList = new ArrayList<>();
 
     @ApiModelProperty(value = "是否必填项")
     private Boolean isRequired;
@@ -68,9 +68,6 @@ public class DataModelAttribute extends Domain {
 
     @ApiModelProperty(value = "验证脚本")
     private String validateScript;
-
-    @ApiModelProperty(value = "验证提示")
-    private String validateMessage;
 
     @ApiModelProperty(value = "级联脚本")
     private String cascadeScript;
@@ -143,12 +140,12 @@ public class DataModelAttribute extends Domain {
         this.isEnum = isEnum;
     }
 
-    public List<DataModelAttributeOptionValue> getOptionValueList() {
-        return optionValueList;
+    public List<DataModelAttributeEnumItem> getEnumList() {
+        return enumList;
     }
 
-    public void setOptionValueList(List<DataModelAttributeOptionValue> optionValueList) {
-        this.optionValueList = optionValueList;
+    public void setEnumList(List<DataModelAttributeEnumItem> enumList) {
+        this.enumList = enumList;
     }
 
     public Boolean getIsRequired() {
@@ -221,14 +218,6 @@ public class DataModelAttribute extends Domain {
 
     public void setValidateScript(String validateScript) {
         this.validateScript = validateScript;
-    }
-
-    public String getValidateMessage() {
-        return validateMessage;
-    }
-
-    public void setValidateMessage(String validateMessage) {
-        this.validateMessage = validateMessage;
     }
 
     public String getCascadeScript() {

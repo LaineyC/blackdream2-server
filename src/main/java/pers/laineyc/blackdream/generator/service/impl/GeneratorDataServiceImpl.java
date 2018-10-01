@@ -118,9 +118,9 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         generatorDataPo.setUpdateTime(now);
 
-        generatorDataPo.setProperty(parameter.getProperty());
+        generatorDataPo.setProperties(parameter.getProperties());
 
-        generatorDataPo.setRecordList(parameter.getRecordList());
+        generatorDataPo.setTupleList(parameter.getTupleList());
 
         generatorDataDao.insert(generatorDataPo);
 
@@ -188,9 +188,9 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         generatorDataPo.setUpdateTime(now);
 
-        generatorDataPo.setProperty(parameter.getProperty());
+        generatorDataPo.setProperties(parameter.getProperties());
 
-        generatorDataPo.setRecordList(parameter.getRecordList());
+        generatorDataPo.setTupleList(parameter.getTupleList());
 
         generatorDataDao.update(generatorDataPo);
 
@@ -279,9 +279,9 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         generatorData.setUpdateTime(generatorDataPo.getUpdateTime());
 
-        generatorData.setProperty(generatorDataPo.getProperty());
+        generatorData.setProperties(generatorDataPo.getProperties());
 
-        generatorData.setRecordList(generatorDataPo.getRecordList());
+        generatorData.setTupleList(generatorDataPo.getTupleList());
 
         return generatorData;
     }

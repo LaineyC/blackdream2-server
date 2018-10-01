@@ -54,10 +54,10 @@ public class GeneratorData extends Domain {
     private List<GeneratorData> children = new ArrayList<>();
 
     @ApiModelProperty(value = "属性集")
-    private Map<String, Object> property = new LinkedHashMap<>();
+    private Map<String, Object> properties = new LinkedHashMap<>();
 
     @ApiModelProperty(value = "记录列表")
-    private List<Map<String, Object>> recordList = new ArrayList<>();
+    private List<Map<String, Object>> tupleList = new ArrayList<>();
 
 	public GeneratorData() {
 
@@ -159,19 +159,19 @@ public class GeneratorData extends Domain {
         this.children = children;
     }
 
-    public Map<String, Object> getProperty() {
-        return property;
+    public Map<String, Object> getProperties() {
+        return properties;
     }
 
-    public void setProperty(Map<String, Object> property) {
-        this.property = property;
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
     }
 
-    public List<Map<String, Object>> getRecordList() {
-        return recordList;
+    public List<Map<String, Object>> getTupleList() {
+        return tupleList;
     }
 
-    public void setRecordList(List<Map<String, Object>> recordList) {
-        this.recordList = recordList;
+    public void setTupleList(List<Map<String, Object>> tupleList) {
+        this.tupleList = tupleList;
     }
 }

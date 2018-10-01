@@ -3,30 +3,15 @@ package pers.laineyc.blackdream.generator.constant;
 /**
  * @author LaineyC
  */
-public enum DataModelFieldDataTypeEnum {
+public enum DataModelAttributeDataTypeEnum {
 
-    /**
-     * 数据类型：1BOOLEAN；2INTEGER；3FLOAT；4NUMBER；5TEXT；6ENUM_SINGLE；7ENUM_MULTIPLE；8DATE；9TIME；10DATETIME；15MODEL_REF
-     */
     BOOLEAN(1, "BOOLEAN"),
 
     INTEGER(2, "INTEGER"),
 
-    FLOAT(3, "FLOAT"),
+    NUMBER(3, "NUMBER"),
 
-    NUMBER(4, "NUMBER"),
-
-    TEXT(5, "TEXT"),
-
-    ENUM_SINGLE(6, "ENUM_SINGLE"),
-
-    ENUM_MULTIPLE(7, "ENUM_MULTIPLE"),
-
-    DATE(8, "DATE"),
-
-    TIME(9, "TIME"),
-
-    DATETIME(10, "DATETIME"),
+    STRING(4, "STRING"),
 
     MODEL_REF(15, "MODEL_REF"),
 
@@ -39,17 +24,17 @@ public enum DataModelFieldDataTypeEnum {
 
     private String description;
 
-    DataModelFieldDataTypeEnum(int code, String description) {
+    DataModelAttributeDataTypeEnum(int code, String description) {
         this.code = code;
         this.description = description;
     }
 
-    public static DataModelFieldDataTypeEnum value(Integer code){
+    public static DataModelAttributeDataTypeEnum value(Integer code){
         if(code == null){
             return null;
         }
 
-        for(DataModelFieldDataTypeEnum item:values()){
+        for(DataModelAttributeDataTypeEnum item:values()){
             if(item.code == code){
                 return item;
             }
