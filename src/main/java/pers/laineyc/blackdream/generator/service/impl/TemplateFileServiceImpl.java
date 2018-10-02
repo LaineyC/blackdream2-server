@@ -126,20 +126,27 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
 
+        List<String> idList = parameter.getIdList();
         String id = parameter.getId();
-        TemplateFilePo templateFilePo = templateFileDao.selectById(id);
-        if(templateFilePo == null || templateFilePo.getIsDeleted() || !templateFilePo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器模板文件不存在");
+        if(StringUtils.hasText(id)){
+            idList.add(id);
         }
 
-        TemplateFilePo templateFilePoUpdate = new TemplateFilePo();
-        templateFilePoUpdate.setId(id);
-        templateFilePoUpdate.setUpdateTime(now);
-        templateFilePoUpdate.setIsDeleted(true);
-        templateFileDao.updateSelective(templateFilePoUpdate);
+        idList.forEach(item -> {
+            TemplateFilePo templateFilePo = templateFileDao.selectById(item);
+            if (templateFilePo == null || templateFilePo.getIsDeleted() || !templateFilePo.getUserId().equals(authUserId)) {
+                //throw new BusinessException("生成器模板文件不存在");
+                return;
+            }
+
+            TemplateFilePo templateFilePoUpdate = new TemplateFilePo();
+            templateFilePoUpdate.setId(item);
+            templateFilePoUpdate.setUpdateTime(now);
+            templateFilePoUpdate.setIsDeleted(true);
+            templateFileDao.updateSelective(templateFilePoUpdate);
+        });
 
         TemplateFile templateFile = new TemplateFile();
-        templateFile.setId(id);
 
         return templateFile;
     }

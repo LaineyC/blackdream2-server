@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
@@ -111,29 +112,36 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         Date now = new Date();
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
-               
+
+        List<String> idList = parameter.getIdList();
         String id = parameter.getId();
-        CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(id);
-        if(creationStrategyPo == null || creationStrategyPo.getIsDeleted() || !creationStrategyPo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器生成策略不存在");
+        if(StringUtils.hasText(id)){
+            idList.add(id);
         }
 
-        CreationStrategyPo creationStrategyPoUpdate = new CreationStrategyPo();
-        creationStrategyPoUpdate.setId(id);
-        creationStrategyPoUpdate.setUpdateTime(now);
-        creationStrategyPoUpdate.setIsDeleted(true);
-        creationStrategyDao.updateSelective(creationStrategyPoUpdate);
+        idList.forEach(item -> {
+            CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(item);
+            if (creationStrategyPo == null || creationStrategyPo.getIsDeleted() || !creationStrategyPo.getUserId().equals(authUserId)) {
+                //throw new BusinessException("生成器生成策略不存在");
+                return;
+            }
+
+            CreationStrategyPo creationStrategyPoUpdate = new CreationStrategyPo();
+            creationStrategyPoUpdate.setId(item);
+            creationStrategyPoUpdate.setUpdateTime(now);
+            creationStrategyPoUpdate.setIsDeleted(true);
+            creationStrategyDao.updateSelective(creationStrategyPoUpdate);
+        });
 
         CreationStrategy creationStrategy = new CreationStrategy();
-        creationStrategy.setId(id);
 
         return creationStrategy;
     }
-    
-    /**
-     * 生成器生成策略修改
-     */
-    @Transactional
+
+                /**
+                 * 生成器生成策略修改
+                 */
+        @Transactional
     public CreationStrategy update(CreationStrategyUpdateParameter parameter) {
         creationStrategyServiceTool.updateValidate(parameter);
 

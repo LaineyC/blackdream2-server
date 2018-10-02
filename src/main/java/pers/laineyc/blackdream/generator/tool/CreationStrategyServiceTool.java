@@ -12,6 +12,7 @@ import pers.laineyc.blackdream.usercenter.dao.UserDao;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
 import pers.laineyc.blackdream.generator.dao.GeneratorDao;
 import java.io.File;
+import java.util.List;
 
 /**
  * 生成器生成策略ServiceTool
@@ -90,7 +91,8 @@ public class CreationStrategyServiceTool{
      */
     public void deleteValidate(CreationStrategyDeleteParameter parameter) {
         String id = parameter.getId();
-        if(id == null){
+        List<String> idList = parameter.getIdList();
+        if(id == null && idList.isEmpty()){
             throw new BusinessException("缺少主键");
         }
     }

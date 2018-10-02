@@ -13,6 +13,7 @@ import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
 import pers.laineyc.blackdream.generator.dao.GeneratorDao;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * 生成器模板文件ServiceTool
@@ -105,7 +106,8 @@ public class TemplateFileServiceTool{
      */
     public void deleteValidate(TemplateFileDeleteParameter parameter) {
         String id = parameter.getId();
-        if(id == null){
+        List<String> idList = parameter.getIdList();
+        if(id == null && idList.isEmpty()){
             throw new BusinessException("缺少主键");
         }
     }

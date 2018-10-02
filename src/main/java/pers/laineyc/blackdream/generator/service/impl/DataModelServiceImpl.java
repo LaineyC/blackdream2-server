@@ -119,29 +119,36 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         Date now = new Date();
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
-               
+
+        List<String> idList = parameter.getIdList();
         String id = parameter.getId();
-        DataModelPo dataModelPo = dataModelDao.selectById(id);
-        if(dataModelPo == null || dataModelPo.getIsDeleted() || !dataModelPo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器数据模型不存在");
+        if(StringUtils.hasText(id)){
+            idList.add(id);
         }
 
-        DataModelPo dataModelPoUpdate = new DataModelPo();
-        dataModelPoUpdate.setId(id);
-        dataModelPoUpdate.setUpdateTime(now);
-        dataModelPoUpdate.setIsDeleted(true);
-        dataModelDao.updateSelective(dataModelPoUpdate);
+        idList.forEach(item -> {
+            DataModelPo dataModelPo = dataModelDao.selectById(item);
+            if (dataModelPo == null || dataModelPo.getIsDeleted() || !dataModelPo.getUserId().equals(authUserId)) {
+                //throw new BusinessException("生成器数据模型不存在");
+                return;
+            }
+
+            DataModelPo dataModelPoUpdate = new DataModelPo();
+            dataModelPoUpdate.setId(item);
+            dataModelPoUpdate.setUpdateTime(now);
+            dataModelPoUpdate.setIsDeleted(true);
+            dataModelDao.updateSelective(dataModelPoUpdate);
+        });
 
         DataModel dataModel = new DataModel();
-        dataModel.setId(id);
 
         return dataModel;
     }
-    
-    /**
-     * 生成器数据模型修改
-     */
-    @Transactional
+
+                /**
+                 * 生成器数据模型修改
+                 */
+        @Transactional
     public DataModel update(DataModelUpdateParameter parameter) {
         dataModelServiceTool.updateValidate(parameter);
 

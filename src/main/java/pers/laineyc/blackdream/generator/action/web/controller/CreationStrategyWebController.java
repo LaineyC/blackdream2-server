@@ -45,8 +45,8 @@ public class CreationStrategyWebController extends BaseWebController {
 
         return new Response<>(creationStrategy);
     }
-/*
-    @Security
+
+    @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器生成策略删除")
     @PostMapping(value = "/creationStrategy/delete")
     public @ResponseBody Response<CreationStrategy> delete(@RequestBody CreationStrategyDeleteWebRequest request) {
@@ -57,7 +57,7 @@ public class CreationStrategyWebController extends BaseWebController {
 
         return new Response<>(creationStrategy);
     }
-*/
+
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器生成策略修改")
     @PostMapping(value = "/creationStrategy/update")

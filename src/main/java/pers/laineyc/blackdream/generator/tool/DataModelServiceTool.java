@@ -10,6 +10,8 @@ import pers.laineyc.blackdream.usercenter.dao.UserDao;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
 import pers.laineyc.blackdream.generator.dao.GeneratorDao;
 
+import java.util.List;
+
 /**
  * 生成器数据模型ServiceTool
  * @author LaineyC
@@ -78,7 +80,8 @@ public class DataModelServiceTool{
      */
     public void deleteValidate(DataModelDeleteParameter parameter) {
         String id = parameter.getId();
-        if(id == null){
+        List<String> idList = parameter.getIdList();
+        if(id == null && idList.isEmpty()){
             throw new BusinessException("缺少主键");
         }
     }
