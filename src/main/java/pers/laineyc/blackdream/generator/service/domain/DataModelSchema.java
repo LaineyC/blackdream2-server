@@ -3,9 +3,7 @@ package pers.laineyc.blackdream.generator.service.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.service.domain.Domain;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 
 /**
@@ -39,7 +37,7 @@ public class DataModelSchema extends Domain {
     private Date updateTime;
 
     @ApiModelProperty(value = "规则集合")
-    private List<DataModelSchemaRule> ruleList = new ArrayList<>();
+    private Map<String, List<String>> ruleMap = new HashMap<>();
 
 	public DataModelSchema() {
 
@@ -101,11 +99,11 @@ public class DataModelSchema extends Domain {
         this.updateTime = updateTime;
     }
 
-    public List<DataModelSchemaRule> getRuleList() {
-        return ruleList;
+    public Map<String, List<String>> getRuleMap() {
+        return ruleMap;
     }
 
-    public void setRuleList(List<DataModelSchemaRule> ruleList) {
-        this.ruleList = ruleList;
+    public void setRuleMap(Map<String, List<String>> ruleMap) {
+        this.ruleMap = ruleMap;
     }
 }

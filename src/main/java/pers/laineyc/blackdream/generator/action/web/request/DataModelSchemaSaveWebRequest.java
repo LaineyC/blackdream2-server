@@ -3,9 +3,9 @@ package pers.laineyc.blackdream.generator.action.web.request;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.controller.request.Request;
-import pers.laineyc.blackdream.generator.service.domain.DataModelSchemaRule;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 生成器数据模型模式保存Request
@@ -24,7 +24,7 @@ public class DataModelSchemaSaveWebRequest extends Request {
     private String description;
 
     @ApiModelProperty(value = "规则集合")
-    private List<DataModelSchemaRule> ruleList = new ArrayList<>();
+    private Map<String, List<String>> ruleMap = new HashMap<>();
 
     public DataModelSchemaSaveWebRequest() {
 
@@ -54,12 +54,11 @@ public class DataModelSchemaSaveWebRequest extends Request {
         this.description = description;
     }
 
-    public List<DataModelSchemaRule> getRuleList() {
-        return ruleList;
+    public Map<String, List<String>> getRuleMap() {
+        return ruleMap;
     }
 
-    public void setRuleList(List<DataModelSchemaRule> ruleList) {
-        this.ruleList = ruleList;
+    public void setRuleMap(Map<String, List<String>> ruleMap) {
+        this.ruleMap = ruleMap;
     }
-
 }

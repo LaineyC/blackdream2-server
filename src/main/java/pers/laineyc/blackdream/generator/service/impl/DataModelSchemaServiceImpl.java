@@ -9,7 +9,6 @@ import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.generator.service.DataModelSchemaService;
-import pers.laineyc.blackdream.generator.service.domain.DataModelSchemaRule;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.DataModelSchemaServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
@@ -85,8 +84,8 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
 
         dataModelSchemaPo.setUpdateTime(now);
 
-        List<DataModelSchemaRule> ruleList = parameter.getRuleList();
-        dataModelSchemaPo.setRuleList(ruleList);
+        Map<String, List<String>> ruleMap = parameter.getRuleMap();
+        dataModelSchemaPo.setRuleMap(ruleMap);
 
         dataModelSchemaDao.insert(dataModelSchemaPo);
 
@@ -150,8 +149,8 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
 
         dataModelSchemaPo.setUpdateTime(now);
 
-        List<DataModelSchemaRule> ruleList = parameter.getRuleList();
-        dataModelSchemaPo.setRuleList(ruleList);
+        Map<String, List<String>> ruleMap = parameter.getRuleMap();
+        dataModelSchemaPo.setRuleMap(ruleMap);
 
         dataModelSchemaDao.update(dataModelSchemaPo);
 
@@ -179,6 +178,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
         else if(parameterGeneratorId != null){
             DataModelSchemaQuery dataModelSchemaQuery = new DataModelSchemaQuery();
             dataModelSchemaQuery.setGeneratorId(parameterGeneratorId);
+            dataModelSchemaQuery.fetchLazy(false);
             dataModelSchemaPo = dataModelSchemaDao.selectOne(dataModelSchemaQuery);
         }
 
@@ -218,7 +218,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
 
         dataModelSchema.setUpdateTime(dataModelSchemaPo.getUpdateTime());
 
-        dataModelSchema.setRuleList(dataModelSchemaPo.getRuleList());
+        dataModelSchema.setRuleMap(dataModelSchemaPo.getRuleMap());
 
         return dataModelSchema;
     }
