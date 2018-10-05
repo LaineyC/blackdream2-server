@@ -79,7 +79,7 @@ public class GeneratorWebController extends BaseWebController {
 
         return new Response<>(generator);
     }
-/*
+
     @ApiOperation(value="生成器多个查询")
     @PostMapping(value = "/generator/query")
     public @ResponseBody Response<List<Generator>> query(@RequestBody GeneratorQueryWebRequest request) {
@@ -90,7 +90,7 @@ public class GeneratorWebController extends BaseWebController {
 
         return new Response<>(generatorList);
     }
-*/
+
     @ApiOperation(value = "生成器分页查询")
     @PostMapping(value = "/generator/search")
     public @ResponseBody Response<PageResult<Generator>> search(@RequestBody GeneratorSearchWebRequest request) {

@@ -146,6 +146,11 @@ public class GeneratorInstanceServiceTool{
         if(pageSize == null || pageSize < 1 || pageSize > 100){
             throw new BusinessException("每页数量不合法");
         }
+
+        String name = parameter.getName();
+        if(!StringUtils.hasText(name)){
+            parameter.setName(null);
+        }
     }
 
     /**

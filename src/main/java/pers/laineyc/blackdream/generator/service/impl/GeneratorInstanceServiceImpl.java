@@ -327,7 +327,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         generatorInstanceQuery.setIsDeleted(false);
         generatorInstanceQuery.setUserId(parameter.getUserId());
         generatorInstanceQuery.setGeneratorId(parameter.getGeneratorId());
-        generatorInstanceQuery.setName(parameter.getName());
+        generatorInstanceQuery.setNameLike(parameter.getName());
         generatorInstanceQuery.limit((page - 1) * pageSize, pageSize);
         
         PageResult<GeneratorInstancePo> generatorInstancePoPageResult = generatorInstanceDao.selectPage(generatorInstanceQuery);

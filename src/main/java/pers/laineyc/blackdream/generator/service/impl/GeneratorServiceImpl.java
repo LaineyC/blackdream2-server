@@ -307,7 +307,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         GeneratorQuery generatorQuery = new GeneratorQuery();
         generatorQuery.setIsDeleted(false);
         generatorQuery.setUserId(parameter.getUserId());
-        generatorQuery.setName(parameter.getName());
+        generatorQuery.setNameLike(parameter.getName());
         generatorQuery.setStatus(parameter.getStatus());
         generatorQuery.setEngineType(parameter.getEngineType());
         generatorQuery.limit((page - 1) * pageSize, pageSize);
