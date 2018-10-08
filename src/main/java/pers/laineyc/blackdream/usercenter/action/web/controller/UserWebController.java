@@ -99,13 +99,11 @@ public class UserWebController extends BaseWebController {
 
         User user = userService.signIn(parameter);
 
-        String userId = user.getId();
-
-        userServiceTool.handleTokenSignInCookie(user.getUserAuth(), httpServletResponse);
-
         Auth auth = new Auth();
-        auth.setUserId(userId);
+        auth.setUserId(user.getId());
         auth.setUserType(user.getType());
+
+        userServiceTool.handleTokenSignInCookie(auth, httpServletResponse);
 
         HttpSession httpSession = httpServletRequest.getSession(false);
         httpSession.setAttribute(AuthConfigConstant.SESSION_USER_AUTH_KEY, auth);
@@ -154,13 +152,16 @@ public class UserWebController extends BaseWebController {
     @AuthSecurity
     @ApiOperation(value = "用户密码更改")
     @PostMapping(value = "/user/passwordChange")
-    public @ResponseBody Response<User> passwordChange(@RequestBody UserPasswordChangeWebRequest request, HttpServletResponse httpServletResponse) {
+    public @ResponseBody Response<User> passwordChange(@RequestBody UserPasswordChangeWebRequest request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         UserPasswordChangeParameter parameter = new UserPasswordChangeParameter();
         BeanUtils.copyProperties(request, parameter);
 
         User user = userService.passwordChange(parameter);
 
-        userServiceTool.handleTokenSignInCookie(user.getUserAuth(), httpServletResponse);
+        HttpSession httpSession = httpServletRequest.getSession(false);
+        Auth auth = (Auth)httpSession.getAttribute(AuthConfigConstant.SESSION_USER_AUTH_KEY);
+
+        userServiceTool.handleTokenSignInCookie(auth, httpServletResponse);
 
         return new Response<>(user);
     }

@@ -17,6 +17,7 @@ import pers.laineyc.blackdream.foundation.service.parameter.DetachedFilePersistP
 import pers.laineyc.blackdream.foundation.service.parameter.StorageFileDeleteParameter;
 import pers.laineyc.blackdream.foundation.service.parameter.ValidCodeSendParameter;
 import pers.laineyc.blackdream.foundation.service.parameter.ValidCodeCheckParameter;
+import pers.laineyc.blackdream.framework.exception.ErrorCodes;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
@@ -26,9 +27,12 @@ import pers.laineyc.blackdream.usercenter.constant.UserTypeEnum;
 import pers.laineyc.blackdream.usercenter.dao.UserAuthDao;
 import pers.laineyc.blackdream.usercenter.dao.po.UserAuthPo;
 import pers.laineyc.blackdream.usercenter.dao.query.UserAuthQuery;
+import pers.laineyc.blackdream.usercenter.model.AccessToken;
+import pers.laineyc.blackdream.usercenter.model.AccessTokenBody;
 import pers.laineyc.blackdream.usercenter.service.UserService;
 import pers.laineyc.blackdream.usercenter.service.domain.UserAuth;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
+import pers.laineyc.blackdream.usercenter.tool.AccessTokenTool;
 import pers.laineyc.blackdream.usercenter.tool.UserServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
@@ -65,6 +69,9 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Autowired
     private ValidCodeService validCodeService;
+
+    @Autowired
+    private AccessTokenTool accessTokenTool;
 
     public UserServiceImpl() {
 
@@ -284,23 +291,11 @@ public class UserServiceImpl extends BaseService implements UserService {
             throw new BusinessException("用户名或密码错误");
         }
 
-        String accessToken = UUID.randomUUID().toString();
-        UserAuthPo userPoAuthUpdate = new UserAuthPo();
-        userPoAuthUpdate.setId(userAuthPo.getId());
-        userPoAuthUpdate.setUpdateTime(now);
-        userPoAuthUpdate.setAccessToken(accessToken);
-        userAuthDao.updateSelective(userPoAuthUpdate);
-
-        UserAuth userAuth = new UserAuth();
-        userAuth.setId(userAuthPo.getId());
-        userAuth.setAccessToken(accessToken);
-
         String userId = userAuthPo.getUserId();
         UserPo userPo = userDao.selectById(userId);
         User user = new User();
         user.setId(userPo.getId());
         user.setType(userPo.getType());
-        user.setUserAuth(userAuth);
 
         return user;
     }
@@ -314,13 +309,18 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         Auth auth = parameter.getAuth();
 
-        String username = parameter.getUsername();
+        String accessTokenString = parameter.getAccessToken();
 
-        String accessToken = parameter.getAccessToken();
+        AccessToken accessToken = accessTokenTool.parse(accessTokenString);
 
-        UserAuthPo userAuthPo = userAuthDao.selectById(username);
+        AccessTokenBody accessTokenBody = accessToken.getBody();
+
+        String userId = accessTokenBody.getUserId();
+        UserAuthQuery userAuthQuery = new UserAuthQuery();
+        userAuthQuery.setUserId(userId);
+        UserAuthPo userAuthPo = userAuthDao.selectOne(userAuthQuery);
         if(userAuthPo == null){
-            throw new BusinessException("用户名或密码错误");
+            throw new BusinessException(ErrorCodes.EC_001002);
         }
 
         Integer status = userAuthPo.getStatus();
@@ -328,20 +328,10 @@ public class UserServiceImpl extends BaseService implements UserService {
             throw new BusinessException("账号已冻结");
         }
 
-        if(!accessToken.equals(userAuthPo.getAccessToken())){
-            throw new BusinessException("用户名或密码错误");
-        }
-
-        UserAuth userAuth = new UserAuth();
-        userAuth.setId(userAuthPo.getId());
-        userAuth.setAccessToken(accessToken);
-
-        String userId = userAuthPo.getUserId();
         UserPo userPo = userDao.selectById(userId);
         User user = new User();
         user.setId(userPo.getId());
         user.setType(userPo.getType());
-        user.setUserAuth(userAuth);
 
         return user;
     }
@@ -470,21 +460,14 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         String newPassword = parameter.getNewPassword();
         String encodeNewPassword = passwordEncoder.encode(newPassword);
-        String newAccessToken = UUID.randomUUID().toString();
 
         UserAuthPo userAuthPoUpdate = new UserAuthPo();
         userAuthPoUpdate.setId(userAuthPo.getId());
         userAuthPoUpdate.setPassword(encodeNewPassword);
-        userAuthPoUpdate.setAccessToken(newAccessToken);
         userAuthDao.updateSelective(userAuthPoUpdate);
-
-        UserAuth userAuth = new UserAuth();
-        userAuth.setId(userAuthPo.getId());
-        userAuth.setAccessToken(newAccessToken);
 
         User user = new User();
         user.setId(authUserId);
-        user.setUserAuth(userAuth);
 
         return user;
     }

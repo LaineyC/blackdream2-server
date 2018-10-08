@@ -4,14 +4,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
+import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.util.RegexUtil;
 import pers.laineyc.blackdream.usercenter.constant.TokenSignInConfigConstant;
+import pers.laineyc.blackdream.usercenter.model.AccessToken;
+import pers.laineyc.blackdream.usercenter.model.AccessTokenBody;
 import pers.laineyc.blackdream.usercenter.service.domain.UserAuth;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 /**
@@ -23,6 +27,9 @@ public class UserServiceTool{
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private AccessTokenTool accessTokenTool;
 
     public static final String REGEX_PASSWORD = "^[\\x21-\\x7eA-Za-z0-9`！￥…（）—【】、；：‘“，《。》、？]{8,20}$";
 
@@ -53,22 +60,28 @@ public class UserServiceTool{
     }
 
     public void clearSignInCookie(HttpServletResponse httpServletResponse){
-        handleTokenSignInCookie(0, new UserAuth(), httpServletResponse);
+        handleTokenSignInCookie(0, new Auth(), httpServletResponse);
     }
 
-    public void handleTokenSignInCookie(UserAuth userAuth, HttpServletResponse httpServletResponse){
-        handleTokenSignInCookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_EXPIRE_DAYS, userAuth, httpServletResponse);
+    public void handleTokenSignInCookie(Auth auth, HttpServletResponse httpServletResponse){
+        handleTokenSignInCookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_EXPIRE_DAYS, auth, httpServletResponse);
     }
 
-    public void handleTokenSignInCookie(int days, UserAuth userAuth, HttpServletResponse httpServletResponse){
-        int maxAge = 60 * 60 * 24 * days;
+    public void handleTokenSignInCookie(int days, Auth auth, HttpServletResponse httpServletResponse){
+        int maxAge = 60 * 60 * 24 * 1000 * days;
 
-        Cookie usernameCookie = new Cookie(TokenSignInConfigConstant.COOKIE_USERNAME_KEY,  userAuth.getId());
-        usernameCookie.setPath("/");
-        usernameCookie.setMaxAge(maxAge);
-        httpServletResponse.addCookie(usernameCookie);
+        String token = "";
+        if(maxAge != 0 && auth != null){
+            String userId = auth.getUserId();
+            AccessToken accessToken = new AccessToken();
+            accessToken.setExpiryTime(new Date(System.currentTimeMillis() + maxAge));
+            AccessTokenBody accessTokenBody = new AccessTokenBody();
+            accessTokenBody.setUserId(userId);
+            accessToken.setBody(accessTokenBody);
+            token = accessTokenTool.format(accessToken);
+        }
 
-        Cookie accessTokenCookie = new Cookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_KEY, userAuth.getAccessToken());
+        Cookie accessTokenCookie = new Cookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_KEY, token);
         accessTokenCookie.setPath("/");
         accessTokenCookie.setMaxAge(maxAge);
         httpServletResponse.addCookie(accessTokenCookie);

@@ -51,11 +51,6 @@ public class UserAuthPo extends Po {
 	private String password;
 
 	/**
-	 *  访问令牌
-	 */
-	private String accessToken;
-
-	/**
 	 *  创建时间
 	 */
 	private Date createTime;
@@ -115,14 +110,6 @@ public class UserAuthPo extends Po {
 
 	public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-	public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
     }
 
     public Date getCreateTime() {

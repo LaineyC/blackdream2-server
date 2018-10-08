@@ -32,9 +32,6 @@ public class UserAuth extends Domain {
     @ApiModelProperty(value = "密码")
     private String password;
 
-    @ApiModelProperty(value = "访问令牌")
-    private String accessToken;
-
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
@@ -91,14 +88,6 @@ public class UserAuth extends Domain {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
     }
 
     public Date getCreateTime() {

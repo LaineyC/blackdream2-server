@@ -53,32 +53,25 @@ public class TokenSignInInterceptor {
 
         Cookie[] cookies = httpServletRequest.getCookies();
         if(auth == null && cookies != null && !isPublic) {
-            String username = null;
             String accessToken = null;
 
             for (Cookie cookie : cookies) {
                 String cookieName = cookie.getName();
-                if (TokenSignInConfigConstant.COOKIE_USERNAME_KEY.equals(cookieName)) {
-                    username = cookie.getValue();
-                }
                 if (TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_KEY.equals(cookieName)) {
                     accessToken = cookie.getValue();
                 }
             }
 
-            if(username != null && accessToken != null){
+            if(accessToken != null){
                 UserTokenSignInParameter userTokenSignInParameter = new UserTokenSignInParameter();
-                userTokenSignInParameter.setUsername(username);
                 userTokenSignInParameter.setAccessToken(accessToken);
                 User user = userService.tokenSignIn(userTokenSignInParameter);
 
-                String userId = user.getId();
-
-                userServiceTool.handleTokenSignInCookie(user.getUserAuth(), attributes.getResponse());
-
                 auth = new Auth();
                 auth.setUserType(user.getType());
-                auth.setUserId(userId);
+                auth.setUserId(user.getId());
+
+                userServiceTool.handleTokenSignInCookie(auth, attributes.getResponse());
 
                 httpSession.setAttribute(AuthConfigConstant.SESSION_USER_AUTH_KEY, auth);
 

@@ -66,16 +66,6 @@ public class UserAuthQuery extends Query<UserAuthPo> {
     private String passwordLike;
 
     /**
-     * 访问令牌
-     */
-    private String accessToken;
-
-    /**
-     * 访问令牌Like
-     */
-    private String accessTokenLike;
-
-    /**
      * 创建时间
      */
     private Date createTime;
@@ -200,29 +190,6 @@ public class UserAuthQuery extends Query<UserAuthPo> {
         }
         this.passwordLike = passwordLike;
         this.addWhereExpression(ExpressionBuilder.like("password", this.passwordLike));
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-    
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-        if(this.accessToken != null){
-            this.addWhereExpression(ExpressionBuilder.equal("accessToken", this.accessToken));
-        }
-    }
-    
-    public String getAccessTokenLike() {
-        return accessTokenLike;
-    }
-    
-    public void setAccessTokenLike(String accessTokenLike) {
-        if(accessTokenLike == null || accessTokenLike.isEmpty()){
-            return;
-        }
-        this.accessTokenLike = accessTokenLike;
-        this.addWhereExpression(ExpressionBuilder.like("accessToken", this.accessTokenLike));
     }
 
     public Date getCreateTime() {
