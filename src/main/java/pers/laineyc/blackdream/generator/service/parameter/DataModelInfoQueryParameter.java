@@ -28,6 +28,11 @@ public class DataModelInfoQueryParameter extends Parameter {
      */
     private String iconStyle;
 
+    /**
+     * 懒加载
+     */
+    private Boolean fetchLazy;
+
     public DataModelInfoQueryParameter() {
 
     }
@@ -64,4 +69,11 @@ public class DataModelInfoQueryParameter extends Parameter {
         this.iconStyle = iconStyle;
     }
 
+    public Boolean getFetchLazy() {
+        return fetchLazy;
+    }
+
+    public void setFetchLazy(Boolean fetchLazy) {
+        this.fetchLazy = fetchLazy;
+    }
 }

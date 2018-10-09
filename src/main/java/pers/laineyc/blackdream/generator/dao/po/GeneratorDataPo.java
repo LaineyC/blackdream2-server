@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
+import pers.laineyc.blackdream.generator.service.domain.GeneratorDataAttributeControl;
 
 import java.util.*;
 
@@ -85,13 +86,13 @@ public class GeneratorDataPo extends Po {
      * 属性集
      */
     @FetchLazy
-    private Map<String, Object> properties = new LinkedHashMap<>();
+    private Map<String, GeneratorDataAttributeControl> properties = new LinkedHashMap<>();
 
     /**
      * 记录列表
      */
     @FetchLazy
-    private List<Map<String, Object>> tupleList = new ArrayList<>();
+    private List<Map<String, GeneratorDataAttributeControl>> tupleList = new ArrayList<>();
 
 
     public GeneratorDataPo() {
@@ -194,19 +195,19 @@ public class GeneratorDataPo extends Po {
         this.updateTime = updateTime;
     }
 
-    public Map<String, Object> getProperties() {
+    public Map<String, GeneratorDataAttributeControl> getProperties() {
         return properties;
     }
 
-    public void setProperties(Map<String, Object> properties) {
+    public void setProperties(Map<String, GeneratorDataAttributeControl> properties) {
         this.properties = properties;
     }
 
-    public List<Map<String, Object>> getTupleList() {
+    public List<Map<String, GeneratorDataAttributeControl>> getTupleList() {
         return tupleList;
     }
 
-    public void setTupleList(List<Map<String, Object>> tupleList) {
+    public void setTupleList(List<Map<String, GeneratorDataAttributeControl>> tupleList) {
         this.tupleList = tupleList;
     }
 }

@@ -79,7 +79,7 @@ public class AccessTokenTool {
 
     private String encodeBase64(String str){
         try {
-            return Base64.getEncoder().encodeToString(str.getBytes("UTF-8"));
+            return new String(Base64.getEncoder().encode(str.getBytes("UTF-8")), "UTF-8");
         }
         catch (Exception e){
             throw new BusinessException(ErrorCodes.EC_001002);
@@ -88,7 +88,7 @@ public class AccessTokenTool {
 
     private String decodeBase64(String str){
         try {
-            return new String(Base64.getDecoder().decode(str));
+            return new String(Base64.getDecoder().decode(str.getBytes("UTF-8")), "UTF-8");
         }
         catch (Exception e){
             throw new BusinessException(ErrorCodes.EC_001002);
@@ -108,7 +108,7 @@ public class AccessTokenTool {
             sign = new String(bytes, "UTF-8");
         }
         catch (Exception e){
-            throw new BusinessException("");
+            throw new BusinessException(ErrorCodes.EC_001002);
         }
         return sign;
     }

@@ -267,6 +267,8 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModelQuery.setName(parameter.getName());
         dataModelQuery.setCode(parameter.getCode());
         dataModelQuery.setIconStyle(parameter.getIconStyle());
+        Boolean fetchLazy = parameter.getFetchLazy();
+        dataModelQuery.fetchLazy(fetchLazy != null && !fetchLazy);
 
         List<DataModelPo> dataModelPoList = dataModelDao.selectList(dataModelQuery);
 

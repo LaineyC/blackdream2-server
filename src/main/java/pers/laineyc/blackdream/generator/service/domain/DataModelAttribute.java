@@ -24,7 +24,7 @@ public class DataModelAttribute extends Domain {
     @ApiModelProperty(value = "属性注释")
     private String comment;
 
-    @ApiModelProperty(value = "数据类型：1BOOLEAN；2INTEGER；3NUMBER；4STRING；15MODEL_REF")
+    @ApiModelProperty(value = "数据类型：1NONE；2BOOLEAN；3INTEGER；4FLOAT；5STRING；15MODEL_REF")
     private Integer dataType;
 
     @ApiModelProperty(value = "默认值")

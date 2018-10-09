@@ -33,6 +33,11 @@ public class DataModelQueryParameter extends Parameter {
      */
     private String iconStyle;
 
+    /**
+     * 懒加载
+     */
+    private Boolean fetchLazy;
+
     public DataModelQueryParameter() {
 
     }
@@ -77,4 +82,11 @@ public class DataModelQueryParameter extends Parameter {
         this.iconStyle = iconStyle;
     }
 
+    public Boolean getFetchLazy() {
+        return fetchLazy;
+    }
+
+    public void setFetchLazy(Boolean fetchLazy) {
+        this.fetchLazy = fetchLazy;
+    }
 }

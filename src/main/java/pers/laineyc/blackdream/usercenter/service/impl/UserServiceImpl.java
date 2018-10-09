@@ -307,15 +307,13 @@ public class UserServiceImpl extends BaseService implements UserService {
     public User tokenSignIn(UserTokenSignInParameter parameter) {
         userServiceTool.tokenSignInValidate(parameter);
 
-        Auth auth = parameter.getAuth();
+        //Auth auth = parameter.getAuth();
 
         String accessTokenString = parameter.getAccessToken();
-
         AccessToken accessToken = accessTokenTool.parse(accessTokenString);
-
         AccessTokenBody accessTokenBody = accessToken.getBody();
-
         String userId = accessTokenBody.getUserId();
+
         UserAuthQuery userAuthQuery = new UserAuthQuery();
         userAuthQuery.setUserId(userId);
         UserAuthPo userAuthPo = userAuthDao.selectOne(userAuthQuery);
@@ -325,7 +323,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         Integer status = userAuthPo.getStatus();
         if(status == UserStatusEnum.FROZEN.getCode()){
-            throw new BusinessException("账号已冻结");
+            throw new BusinessException(ErrorCodes.EC_001002);
         }
 
         UserPo userPo = userDao.selectById(userId);

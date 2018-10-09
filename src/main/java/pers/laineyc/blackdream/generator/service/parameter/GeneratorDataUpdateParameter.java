@@ -2,6 +2,7 @@ package pers.laineyc.blackdream.generator.service.parameter;
 
 import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
 import pers.laineyc.blackdream.framework.service.parameter.Parameter;
+import pers.laineyc.blackdream.generator.service.domain.GeneratorDataAttributeControl;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -37,12 +38,12 @@ public class GeneratorDataUpdateParameter extends Parameter {
     /**
      * 属性集
      */
-    private Map<String, Object> properties = new LinkedHashMap<>();
+    private Map<String, GeneratorDataAttributeControl> properties = new LinkedHashMap<>();
 
     /**
      * 记录列表
      */
-    private List<Map<String, Object>> tupleList = new ArrayList<>();
+    private List<Map<String, GeneratorDataAttributeControl>> tupleList = new ArrayList<>();
 
     public GeneratorDataUpdateParameter() {
 
@@ -80,19 +81,19 @@ public class GeneratorDataUpdateParameter extends Parameter {
         this.parentId = parentId;
     }
 
-    public Map<String, Object> getProperties() {
+    public Map<String, GeneratorDataAttributeControl> getProperties() {
         return properties;
     }
 
-    public void setProperties(Map<String, Object> properties) {
+    public void setProperties(Map<String, GeneratorDataAttributeControl> properties) {
         this.properties = properties;
     }
 
-    public List<Map<String, Object>> getTupleList() {
+    public List<Map<String, GeneratorDataAttributeControl>> getTupleList() {
         return tupleList;
     }
 
-    public void setTupleList(List<Map<String, Object>> tupleList) {
+    public void setTupleList(List<Map<String, GeneratorDataAttributeControl>> tupleList) {
         this.tupleList = tupleList;
     }
 }
