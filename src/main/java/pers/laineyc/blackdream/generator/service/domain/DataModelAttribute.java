@@ -21,6 +21,9 @@ public class DataModelAttribute extends Domain {
     @ApiModelProperty(value = "属性名称")
     private String name;
 
+    @ApiModelProperty(value = "是否首要属性")
+    private Boolean isPrimary;
+
     @ApiModelProperty(value = "属性注释")
     private String comment;
 
@@ -93,6 +96,14 @@ public class DataModelAttribute extends Domain {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getIsPrimary() {
+        return isPrimary;
+    }
+
+    public void setIsPrimary(Boolean isPrimary) {
+        this.isPrimary = isPrimary;
     }
 
     public String getComment() {

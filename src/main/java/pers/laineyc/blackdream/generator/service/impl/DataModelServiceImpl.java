@@ -268,7 +268,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModelQuery.setCode(parameter.getCode());
         dataModelQuery.setIconStyle(parameter.getIconStyle());
         Boolean fetchLazy = parameter.getFetchLazy();
-        dataModelQuery.fetchLazy(fetchLazy != null && !fetchLazy);
+        dataModelQuery.fetchLazy(fetchLazy == null || fetchLazy);
 
         List<DataModelPo> dataModelPoList = dataModelDao.selectList(dataModelQuery);
 
@@ -325,6 +325,10 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
             dataModel.setCreateTime(po.getCreateTime());
 
             dataModel.setUpdateTime(po.getUpdateTime());
+
+            dataModel.setPropertyList(po.getPropertyList());
+
+            dataModel.setFieldList(po.getFieldList());
 
             dataModelList.add(dataModel);
         });

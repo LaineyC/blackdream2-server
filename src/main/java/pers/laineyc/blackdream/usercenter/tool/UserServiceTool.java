@@ -68,7 +68,8 @@ public class UserServiceTool{
     }
 
     public void handleTokenSignInCookie(int days, Auth auth, HttpServletResponse httpServletResponse){
-        int maxAge = 60 * 60 * 24 * 1000 * days;
+        int maxAge = 24 * 60 * 60 * 1000 * days;
+        int cookieMaxAge = 24 * 60 * 60 * days;
 
         String token = "";
         if(maxAge != 0 && auth != null){
@@ -83,7 +84,7 @@ public class UserServiceTool{
 
         Cookie accessTokenCookie = new Cookie(TokenSignInConfigConstant.COOKIE_ACCESS_TOKEN_KEY, token);
         accessTokenCookie.setPath("/");
-        accessTokenCookie.setMaxAge(maxAge);
+        accessTokenCookie.setMaxAge(cookieMaxAge);
         httpServletResponse.addCookie(accessTokenCookie);
     }
 
