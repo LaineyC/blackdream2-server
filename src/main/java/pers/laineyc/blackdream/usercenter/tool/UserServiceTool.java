@@ -9,10 +9,8 @@ import pers.laineyc.blackdream.framework.util.RegexUtil;
 import pers.laineyc.blackdream.usercenter.constant.TokenSignInConfigConstant;
 import pers.laineyc.blackdream.usercenter.model.AccessToken;
 import pers.laineyc.blackdream.usercenter.model.AccessTokenBody;
-import pers.laineyc.blackdream.usercenter.service.domain.UserAuth;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
@@ -24,9 +22,6 @@ import java.util.regex.Pattern;
  */
 @Component
 public class UserServiceTool{
-
-    @Autowired
-    private UserDao userDao;
 
     @Autowired
     private AccessTokenTool accessTokenTool;
@@ -68,7 +63,7 @@ public class UserServiceTool{
     }
 
     public void handleTokenSignInCookie(int days, Auth auth, HttpServletResponse httpServletResponse){
-        int maxAge = 24 * 60 * 60 * 1000 * days;
+        long maxAge = 24L * 60 * 60 * 1000 * days;
         int cookieMaxAge = 24 * 60 * 60 * days;
 
         String token = "";

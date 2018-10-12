@@ -1,10 +1,10 @@
 package pers.laineyc.blackdream.usercenter.tool;
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.exception.ErrorCodes;
+import pers.laineyc.blackdream.framework.util.JsonUtil;
 import pers.laineyc.blackdream.usercenter.dao.UserAuthDao;
 import pers.laineyc.blackdream.usercenter.dao.po.UserAuthPo;
 import pers.laineyc.blackdream.usercenter.dao.query.UserAuthQuery;
@@ -12,6 +12,7 @@ import pers.laineyc.blackdream.usercenter.model.AccessToken;
 import pers.laineyc.blackdream.usercenter.model.AccessTokenBody;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 
@@ -31,10 +32,10 @@ public class AccessTokenTool {
         String userId = accessTokenBody.getUserId();
         String secret = getSecret(userId);
 
-        String payload = JSON.toJSONString(accessToken);
+        String payload = JsonUtil.toJson(accessToken);
         String payloadBase64 = this.encodeBase64(payload);
         String sign = this.sign(payload, secret);
-        String signBase64 =  this.encodeBase64(sign);
+        String signBase64 = this.encodeBase64(sign);
         return payloadBase64 + "." + signBase64;
     }
 
@@ -48,7 +49,7 @@ public class AccessTokenTool {
         String signBase64 = tokenArray[1];
         String sign = this.decodeBase64(signBase64);
 
-        AccessToken accessToken = JSON.parseObject(payload, AccessToken.class);
+        AccessToken accessToken = JsonUtil.toObject(payload, AccessToken.class);
         Date expiryTime = accessToken.getExpiryTime();
         if(new Date().after(expiryTime)){
             throw new BusinessException(ErrorCodes.EC_001002);
