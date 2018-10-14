@@ -15,9 +15,6 @@ public class DataModelAttribute extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "主键")
-    private String id;
-
     @ApiModelProperty(value = "属性名称")
     private String name;
 
@@ -81,14 +78,6 @@ public class DataModelAttribute extends Domain {
 	public DataModelAttribute() {
 
 	}
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

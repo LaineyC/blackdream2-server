@@ -80,7 +80,7 @@ public class CreationStrategyWebController extends BaseWebController {
         
         return new Response<>(creationStrategy);
     }
-/*
+
     @ApiOperation(value="生成器生成策略多个查询")
     @PostMapping(value = "/creationStrategy/query")
     public @ResponseBody Response<List<CreationStrategy>> query(@RequestBody CreationStrategyQueryWebRequest request) {
@@ -91,13 +91,13 @@ public class CreationStrategyWebController extends BaseWebController {
 
         return new Response<>(creationStrategyList);
     }
-
+/*
     @ApiOperation(value = "生成器生成策略分页查询")
     @PostMapping(value = "/creationStrategy/search")
     public @ResponseBody Response<PageResult<CreationStrategy>> search(@RequestBody CreationStrategySearchWebRequest request) {
         CreationStrategySearchParameter parameter = new CreationStrategySearchParameter();
         BeanUtils.copyProperties(request, parameter);
-        
+
         PageResult<CreationStrategy> creationStrategyPageResult = creationStrategyService.search(parameter);
 
         return new Response<>(creationStrategyPageResult);
