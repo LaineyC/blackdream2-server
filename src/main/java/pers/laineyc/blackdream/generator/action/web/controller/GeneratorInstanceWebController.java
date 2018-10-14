@@ -12,6 +12,7 @@ import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
+import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceMakeResult;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstance;
@@ -117,25 +118,25 @@ public class GeneratorInstanceWebController extends BaseWebController {
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器实例生成")
     @PostMapping(value = "/generatorInstance/make")
-    public @ResponseBody Response<GeneratorInstance> make(@RequestBody GeneratorInstanceMakeWebRequest request) {
+    public @ResponseBody Response<GeneratorInstanceMakeResult> make(@RequestBody GeneratorInstanceMakeWebRequest request) {
         GeneratorInstanceMakeParameter parameter = new GeneratorInstanceMakeParameter();
         BeanUtils.copyProperties(request, parameter);
 
-        GeneratorInstance generatorInstance = generatorInstanceService.make(parameter);
+        GeneratorInstanceMakeResult generatorInstanceMakeResult = generatorInstanceService.make(parameter);
 
-        return new Response<>(generatorInstance);
+        return new Response<>(generatorInstanceMakeResult);
     }
 
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器实例生成测试")
     @PostMapping(value = "/generatorInstance/makeTest")
-    public @ResponseBody Response<GeneratorInstance> makeTest(@RequestBody GeneratorInstanceMakeTestWebRequest request) {
+    public @ResponseBody Response<GeneratorInstanceMakeResult> makeTest(@RequestBody GeneratorInstanceMakeTestWebRequest request) {
         GeneratorInstanceMakeTestParameter parameter = new GeneratorInstanceMakeTestParameter();
         BeanUtils.copyProperties(request, parameter);
 
-        GeneratorInstance generatorInstance = generatorInstanceService.makeTest(parameter);
+        GeneratorInstanceMakeResult generatorInstanceMakeResult = generatorInstanceService.makeTest(parameter);
 
-        return new Response<>(generatorInstance);
+        return new Response<>(generatorInstanceMakeResult);
     }
 
     @AuthSecurity(developer = true)

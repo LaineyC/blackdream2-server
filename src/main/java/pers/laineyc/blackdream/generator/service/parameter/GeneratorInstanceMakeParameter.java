@@ -21,9 +21,9 @@ public class GeneratorInstanceMakeParameter extends Parameter {
     private String creationStrategyId;
 
     /**
-     * 不包括的生成器数据模型主键
+     * 包括的生成器数据主键
      */
-    private List<String> excludeDataModelIdList = new ArrayList<>();
+    private List<String> generatorDataIdList = new ArrayList<>();
 
     public GeneratorInstanceMakeParameter() {
 
@@ -45,11 +45,11 @@ public class GeneratorInstanceMakeParameter extends Parameter {
         this.creationStrategyId = creationStrategyId;
     }
 
-    public List<String> getExcludeDataModelIdList() {
-        return excludeDataModelIdList;
+    public List<String> getGeneratorDataIdList() {
+        return generatorDataIdList;
     }
 
-    public void setExcludeDataModelIdList(List<String> excludeDataModelIdList) {
-        this.excludeDataModelIdList = excludeDataModelIdList;
+    public void setGeneratorDataIdList(List<String> generatorDataIdList) {
+        this.generatorDataIdList = generatorDataIdList;
     }
 }

@@ -1,6 +1,7 @@
 package pers.laineyc.blackdream.generator.service;
 
 import pers.laineyc.blackdream.framework.service.Service;
+import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceMakeResult;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstance;
@@ -50,12 +51,12 @@ public interface GeneratorInstanceService extends Service{
     /**
      * 生成器实例生成
      */
-    GeneratorInstance make(GeneratorInstanceMakeParameter parameter);
+    GeneratorInstanceMakeResult make(GeneratorInstanceMakeParameter parameter);
 
     /**
      * 生成器实例生成
      */
-    GeneratorInstance makeTest(GeneratorInstanceMakeTestParameter parameter);
+    GeneratorInstanceMakeResult makeTest(GeneratorInstanceMakeTestParameter parameter);
     
     /**
      * 生成器实例版本同步

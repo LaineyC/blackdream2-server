@@ -81,9 +81,11 @@ public class CreationStrategyServiceTool{
         if(!StringUtils.hasText(script)){
             throw new BusinessException("缺少脚本");
         }
+/*
         if(script.length() > 255){
             throw new BusinessException("脚本长度不能大于255");
         }
+*/
     }
 
     /**
@@ -133,9 +135,11 @@ public class CreationStrategyServiceTool{
         if(!StringUtils.hasText(script)){
             throw new BusinessException("缺少脚本");
         }
+/*
         if(script.length() > 255){
             throw new BusinessException("脚本长度不能大于255");
         }
+*/
     }
     
     /**

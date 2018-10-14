@@ -6,15 +6,7 @@ import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.configuration.constant.SystemConstant;
 import pers.laineyc.blackdream.configuration.tool.PathTool;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceCreateParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceDeleteParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceUpdateParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceGetParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceQueryParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceSearchParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceInfoSearchParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceMakeParameter;
-import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceVersionSyncParameter;
+import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstance;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorInstancePo;
 import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceQuery;
@@ -174,7 +166,15 @@ public class GeneratorInstanceServiceTool{
     public void makeValidate(GeneratorInstanceMakeParameter parameter) {
        
     }
-    
+
+    /**
+     * 生成器实例生成测试Validate
+     */
+    public void makeTestValidate(GeneratorInstanceMakeTestParameter parameter) {
+
+    }
+
+
     /**
      * 生成器实例版本同步Validate
      */

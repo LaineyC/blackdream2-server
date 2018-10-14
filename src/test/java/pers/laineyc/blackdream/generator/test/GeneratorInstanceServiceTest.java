@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import pers.laineyc.blackdream.framework.service.BaseServiceTest;
 import pers.laineyc.blackdream.generator.service.GeneratorInstanceService;
+import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceMakeResult;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceCreateParameter;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceDeleteParameter;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorInstanceUpdateParameter;
@@ -132,8 +133,8 @@ public class GeneratorInstanceServiceTest extends BaseServiceTest {
     public void make() {
         GeneratorInstanceMakeParameter parameter = new GeneratorInstanceMakeParameter();
         parameter.setAuth(getAuth());
-        GeneratorInstance generatorInstance = generatorInstanceService.make(parameter);
-        Assert.assertNotNull(generatorInstance);
+        GeneratorInstanceMakeResult generatorInstanceMakeResult = generatorInstanceService.make(parameter);
+        Assert.assertNotNull(generatorInstanceMakeResult);
     }
 
     /**

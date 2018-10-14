@@ -8,23 +8,31 @@ import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
+import pers.laineyc.blackdream.generator.dao.CreationStrategyDao;
+import pers.laineyc.blackdream.generator.dao.TemplateFileDao;
+import pers.laineyc.blackdream.generator.dao.po.CreationStrategyPo;
+import pers.laineyc.blackdream.generator.dao.po.TemplateFilePo;
+import pers.laineyc.blackdream.generator.dao.query.TemplateFileQuery;
 import pers.laineyc.blackdream.generator.service.GeneratorInstanceService;
+import pers.laineyc.blackdream.generator.service.domain.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.GeneratorInstanceServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.service.domain.GeneratorInstance;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorInstancePo;
 import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceQuery;
 import pers.laineyc.blackdream.generator.dao.GeneratorInstanceDao;
+import pers.laineyc.blackdream.generator.tool.TemplateFileScriptTool;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
 import pers.laineyc.blackdream.usercenter.dao.query.UserQuery;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
-import pers.laineyc.blackdream.generator.service.domain.Generator;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
 import pers.laineyc.blackdream.generator.dao.query.GeneratorQuery;
 import pers.laineyc.blackdream.generator.dao.GeneratorDao;
-import java.util.List; 
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import java.util.List;
 import java.util.Date; 
 import java.util.ArrayList; 
 import java.util.Map; 
@@ -49,6 +57,12 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
     @Autowired
     private GeneratorDao generatorDao;
+
+    @Autowired
+    private CreationStrategyDao creationStrategyDao;
+
+    @Autowired
+    private TemplateFileDao templateFileDao;
 
     public GeneratorInstanceServiceImpl() {
 
@@ -429,24 +443,82 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
      * 生成器实例生成
      */
     @Transactional
-    public GeneratorInstance make(GeneratorInstanceMakeParameter parameter) {
+    public GeneratorInstanceMakeResult make(GeneratorInstanceMakeParameter parameter) {
         generatorInstanceServiceTool.makeValidate(parameter);
 
         Date now = new Date();
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
 
-        GeneratorInstance generatorInstance = new GeneratorInstance();
+        GeneratorInstanceMakeResult generatorInstanceMakeResult = new GeneratorInstanceMakeResult();
 
-        return generatorInstance;
+        return generatorInstanceMakeResult;
     }
 
     /**
      * 生成器实例生成参数
      */
     @Transactional
-    public GeneratorInstance makeTest(GeneratorInstanceMakeTestParameter parameter) {
-        return null;
+    public GeneratorInstanceMakeResult makeTest(GeneratorInstanceMakeTestParameter parameter) {
+        generatorInstanceServiceTool.makeTestValidate(parameter);
+
+        Date now = new Date();
+        Auth auth = parameter.getAuth();
+        String authUserId = auth.getUserId();
+
+        String id = parameter.getId();
+        GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(id);
+        if(generatorInstancePo == null || generatorInstancePo.getIsDeleted() || !generatorInstancePo.getUserId().equals(authUserId)){
+            throw new BusinessException("生成器实例不存在");
+        }
+
+        String generatorId = generatorInstancePo.getGeneratorId();
+        GeneratorPo generatorPo = generatorDao.selectById(generatorId);
+        if(generatorPo == null || generatorPo.getIsDeleted()){
+            throw new BusinessException("所属生成器不存在");
+        }
+
+        TemplateFileQuery templateFileQuery = new TemplateFileQuery();
+        templateFileQuery.setIsDeleted(false);
+        templateFileQuery.setGeneratorId(generatorId);
+        List<TemplateFilePo> templateFilePoList = templateFileDao.selectList(templateFileQuery);
+        List<TemplateFile> templateFileList = new ArrayList<>();
+        templateFilePoList.forEach(templateFilePo -> {
+            TemplateFile templateFile = new TemplateFile();
+            templateFile.setCode(templateFilePo.getCode());
+            templateFile.setEngineType(templateFilePo.getEngineType());
+            templateFileList.add(templateFile);
+        });
+
+        String creationStrategyId = parameter.getCreationStrategyId();
+        CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(creationStrategyId);
+        if(creationStrategyPo == null || creationStrategyPo.getIsDeleted()){
+            throw new BusinessException("生成器生成策略不存在");
+        }
+
+        TemplateFileContextGlobal global = new TemplateFileContextGlobal();
+
+        //List<String> generatorDataIdList = parameter.getGeneratorDataIdList();
+
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName("nashorn");
+
+        TemplateFileScriptTool tool = new TemplateFileScriptTool(null, null, templateFileList);
+        engine.put("$tool", tool);
+        engine.put("$global", global);
+        engine.put("$dataTree", new ArrayList<>());
+        try {
+            engine.eval(creationStrategyPo.getScript());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        List<String> messageList = tool.makeTest();
+
+        GeneratorInstanceMakeResult generatorInstanceMakeResult = new GeneratorInstanceMakeResult();
+        generatorInstanceMakeResult.setTestMessageList(messageList);
+
+        return generatorInstanceMakeResult;
     }
 
     /**

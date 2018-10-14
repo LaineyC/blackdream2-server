@@ -1,10 +1,18 @@
 package pers.laineyc.blackdream;
 
 import org.springframework.boot.SpringApplication;
+import pers.laineyc.blackdream.generator.service.domain.TemplateFile;
+import pers.laineyc.blackdream.generator.tool.TemplateFileScriptTool;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @pers.laineyc.blackdream.configuration.config.Application
@@ -17,18 +25,26 @@ public class Application {
 /*
 	public static void main(String[] args) throws Exception{
 		ScriptEngineManager manager = new ScriptEngineManager();
-		ScriptEngine engine = manager.getEngineByName("javascript");
+		ScriptEngine engine = manager.getEngineByName("nashorn");
+		List<TemplateFile> templateFileList = new ArrayList<>();
 
-		TemplateFileTool fileTool = new TemplateFileTool(new File(""), new File("E:\\a"), null);
-		engine.put("tmplTool", fileTool);
+		TemplateFile templateFile = new TemplateFile();
+		templateFile.setCode("t1");
+		templateFile.setEngineType(1);
+		templateFileList.add(templateFile);
+
+
+		TemplateFileScriptTool fileTool = new TemplateFileScriptTool(null, null, templateFileList);
+		engine.put("$util", fileTool);
 		engine.eval(
-				"var t = tmplTool.newTmpl(\"a\", \"a\");" +
-				"for(var i = 0 ; i < 10 ; i ++){" +
-					"var file = tmplTool.newFile(\"dada\", t);" +
-					"file.putVar(\"file\", i+\"\");" +
-					"file.make();" +
-				"}"
+				"var t = $util.newTmpl(\"t1\");" +
+						"for(var i = 0 ; i < 10 ; i ++){" +
+						"var file = $util.newFile(\"d/a/da\", t, {a:1});" +
+						//"file.putVar(\"file\", i+\"\");" +
+						"}"
 		);
+		List<String> result = fileTool.makeTest();
+		System.out.print(result);
 	}
 */
 /*
