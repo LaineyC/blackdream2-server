@@ -1,19 +1,6 @@
 package pers.laineyc.blackdream;
 
 import org.springframework.boot.SpringApplication;
-import pers.laineyc.blackdream.generator.service.domain.TemplateFile;
-import pers.laineyc.blackdream.generator.tool.TemplateFileScriptTool;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import java.io.File;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.nio.file.*;
-import java.nio.file.attribute.UserDefinedFileAttributeView;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @pers.laineyc.blackdream.configuration.config.Application
 public class Application {

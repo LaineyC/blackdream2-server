@@ -8,35 +8,24 @@ import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
-import pers.laineyc.blackdream.generator.dao.CreationStrategyDao;
-import pers.laineyc.blackdream.generator.dao.TemplateFileDao;
-import pers.laineyc.blackdream.generator.dao.po.CreationStrategyPo;
-import pers.laineyc.blackdream.generator.dao.po.TemplateFilePo;
-import pers.laineyc.blackdream.generator.dao.query.TemplateFileQuery;
+import pers.laineyc.blackdream.generator.constant.DataModelAttributeDataTypeEnum;
+import pers.laineyc.blackdream.generator.dao.*;
+import pers.laineyc.blackdream.generator.dao.po.*;
+import pers.laineyc.blackdream.generator.dao.query.*;
 import pers.laineyc.blackdream.generator.service.GeneratorInstanceService;
 import pers.laineyc.blackdream.generator.service.domain.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.GeneratorInstanceServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
-import pers.laineyc.blackdream.generator.dao.po.GeneratorInstancePo;
-import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceQuery;
-import pers.laineyc.blackdream.generator.dao.GeneratorInstanceDao;
-import pers.laineyc.blackdream.generator.tool.TemplateFileScriptTool;
+import pers.laineyc.blackdream.generator.tool.CreationStrategyScriptTool;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
 import pers.laineyc.blackdream.usercenter.dao.query.UserQuery;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
-import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
-import pers.laineyc.blackdream.generator.dao.query.GeneratorQuery;
-import pers.laineyc.blackdream.generator.dao.GeneratorDao;
-
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import java.util.List;
-import java.util.Date; 
-import java.util.ArrayList; 
-import java.util.Map; 
-import java.util.HashMap; 
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 生成器实例ServiceImpl
@@ -63,6 +52,12 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
     @Autowired
     private TemplateFileDao templateFileDao;
+
+    @Autowired
+    private GeneratorDataDao generatorDataDao;
+
+    @Autowired
+    private DataModelDao dataModelDao;
 
     public GeneratorInstanceServiceImpl() {
 
@@ -465,6 +460,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         Date now = new Date();
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
+        GeneratorInstanceMakeResult generatorInstanceMakeResult = new GeneratorInstanceMakeResult();
 
         String id = parameter.getId();
         GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(id);
@@ -496,27 +492,217 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
             throw new BusinessException("生成器生成策略不存在");
         }
 
+        DataModelQuery dataModelQuery = new DataModelQuery();
+        dataModelQuery.setIsDeleted(false);
+        dataModelQuery.setGeneratorId(generatorId);
+        //dataModelQuery.fetchLazy(false);
+        List<DataModelPo> dataModelPoList = dataModelDao.selectList(dataModelQuery);
+        //
+        Map<String, DataModel> dataModelCache = new HashMap<>();
+        Map<String, DataModelPo> dataModelPoCache = new HashMap<>();
+        dataModelPoList.forEach(dataModelPo -> {
+            String dataModelPoId = dataModelPo.getId();
+            DataModel dataModel = new DataModel();
+            dataModel.setId(dataModelPoId);
+            dataModel.setCode(dataModelPo.getCode());
+            dataModelCache.put(dataModelPoId, dataModel);
+            dataModelPoCache.put(dataModelPoId, dataModelPo);
+        });
+
+        List<String> generatorDataIdList = parameter.getGeneratorDataIdList();
+
+        GeneratorDataQuery generatorDataQuery = new GeneratorDataQuery();
+        generatorDataQuery.setIsDeleted(false);
+        generatorDataQuery.setGeneratorId(generatorId);
+        generatorDataQuery.setGeneratorInstanceId(id);
+        generatorDataQuery.fetchLazy(false);
+        List<GeneratorDataPo> generatorDataPoList = generatorDataDao.selectList(generatorDataQuery);
+
+        Map<String, GeneratorDataPo> generatorDataPoCache = new HashMap<>();
+        Map<String, TemplateFileContextData> templateFileContextDataCache = new HashMap<>();
+        generatorDataPoList.forEach(generatorDataPo -> {
+            String generatorDataPoId = generatorDataPo.getId();
+            if(!generatorDataIdList.contains(generatorDataPoId)){
+                //return;
+            }
+            TemplateFileContextData templateFileContextData = new TemplateFileContextData();
+            templateFileContextData.setId(generatorDataPoId);
+            templateFileContextData.setName(generatorDataPo.getName());
+            templateFileContextData.setDataModel(dataModelCache.get(generatorDataPo.getDataModelId()));
+
+            generatorDataPoCache.put(generatorDataPoId, generatorDataPo);
+            templateFileContextDataCache.put(generatorDataPoId, templateFileContextData);
+        });
+
+        List<TemplateFileContextData> templateFileContextDataList = templateFileContextDataCache.values().stream().sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).collect(Collectors.toList());
+
+        List<TemplateFileContextData> templateFileContextDataTree = new ArrayList<>();
+        templateFileContextDataList.forEach(templateFileContextData -> {
+            String generatorDataPoId = templateFileContextData.getId();
+            GeneratorDataPo generatorDataPo = generatorDataPoCache.get(generatorDataPoId);
+            if(generatorDataPo == null){
+                return;
+            }
+
+            String dataModelPoId = generatorDataPo.getDataModelId();
+            DataModelPo dataModelPo = dataModelPoCache.get(dataModelPoId);
+            if(dataModelPo == null){
+                return;
+            }
+
+            List<DataModelAttribute> propertyList = dataModelPo.getPropertyList();
+            Map<String, GeneratorDataAttributeControl> poProperties = generatorDataPo.getProperties();
+            Map<String, Object> properties = templateFileContextData.getProperties();
+            propertyList.forEach(property -> {
+                String name = property.getName();
+                GeneratorDataAttributeControl control = poProperties.get(name);
+                if(control == null){
+                    return;
+                }
+                Object objectValue = control.getValue();
+                if(objectValue == null){
+                    properties.put(name, null);
+                }
+                else{
+                    Integer dataType = control.getDataType();
+                    if(dataType == null){
+                        properties.put(name, null);
+                    }
+                    else if(DataModelAttributeDataTypeEnum.NONE.getCode() == dataType){
+                        properties.put(name, null);
+                    }
+                    else if(DataModelAttributeDataTypeEnum.BOOLEAN.getCode() == dataType){
+                        properties.put(name, Boolean.valueOf(objectValue.toString()));
+                    }
+                    else if(DataModelAttributeDataTypeEnum.INTEGER.getCode() == dataType){
+                        properties.put(name, Integer.valueOf(objectValue.toString()));
+                    }
+                    else if(DataModelAttributeDataTypeEnum.FLOAT.getCode() == dataType){
+                        properties.put(name, Double.valueOf(objectValue.toString()));
+                    }
+                    else if(DataModelAttributeDataTypeEnum.STRING.getCode() == dataType){
+                        properties.put(name, objectValue.toString());
+                    }
+                    else if(DataModelAttributeDataTypeEnum.MODEL_REF.getCode() == dataType){
+                        String dataId = objectValue.toString();
+                        TemplateFileContextData data = templateFileContextDataCache.get(dataId);
+                        properties.put(name, data);
+                    }
+                    else{
+                        properties.put(name, null);
+                    }
+                }
+            });
+
+            List<DataModelAttribute> fieldList = dataModelPo.getFieldList();
+            List<Map<String, Object>> tupleList = templateFileContextData.getTupleList();
+            generatorDataPo.getTupleList().forEach(poTuple -> {
+                Map<String, Object> tuple = new LinkedHashMap<>();
+
+                fieldList.forEach(field -> {
+                    String name = field.getName();
+                    GeneratorDataAttributeControl control = poTuple.get(name);
+                    if(control == null){
+                        return;
+                    }
+                    Object objectValue = control.getValue();
+                    if(objectValue == null){
+                        tuple.put(name, null);
+                    }
+                    else{
+                        Integer dataType = control.getDataType();
+                        if(dataType == null){
+                            tuple.put(name, null);
+                        }
+                        else if(DataModelAttributeDataTypeEnum.NONE.getCode() == dataType){
+                            tuple.put(name, null);
+                        }
+                        else if(DataModelAttributeDataTypeEnum.BOOLEAN.getCode() == dataType){
+                            tuple.put(name, Boolean.valueOf(objectValue.toString()));
+                        }
+                        else if(DataModelAttributeDataTypeEnum.INTEGER.getCode() == dataType){
+                            tuple.put(name, Integer.valueOf(objectValue.toString()));
+                        }
+                        else if(DataModelAttributeDataTypeEnum.FLOAT.getCode() == dataType){
+                            tuple.put(name, Double.valueOf(objectValue.toString()));
+                        }
+                        else if(DataModelAttributeDataTypeEnum.STRING.getCode() == dataType){
+                            tuple.put(name, objectValue.toString());
+                        }
+                        else if(DataModelAttributeDataTypeEnum.MODEL_REF.getCode() == dataType){
+                            String dataId = objectValue.toString();
+                            TemplateFileContextData data = templateFileContextDataCache.get(dataId);
+                            tuple.put(name, data);
+                        }
+                        else{
+                            tuple.put(name, null);
+                        }
+                    }
+                });
+                tupleList.add(tuple);
+            });
+
+            String parentId = generatorDataPo.getParentId();
+            TemplateFileContextData parent = templateFileContextDataCache.get(parentId);
+            templateFileContextData.setParent(parent);
+            if(parent == null){
+                templateFileContextDataTree.add(templateFileContextData);
+            }
+            else{
+                parent.getChildren().add(templateFileContextData);
+            }
+        });
+
         TemplateFileContextGlobal global = new TemplateFileContextGlobal();
 
-        //List<String> generatorDataIdList = parameter.getGeneratorDataIdList();
+        UserPo userPo = userDao.selectById(authUserId);
+        User user = new User();
+        user.setId(userPo.getId());
+        user.setUsername(userPo.getUsername());
+        global.setUser(user);
+
+        UserPo developerPo = userDao.selectById(authUserId);
+        User developer = new User();
+        developer.setId(developerPo.getId());
+        developer.setUsername(developerPo.getUsername());
+        global.setDeveloper(developer);
+
+        Generator generator = new Generator();
+        generator.setId(generatorPo.getId());
+        generator.setName(generatorPo.getName());
+        global.setGenerator(generator);
+
+        GeneratorInstance generatorInstance = new GeneratorInstance();
+        generatorInstance.setId(generatorInstancePo.getId());
+        generatorInstance.setName(generatorInstancePo.getName());
+        global.setGeneratorInstance(generatorInstance);
 
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("nashorn");
 
-        TemplateFileScriptTool tool = new TemplateFileScriptTool(null, null, templateFileList);
+        CreationStrategyScriptTool tool = new CreationStrategyScriptTool(null, null, templateFileList);
         engine.put("$tool", tool);
         engine.put("$global", global);
-        engine.put("$dataTree", new ArrayList<>());
+        engine.put("$dataTree", templateFileContextDataTree);
         try {
             engine.eval(creationStrategyPo.getScript());
         }
-        catch (Exception e){
-            e.printStackTrace();
+        catch (Throwable e){
+            List<String> messageList = new ArrayList<>();
+            LinkedList<Throwable> exceptionStack = new LinkedList<>();
+            exceptionStack.push(e);
+            while (!exceptionStack.isEmpty()) {
+                Throwable exception = exceptionStack.pop();
+                messageList.add(exception.toString());
+                if(exception.getCause() != null){
+                    exceptionStack.push(exception.getCause());
+                }
+            }
+            generatorInstanceMakeResult.setErrorMessageList(messageList);
+            return generatorInstanceMakeResult;
         }
-        List<String> messageList = tool.makeTest();
-
-        GeneratorInstanceMakeResult generatorInstanceMakeResult = new GeneratorInstanceMakeResult();
-        generatorInstanceMakeResult.setTestMessageList(messageList);
+        List<GeneratorInstanceMakeResultFile> messageList = tool.makeTest();
+        generatorInstanceMakeResult.setResultFileTree(messageList);
 
         return generatorInstanceMakeResult;
     }

@@ -20,7 +20,7 @@ public class TemplateEngineUtil {
 
     }
 
-    public void processFreemarkerTemplate(File loadPath, File templateFile, File outFile, Map<String, Object> varMap){
+    public static void processFreemarkerTemplate(File loadPath, File templateFile, File outFile, Map<String, Object> varMap){
         try {
             Configuration configuration = new Configuration(Configuration.VERSION_2_3_26);
             configuration.setDirectoryForTemplateLoading(loadPath.getAbsoluteFile());
@@ -43,7 +43,7 @@ public class TemplateEngineUtil {
         }
     }
 
-    public void processVelocityTemplate(File loadPath, File templateFile, File outFile, Map<String, Object> varMap){
+    public static void processVelocityTemplate(File loadPath, File templateFile, File outFile, Map<String, Object> varMap){
         try {
             Properties properties = new Properties();
             properties.setProperty("resource.loader", "file");

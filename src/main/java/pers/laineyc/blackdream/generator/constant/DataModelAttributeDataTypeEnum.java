@@ -5,13 +5,15 @@ package pers.laineyc.blackdream.generator.constant;
  */
 public enum DataModelAttributeDataTypeEnum {
 
-    BOOLEAN(1, "BOOLEAN"),
+    NONE(1, "BOOLEAN"),
 
-    INTEGER(2, "INTEGER"),
+    BOOLEAN(2, "BOOLEAN"),
 
-    NUMBER(3, "NUMBER"),
+    INTEGER(3, "INTEGER"),
 
-    STRING(4, "STRING"),
+    FLOAT(4, "FLOAT"),
+
+    STRING(5, "STRING"),
 
     MODEL_REF(15, "MODEL_REF"),
 

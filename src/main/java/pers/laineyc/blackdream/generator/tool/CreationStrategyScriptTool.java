@@ -2,20 +2,24 @@ package pers.laineyc.blackdream.generator.tool;
 
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
+import pers.laineyc.blackdream.generator.constant.TemplateEngineTypeEnum;
+import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceMakeResultFile;
 import pers.laineyc.blackdream.generator.service.domain.TemplateFile;
+import pers.laineyc.blackdream.generator.util.TemplateEngineUtil;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * TemplateFileTool
  *
  * @author LaineyC
  */
-public class TemplateFileScriptTool {
+public class CreationStrategyScriptTool {
 
     private File templateRootPath;
 
@@ -25,7 +29,7 @@ public class TemplateFileScriptTool {
 
     private List<Command> commandList = new ArrayList<>();
 
-    public TemplateFileScriptTool(File templateRootPath, File outputRootPath, List<TemplateFile> templateFileList){
+    public CreationStrategyScriptTool(File templateRootPath, File outputRootPath, List<TemplateFile> templateFileList){
         this.templateRootPath = templateRootPath;
         this.outputRootPath = outputRootPath;
         if(templateFileList != null){
@@ -112,6 +116,15 @@ public class TemplateFileScriptTool {
             }
             System.out.println(TemplateFileScriptTool.this.templateRootPath + name);
             */
+/*
+            if(TemplateEngineTypeEnum.VELOCITY.getCode() == template.engineType){
+                outputRootPath
+                TemplateEngineUtil.processVelocityTemplate(templateRootPath,);
+            }
+            else if(TemplateEngineTypeEnum.FREEMARKER.getCode() == template.engineType){
+                TemplateEngineUtil.processFreemarkerTemplate();
+            }
+*/
         }
 
         public String makeTest(){
@@ -137,7 +150,7 @@ public class TemplateFileScriptTool {
         }
 
         public String makeTest(){
-            return name.replace(File.separator, "/");
+            return name.replace("/", File.separator);
         }
     }
 
@@ -211,16 +224,48 @@ public class TemplateFileScriptTool {
     }
 
     public void make(){
-
+        commandList.forEach(Command::make);
     }
 
-    public List<String> makeTest(){
-        List<String> result = new ArrayList<>();
+    public List<GeneratorInstanceMakeResultFile> makeTest(){
+        Map<String, GeneratorInstanceMakeResultFile> resultFileMap = new HashMap<>();
         commandList.forEach(command -> {
-            result.add(command.makeTest());
+            String fullPath = command.makeTest();
+            File file = new File(fullPath);
+            for (int deep = 1 ; file != null ; deep++) {
+                String path = file.getPath();
+                GeneratorInstanceMakeResultFile resultFile = resultFileMap.get(path);
+                if(resultFile == null) {
+                    resultFile = new GeneratorInstanceMakeResultFile();
+                    resultFile.setName(file.getName());
+                    resultFile.setPath(path);
+                    resultFile.setIsFile(deep == 1);
+                    resultFileMap.put(path, resultFile);
+                }
+                file = file.getParentFile();
+            }
         });
 
-        return result;
+        List<GeneratorInstanceMakeResultFile> resultFileList = resultFileMap.values().stream().sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).collect(Collectors.toList());
+
+        List<GeneratorInstanceMakeResultFile> resultFileTree = new ArrayList<>();
+
+        resultFileList.forEach(resultFile -> {
+            String path = resultFile.getPath();
+            File file = new File(path);
+            String parentPath = file.getParent();
+            if(parentPath != null){
+                GeneratorInstanceMakeResultFile parent = resultFileMap.get(parentPath);
+                if(parent != null){
+                    parent.getChildren().add(resultFile);
+                }
+            }
+            else{
+                resultFileTree.add(resultFile);
+            }
+        });
+
+        return resultFileTree;
     }
 
 }

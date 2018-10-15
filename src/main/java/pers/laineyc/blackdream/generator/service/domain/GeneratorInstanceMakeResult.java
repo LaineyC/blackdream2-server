@@ -21,8 +21,8 @@ public class GeneratorInstanceMakeResult extends Domain {
     @ApiModelProperty(value = "异常信息")
     private List<String> errorMessageList = new ArrayList<>();
 
-    @ApiModelProperty(value = "测试信息")
-    private List<String> testMessageList = new ArrayList<>();
+    @ApiModelProperty(value = "测试结果")
+    private List<GeneratorInstanceMakeResultFile> resultFileTree = new ArrayList<>();
 
     @ApiModelProperty(value = "下载地址")
     private String url;
@@ -42,12 +42,12 @@ public class GeneratorInstanceMakeResult extends Domain {
         this.errorMessageList = errorMessageList;
     }
 
-    public List<String> getTestMessageList() {
-        return testMessageList;
+    public List<GeneratorInstanceMakeResultFile> getResultFileTree() {
+        return resultFileTree;
     }
 
-    public void setTestMessageList(List<String> testMessageList) {
-        this.testMessageList = testMessageList;
+    public void setResultFileTree(List<GeneratorInstanceMakeResultFile> resultFileTree) {
+        this.resultFileTree = resultFileTree;
     }
 
     public String getUrl() {
