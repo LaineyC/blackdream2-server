@@ -557,9 +557,8 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         List<TemplateFilePo> templateFilePoList = templateFileDao.selectList(templateFileQuery);
         templateFilePoList.forEach(templateFilePo -> {
             Integer engineType = templateFilePo.getEngineType();
-            TemplateEngineTypeEnum templateEngineTypeEnum = TemplateEngineTypeEnum.value(engineType);
             String code = templateFilePo.getCode();
-            Path path = Paths.get(templateFileServiceTool.getScriptPath(templateFilePo.getGeneratorId(), code + "." + templateEngineTypeEnum.getSuffix()));
+            Path path = Paths.get(templateFileServiceTool.getTemplatePath(templateFilePo.getGeneratorId(), code, engineType));
 
             Path parentPath = path.getParent();
             FileUtil.create(parentPath);

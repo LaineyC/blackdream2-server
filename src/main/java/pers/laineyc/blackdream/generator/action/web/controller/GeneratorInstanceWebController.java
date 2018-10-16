@@ -2,13 +2,17 @@ package pers.laineyc.blackdream.generator.action.web.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.io.FileUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.controller.response.Response;
+import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.action.web.request.*;
@@ -17,6 +21,10 @@ import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstance;
 import pers.laineyc.blackdream.generator.service.GeneratorInstanceService;
+import pers.laineyc.blackdream.generator.tool.GeneratorInstanceServiceTool;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,12 +37,15 @@ public class GeneratorInstanceWebController extends BaseWebController {
 
     @Autowired
     private GeneratorInstanceService generatorInstanceService;
+
+    @Autowired
+    private GeneratorInstanceServiceTool generatorInstanceServiceTool;
     
     public GeneratorInstanceWebController() {
 
     }
 
-    @AuthSecurity(developer = true)
+    @AuthSecurity()
     @ApiOperation(value = "生成器实例创建")
     @PostMapping(value = "/generatorInstance/create")
     public @ResponseBody Response<GeneratorInstance> create(@RequestBody GeneratorInstanceCreateWebRequest request) {
@@ -46,7 +57,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstance);
     }
 
-    @AuthSecurity(developer = true)
+    @AuthSecurity()
     @ApiOperation(value = "生成器实例删除")
     @PostMapping(value = "/generatorInstance/delete")
     public @ResponseBody Response<GeneratorInstance> delete(@RequestBody GeneratorInstanceDeleteWebRequest request) {
@@ -58,7 +69,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstance);
     }
 
-    @AuthSecurity(developer = true)
+    @AuthSecurity()
     @ApiOperation(value = "生成器实例修改")
     @PostMapping(value = "/generatorInstance/update")
     public @ResponseBody Response<GeneratorInstance> update(@RequestBody GeneratorInstanceUpdateWebRequest request) {
@@ -103,7 +114,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstancePageResult);
     }
 */
-    @AuthSecurity(developer = true)
+    @AuthSecurity()
     @ApiOperation(value = "生成器实例分页查询")
     @PostMapping(value = "/generatorInstance/infoSearch")
     public @ResponseBody Response<PageResult<GeneratorInstance>> infoSearch(@RequestBody GeneratorInstanceInfoSearchWebRequest request) {
@@ -115,7 +126,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstancePageResult);
     }
 
-    @AuthSecurity(developer = true)
+    @AuthSecurity()
     @ApiOperation(value = "生成器实例生成")
     @PostMapping(value = "/generatorInstance/make")
     public @ResponseBody Response<GeneratorInstanceMakeResult> make(@RequestBody GeneratorInstanceMakeWebRequest request) {
@@ -127,7 +138,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstanceMakeResult);
     }
 
-    @AuthSecurity(developer = true)
+    @AuthSecurity()
     @ApiOperation(value = "生成器实例生成测试")
     @PostMapping(value = "/generatorInstance/makeTest")
     public @ResponseBody Response<GeneratorInstanceMakeResult> makeTest(@RequestBody GeneratorInstanceMakeTestWebRequest request) {
@@ -139,7 +150,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstanceMakeResult);
     }
 
-    @AuthSecurity(developer = true)
+    @AuthSecurity()
     @ApiOperation(value = "生成器实例版本同步")
     @PostMapping(value = "/generatorInstance/versionSync")
     public @ResponseBody Response<GeneratorInstance> versionSync(@RequestBody GeneratorInstanceVersionSyncWebRequest request) {
@@ -149,6 +160,21 @@ public class GeneratorInstanceWebController extends BaseWebController {
         GeneratorInstance generatorInstance = generatorInstanceService.versionSync(parameter);
 
         return new Response<>(generatorInstance);
+    }
+
+    @AuthSecurity()
+    @ApiOperation(value = "生成器实例下载")
+    @RequestMapping(value = "/generatorInstance/download", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<byte[]> download(GeneratorInstanceDownloadWebRequest request) throws IOException {
+        String url = request.getUrl();
+        File file = new File(generatorInstanceServiceTool.getOutputRootPath() + File.separator + url);
+        if(!file.exists()){
+            throw new BusinessException("下载资源不存在");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentDispositionFormData("attachment", file.getName());
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        return new ResponseEntity<>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
     }
     
 }

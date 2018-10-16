@@ -37,9 +37,18 @@ public class TemplateFileServiceTool{
     public TemplateFileServiceTool() {
 
 	}
-
+/*
     public String getScriptPath(String generatorId, String code){
         return generatorServiceTool.getGeneratorPath(generatorId) + File.separator + SystemConstant.TEMPLATE_FILE_PATH_NAME + File.separator + code;
+    }
+*/
+    public String getTemplatePath(String generatorId, String code, Integer engineType){
+        TemplateEngineTypeEnum templateEngineTypeEnum = TemplateEngineTypeEnum.value(engineType);
+        return generatorServiceTool.getGeneratorPath(generatorId) + File.separator + SystemConstant.TEMPLATE_FILE_PATH_NAME + File.separator + code + "." + templateEngineTypeEnum.getSuffix();
+    }
+
+    public String getTemplateRootPath(String generatorId){
+        return generatorServiceTool.getGeneratorPath(generatorId) + File.separator + SystemConstant.TEMPLATE_FILE_PATH_NAME;
     }
 
     /**

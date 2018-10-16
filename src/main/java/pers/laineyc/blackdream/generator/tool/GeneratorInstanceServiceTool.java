@@ -48,6 +48,10 @@ public class GeneratorInstanceServiceTool{
         return pathTool.getRootPath() + File.separator + SystemConstant.GENERATOR_PATH_NAME + pathTool.splitIdAsPath(generatorInstanceId) + generatorInstanceId.toString();
     }
 
+    public String getOutputRootPath(){
+        return pathTool.getRootPath() + File.separator + SystemConstant.TEMPORARY_PATH_NAME;
+    }
+
     /**
      * 生成器实例创建Validate
      */

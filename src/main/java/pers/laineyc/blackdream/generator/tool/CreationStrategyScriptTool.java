@@ -2,11 +2,12 @@ package pers.laineyc.blackdream.generator.tool;
 
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
+import pers.laineyc.blackdream.framework.util.FileUtil;
+import pers.laineyc.blackdream.framework.util.ZipUtil;
 import pers.laineyc.blackdream.generator.constant.TemplateEngineTypeEnum;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceMakeResultFile;
 import pers.laineyc.blackdream.generator.service.domain.TemplateFile;
 import pers.laineyc.blackdream.generator.util.TemplateEngineUtil;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,21 +111,17 @@ public class CreationStrategyScriptTool {
             context.put(name, value);
         }
 */
-        public void make(){/*
-            for($Var var : template.varList){
-                System.out.println(var.name + "," + var.value);
-            }
-            System.out.println(TemplateFileScriptTool.this.templateRootPath + name);
-            */
-/*
+        public void make(){
+            TemplateEngineTypeEnum templateEngineTypeEnum = TemplateEngineTypeEnum.value(template.engineType);
+            String templateFilePath = templateRootPath.getPath() + File.separator + template.code + "." + templateEngineTypeEnum.getSuffix();
+            File outputFile = new File(outputRootPath.getPath() + File.separator + name.replace("/", File.separator));
+            FileUtil.mkdirs(outputFile.getParent());
             if(TemplateEngineTypeEnum.VELOCITY.getCode() == template.engineType){
-                outputRootPath
-                TemplateEngineUtil.processVelocityTemplate(templateRootPath,);
+                TemplateEngineUtil.processVelocityTemplate(templateRootPath, new File(templateFilePath), outputFile, context);
             }
             else if(TemplateEngineTypeEnum.FREEMARKER.getCode() == template.engineType){
-                TemplateEngineUtil.processFreemarkerTemplate();
+                TemplateEngineUtil.processFreemarkerTemplate(templateRootPath, new File(templateFilePath), outputFile, context);
             }
-*/
         }
 
         public String makeTest(){
@@ -143,10 +140,7 @@ public class CreationStrategyScriptTool {
 
         public void make(){
             String path = outputRootPath.getAbsolutePath() + File.separator + name.replace("/", File.separator);
-            File pathFile = new File(path);
-            if(!pathFile.exists()) {
-                pathFile.mkdirs();
-            }
+            FileUtil.mkdirs(path);
         }
 
         public String makeTest(){
@@ -225,6 +219,12 @@ public class CreationStrategyScriptTool {
 
     public void make(){
         commandList.forEach(Command::make);
+        try {
+            ZipUtil.compress(outputRootPath);
+        }
+        catch (Exception e){
+            throw new BusinessException(e,"压缩文件失败");
+        }
     }
 
     public List<GeneratorInstanceMakeResultFile> makeTest(){

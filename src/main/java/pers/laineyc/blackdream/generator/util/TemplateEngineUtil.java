@@ -26,7 +26,7 @@ public class TemplateEngineUtil {
             configuration.setDirectoryForTemplateLoading(loadPath.getAbsoluteFile());
             configuration.setDefaultEncoding("UTF-8");
             configuration.setOutputEncoding("UTF-8");
-            freemarker.template.Template template = configuration.getTemplate(templateFile.getPath());
+            freemarker.template.Template template = configuration.getTemplate(templateFile.getName());
 
             StringWriter writer = new StringWriter();
             template.process(varMap, writer);

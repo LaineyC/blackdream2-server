@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import pers.laineyc.blackdream.configuration.constant.SystemConstant;
+import pers.laineyc.blackdream.configuration.tool.PathTool;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
@@ -13,17 +15,22 @@ import pers.laineyc.blackdream.generator.dao.*;
 import pers.laineyc.blackdream.generator.dao.po.*;
 import pers.laineyc.blackdream.generator.dao.query.*;
 import pers.laineyc.blackdream.generator.service.GeneratorInstanceService;
+import pers.laineyc.blackdream.generator.service.TemplateFileService;
 import pers.laineyc.blackdream.generator.service.domain.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.GeneratorInstanceServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.generator.tool.CreationStrategyScriptTool;
+import pers.laineyc.blackdream.generator.tool.TemplateFileServiceTool;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
 import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
 import pers.laineyc.blackdream.usercenter.dao.query.UserQuery;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import java.io.File;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -58,6 +65,15 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
     @Autowired
     private DataModelDao dataModelDao;
+
+    @Autowired
+    private TemplateFileServiceTool templateFileServiceTool;
+
+    @Autowired
+    private PathTool pathTool;
+
+    @Autowired
+    private TemplateFileService templateFileService;
 
     public GeneratorInstanceServiceImpl() {
 
@@ -247,16 +263,15 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         Map<String, Generator> generatorMap = new HashMap<>();
         generatorInstancePoList.forEach(po -> {
             GeneratorInstance generatorInstance = new GeneratorInstance();
-            
+
             generatorInstance.setId(po.getId());
 
             String userId = po.getUserId();
-            if(userId != null) {
+            if (userId != null) {
                 User user;
-                if(userMap.containsKey(userId)) {
+                if (userMap.containsKey(userId)) {
                     user = userMap.get(userId);
-                }
-                else {
+                } else {
                     user = new User();
                     user.setId(userId);
                     userMap.put(userId, user);
@@ -265,12 +280,11 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
             }
 
             String generatorId = po.getGeneratorId();
-            if(generatorId != null) {
+            if (generatorId != null) {
                 Generator generator;
-                if(generatorMap.containsKey(generatorId)) {
+                if (generatorMap.containsKey(generatorId)) {
                     generator = generatorMap.get(generatorId);
-                }
-                else {
+                } else {
                     generator = new Generator();
                     generator.setId(generatorId);
                     generatorMap.put(generatorId, generator);
@@ -346,16 +360,15 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         Map<String, Generator> generatorMap = new HashMap<>();
         generatorInstancePoPageResult.getRecords().forEach(po -> {
             GeneratorInstance generatorInstance = new GeneratorInstance();
-            
+
             generatorInstance.setId(po.getId());
 
             String userId = po.getUserId();
-            if(userId != null) {
+            if (userId != null) {
                 User user;
-                if(userMap.containsKey(userId)) {
+                if (userMap.containsKey(userId)) {
                     user = userMap.get(userId);
-                }
-                else {
+                } else {
                     user = new User();
                     user.setId(userId);
                     userMap.put(userId, user);
@@ -364,12 +377,11 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
             }
 
             String generatorId = po.getGeneratorId();
-            if(generatorId != null) {
+            if (generatorId != null) {
                 Generator generator;
-                if(generatorMap.containsKey(generatorId)) {
+                if (generatorMap.containsKey(generatorId)) {
                     generator = generatorMap.get(generatorId);
-                }
-                else {
+                } else {
                     generator = new Generator();
                     generator.setId(generatorId);
                     generatorMap.put(generatorId, generator);
@@ -433,37 +445,14 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
         return this.search(generatorInstanceSearchParameter);
     }
-    
-    /**
-     * 生成器实例生成
-     */
-    @Transactional
-    public GeneratorInstanceMakeResult make(GeneratorInstanceMakeParameter parameter) {
-        generatorInstanceServiceTool.makeValidate(parameter);
 
+    private GeneratorInstanceMakeResult make(Auth auth, String generatorInstanceId, String creationStrategyId, List<String> generatorDataIdList, boolean isTest) {
         Date now = new Date();
-        Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
 
         GeneratorInstanceMakeResult generatorInstanceMakeResult = new GeneratorInstanceMakeResult();
 
-        return generatorInstanceMakeResult;
-    }
-
-    /**
-     * 生成器实例生成参数
-     */
-    @Transactional
-    public GeneratorInstanceMakeResult makeTest(GeneratorInstanceMakeTestParameter parameter) {
-        generatorInstanceServiceTool.makeTestValidate(parameter);
-
-        Date now = new Date();
-        Auth auth = parameter.getAuth();
-        String authUserId = auth.getUserId();
-        GeneratorInstanceMakeResult generatorInstanceMakeResult = new GeneratorInstanceMakeResult();
-
-        String id = parameter.getId();
-        GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(id);
+        GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(generatorInstanceId);
         if(generatorInstancePo == null || generatorInstancePo.getIsDeleted() || !generatorInstancePo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器实例不存在");
         }
@@ -486,7 +475,6 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
             templateFileList.add(templateFile);
         });
 
-        String creationStrategyId = parameter.getCreationStrategyId();
         CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(creationStrategyId);
         if(creationStrategyPo == null || creationStrategyPo.getIsDeleted()){
             throw new BusinessException("生成器生成策略不存在");
@@ -509,12 +497,10 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
             dataModelPoCache.put(dataModelPoId, dataModelPo);
         });
 
-        List<String> generatorDataIdList = parameter.getGeneratorDataIdList();
-
         GeneratorDataQuery generatorDataQuery = new GeneratorDataQuery();
         generatorDataQuery.setIsDeleted(false);
         generatorDataQuery.setGeneratorId(generatorId);
-        generatorDataQuery.setGeneratorInstanceId(id);
+        generatorDataQuery.setGeneratorInstanceId(generatorInstanceId);
         generatorDataQuery.fetchLazy(false);
         List<GeneratorDataPo> generatorDataPoList = generatorDataDao.selectList(generatorDataQuery);
 
@@ -575,10 +561,10 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                         properties.put(name, Boolean.valueOf(objectValue.toString()));
                     }
                     else if(DataModelAttributeDataTypeEnum.INTEGER.getCode() == dataType){
-                        properties.put(name, Integer.valueOf(objectValue.toString()));
+                        properties.put(name, new BigInteger(objectValue.toString()));
                     }
                     else if(DataModelAttributeDataTypeEnum.FLOAT.getCode() == dataType){
-                        properties.put(name, Double.valueOf(objectValue.toString()));
+                        properties.put(name, new BigDecimal(objectValue.toString()));
                     }
                     else if(DataModelAttributeDataTypeEnum.STRING.getCode() == dataType){
                         properties.put(name, objectValue.toString());
@@ -621,10 +607,10 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                             tuple.put(name, Boolean.valueOf(objectValue.toString()));
                         }
                         else if(DataModelAttributeDataTypeEnum.INTEGER.getCode() == dataType){
-                            tuple.put(name, Integer.valueOf(objectValue.toString()));
+                            tuple.put(name, new BigInteger(objectValue.toString()));
                         }
                         else if(DataModelAttributeDataTypeEnum.FLOAT.getCode() == dataType){
-                            tuple.put(name, Double.valueOf(objectValue.toString()));
+                            tuple.put(name, new BigDecimal(objectValue.toString()));
                         }
                         else if(DataModelAttributeDataTypeEnum.STRING.getCode() == dataType){
                             tuple.put(name, objectValue.toString());
@@ -680,7 +666,13 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("nashorn");
 
-        CreationStrategyScriptTool tool = new CreationStrategyScriptTool(null, null, templateFileList);
+        String templateRootPath = templateFileServiceTool.getTemplateRootPath(generatorId);
+
+        String generateNo = UUID.randomUUID().toString();
+        String outputRootPath = generatorInstanceServiceTool.getOutputRootPath() + File.separator +
+            authUserId + File.separator + generatorInstance.getName() + "(" + generateNo + ")";
+
+        CreationStrategyScriptTool tool = new CreationStrategyScriptTool(new File(templateRootPath), new File(outputRootPath), templateFileList);
         engine.put("$tool", tool);
         engine.put("$global", global);
         engine.put("$dataTree", templateFileContextDataTree);
@@ -701,10 +693,38 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
             generatorInstanceMakeResult.setErrorMessageList(messageList);
             return generatorInstanceMakeResult;
         }
-        List<GeneratorInstanceMakeResultFile> messageList = tool.makeTest();
-        generatorInstanceMakeResult.setResultFileTree(messageList);
+        if(isTest){
+            List<GeneratorInstanceMakeResultFile> messageList = tool.makeTest();
+            generatorInstanceMakeResult.setResultFileTree(messageList);
+        }
+        else{
+            TemplateFileBuildResourceParameter templateFileBuildResourceParameter = new TemplateFileBuildResourceParameter();
+            templateFileBuildResourceParameter.setGeneratorId(generatorPo.getId());
+            templateFileService.buildResource(templateFileBuildResourceParameter);
+            tool.make();
+            generatorInstanceMakeResult.setUrl(authUserId + "/" + generatorInstance.getName() + "(" + generateNo + ").zip");
+            generatorInstanceMakeResult.setFileName(generatorInstance.getName() + "(" + generateNo + ").zip");
+        }
 
         return generatorInstanceMakeResult;
+    }
+    
+    /**
+     * 生成器实例生成
+     */
+    @Transactional
+    public GeneratorInstanceMakeResult make(GeneratorInstanceMakeParameter parameter) {
+        generatorInstanceServiceTool.makeValidate(parameter);
+        return this.make(parameter.getAuth(), parameter.getId(), parameter.getCreationStrategyId(), parameter.getGeneratorDataIdList(), false);
+    }
+
+    /**
+     * 生成器实例生成测试
+     */
+    @Transactional
+    public GeneratorInstanceMakeResult makeTest(GeneratorInstanceMakeTestParameter parameter) {
+        generatorInstanceServiceTool.makeTestValidate(parameter);
+        return this.make(parameter.getAuth(), parameter.getId(), parameter.getCreationStrategyId(), parameter.getGeneratorDataIdList(), true);
     }
 
     /**
