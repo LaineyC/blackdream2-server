@@ -31,6 +31,7 @@ import pers.laineyc.blackdream.generator.dao.query.DataModelQuery;
 import pers.laineyc.blackdream.generator.dao.DataModelDao;
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 生成器数据ServiceTool
@@ -105,7 +106,8 @@ public class GeneratorDataServiceTool{
      */
     public void deleteValidate(GeneratorDataDeleteParameter parameter) {
         String id = parameter.getId();
-        if(id == null){
+        List<String> idList = parameter.getIdList();
+        if(id == null && idList.isEmpty()){
             throw new BusinessException("缺少主键");
         }
     }

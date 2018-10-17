@@ -6,7 +6,7 @@ import java.util.zip.*;
 /**
  * @author LaineyC
  */
-public class ZipUtil {
+public final class ZipUtil {
   
     public static final String EXT = ".zip";
 

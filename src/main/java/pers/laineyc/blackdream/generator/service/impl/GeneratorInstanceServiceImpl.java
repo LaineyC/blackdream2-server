@@ -509,7 +509,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         generatorDataPoList.forEach(generatorDataPo -> {
             String generatorDataPoId = generatorDataPo.getId();
             if(!generatorDataIdList.contains(generatorDataPoId)){
-                //return;
+                return;
             }
             TemplateFileContextData templateFileContextData = new TemplateFileContextData();
             templateFileContextData.setId(generatorDataPoId);
@@ -698,9 +698,6 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
             generatorInstanceMakeResult.setResultFileTree(messageList);
         }
         else{
-            TemplateFileBuildResourceParameter templateFileBuildResourceParameter = new TemplateFileBuildResourceParameter();
-            templateFileBuildResourceParameter.setGeneratorId(generatorPo.getId());
-            templateFileService.buildResource(templateFileBuildResourceParameter);
             tool.make();
             generatorInstanceMakeResult.setUrl(authUserId + "/" + generatorInstance.getName() + "(" + generateNo + ").zip");
             generatorInstanceMakeResult.setFileName(generatorInstance.getName() + "(" + generateNo + ").zip");

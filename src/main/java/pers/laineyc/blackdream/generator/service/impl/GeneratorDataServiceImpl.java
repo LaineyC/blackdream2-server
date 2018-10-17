@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
@@ -140,26 +141,29 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         Date now = new Date();
         Auth auth = parameter.getAuth();
         String authUserId = auth.getUserId();
-               
+
+        List<String> idList = parameter.getIdList();
         String id = parameter.getId();
-        GeneratorDataPo generatorDataPo = generatorDataDao.selectById(id);
-
-        if(generatorDataPo == null || generatorDataPo.getIsDeleted() || !generatorDataPo.getUserId().equals(authUserId)){
-            throw new BusinessException("生成器数据不存在");
+        if(StringUtils.hasText(id)){
+            idList.add(id);
         }
+        idList.forEach(item -> {
+            GeneratorDataPo generatorDataPo = generatorDataDao.selectById(item);
+            if (generatorDataPo == null || generatorDataPo.getIsDeleted() || !generatorDataPo.getUserId().equals(authUserId)) {
+                return;//throw new BusinessException("生成器数据不存在");
+            }
 
-        GeneratorDataPo generatorDataPoUpdate = new GeneratorDataPo();
-        generatorDataPoUpdate.setId(id);
-        generatorDataPoUpdate.setUpdateTime(now);
-        generatorDataPoUpdate.setIsDeleted(true);
-        generatorDataDao.updateSelective(generatorDataPoUpdate);
-
+            GeneratorDataPo generatorDataPoUpdate = new GeneratorDataPo();
+            generatorDataPoUpdate.setId(item);
+            generatorDataPoUpdate.setUpdateTime(now);
+            generatorDataPoUpdate.setIsDeleted(true);
+            generatorDataDao.updateSelective(generatorDataPoUpdate);
+        });
         GeneratorData generatorData = new GeneratorData();
-        generatorData.setId(id);
 
         return generatorData;
     }
-    
+
     /**
      * 生成器数据修改
      */

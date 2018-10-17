@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 /**
  * @author LaineyC
  */
-public class RegexUtil {
+public final class RegexUtil {
 
     public static final String REGEX_USERNAME = "^[a-zA-Z][a-zA-Z0-9]{3,16}$";
 

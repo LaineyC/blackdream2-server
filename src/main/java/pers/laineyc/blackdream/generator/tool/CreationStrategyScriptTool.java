@@ -91,7 +91,15 @@ public class CreationStrategyScriptTool {
             this.context = context;
             commandList.add(this);
         }
-/*
+
+        public void putContext(Map<String, Object> context){
+            if(context == null){
+                throw new BusinessException("添加Context时，缺少context参数");
+            }
+
+            context.forEach(this.context :: put);
+        }
+
         public void putVar($Var var){
             if(var == null){
                 throw new BusinessException("添加Var时，缺少var参数");
@@ -110,7 +118,7 @@ public class CreationStrategyScriptTool {
             }
             context.put(name, value);
         }
-*/
+
         public void make(){
             TemplateEngineTypeEnum templateEngineTypeEnum = TemplateEngineTypeEnum.value(template.engineType);
             String templateFilePath = templateRootPath.getPath() + File.separator + template.code + "." + templateEngineTypeEnum.getSuffix();
