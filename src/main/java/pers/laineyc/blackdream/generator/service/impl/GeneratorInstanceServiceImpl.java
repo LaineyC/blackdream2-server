@@ -423,6 +423,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                 Generator generator = generatorMap.get(id);
                 generator.setId(id);
                 generator.setName(po.getName());
+                generator.setStatus(po.getStatus());
             });
         }
 
