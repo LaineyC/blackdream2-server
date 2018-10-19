@@ -24,7 +24,7 @@ public class DataModelAttribute extends Domain {
     @ApiModelProperty(value = "属性注释")
     private String comment;
 
-    @ApiModelProperty(value = "数据类型：1NONE；2BOOLEAN；3INTEGER；4FLOAT；5STRING；15MODEL_REF")
+    @ApiModelProperty(value = "数据类型：1NONE；2BOOLEAN；3INTEGER；4FLOAT；5STRING；6DATE；7TIME；8DATETIME；15MODEL_REF")
     private Integer dataType;
 
     @ApiModelProperty(value = "默认值")
@@ -49,10 +49,10 @@ public class DataModelAttribute extends Domain {
     private Boolean isRequired;
 
     @ApiModelProperty(value = "最小值")
-    private Double minValue;
+    private Object minValue;
 
     @ApiModelProperty(value = "最大值")
-    private Double maxValue;
+    private Object maxValue;
 
     @ApiModelProperty(value = "长度")
     private Integer length;
@@ -167,19 +167,19 @@ public class DataModelAttribute extends Domain {
         this.isRequired = isRequired;
     }
 
-    public Double getMinValue() {
+    public Object getMinValue() {
         return minValue;
     }
 
-    public void setMinValue(Double minValue) {
+    public void setMinValue(Object minValue) {
         this.minValue = minValue;
     }
 
-    public Double getMaxValue() {
+    public Object getMaxValue() {
         return maxValue;
     }
 
-    public void setMaxValue(Double maxValue) {
+    public void setMaxValue(Object maxValue) {
         this.maxValue = maxValue;
     }
 

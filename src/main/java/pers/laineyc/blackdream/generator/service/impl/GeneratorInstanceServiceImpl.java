@@ -31,6 +31,7 @@ import javax.script.ScriptEngineManager;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -523,6 +524,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
         List<TemplateFileContextData> templateFileContextDataList = templateFileContextDataCache.values().stream().sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).collect(Collectors.toList());
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         List<TemplateFileContextData> templateFileContextDataTree = new ArrayList<>();
         templateFileContextDataList.forEach(templateFileContextData -> {
             String generatorDataPoId = templateFileContextData.getId();
@@ -564,11 +566,35 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                     else if(DataModelAttributeDataTypeEnum.INTEGER.getCode() == dataType){
                         properties.put(name, new BigInteger(objectValue.toString()));
                     }
-                    else if(DataModelAttributeDataTypeEnum.FLOAT.getCode() == dataType){
+                    else if(DataModelAttributeDataTypeEnum.DATETIME.getCode() == dataType){
                         properties.put(name, new BigDecimal(objectValue.toString()));
                     }
                     else if(DataModelAttributeDataTypeEnum.STRING.getCode() == dataType){
                         properties.put(name, objectValue.toString());
+                    }
+                    else if(DataModelAttributeDataTypeEnum.DATE.getCode() == dataType){
+                        try {
+                            properties.put(name, simpleDateFormat.parse(objectValue.toString()));
+                        }
+                        catch (Exception e){
+
+                        }
+                    }
+                    else if(DataModelAttributeDataTypeEnum.TIME.getCode() == dataType){
+                        try {
+                            properties.put(name, simpleDateFormat.parse(objectValue.toString()));
+                        }
+                        catch (Exception e){
+
+                        }
+                    }
+                    else if(DataModelAttributeDataTypeEnum.DATETIME.getCode() == dataType){
+                        try {
+                            properties.put(name, simpleDateFormat.parse(objectValue.toString()));
+                        }
+                        catch (Exception e){
+
+                        }
                     }
                     else if(DataModelAttributeDataTypeEnum.MODEL_REF.getCode() == dataType){
                         String dataId = objectValue.toString();
@@ -610,11 +636,35 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                         else if(DataModelAttributeDataTypeEnum.INTEGER.getCode() == dataType){
                             tuple.put(name, new BigInteger(objectValue.toString()));
                         }
-                        else if(DataModelAttributeDataTypeEnum.FLOAT.getCode() == dataType){
+                        else if(DataModelAttributeDataTypeEnum.DECIMAL.getCode() == dataType){
                             tuple.put(name, new BigDecimal(objectValue.toString()));
                         }
                         else if(DataModelAttributeDataTypeEnum.STRING.getCode() == dataType){
                             tuple.put(name, objectValue.toString());
+                        }
+                        else if(DataModelAttributeDataTypeEnum.DATE.getCode() == dataType){
+                            try {
+                                tuple.put(name, simpleDateFormat.parse(objectValue.toString()));
+                            }
+                            catch (Exception e){
+
+                            }
+                        }
+                        else if(DataModelAttributeDataTypeEnum.TIME.getCode() == dataType){
+                            try {
+                                tuple.put(name, simpleDateFormat.parse(objectValue.toString()));
+                            }
+                            catch (Exception e){
+
+                            }
+                        }
+                        else if(DataModelAttributeDataTypeEnum.DATETIME.getCode() == dataType){
+                            try {
+                                tuple.put(name, simpleDateFormat.parse(objectValue.toString()));
+                            }
+                            catch (Exception e){
+
+                            }
                         }
                         else if(DataModelAttributeDataTypeEnum.MODEL_REF.getCode() == dataType){
                             String dataId = objectValue.toString();

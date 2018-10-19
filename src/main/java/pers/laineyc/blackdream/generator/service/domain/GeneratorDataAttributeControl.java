@@ -16,7 +16,7 @@ public class GeneratorDataAttributeControl extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "数据类型：1NONE；2BOOLEAN；3INTEGER；4FLOAT；5STRING；15MODEL_REF")
+    @ApiModelProperty(value = "数据类型：1NONE；2BOOLEAN；3INTEGER；4FLOAT；5STRING；6DATE；7TIME；8DATETIME；15MODEL_REF")
     private Integer dataType;
 
     @ApiModelProperty(value = "控件值")

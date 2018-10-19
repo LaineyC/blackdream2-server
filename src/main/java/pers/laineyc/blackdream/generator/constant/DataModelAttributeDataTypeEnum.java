@@ -11,9 +11,15 @@ public enum DataModelAttributeDataTypeEnum {
 
     INTEGER(3, "INTEGER"),
 
-    FLOAT(4, "FLOAT"),
+    DECIMAL(4, "DECIMAL"),
 
     STRING(5, "STRING"),
+
+    DATE(6, "DATE"),
+
+    TIME(7, "TIME"),
+
+    DATETIME(8, "DATETIME"),
 
     MODEL_REF(15, "MODEL_REF"),
 
