@@ -2,12 +2,16 @@ package pers.laineyc.blackdream.configuration.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.ConfigurableWebServerFactory;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
+import org.springframework.http.HttpStatus;
 import pers.laineyc.blackdream.configuration.component.RunLogInterceptor;
 import pers.laineyc.blackdream.configuration.component.SecurityInterceptor;
 import pers.laineyc.blackdream.foundation.service.RunLogService;
@@ -54,6 +58,14 @@ public class Config {
     @Bean
     public SecurityInterceptor securityInterceptor() {
         return new SecurityInterceptor();
+    }
+
+    @Bean
+    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer(){
+        return (factory) -> {
+            ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/index.html");
+            factory.addErrorPages(error404Page);
+        };
     }
 
 }

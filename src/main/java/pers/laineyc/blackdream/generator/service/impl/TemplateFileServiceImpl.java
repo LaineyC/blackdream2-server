@@ -111,6 +111,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         TemplateFile templateFile = new TemplateFile();
         templateFile.setId(templateFilePo.getId());
+        templateFile.setCode(templateFilePo.getCode());
 
         return templateFile;
     }

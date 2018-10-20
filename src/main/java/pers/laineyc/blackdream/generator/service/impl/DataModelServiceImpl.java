@@ -105,6 +105,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         DataModel dataModel = new DataModel();
         dataModel.setId(dataModelPo.getId());
+        dataModel.setCode(dataModelPo.getCode());
 
         return dataModel;
     }

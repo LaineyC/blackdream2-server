@@ -130,7 +130,6 @@ public class RunLogMongoServiceImpl extends BaseService implements RunLogService
         }
 
         mongoTemplate.insert(runLog);
-
     }
 
 }
