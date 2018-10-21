@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import pers.laineyc.blackdream.configuration.constant.SystemConstant;
 import pers.laineyc.blackdream.configuration.tool.PathTool;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
@@ -485,7 +484,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         DataModelQuery dataModelQuery = new DataModelQuery();
         dataModelQuery.setIsDeleted(false);
         dataModelQuery.setGeneratorId(generatorId);
-        //dataModelQuery.fetchLazy(false);
+        dataModelQuery.fetchLazy(false);
         List<DataModelPo> dataModelPoList = dataModelDao.selectList(dataModelQuery);
         //
         Map<String, DataModel> dataModelCache = new HashMap<>();
@@ -566,7 +565,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                     else if(DataModelAttributeDataTypeEnum.INTEGER.getCode() == dataType){
                         properties.put(name, new BigInteger(objectValue.toString()));
                     }
-                    else if(DataModelAttributeDataTypeEnum.DATETIME.getCode() == dataType){
+                    else if(DataModelAttributeDataTypeEnum.DECIMAL.getCode() == dataType){
                         properties.put(name, new BigDecimal(objectValue.toString()));
                     }
                     else if(DataModelAttributeDataTypeEnum.STRING.getCode() == dataType){
