@@ -172,7 +172,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
             throw new BusinessException("下载资源不存在");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentDispositionFormData("attachment", file.getName());
+        headers.setContentDispositionFormData("attachment", new String(file.getName().getBytes("UTF-8"), "ISO8859-1"));
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         return new ResponseEntity<>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
     }

@@ -252,4 +252,11 @@ public class UserServiceTool{
 
     }
 
+    /**
+     * 形象修改Validate
+     */
+    public void profileChangeValidate(UserProfileChangeParameter parameter) {
+
+    }
+
 }

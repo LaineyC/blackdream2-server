@@ -549,4 +549,30 @@ public class UserServiceImpl extends BaseService implements UserService {
         return this.get(userGetParameter);
     }
 
+    /**
+     * 形象修改
+     */
+    //@Transactional(readOnly = true)
+    public User profileChange(UserProfileChangeParameter parameter) {
+        userServiceTool.profileChangeValidate(parameter);
+
+        Date now = new Date();
+        Auth auth = parameter.getAuth();
+        String authUserId = auth.getUserId();
+
+        UserPo userPo = userDao.selectById(authUserId);
+        if(userPo == null){
+            throw new BusinessException("用户不存在");
+        }
+
+        String nickname = parameter.getNickname();
+
+        UserPo userPoUpdate = new UserPo();
+        userPoUpdate.setId(authUserId);
+        userPoUpdate.setNickname(nickname);
+        userPoUpdate.setUpdateTime(now);
+        userDao.updateSelective(userPoUpdate);
+
+        return new User();
+    }
 }

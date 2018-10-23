@@ -54,7 +54,7 @@ public class TemplateEngineUtil {
 
             VelocityEngine velocityEngine = new VelocityEngine();
             velocityEngine.init(properties);
-            Template template = velocityEngine.getTemplate(templateFile.getPath(), "UTF-8");
+            Template template = velocityEngine.getTemplate(templateFile.getName(), "UTF-8");
             VelocityContext context = new VelocityContext();
             varMap.forEach(context::put);
             StringWriter writer = new StringWriter();

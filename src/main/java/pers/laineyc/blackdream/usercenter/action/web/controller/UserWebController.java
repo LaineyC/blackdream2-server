@@ -176,7 +176,7 @@ public class UserWebController extends BaseWebController {
 
         return new Response<>(usernameExist);
     }
-
+/*
     @ApiOperation(value = "用户头像更改")
     @PostMapping(value = "/user/iconChange")
     public @ResponseBody Response<User> iconChange(@RequestBody UserIconChangeWebRequest request) {
@@ -187,7 +187,7 @@ public class UserWebController extends BaseWebController {
 
         return new Response<>(user);
     }
-
+*/
     @AuthSecurity
     @ApiOperation(value = "用户单个查询")
     @PostMapping(value = "/user/infoGet")
@@ -196,6 +196,18 @@ public class UserWebController extends BaseWebController {
         BeanUtils.copyProperties(request, parameter);
 
         User user = userService.infoGet(parameter);
+
+        return new Response<>(user);
+    }
+
+    @AuthSecurity
+    @ApiOperation(value = "用户形象修改")
+    @PostMapping(value = "/user/profileChange")
+    public @ResponseBody Response<User> profileChange(@RequestBody UserProfileChangeWebRequest request) {
+        UserProfileChangeParameter parameter = new UserProfileChangeParameter();
+        BeanUtils.copyProperties(request, parameter);
+
+        User user = userService.profileChange(parameter);
 
         return new Response<>(user);
     }

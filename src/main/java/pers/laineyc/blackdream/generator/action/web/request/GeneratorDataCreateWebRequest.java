@@ -3,6 +3,7 @@ package pers.laineyc.blackdream.generator.action.web.request;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import pers.laineyc.blackdream.framework.controller.request.Request;
+import pers.laineyc.blackdream.generator.service.domain.GeneratorDataAttributeControl;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -32,10 +33,10 @@ public class GeneratorDataCreateWebRequest extends Request {
     private String parentId;
 
     @ApiModelProperty(value = "属性集")
-    private Map<String, Object> properties = new LinkedHashMap<>();
+    private Map<String, GeneratorDataAttributeControl> properties = new LinkedHashMap<>();
 
     @ApiModelProperty(value = "记录列表")
-    private List<Map<String, Object>> tupleList = new ArrayList<>();
+    private List<Map<String, GeneratorDataAttributeControl>> tupleList = new ArrayList<>();
 
     public GeneratorDataCreateWebRequest() {
 
@@ -81,19 +82,19 @@ public class GeneratorDataCreateWebRequest extends Request {
         this.parentId = parentId;
     }
 
-    public Map<String, Object> getProperties() {
+    public Map<String, GeneratorDataAttributeControl> getProperties() {
         return properties;
     }
 
-    public void setProperties(Map<String, Object> properties) {
+    public void setProperties(Map<String, GeneratorDataAttributeControl> properties) {
         this.properties = properties;
     }
 
-    public List<Map<String, Object>> getTupleList() {
+    public List<Map<String, GeneratorDataAttributeControl>> getTupleList() {
         return tupleList;
     }
 
-    public void setTupleList(List<Map<String, Object>> tupleList) {
+    public void setTupleList(List<Map<String, GeneratorDataAttributeControl>> tupleList) {
         this.tupleList = tupleList;
     }
 }

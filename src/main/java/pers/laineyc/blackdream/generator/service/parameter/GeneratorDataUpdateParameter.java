@@ -1,9 +1,7 @@
 package pers.laineyc.blackdream.generator.service.parameter;
 
-import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
 import pers.laineyc.blackdream.framework.service.parameter.Parameter;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorDataAttributeControl;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

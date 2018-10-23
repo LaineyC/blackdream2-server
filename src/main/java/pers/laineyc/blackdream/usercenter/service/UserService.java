@@ -78,4 +78,9 @@ public interface UserService extends Service{
      * 用户单个查询
      */
     User infoGet(UserInfoGetParameter parameter);
+
+    /**
+     * 形象修改
+     */
+    User profileChange(UserProfileChangeParameter parameter);
 }
