@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
+import pers.laineyc.blackdream.generator.service.domain.DataModelSchemaRuleItem;
+
 import java.util.*;
 
 /**
@@ -63,7 +65,7 @@ public class DataModelSchemaPo extends Po {
      * 规则集合
      */
     @FetchLazy
-    private Map<String, List<String>> ruleMap = new HashMap<>();
+    private Map<String, DataModelSchemaRuleItem> ruleItemMap = new HashMap<>();
 
 	public DataModelSchemaPo() {
 
@@ -133,11 +135,11 @@ public class DataModelSchemaPo extends Po {
         this.updateTime = updateTime;
     }
 
-    public Map<String, List<String>> getRuleMap() {
-        return ruleMap;
+    public Map<String, DataModelSchemaRuleItem> getRuleItemMap() {
+        return ruleItemMap;
     }
 
-    public void setRuleMap(Map<String, List<String>> ruleMap) {
-        this.ruleMap = ruleMap;
+    public void setRuleItemMap(Map<String, DataModelSchemaRuleItem> ruleItemMap) {
+        this.ruleItemMap = ruleItemMap;
     }
 }

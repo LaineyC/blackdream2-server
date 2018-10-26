@@ -37,7 +37,7 @@ public class DataModelSchema extends Domain {
     private Date updateTime;
 
     @ApiModelProperty(value = "规则集合")
-    private Map<String, List<String>> ruleMap = new HashMap<>();
+    private Map<String, DataModelSchemaRuleItem> ruleItemMap = new HashMap<>();
 
 	public DataModelSchema() {
 
@@ -99,11 +99,11 @@ public class DataModelSchema extends Domain {
         this.updateTime = updateTime;
     }
 
-    public Map<String, List<String>> getRuleMap() {
-        return ruleMap;
+    public Map<String, DataModelSchemaRuleItem> getRuleItemMap() {
+        return ruleItemMap;
     }
 
-    public void setRuleMap(Map<String, List<String>> ruleMap) {
-        this.ruleMap = ruleMap;
+    public void setRuleItemMap(Map<String, DataModelSchemaRuleItem> ruleItemMap) {
+        this.ruleItemMap = ruleItemMap;
     }
 }

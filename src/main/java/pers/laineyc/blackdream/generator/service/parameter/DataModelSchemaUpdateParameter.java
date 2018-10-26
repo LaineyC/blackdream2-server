@@ -1,6 +1,8 @@
 package pers.laineyc.blackdream.generator.service.parameter;
 
 import pers.laineyc.blackdream.framework.service.parameter.Parameter;
+import pers.laineyc.blackdream.generator.service.domain.DataModelSchemaRuleItem;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +31,7 @@ public class DataModelSchemaUpdateParameter extends Parameter {
     /**
      * 规则集合
      */
-    private Map<String, List<String>> ruleMap = new HashMap<>();
+    private Map<String, DataModelSchemaRuleItem> ruleItemMap = new HashMap<>();
 
     public DataModelSchemaUpdateParameter() {
 
@@ -59,11 +61,11 @@ public class DataModelSchemaUpdateParameter extends Parameter {
         this.description = description;
     }
 
-    public Map<String, List<String>> getRuleMap() {
-        return ruleMap;
+    public Map<String, DataModelSchemaRuleItem> getRuleItemMap() {
+        return ruleItemMap;
     }
 
-    public void setRuleMap(Map<String, List<String>> ruleMap) {
-        this.ruleMap = ruleMap;
+    public void setRuleItemMap(Map<String, DataModelSchemaRuleItem> ruleItemMap) {
+        this.ruleItemMap = ruleItemMap;
     }
 }

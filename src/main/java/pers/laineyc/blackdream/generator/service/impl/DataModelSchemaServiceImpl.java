@@ -9,6 +9,7 @@ import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.generator.service.DataModelSchemaService;
+import pers.laineyc.blackdream.generator.service.domain.DataModelSchemaRuleItem;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.DataModelSchemaServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
@@ -84,8 +85,8 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
 
         dataModelSchemaPo.setUpdateTime(now);
 
-        Map<String, List<String>> ruleMap = parameter.getRuleMap();
-        dataModelSchemaPo.setRuleMap(ruleMap);
+        Map<String, DataModelSchemaRuleItem> ruleItemMap = parameter.getRuleItemMap();
+        dataModelSchemaPo.setRuleItemMap(ruleItemMap);
 
         dataModelSchemaDao.insert(dataModelSchemaPo);
 
@@ -149,8 +150,8 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
 
         dataModelSchemaPo.setUpdateTime(now);
 
-        Map<String, List<String>> ruleMap = parameter.getRuleMap();
-        dataModelSchemaPo.setRuleMap(ruleMap);
+        Map<String, DataModelSchemaRuleItem> ruleItemMap = parameter.getRuleItemMap();
+        dataModelSchemaPo.setRuleItemMap(ruleItemMap);
 
         dataModelSchemaDao.update(dataModelSchemaPo);
 
@@ -218,7 +219,7 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
 
         dataModelSchema.setUpdateTime(dataModelSchemaPo.getUpdateTime());
 
-        dataModelSchema.setRuleMap(dataModelSchemaPo.getRuleMap());
+        dataModelSchema.setRuleItemMap(dataModelSchemaPo.getRuleItemMap());
 
         return dataModelSchema;
     }
