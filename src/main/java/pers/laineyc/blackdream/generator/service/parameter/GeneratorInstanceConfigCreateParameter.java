@@ -2,7 +2,10 @@ package pers.laineyc.blackdream.generator.service.parameter;
 
 import pers.laineyc.blackdream.framework.service.parameter.Parameter;
 import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceDataModelAttributeConfig;
+import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceDataModelConfig;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,24 +31,9 @@ public class GeneratorInstanceConfigCreateParameter extends Parameter {
     private String description;
 
     /**
-     * 属性列表
+     * 根据数据模型的设置
      */
-    private List<GeneratorInstanceDataModelAttributeConfig> propertyList = new ArrayList<>();
-
-    /**
-     * 字段列表
-     */
-    private List<GeneratorInstanceDataModelAttributeConfig> fieldList = new ArrayList<>();
-
-    /**
-     * 是否直接添加默认记录
-     */
-    private Boolean isAddDefaultRecordList;
-
-    /**
-     * 默认记录集合数据
-     */
-    private List<Map<String, Object>> defaultRecordList = new ArrayList<>();
+    private Map<String, GeneratorInstanceDataModelConfig> dataModelConfigMap = new HashMap<>();
 
     public GeneratorInstanceConfigCreateParameter() {
 
@@ -75,35 +63,11 @@ public class GeneratorInstanceConfigCreateParameter extends Parameter {
         this.description = description;
     }
 
-    public List<GeneratorInstanceDataModelAttributeConfig> getPropertyList() {
-        return propertyList;
+    public Map<String, GeneratorInstanceDataModelConfig> getDataModelConfigMap() {
+        return dataModelConfigMap;
     }
 
-    public void setPropertyList(List<GeneratorInstanceDataModelAttributeConfig> propertyList) {
-        this.propertyList = propertyList;
-    }
-
-    public List<GeneratorInstanceDataModelAttributeConfig> getFieldList() {
-        return fieldList;
-    }
-
-    public void setFieldList(List<GeneratorInstanceDataModelAttributeConfig> fieldList) {
-        this.fieldList = fieldList;
-    }
-
-    public Boolean getIsAddDefaultRecordList() {
-        return isAddDefaultRecordList;
-    }
-
-    public void setIsAddDefaultRecordList(Boolean isAddDefaultRecordList) {
-        this.isAddDefaultRecordList = isAddDefaultRecordList;
-    }
-
-    public List<Map<String, Object>> getDefaultRecordList() {
-        return defaultRecordList;
-    }
-
-    public void setDefaultRecordList(List<Map<String, Object>> defaultRecordList) {
-        this.defaultRecordList = defaultRecordList;
+    public void setDataModelConfigMap(Map<String, GeneratorInstanceDataModelConfig> dataModelConfigMap) {
+        this.dataModelConfigMap = dataModelConfigMap;
     }
 }

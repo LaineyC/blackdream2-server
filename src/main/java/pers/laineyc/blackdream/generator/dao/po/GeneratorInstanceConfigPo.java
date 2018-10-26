@@ -5,11 +5,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pers.laineyc.blackdream.framework.dao.po.Po;
 import pers.laineyc.blackdream.framework.dao.support.FetchLazy;
-import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceDataModelAttributeConfig;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import pers.laineyc.blackdream.generator.service.domain.GeneratorInstanceDataModelConfig;
+import java.util.*;
 
 /**
  * 生成器实例设置Po
@@ -70,26 +67,10 @@ public class GeneratorInstanceConfigPo extends Po {
 	private Date updateTime;
 
     /**
-     * 属性列表
-     */
-    private List<GeneratorInstanceDataModelAttributeConfig> propertyList = new ArrayList<>();
-
-    /**
-     * 字段列表
-     */
-    private List<GeneratorInstanceDataModelAttributeConfig> fieldList = new ArrayList<>();
-
-    /**
-     * 是否直接添加默认记录
+     * 根据数据模型的设置
      */
     @FetchLazy
-    private Boolean isAddDefaultRecordList;
-
-    /**
-     * 默认记录集合数据
-     */
-    @FetchLazy
-    private List<Map<String, Object>> defaultRecordList = new ArrayList<>();
+    private Map<String, GeneratorInstanceDataModelConfig> dataModelConfigMap = new HashMap<>();
 
 	public GeneratorInstanceConfigPo() {
 
@@ -167,36 +148,11 @@ public class GeneratorInstanceConfigPo extends Po {
         this.updateTime = updateTime;
     }
 
-    public List<GeneratorInstanceDataModelAttributeConfig> getPropertyList() {
-        return propertyList;
+    public Map<String, GeneratorInstanceDataModelConfig> getDataModelConfigMap() {
+        return dataModelConfigMap;
     }
 
-    public void setPropertyList(List<GeneratorInstanceDataModelAttributeConfig> propertyList) {
-        this.propertyList = propertyList;
+    public void setDataModelConfigMap(Map<String, GeneratorInstanceDataModelConfig> dataModelConfigMap) {
+        this.dataModelConfigMap = dataModelConfigMap;
     }
-
-    public List<GeneratorInstanceDataModelAttributeConfig> getFieldList() {
-        return fieldList;
-    }
-
-    public void setFieldList(List<GeneratorInstanceDataModelAttributeConfig> fieldList) {
-        this.fieldList = fieldList;
-    }
-
-    public Boolean getIsAddDefaultRecordList() {
-        return isAddDefaultRecordList;
-    }
-
-    public void setIsAddDefaultRecordList(Boolean isAddDefaultRecordList) {
-        this.isAddDefaultRecordList = isAddDefaultRecordList;
-    }
-
-    public List<Map<String, Object>> getDefaultRecordList() {
-        return defaultRecordList;
-    }
-
-    public void setDefaultRecordList(List<Map<String, Object>> defaultRecordList) {
-        this.defaultRecordList = defaultRecordList;
-    }
-
 }

@@ -91,13 +91,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
 
         generatorInstanceConfigPo.setUpdateTime(now);
 
-        generatorInstanceConfigPo.setPropertyList(parameter.getPropertyList());
-
-        generatorInstanceConfigPo.setFieldList(parameter.getFieldList());
-
-        generatorInstanceConfigPo.setIsAddDefaultRecordList(parameter.getIsAddDefaultRecordList());
-
-        generatorInstanceConfigPo.setDefaultRecordList(parameter.getDefaultRecordList());
+        generatorInstanceConfigPo.setDataModelConfigMap(parameter.getDataModelConfigMap());
 
         generatorInstanceConfigDao.insert(generatorInstanceConfigPo);
 
@@ -161,13 +155,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
 
         generatorInstanceConfigPo.setUpdateTime(now);
 
-        generatorInstanceConfigPo.setPropertyList(parameter.getPropertyList());
-
-        generatorInstanceConfigPo.setFieldList(parameter.getFieldList());
-
-        generatorInstanceConfigPo.setIsAddDefaultRecordList(parameter.getIsAddDefaultRecordList());
-
-        generatorInstanceConfigPo.setDefaultRecordList(parameter.getDefaultRecordList());
+        generatorInstanceConfigPo.setDataModelConfigMap(parameter.getDataModelConfigMap());
 
         generatorInstanceConfigDao.update(generatorInstanceConfigPo);
 
@@ -244,13 +232,7 @@ public class GeneratorInstanceConfigServiceImpl extends BaseService implements G
 
         generatorInstanceConfig.setUpdateTime(generatorInstanceConfigPo.getUpdateTime());
 
-        generatorInstanceConfig.setPropertyList(generatorInstanceConfigPo.getPropertyList());
-
-        generatorInstanceConfig.setFieldList(generatorInstanceConfigPo.getFieldList());
-
-        generatorInstanceConfig.setIsAddDefaultRecordList(generatorInstanceConfigPo.getIsAddDefaultRecordList());
-
-        generatorInstanceConfig.setIsAddDefaultRecordList(generatorInstanceConfigPo.getIsAddDefaultRecordList());
+        generatorInstanceConfig.setDataModelConfigMap(generatorInstanceConfigPo.getDataModelConfigMap());
 
         return generatorInstanceConfig;
     }
