@@ -12,6 +12,7 @@ import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.framework.util.FileUtil;
 import pers.laineyc.blackdream.generator.constant.TemplateEngineTypeEnum;
+import pers.laineyc.blackdream.generator.service.GeneratorService;
 import pers.laineyc.blackdream.generator.service.TemplateFileService;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.TemplateFileServiceTool;
@@ -55,6 +56,9 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
     @Autowired
     private GeneratorDao generatorDao;
+
+    @Autowired
+    private GeneratorService generatorService;
 
     public TemplateFileServiceImpl() {
 
@@ -109,6 +113,11 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         templateFilePo.setCode(templateFilePo.getId());
         templateFileDao.update(templateFilePo);
 
+        GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
+        generatorDevelopParameter.setAuth(auth);
+        generatorDevelopParameter.setId(generatorId);
+        generatorService.develop(generatorDevelopParameter);
+
         TemplateFile templateFile = new TemplateFile();
         templateFile.setId(templateFilePo.getId());
         templateFile.setCode(templateFilePo.getCode());
@@ -133,19 +142,33 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
             idList.add(id);
         }
 
-        idList.forEach(item -> {
+        String generatorId = null;
+        for(String item : idList){
             TemplateFilePo templateFilePo = templateFileDao.selectById(item);
             if (templateFilePo == null || templateFilePo.getIsDeleted() || !templateFilePo.getUserId().equals(authUserId)) {
-                //throw new BusinessException("生成器模板文件不存在");
-                return;
+                throw new BusinessException("生成器模板文件不存在");
             }
 
+            if(generatorId == null){
+                generatorId = templateFilePo.getGeneratorId();
+            }
+            else if(!generatorId.equals(templateFilePo.getGeneratorId())){
+                throw new BusinessException("不属于同一个生成器");
+            }
+        }
+
+        for(String item : idList){
             TemplateFilePo templateFilePoUpdate = new TemplateFilePo();
             templateFilePoUpdate.setId(item);
             templateFilePoUpdate.setUpdateTime(now);
             templateFilePoUpdate.setIsDeleted(true);
             templateFileDao.updateSelective(templateFilePoUpdate);
-        });
+        }
+
+        GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
+        generatorDevelopParameter.setAuth(auth);
+        generatorDevelopParameter.setId(generatorId);
+        generatorService.develop(generatorDevelopParameter);
 
         TemplateFile templateFile = new TemplateFile();
 
@@ -193,6 +216,11 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         templateFilePo.setScript(script);
 
         templateFileDao.update(templateFilePo);
+
+        GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
+        generatorDevelopParameter.setAuth(auth);
+        generatorDevelopParameter.setId(templateFilePo.getGeneratorId());
+        generatorService.develop(generatorDevelopParameter);
 
         TemplateFile templateFile = new TemplateFile();
         templateFile.setId(id);

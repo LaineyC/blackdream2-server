@@ -449,5 +449,24 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
         return generator;
     }
-    
+
+    /**
+     * 生成器开发
+     */
+    @Transactional
+    public Generator develop(GeneratorDevelopParameter parameter) {
+        Date now = new Date();
+        Auth auth = parameter.getAuth();
+        String authUserId = auth.getUserId();
+
+        String id = parameter.getId();
+
+        GeneratorPo generatorPoUpdate = new GeneratorPo();
+        generatorPoUpdate.setId(id);
+        generatorPoUpdate.setDevelopTime(now);
+        generatorPoUpdate.setStatus(GeneratorStatusEnum.DEVELOP.getCode());
+        generatorDao.updateSelective(generatorPoUpdate);
+
+        return new Generator();
+    }
 }

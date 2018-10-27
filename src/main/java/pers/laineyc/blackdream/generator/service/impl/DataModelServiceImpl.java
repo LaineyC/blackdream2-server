@@ -10,7 +10,11 @@ import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
+import pers.laineyc.blackdream.generator.dao.GeneratorInstanceDao;
+import pers.laineyc.blackdream.generator.dao.po.GeneratorInstancePo;
+import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceQuery;
 import pers.laineyc.blackdream.generator.service.DataModelService;
+import pers.laineyc.blackdream.generator.service.GeneratorService;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.DataModelServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
@@ -51,6 +55,12 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
     @Autowired
     private GeneratorDao generatorDao;
+
+    @Autowired
+    private GeneratorInstanceDao generatorInstanceDao;
+
+    @Autowired
+    private GeneratorService generatorService;
 
     public DataModelServiceImpl() {
 
@@ -103,6 +113,11 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModelPo.setCode(dataModelPo.getId());
         dataModelDao.update(dataModelPo);
 
+        GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
+        generatorDevelopParameter.setAuth(auth);
+        generatorDevelopParameter.setId(generatorId);
+        generatorService.develop(generatorDevelopParameter);
+
         DataModel dataModel = new DataModel();
         dataModel.setId(dataModelPo.getId());
         dataModel.setCode(dataModelPo.getCode());
@@ -127,29 +142,53 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
             idList.add(id);
         }
 
-        idList.forEach(item -> {
+        String generatorId = null;
+        for(String item : idList){
             DataModelPo dataModelPo = dataModelDao.selectById(item);
             if (dataModelPo == null || dataModelPo.getIsDeleted() || !dataModelPo.getUserId().equals(authUserId)) {
-                //throw new BusinessException("生成器数据模型不存在");
-                return;
+                throw new BusinessException("生成器数据模型不存在");
             }
 
+            if(generatorId == null){
+                generatorId = dataModelPo.getGeneratorId();
+            }
+            else if(!generatorId.equals(dataModelPo.getGeneratorId())){
+                throw new BusinessException("不属于同一个生成器");
+            }
+        }
+
+        GeneratorInstanceQuery generatorInstanceQuery = new GeneratorInstanceQuery();
+        generatorInstanceQuery.setIsDeleted(false);
+        generatorInstanceQuery.setGeneratorId(generatorId);
+        List<GeneratorInstancePo> generatorInstancePoList = generatorInstanceDao.selectList(generatorInstanceQuery);
+        generatorInstancePoList.forEach(generatorInstancePo -> {
+            if(!authUserId.equals(generatorInstancePo.getUserId())){
+                throw new BusinessException("生成器已被应用不能删除");
+            }
+        });
+
+        for(String item : idList){
             DataModelPo dataModelPoUpdate = new DataModelPo();
             dataModelPoUpdate.setId(item);
             dataModelPoUpdate.setUpdateTime(now);
             dataModelPoUpdate.setIsDeleted(true);
             dataModelDao.updateSelective(dataModelPoUpdate);
-        });
+        }
+
+        GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
+        generatorDevelopParameter.setAuth(auth);
+        generatorDevelopParameter.setId(generatorId);
+        generatorService.develop(generatorDevelopParameter);
 
         DataModel dataModel = new DataModel();
 
         return dataModel;
     }
 
-                /**
-                 * 生成器数据模型修改
-                 */
-        @Transactional
+    /**
+     * 生成器数据模型修改
+     */
+    @Transactional
     public DataModel update(DataModelUpdateParameter parameter) {
         dataModelServiceTool.updateValidate(parameter);
 
@@ -185,6 +224,11 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModelPo.setFieldList(parameter.getFieldList());
 
         dataModelDao.update(dataModelPo);
+
+        GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
+        generatorDevelopParameter.setAuth(auth);
+        generatorDevelopParameter.setId(dataModelPo.getGeneratorId());
+        generatorService.develop(generatorDevelopParameter);
 
         DataModel dataModel = new DataModel();
         dataModel.setId(id);

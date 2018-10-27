@@ -13,24 +13,14 @@ import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataQueryPar
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataSearchParameter;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataTreeParameter;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataSortParameter;
-import pers.laineyc.blackdream.generator.service.domain.GeneratorData;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorDataPo;
-import pers.laineyc.blackdream.generator.dao.query.GeneratorDataQuery;
 import pers.laineyc.blackdream.generator.dao.GeneratorDataDao;
-import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
-import pers.laineyc.blackdream.usercenter.dao.query.UserQuery;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
-import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
-import pers.laineyc.blackdream.generator.dao.query.GeneratorQuery;
 import pers.laineyc.blackdream.generator.dao.GeneratorDao;
-import pers.laineyc.blackdream.generator.dao.po.GeneratorInstancePo;
-import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceQuery;
 import pers.laineyc.blackdream.generator.dao.GeneratorInstanceDao;
 import pers.laineyc.blackdream.generator.dao.po.DataModelPo;
-import pers.laineyc.blackdream.generator.dao.query.DataModelQuery;
 import pers.laineyc.blackdream.generator.dao.DataModelDao;
 import java.io.File;
-import java.util.Date;
 import java.util.List;
 
 /**

@@ -10,7 +10,9 @@ import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
+import pers.laineyc.blackdream.generator.constant.GeneratorStatusEnum;
 import pers.laineyc.blackdream.generator.service.CreationStrategyService;
+import pers.laineyc.blackdream.generator.service.GeneratorService;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.CreationStrategyServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
@@ -51,6 +53,9 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
 
     @Autowired
     private GeneratorDao generatorDao;
+
+    @Autowired
+    private GeneratorService generatorService;
 
     public CreationStrategyServiceImpl() {
 
@@ -96,6 +101,11 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
 
         creationStrategyDao.insert(creationStrategyPo);
 
+        GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
+        generatorDevelopParameter.setAuth(auth);
+        generatorDevelopParameter.setId(generatorId);
+        generatorService.develop(generatorDevelopParameter);
+
         CreationStrategy creationStrategy = new CreationStrategy();
         creationStrategy.setId(creationStrategyPo.getId());
 
@@ -119,19 +129,33 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
             idList.add(id);
         }
 
-        idList.forEach(item -> {
+        String generatorId = null;
+        for(String item : idList){
             CreationStrategyPo creationStrategyPo = creationStrategyDao.selectById(item);
             if (creationStrategyPo == null || creationStrategyPo.getIsDeleted() || !creationStrategyPo.getUserId().equals(authUserId)) {
-                //throw new BusinessException("生成器生成策略不存在");
-                return;
+                throw new BusinessException("生成器生成策略不存在");
             }
 
+            if(generatorId == null){
+                generatorId = creationStrategyPo.getGeneratorId();
+            }
+            else if(!generatorId.equals(creationStrategyPo.getGeneratorId())){
+                throw new BusinessException("不属于同一个生成器");
+            }
+        }
+
+        for(String item : idList){
             CreationStrategyPo creationStrategyPoUpdate = new CreationStrategyPo();
             creationStrategyPoUpdate.setId(item);
             creationStrategyPoUpdate.setUpdateTime(now);
             creationStrategyPoUpdate.setIsDeleted(true);
             creationStrategyDao.updateSelective(creationStrategyPoUpdate);
-        });
+        }
+
+        GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
+        generatorDevelopParameter.setAuth(auth);
+        generatorDevelopParameter.setId(generatorId);
+        generatorService.develop(generatorDevelopParameter);
 
         CreationStrategy creationStrategy = new CreationStrategy();
 
@@ -170,6 +194,11 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         creationStrategyPo.setScript(script);
 
         creationStrategyDao.update(creationStrategyPo);
+
+        GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
+        generatorDevelopParameter.setAuth(auth);
+        generatorDevelopParameter.setId(creationStrategyPo.getGeneratorId());
+        generatorService.develop(generatorDevelopParameter);
 
         CreationStrategy creationStrategy = new CreationStrategy();
         creationStrategy.setId(id);

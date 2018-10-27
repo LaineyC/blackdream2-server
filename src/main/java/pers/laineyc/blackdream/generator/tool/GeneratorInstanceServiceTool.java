@@ -7,19 +7,11 @@ import pers.laineyc.blackdream.configuration.constant.SystemConstant;
 import pers.laineyc.blackdream.configuration.tool.PathTool;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.generator.service.parameter.*;
-import pers.laineyc.blackdream.generator.service.domain.GeneratorInstance;
-import pers.laineyc.blackdream.generator.dao.po.GeneratorInstancePo;
-import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceQuery;
 import pers.laineyc.blackdream.generator.dao.GeneratorInstanceDao;
-import pers.laineyc.blackdream.usercenter.dao.po.UserPo;
-import pers.laineyc.blackdream.usercenter.dao.query.UserQuery;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
-import pers.laineyc.blackdream.generator.dao.query.GeneratorQuery;
 import pers.laineyc.blackdream.generator.dao.GeneratorDao;
-
 import java.io.File;
-import java.util.Date;
 
 /**
  * 生成器实例ServiceTool
@@ -59,6 +51,10 @@ public class GeneratorInstanceServiceTool{
         String generatorId = parameter.getGeneratorId();
         if(generatorId == null){
             throw new BusinessException("缺少所属生成器");
+        }
+        GeneratorPo generatorPo = generatorDao.selectById(generatorId);
+        if(generatorPo == null || generatorPo.getIsDeleted()){
+            throw new BusinessException("所属生成器不存在");
         }
 
         String name = parameter.getName();

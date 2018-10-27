@@ -9,6 +9,8 @@ import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
+import pers.laineyc.blackdream.generator.constant.GeneratorStatusEnum;
+import pers.laineyc.blackdream.generator.exception.ErrorCodes;
 import pers.laineyc.blackdream.generator.service.GeneratorDataService;
 import pers.laineyc.blackdream.generator.tool.GeneratorDataServiceTool;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataCreateParameter;
@@ -93,11 +95,23 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
 
         String generatorInstanceId = parameter.getGeneratorInstanceId();
         GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(generatorInstanceId);
-        if(generatorInstancePo == null || generatorInstancePo.getIsDeleted()){
+        if(generatorInstancePo == null || generatorInstancePo.getIsDeleted() || !authUserId.equals(generatorInstancePo.getUserId())){
             throw new BusinessException("所属生成器实例不存在");
         }
+
+        String generatorId = generatorInstancePo.getGeneratorId();
+        GeneratorPo generatorPo = generatorDao.selectById(generatorId);
+        if(generatorPo == null || generatorPo.getIsDeleted()){
+            throw new BusinessException("所属生成器不存在");
+        }
+        if(!generatorInstancePo.getReleaseVersion().equals(generatorPo.getReleaseVersion())){
+            throw new BusinessException(ErrorCodes.EC_020001);
+        }
+        if (generatorPo.getStatus() == GeneratorStatusEnum.DEVELOP.getCode() && !generatorPo.getUserId().equals(authUserId)){
+            throw new BusinessException(ErrorCodes.EC_020002);
+        }
         generatorDataPo.setGeneratorInstanceId(generatorInstanceId);
-        generatorDataPo.setGeneratorId(generatorInstancePo.getGeneratorId());
+        generatorDataPo.setGeneratorId(generatorId);
 
         String dataModelId = parameter.getDataModelId();
         generatorDataPo.setDataModelId(dataModelId);
@@ -147,18 +161,54 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         if(StringUtils.hasText(id)){
             idList.add(id);
         }
-        idList.forEach(item -> {
+        String generatorId = null;
+        String generatorInstanceId = null;
+        for(String item : idList){
             GeneratorDataPo generatorDataPo = generatorDataDao.selectById(item);
             if (generatorDataPo == null || generatorDataPo.getIsDeleted() || !generatorDataPo.getUserId().equals(authUserId)) {
-                return;//throw new BusinessException("生成器数据不存在");
+                throw new BusinessException("生成器数据不存在");
             }
 
+            if(generatorId == null){
+                generatorId = generatorDataPo.getGeneratorId();
+            }
+            else if(!generatorId.equals(generatorDataPo.getGeneratorId())){
+                throw new BusinessException("不属于同一个生成器");
+            }
+
+            if(generatorInstanceId == null){
+                generatorInstanceId = generatorDataPo.getGeneratorInstanceId();
+            }
+            else if(!generatorInstanceId.equals(generatorDataPo.getGeneratorId())){
+                throw new BusinessException("不属于同一个生成器实例");
+            }
+        }
+
+        GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(generatorInstanceId);
+        if(generatorInstancePo == null || generatorInstancePo.getIsDeleted() || !authUserId.equals(generatorInstancePo.getUserId())){
+            throw new BusinessException("所属生成器实例不存在");
+        }
+
+        GeneratorPo generatorPo = generatorDao.selectById(generatorId);
+        if(generatorPo == null || generatorPo.getIsDeleted()){
+            throw new BusinessException("所属生成器不存在");
+        }
+
+        if(!generatorInstancePo.getReleaseVersion().equals(generatorPo.getReleaseVersion())){
+            throw new BusinessException(ErrorCodes.EC_020001);
+        }
+        if (generatorPo.getStatus() == GeneratorStatusEnum.DEVELOP.getCode() && !generatorPo.getUserId().equals(authUserId)){
+            throw new BusinessException(ErrorCodes.EC_020002);
+        }
+
+        for(String item : idList){
             GeneratorDataPo generatorDataPoUpdate = new GeneratorDataPo();
             generatorDataPoUpdate.setId(item);
             generatorDataPoUpdate.setUpdateTime(now);
             generatorDataPoUpdate.setIsDeleted(true);
             generatorDataDao.updateSelective(generatorDataPoUpdate);
-        });
+        }
+
         GeneratorData generatorData = new GeneratorData();
 
         return generatorData;
@@ -179,6 +229,24 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
         GeneratorDataPo generatorDataPo = generatorDataDao.selectById(id);
         if(generatorDataPo == null || generatorDataPo.getIsDeleted() || !generatorDataPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器数据不存在");
+        }
+
+        String generatorInstanceId = generatorDataPo.getGeneratorInstanceId();
+        GeneratorInstancePo generatorInstancePo = generatorInstanceDao.selectById(generatorInstanceId);
+        if(generatorInstancePo == null || generatorInstancePo.getIsDeleted() || !authUserId.equals(generatorInstancePo.getUserId())){
+            throw new BusinessException("所属生成器实例不存在");
+        }
+
+        String generatorId = generatorInstancePo.getGeneratorId();
+        GeneratorPo generatorPo = generatorDao.selectById(generatorId);
+        if(generatorPo == null || generatorPo.getIsDeleted()){
+            throw new BusinessException("所属生成器不存在");
+        }
+        if(!generatorInstancePo.getReleaseVersion().equals(generatorPo.getReleaseVersion())){
+            throw new BusinessException(ErrorCodes.EC_020001);
+        }
+        if (generatorPo.getStatus() == GeneratorStatusEnum.DEVELOP.getCode() && !generatorPo.getUserId().equals(authUserId)){
+            throw new BusinessException(ErrorCodes.EC_020002);
         }
 
         String name = parameter.getName();

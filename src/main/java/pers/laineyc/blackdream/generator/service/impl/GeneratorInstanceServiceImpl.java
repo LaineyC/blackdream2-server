@@ -10,9 +10,11 @@ import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.generator.constant.DataModelAttributeDataTypeEnum;
+import pers.laineyc.blackdream.generator.constant.GeneratorStatusEnum;
 import pers.laineyc.blackdream.generator.dao.*;
 import pers.laineyc.blackdream.generator.dao.po.*;
 import pers.laineyc.blackdream.generator.dao.query.*;
+import pers.laineyc.blackdream.generator.exception.ErrorCodes;
 import pers.laineyc.blackdream.generator.service.GeneratorInstanceService;
 import pers.laineyc.blackdream.generator.service.TemplateFileService;
 import pers.laineyc.blackdream.generator.service.domain.*;
@@ -424,6 +426,9 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                 generator.setId(id);
                 generator.setName(po.getName());
                 generator.setStatus(po.getStatus());
+                User user = new User();
+                user.setId(po.getUserId());
+                generator.setUser(user);
             });
         }
 
@@ -462,6 +467,13 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         GeneratorPo generatorPo = generatorDao.selectById(generatorId);
         if(generatorPo == null || generatorPo.getIsDeleted()){
             throw new BusinessException("所属生成器不存在");
+        }
+
+        if(!generatorInstancePo.getReleaseVersion().equals(generatorPo.getReleaseVersion())){
+            throw new BusinessException(ErrorCodes.EC_020001);
+        }
+        if (generatorPo.getStatus() == GeneratorStatusEnum.DEVELOP.getCode() && !generatorPo.getUserId().equals(authUserId)){
+            throw new BusinessException(ErrorCodes.EC_020002);
         }
 
         TemplateFileQuery templateFileQuery = new TemplateFileQuery();

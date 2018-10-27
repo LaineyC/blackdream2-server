@@ -9,6 +9,7 @@ import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.generator.service.DataModelSchemaService;
+import pers.laineyc.blackdream.generator.service.GeneratorService;
 import pers.laineyc.blackdream.generator.service.domain.DataModelSchemaRuleItem;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.DataModelSchemaServiceTool;
@@ -51,6 +52,9 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
     @Autowired
     private GeneratorDao generatorDao;
 
+    @Autowired
+    private GeneratorService generatorService;
+
     public DataModelSchemaServiceImpl() {
 
 	}
@@ -89,6 +93,11 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
         dataModelSchemaPo.setRuleItemMap(ruleItemMap);
 
         dataModelSchemaDao.insert(dataModelSchemaPo);
+
+        GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
+        generatorDevelopParameter.setAuth(auth);
+        generatorDevelopParameter.setId(generatorId);
+        generatorService.develop(generatorDevelopParameter);
 
         DataModelSchema dataModelSchema = new DataModelSchema();
         dataModelSchema.setId(dataModelSchemaPo.getId());
@@ -154,6 +163,11 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
         dataModelSchemaPo.setRuleItemMap(ruleItemMap);
 
         dataModelSchemaDao.update(dataModelSchemaPo);
+
+        GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
+        generatorDevelopParameter.setAuth(auth);
+        generatorDevelopParameter.setId(dataModelSchemaPo.getGeneratorId());
+        generatorService.develop(generatorDevelopParameter);
 
         DataModelSchema dataModelSchema = new DataModelSchema();
         dataModelSchema.setId(id);
