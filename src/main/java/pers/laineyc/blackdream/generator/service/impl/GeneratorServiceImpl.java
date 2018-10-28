@@ -9,6 +9,9 @@ import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
 import pers.laineyc.blackdream.generator.constant.GeneratorStatusEnum;
+import pers.laineyc.blackdream.generator.dao.GeneratorInstanceDao;
+import pers.laineyc.blackdream.generator.dao.po.GeneratorInstancePo;
+import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceQuery;
 import pers.laineyc.blackdream.generator.service.GeneratorService;
 import pers.laineyc.blackdream.generator.service.TemplateFileService;
 import pers.laineyc.blackdream.generator.service.parameter.*;
@@ -44,6 +47,9 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private GeneratorInstanceDao generatorInstanceDao;
 
     @Autowired
     private TemplateFileService templateFileService;
@@ -110,6 +116,16 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         if(generatorPo == null || generatorPo.getIsDeleted() || !generatorPo.getUserId().equals(authUserId)){
             throw new BusinessException("生成器不存在");
         }
+
+        GeneratorInstanceQuery generatorInstanceQuery = new GeneratorInstanceQuery();
+        generatorInstanceQuery.setIsDeleted(false);
+        generatorInstanceQuery.setGeneratorId(id);
+        List<GeneratorInstancePo> generatorInstancePoList = generatorInstanceDao.selectList(generatorInstanceQuery);
+        generatorInstancePoList.forEach(generatorInstancePo -> {
+            if(!authUserId.equals(generatorInstancePo.getUserId())){
+                throw new BusinessException("生成器已被应用不能删除");
+            }
+        });
 
         GeneratorPo generatorPoUpdate = new GeneratorPo();
         generatorPoUpdate.setId(id);
