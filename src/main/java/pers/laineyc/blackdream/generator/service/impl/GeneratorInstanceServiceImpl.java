@@ -701,7 +701,11 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
             }
         });
 
+        String generateId = UUID.randomUUID().toString();
+
         TemplateFileContextGlobal global = new TemplateFileContextGlobal();
+
+        global.setGenerateId(generateId);
 
         UserPo userPo = userDao.selectById(authUserId);
         User user = new User();
@@ -725,14 +729,18 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         generatorInstance.setName(generatorInstancePo.getName());
         global.setGeneratorInstance(generatorInstance);
 
+        CreationStrategy creationStrategy = new CreationStrategy();
+        creationStrategy.setId(creationStrategyPo.getId());
+        creationStrategy.setName(creationStrategyPo.getName());
+        global.setCreationStrategy(creationStrategy);
+
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("nashorn");
 
         String templateRootPath = templateFileServiceTool.getTemplateRootPath(generatorId);
 
-        String generateNo = UUID.randomUUID().toString();
         String outputRootPath = generatorInstanceServiceTool.getOutputRootPath() + File.separator +
-            authUserId + File.separator + generatorInstance.getName() + "(" + generateNo + ")";
+            authUserId + File.separator + generatorInstance.getName() + "(" + generateId + ")";
 
         CreationStrategyScriptTool tool = new CreationStrategyScriptTool(new File(templateRootPath), new File(outputRootPath), templateFileList);
         engine.put("$tool", tool);
@@ -761,8 +769,8 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         }
         else{
             tool.make();
-            generatorInstanceMakeResult.setUrl(authUserId + "/" + generatorInstance.getName() + "(" + generateNo + ").zip");
-            generatorInstanceMakeResult.setFileName(generatorInstance.getName() + "(" + generateNo + ").zip");
+            generatorInstanceMakeResult.setUrl(authUserId + "/" + generatorInstance.getName() + "(" + generateId + ").zip");
+            generatorInstanceMakeResult.setFileName(generatorInstance.getName() + "(" + generateId + ").zip");
         }
 
         return generatorInstanceMakeResult;
