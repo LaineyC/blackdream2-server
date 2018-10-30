@@ -1,13 +1,13 @@
 # 应用配置
 blackdream:
-  rootPath: E:/laineyc/blackdream
+  rootPath: /usr/local/blackdream
   email:
     host: smtp.163.com
     username: blackdream2@163.com
     password: BLACKDREAM2
 # 框架配置
 server:
-  port: 8888
+  port: 80
 spring:
   profiles:
     active: dev
@@ -26,6 +26,6 @@ spring:
   freemarker:
     checkTemplateLocation: false
 logging:
-  file: ${blackdream.rootPath}/logging/blackdream.log
+  file: ${blackdream.rootPath}/logs/blackdream.log
   level:
     root: INFO
