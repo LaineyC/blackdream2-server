@@ -8,11 +8,11 @@ package pers.laineyc.blackdream.foundation.constant;
 public enum ValidCodeTypeEnum {
 
     /**
-     * 类型：1注册；2找回密码
+     * 类型：1注册；2密码重置
      */
     REGISTER(1, "注册", "欢迎注册BlackDream，您的验证码：${validCode}"),
 
-    FIND_PASSWORD(2, "密码找回", "您的验证码：${validCode}"),
+    PASSWORD_RESET(2, "密码重置", "您的验证码：${validCode}"),
 
     ;
 

@@ -74,7 +74,7 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
         mongodbQuery.addCriteria(Criteria.where(entityInformation.getIdPropertyInformation().getPropertyAlias()).is(idValue));
         Update update = new Update();
         entityInformation.getPropertyInformationList().forEach(propertyInformation -> {
-            if(propertyInformation.getIsPrimaryKey()){
+            if (propertyInformation.getIsPrimaryKey()) {
                 return;
             }
             Object value = ReflectionUtil.getFieldValue(propertyInformation.getPropertyField(), po);
@@ -143,7 +143,13 @@ public class MongoBaseDao<E extends Po, K extends Comparable<? super K>> impleme
 */
     @Override
     public E selectOne(Query<E> query) {
-        return mongoTemplate.findOne(createQuery(query), entityClass);
+        //return mongoTemplate.findOne(createQuery(query), entityClass);
+        List<E> results = this.selectList(query);
+        int size = results.size();
+        if(size > 1){
+            throw new RuntimeException("Expected one result (or null) to be returned by selectOne(), but found: " + size);
+        }
+        return results.isEmpty() ? null : results.get(0);
     }
 
     @Override

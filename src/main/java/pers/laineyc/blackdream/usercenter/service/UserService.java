@@ -2,7 +2,6 @@ package pers.laineyc.blackdream.usercenter.service;
 
 import pers.laineyc.blackdream.foundation.service.domain.ValidCode;
 import pers.laineyc.blackdream.framework.service.Service;
-import pers.laineyc.blackdream.usercenter.service.domain.UserAuth;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.framework.model.PageResult;
 import pers.laineyc.blackdream.usercenter.service.domain.User;
@@ -57,7 +56,7 @@ public interface UserService extends Service{
     /**
      * 注册验证码发送
      */
-    ValidCode signUpEmailValidCodeSend(UserSignUpEmailValidCodeSendParameter parameter);
+    ValidCode signUpValidCodeSend(UserSignUpValidCodeSendParameter parameter);
     
     /**
      * 用户密码更改
@@ -83,4 +82,14 @@ public interface UserService extends Service{
      * 形象修改
      */
     User profileChange(UserProfileChangeParameter parameter);
+
+    /**
+     * 重置密码验证码发送
+     */
+    ValidCode passwordResetValidCodeSend(UserPasswordResetValidCodeSendParameter parameter);
+
+    /**
+     * 重置密码验证码发
+     */
+    User passwordReset(UserPasswordResetParameter parameter);
 }

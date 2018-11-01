@@ -127,13 +127,13 @@ public class UserWebController extends BaseWebController {
         return new Response<>(user);
     }
 
-    @ApiOperation(value = "用户注册邮箱验证码发送")
-    @PostMapping(value = "/user/signUpEmailValidCodeSend")
-    public @ResponseBody Response<ValidCode> signUpEmailValidCodeSend(@RequestBody UserSignUpEmailValidCodeSendWebRequest request, HttpServletRequest httpServletRequest) {
-        UserSignUpEmailValidCodeSendParameter parameter = new UserSignUpEmailValidCodeSendParameter();
+    @ApiOperation(value = "用户注册验证码发送")
+    @PostMapping(value = "/user/signUpValidCodeSend")
+    public @ResponseBody Response<ValidCode> signUpValidCodeSend(@RequestBody UserSignUpValidCodeSendWebRequest request, HttpServletRequest httpServletRequest) {
+        UserSignUpValidCodeSendParameter parameter = new UserSignUpValidCodeSendParameter();
         BeanUtils.copyProperties(request, parameter);
 
-        ValidCode validCode = userService.signUpEmailValidCodeSend(parameter);
+        ValidCode validCode = userService.signUpValidCodeSend(parameter);
 
         return new Response<>(validCode);
     }
@@ -200,7 +200,6 @@ public class UserWebController extends BaseWebController {
         return new Response<>(user);
     }
 
-    @AuthSecurity
     @ApiOperation(value = "用户形象修改")
     @PostMapping(value = "/user/profileChange")
     public @ResponseBody Response<User> profileChange(@RequestBody UserProfileChangeWebRequest request) {
@@ -208,6 +207,28 @@ public class UserWebController extends BaseWebController {
         BeanUtils.copyProperties(request, parameter);
 
         User user = userService.profileChange(parameter);
+
+        return new Response<>(user);
+    }
+
+    @ApiOperation(value = "密码重置验证码发送")
+    @PostMapping(value = "/user/passwordResetValidCodeSend")
+    public @ResponseBody Response<ValidCode> passwordResetValidCodeSend(@RequestBody UserPasswordResetValidCodeSendWebRequest request) {
+        UserPasswordResetValidCodeSendParameter parameter = new UserPasswordResetValidCodeSendParameter();
+        BeanUtils.copyProperties(request, parameter);
+
+        ValidCode validCode = userService.passwordResetValidCodeSend(parameter);
+
+        return new Response<>(validCode);
+    }
+
+    @ApiOperation(value = "密码重置")
+    @PostMapping(value = "/user/passwordReset")
+    public @ResponseBody Response<User> passwordReset(@RequestBody UserPasswordResetWebRequest request) {
+        UserPasswordResetParameter parameter = new UserPasswordResetParameter();
+        BeanUtils.copyProperties(request, parameter);
+
+        User user = userService.passwordReset(parameter);
 
         return new Response<>(user);
     }

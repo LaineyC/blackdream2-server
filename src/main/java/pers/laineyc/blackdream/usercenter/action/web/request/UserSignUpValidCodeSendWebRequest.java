@@ -9,12 +9,12 @@ import pers.laineyc.blackdream.framework.controller.request.Request;
  * @author LaineyC
  */
 @ApiModel
-public class UserSignUpEmailValidCodeSendWebRequest extends Request {
+public class UserSignUpValidCodeSendWebRequest extends Request {
 
     @ApiModelProperty(value = "邮箱", required = true)
     private String email;
 
-    public UserSignUpEmailValidCodeSendWebRequest() {
+    public UserSignUpValidCodeSendWebRequest() {
 
     }
 

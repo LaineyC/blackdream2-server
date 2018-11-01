@@ -30,7 +30,6 @@ import pers.laineyc.blackdream.usercenter.dao.query.UserAuthQuery;
 import pers.laineyc.blackdream.usercenter.model.AccessToken;
 import pers.laineyc.blackdream.usercenter.model.AccessTokenBody;
 import pers.laineyc.blackdream.usercenter.service.UserService;
-import pers.laineyc.blackdream.usercenter.service.domain.UserAuth;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
 import pers.laineyc.blackdream.usercenter.tool.AccessTokenTool;
 import pers.laineyc.blackdream.usercenter.tool.UserServiceTool;
@@ -263,8 +262,6 @@ public class UserServiceImpl extends BaseService implements UserService {
         Auth auth = parameter.getAuth();
         Date now = new Date();
 
-        UserAuthPo userAuthPo;
-
         String username = parameter.getUsername();
 
         String password = parameter.getPassword();
@@ -276,7 +273,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         else{
             userAuthQuery.setUsername(username);
         }
-        userAuthPo = userAuthDao.selectOne(userAuthQuery);
+        UserAuthPo userAuthPo = userAuthDao.selectOne(userAuthQuery);
 
         if(userAuthPo == null){
             throw new BusinessException("用户名或密码错误");
@@ -384,6 +381,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         validCodeValidateParameter.setPlatformAccount(email);
         validCodeValidateParameter.setCode(code);
         validCodeService.check(validCodeValidateParameter);
+
         userAuthPo.setEmail(email);
 
         String password = parameter.getPassword();
@@ -416,8 +414,8 @@ public class UserServiceImpl extends BaseService implements UserService {
      * 注册验证码发送
      */
     @Transactional
-    public ValidCode signUpEmailValidCodeSend(UserSignUpEmailValidCodeSendParameter parameter) {
-        userServiceTool.signUpEmailValidCodeSendValidate(parameter);
+    public ValidCode signUpValidCodeSend(UserSignUpValidCodeSendParameter parameter) {
+        userServiceTool.signUpValidCodeSendValidate(parameter);
 
         Auth auth = parameter.getAuth();
 
@@ -574,5 +572,83 @@ public class UserServiceImpl extends BaseService implements UserService {
         userDao.updateSelective(userPoUpdate);
 
         return new User();
+    }
+
+    /**
+     * 重置密码验证码发送
+     */
+    @Transactional
+    public ValidCode passwordResetValidCodeSend(UserPasswordResetValidCodeSendParameter parameter) {
+        userServiceTool.passwordResetValidCodeSendValidate(parameter);
+
+        Auth auth = parameter.getAuth();
+
+        String username = parameter.getUsername();
+
+        UserAuthQuery userAuthQuery = new UserAuthQuery();
+        if(username.contains("@")){
+            userAuthQuery.setEmail(username);
+        }
+        else{
+            userAuthQuery.setUsername(username);
+        }
+        UserAuthPo userAuthPo = userAuthDao.selectOne(userAuthQuery);
+        if(userAuthPo == null){
+            throw new BusinessException("用户名或邮箱未注册");
+        }
+
+        ValidCodeSendParameter validCodeSendParameter = new ValidCodeSendParameter();
+        validCodeSendParameter.setAuth(auth);
+        validCodeSendParameter.setType(ValidCodeTypeEnum.PASSWORD_RESET);
+        validCodeSendParameter.setPlatformType(ValidCodePlatformTypeEnum.EMAIL.getCode());
+        validCodeSendParameter.setPlatformAccount(userAuthPo.getEmail());
+
+        ValidCode validCode = validCodeService.send(validCodeSendParameter);
+
+        return validCode;
+    }
+
+    /**
+     * 重置密码
+     */
+    @Transactional
+    public User passwordReset(UserPasswordResetParameter parameter) {
+        userServiceTool.passwordResetValidate(parameter);
+
+        Auth auth = parameter.getAuth();
+
+        String username = parameter.getUsername();
+
+        UserAuthQuery userAuthQuery = new UserAuthQuery();
+        if(username.contains("@")){
+            userAuthQuery.setEmail(username);
+        }
+        else{
+            userAuthQuery.setUsername(username);
+        }
+        UserAuthPo userAuthPo = userAuthDao.selectOne(userAuthQuery);
+        if(userAuthPo == null){
+            throw new BusinessException("用户名或邮箱未注册");
+        }
+
+        String validCode = parameter.getValidCode();
+        ValidCodeCheckParameter validCodeValidateParameter = new ValidCodeCheckParameter();
+        validCodeValidateParameter.setAuth(auth);
+        validCodeValidateParameter.setType(ValidCodeTypeEnum.PASSWORD_RESET);
+        validCodeValidateParameter.setPlatformAccount(userAuthPo.getEmail());
+        validCodeValidateParameter.setCode(validCode);
+        validCodeService.check(validCodeValidateParameter);
+
+        String newPassword = parameter.getNewPassword();
+        String encodeNewPassword = passwordEncoder.encode(newPassword);
+
+        UserAuthPo userAuthPoUpdate = new UserAuthPo();
+        userAuthPoUpdate.setId(userAuthPo.getId());
+        userAuthPoUpdate.setPassword(encodeNewPassword);
+        userAuthDao.updateSelective(userAuthPoUpdate);
+
+        User user = new User();
+
+        return user;
     }
 }

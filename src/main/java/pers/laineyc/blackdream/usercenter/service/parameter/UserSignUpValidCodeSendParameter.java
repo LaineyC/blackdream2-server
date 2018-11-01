@@ -6,14 +6,14 @@ import pers.laineyc.blackdream.framework.service.parameter.Parameter;
  * 用户密码更改Parameter
  * @author LaineyC
  */
-public class UserSignUpEmailValidCodeSendParameter extends Parameter {
+public class UserSignUpValidCodeSendParameter extends Parameter {
 
     /**
      * 邮箱
      */
     private String email;
 
-    public UserSignUpEmailValidCodeSendParameter() {
+    public UserSignUpValidCodeSendParameter() {
 
     }
 

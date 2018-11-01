@@ -10,7 +10,7 @@ import pers.laineyc.blackdream.usercenter.constant.TokenSignInConfigConstant;
 import pers.laineyc.blackdream.usercenter.model.AccessToken;
 import pers.laineyc.blackdream.usercenter.model.AccessTokenBody;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;
-import pers.laineyc.blackdream.usercenter.dao.UserDao;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
@@ -188,7 +188,7 @@ public class UserServiceTool{
         }
 
         if(email.length() > 100){
-            throw new BusinessException("邮箱超度不鞥呢超过100");
+            throw new BusinessException("邮箱超度不能超过100");
         }
 
         if(!RegexUtil.isEmail(email)){
@@ -216,7 +216,7 @@ public class UserServiceTool{
     /**
      * 用户注册验证码发送Validate
      */
-    public void signUpEmailValidCodeSendValidate(UserSignUpEmailValidCodeSendParameter parameter) {
+    public void signUpValidCodeSendValidate(UserSignUpValidCodeSendParameter parameter) {
         String email = parameter.getEmail();
         if(!StringUtils.hasText(email)){
             throw new BusinessException("缺少邮箱参数");
@@ -256,6 +256,29 @@ public class UserServiceTool{
      * 形象修改Validate
      */
     public void profileChangeValidate(UserProfileChangeParameter parameter) {
+
+    }
+
+
+    /**
+     * 密码重置验证码发送Validate
+     */
+    public void passwordResetValidCodeSendValidate(UserPasswordResetValidCodeSendParameter parameter) {
+        String username = parameter.getUsername();
+        if(!StringUtils.hasText(username)){
+            throw new BusinessException("缺少用户名或邮箱");
+        }
+    }
+
+    /**
+     * 密码重置Validate
+     */
+    public void passwordResetValidate(UserPasswordResetParameter parameter) {
+        String username = parameter.getUsername();
+        if(!StringUtils.hasText(username)){
+            throw new BusinessException("缺少用户名或邮箱");
+        }
+
 
     }
 
