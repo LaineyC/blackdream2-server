@@ -421,6 +421,13 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         String email = parameter.getEmail();
 
+        UserAuthQuery userAuthQueryEmailExist = new UserAuthQuery();
+        userAuthQueryEmailExist.setEmail(email);
+        UserAuthPo userAuthPoEmailExist = userAuthDao.selectOne(userAuthQueryEmailExist);
+        if(userAuthPoEmailExist != null){
+            throw new BusinessException("邮箱被已注册");
+        }
+
         ValidCodeSendParameter validCodeSendParameter = new ValidCodeSendParameter();
         validCodeSendParameter.setAuth(auth);
         validCodeSendParameter.setType(ValidCodeTypeEnum.REGISTER);

@@ -13,7 +13,6 @@ import pers.laineyc.blackdream.framework.constant.AuthConfigConstant;
 import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
-import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.usercenter.action.web.request.*;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
 import pers.laineyc.blackdream.usercenter.service.parameter.*;

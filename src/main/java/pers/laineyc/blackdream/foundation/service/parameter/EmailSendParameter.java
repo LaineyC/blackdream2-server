@@ -13,6 +13,11 @@ public class EmailSendParameter extends Parameter {
     private String host;
 
     /**
+     * port
+     */
+    private String port;
+
+    /**
      * 用户名
      */
     private String username;
@@ -62,6 +67,14 @@ public class EmailSendParameter extends Parameter {
 
     public void setHost(String host) {
         this.host = host;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
     }
 
     public String getUsername() {

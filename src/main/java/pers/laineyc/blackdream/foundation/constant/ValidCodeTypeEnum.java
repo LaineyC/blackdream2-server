@@ -10,7 +10,7 @@ public enum ValidCodeTypeEnum {
     /**
      * 类型：1注册；2密码重置
      */
-    REGISTER(1, "注册", "欢迎注册BlackDream，您的验证码：${validCode}"),
+    REGISTER(1, "欢迎注册", "欢迎注册BlackDream，您的验证码：${validCode}"),
 
     PASSWORD_RESET(2, "密码重置", "您的验证码：${validCode}"),
 

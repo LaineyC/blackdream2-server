@@ -34,6 +34,11 @@ public class EmailServiceImpl extends BaseService implements EmailService {
             throw new BusinessException("host不能为空");
         }
 
+        String port = parameter.getPort();
+        if(!StringUtils.hasText(port)){
+            throw new BusinessException("port不能为空");
+        }
+
         String username = parameter.getUsername();
         if(!StringUtils.hasText(username)){
             throw new BusinessException("用户名不能为空");
@@ -71,6 +76,8 @@ public class EmailServiceImpl extends BaseService implements EmailService {
         HtmlEmail email = new HtmlEmail();
         try {
             email.setHostName(host);
+            email.setSslSmtpPort(port);
+            email.setSSLOnConnect(true);
             email.setCharset("UTF-8");
             email.setAuthentication(username, password);
             email.setFrom(senderEmail, senderName);
@@ -92,6 +99,11 @@ public class EmailServiceImpl extends BaseService implements EmailService {
         String host = parameter.getHost();
         if(!StringUtils.hasText(host)){
             throw new BusinessException("host不能为空");
+        }
+
+        String port = parameter.getPort();
+        if(!StringUtils.hasText(port)){
+            throw new BusinessException("port不能为空");
         }
 
         String username = parameter.getUsername();
@@ -126,6 +138,8 @@ public class EmailServiceImpl extends BaseService implements EmailService {
         HtmlEmail email = new HtmlEmail();
         try {
             email.setHostName(host);
+            email.setSslSmtpPort(port);
+            email.setSSLOnConnect(true);
             email.setCharset("UTF-8");
             email.setAuthentication(username, password);
             email.setFrom(senderEmail, senderName);

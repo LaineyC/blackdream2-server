@@ -3,6 +3,7 @@ blackdream:
   rootPath: /usr/local/blackdream
   email:
     host: smtp.163.com
+    port: 465
     username: blackdream2@163.com
     password: BLACKDREAM2
 # 框架配置

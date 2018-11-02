@@ -35,6 +35,9 @@ public class ValidCodeServiceImpl extends BaseService implements ValidCodeServic
     @Value(SystemConstant.EMAIL_HOST_KEY)
     private String host;
 
+    @Value(SystemConstant.EMAIL_PORT_KEY)
+    private String port;
+
     @Value(SystemConstant.EMAIL_USERNAME_KEY)
     private String username;
 
@@ -360,7 +363,7 @@ public class ValidCodeServiceImpl extends BaseService implements ValidCodeServic
             Date createTime = validCodePo.getCreateTime();
             if(now.getTime() < createTime.getTime() + interval * 1000){
                 ValidCode validCode = new ValidCode();
-                validCode.setPlatformAccount(validCodePo.getPlatformAccount());
+                //validCode.setPlatformAccount(validCodePo.getPlatformAccount());
                 validCode.setCreateTime(validCodePo.getCreateTime());
                 validCode.setInterval(validCodePo.getInterval());
                 validCode.setTimeout(validCodePo.getTimeout());
@@ -432,6 +435,7 @@ public class ValidCodeServiceImpl extends BaseService implements ValidCodeServic
         if(platformType == ValidCodePlatformTypeEnum.EMAIL.getCode()){
             EmailSendParameter emailSendParameter = new EmailSendParameter();
             emailSendParameter.setHost(host);
+            emailSendParameter.setPort(port);
             emailSendParameter.setUsername(username);
             emailSendParameter.setPassword(password);
             emailSendParameter.setSenderEmail(username);
@@ -447,7 +451,7 @@ public class ValidCodeServiceImpl extends BaseService implements ValidCodeServic
         }
 
         ValidCode validCode = new ValidCode();
-        validCode.setPlatformAccount(validCodePo.getPlatformAccount());
+        //validCode.setPlatformAccount(validCodePo.getPlatformAccount());
         validCode.setCreateTime(now);
         validCode.setInterval(interval);
         validCode.setTimeout(timeout);

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pers.laineyc.blackdream.configuration.config.AuthSecurity;
 import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
-import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataCreateParameter;
 import pers.laineyc.blackdream.generator.action.web.request.GeneratorDataCreateWebRequest;
 import pers.laineyc.blackdream.generator.service.parameter.GeneratorDataDeleteParameter;

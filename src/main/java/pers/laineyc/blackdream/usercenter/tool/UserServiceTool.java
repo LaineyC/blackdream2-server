@@ -279,7 +279,15 @@ public class UserServiceTool{
             throw new BusinessException("缺少用户名或邮箱");
         }
 
+        String validCode = parameter.getValidCode();
+        if(!StringUtils.hasText(validCode)){
+            throw new BusinessException("缺少验证码");
+        }
 
+        String newPassword = parameter.getNewPassword();
+        if(!StringUtils.hasText(newPassword)){
+            throw new BusinessException("缺少新密码");
+        }
     }
 
 }

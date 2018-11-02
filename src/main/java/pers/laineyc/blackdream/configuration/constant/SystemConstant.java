@@ -10,6 +10,8 @@ public class SystemConstant {
 
     public static final String EMAIL_HOST_KEY = "${blackdream.email.host}";
 
+    public static final String EMAIL_PORT_KEY = "${blackdream.email.port}";
+
     public static final String EMAIL_USERNAME_KEY = "${blackdream.email.username}";
 
     public static final String EMAIL_PASSWORD_KEY = "${blackdream.email.password}";

@@ -21,7 +21,6 @@ import pers.laineyc.blackdream.foundation.service.parameter.StorageFileGetParame
 import pers.laineyc.blackdream.framework.controller.response.Response;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
-import pers.laineyc.blackdream.framework.controller.BaseWebController;
 import pers.laineyc.blackdream.foundation.service.parameter.DetachedFileUploadParameter;
 import pers.laineyc.blackdream.foundation.action.web.request.DetachedFileUploadWebRequest;
 import pers.laineyc.blackdream.foundation.service.domain.DetachedFile;
