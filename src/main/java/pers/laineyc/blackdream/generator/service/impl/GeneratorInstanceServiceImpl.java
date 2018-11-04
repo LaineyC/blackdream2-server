@@ -748,6 +748,15 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
         engine.put("$dataTree", templateFileContextDataTree);
         try {
             engine.eval(creationStrategyPo.getScript());
+            if(isTest){
+                List<GeneratorInstanceMakeResultFile> messageList = tool.makeTest();
+                generatorInstanceMakeResult.setResultFileTree(messageList);
+            }
+            else{
+                tool.make();
+                generatorInstanceMakeResult.setUrl(authUserId + "/" + generatorInstance.getName() + "(" + generateId + ").zip");
+                generatorInstanceMakeResult.setFileName(generatorInstance.getName() + "(" + generateId + ").zip");
+            }
         }
         catch (Throwable e){
             List<String> messageList = new ArrayList<>();
@@ -762,15 +771,6 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
             }
             generatorInstanceMakeResult.setErrorMessageList(messageList);
             return generatorInstanceMakeResult;
-        }
-        if(isTest){
-            List<GeneratorInstanceMakeResultFile> messageList = tool.makeTest();
-            generatorInstanceMakeResult.setResultFileTree(messageList);
-        }
-        else{
-            tool.make();
-            generatorInstanceMakeResult.setUrl(authUserId + "/" + generatorInstance.getName() + "(" + generateId + ").zip");
-            generatorInstanceMakeResult.setFileName(generatorInstance.getName() + "(" + generateId + ").zip");
         }
 
         return generatorInstanceMakeResult;
