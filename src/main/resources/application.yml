@@ -8,7 +8,7 @@ blackdream:
     password: BLACKDREAM2
 # 框架配置
 server:
-  port: 80
+  port: 8888
 spring:
   profiles:
     active: dev

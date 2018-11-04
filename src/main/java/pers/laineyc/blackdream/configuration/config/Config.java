@@ -59,7 +59,7 @@ public class Config {
     public SecurityInterceptor securityInterceptor() {
         return new SecurityInterceptor();
     }
-
+/*
     @Bean
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer(){
         return (factory) -> {
@@ -67,5 +67,5 @@ public class Config {
             factory.addErrorPages(error404Page);
         };
     }
-
+*/
 }

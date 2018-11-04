@@ -1,5 +1,7 @@
 package pers.laineyc.blackdream.framework.util;
 
+import org.springframework.util.StringUtils;
+
 import java.util.regex.Pattern;
 
 /**
@@ -50,6 +52,18 @@ public final class RegexUtil {
             return false;
         }
         return Pattern.matches(REGEX_PHONE, phone);
+    }
+
+    public static String escapeRegexWildcard(String keyword) {
+        if (StringUtils.hasText(keyword)) {
+            String[] fbsArr = {"\\", "$", "(", ")", "*", "+", ".", "[", "]", "?", "^", "{", "}", "|"};
+            for (String key : fbsArr) {
+                if (keyword.contains(key)) {
+                    keyword = keyword.replace(key, "\\" + key);
+                }
+            }
+        }
+        return keyword;
     }
 
 }

@@ -47,9 +47,9 @@ public class RunLogInterceptor {
 		HttpSession httpSession = httpServletRequest.getSession();
 		Auth auth = (Auth) httpSession.getAttribute(AuthConfigConstant.SESSION_USER_AUTH_KEY);
 
-		String uri = httpServletRequest.getRequestURI();
-		String[] values = uri.split("/");
-		String action = values[values.length - 3] + "/" + values[values.length - 2] + "/" + values[values.length - 1];
+		String action = httpServletRequest.getRequestURI();
+		//String[] values = uri.split("/");
+		//String action = values[values.length - 4] + "/" + values[values.length - 3] + "/" + values[values.length - 2] + "/" + values[values.length - 1];
 
 		Request request = (Request) point.getArgs()[0];
 		request.setAuth(auth);
