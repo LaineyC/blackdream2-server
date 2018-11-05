@@ -179,7 +179,7 @@ public class GeneratorDataServiceImpl extends BaseService implements GeneratorDa
             if(generatorInstanceId == null){
                 generatorInstanceId = generatorDataPo.getGeneratorInstanceId();
             }
-            else if(!generatorInstanceId.equals(generatorDataPo.getGeneratorId())){
+            else if(!generatorInstanceId.equals(generatorDataPo.getGeneratorInstanceId())){
                 throw new BusinessException("不属于同一个生成器实例");
             }
         }

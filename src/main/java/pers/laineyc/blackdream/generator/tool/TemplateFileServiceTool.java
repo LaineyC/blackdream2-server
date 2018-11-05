@@ -102,7 +102,7 @@ public class TemplateFileServiceTool{
         }
 
         String script = parameter.getScript();
-        if(!StringUtils.hasText(script)){
+        if(script == null){
             throw new BusinessException("缺少脚本");
         }
 /*
@@ -170,7 +170,7 @@ public class TemplateFileServiceTool{
         }
 
         String script = parameter.getScript();
-        if(!StringUtils.hasText(script)){
+        if(script == null){
             throw new BusinessException("缺少脚本");
         }
 /*
