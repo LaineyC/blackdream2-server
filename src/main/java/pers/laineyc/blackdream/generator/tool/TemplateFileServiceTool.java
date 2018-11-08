@@ -11,7 +11,6 @@ import pers.laineyc.blackdream.generator.dao.TemplateFileDao;
 import pers.laineyc.blackdream.usercenter.dao.UserDao;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
 import pers.laineyc.blackdream.generator.dao.GeneratorDao;
-
 import java.io.File;
 import java.util.List;
 

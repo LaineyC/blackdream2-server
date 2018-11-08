@@ -163,8 +163,8 @@ public class GeneratorInstanceWebController extends BaseWebController {
 
     @AuthSecurity()
     @ApiOperation(value = "生成器实例下载")
-    @RequestMapping(value = "/generatorInstance/download", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<byte[]> download(GeneratorInstanceDownloadWebRequest request) throws IOException {
+    @RequestMapping(value = "/generatorInstance/makeDownload", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<byte[]> makeDownload(GeneratorInstanceDownloadWebRequest request) throws IOException {
         String url = request.getUrl();
         File file = new File(generatorInstanceServiceTool.getOutputRootPath() + File.separator + url);
         if(!file.exists()){

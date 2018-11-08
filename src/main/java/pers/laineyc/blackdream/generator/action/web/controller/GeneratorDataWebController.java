@@ -122,7 +122,7 @@ public class GeneratorDataWebController extends BaseWebController {
 
         return new Response<>(generatorDataList);
     }
-
+/*
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据排序")
     @PostMapping(value = "/generatorData/sort")
@@ -134,5 +134,5 @@ public class GeneratorDataWebController extends BaseWebController {
 
         return new Response<>(generatorData);
     }
-    
+*/
 }

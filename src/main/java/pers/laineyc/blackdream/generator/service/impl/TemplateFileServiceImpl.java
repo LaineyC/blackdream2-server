@@ -118,6 +118,8 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         generatorDevelopParameter.setId(generatorId);
         generatorService.develop(generatorDevelopParameter);
 
+        this.buildResource(templateFilePo);
+
         TemplateFile templateFile = new TemplateFile();
         templateFile.setId(templateFilePo.getId());
         templateFile.setCode(templateFilePo.getCode());
@@ -221,6 +223,8 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         generatorDevelopParameter.setAuth(auth);
         generatorDevelopParameter.setId(templateFilePo.getGeneratorId());
         generatorService.develop(generatorDevelopParameter);
+
+        this.buildResource(templateFilePo);
 
         TemplateFile templateFile = new TemplateFile();
         templateFile.setId(id);
@@ -584,17 +588,19 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         templateFileQuery.fetchLazy(false);
 
         List<TemplateFilePo> templateFilePoList = templateFileDao.selectList(templateFileQuery);
-        templateFilePoList.forEach(templateFilePo -> {
-            Integer engineType = templateFilePo.getEngineType();
-            String code = templateFilePo.getCode();
-            Path path = Paths.get(templateFileServiceTool.getTemplatePath(templateFilePo.getGeneratorId(), code, engineType));
+        templateFilePoList.forEach(this::buildResource);
+    }
 
-            Path parentPath = path.getParent();
-            FileUtil.create(parentPath);
+    private void buildResource(TemplateFilePo templateFilePo){
+        Integer engineType = templateFilePo.getEngineType();
+        String code = templateFilePo.getCode();
+        Path path = Paths.get(templateFileServiceTool.getTemplatePath(templateFilePo.getGeneratorId(), code, engineType));
 
-            String script = templateFilePo.getScript();
-            FileUtil.writeString(path, script);
-        });
+        Path parentPath = path.getParent();
+        FileUtil.create(parentPath);
+
+        String script = templateFilePo.getScript();
+        FileUtil.writeString(path, script);
     }
 
 }

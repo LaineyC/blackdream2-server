@@ -101,7 +101,7 @@ public class TemplateFileWebController extends BaseWebController {
 
         return new Response<>(templateFilePageResult);
     }
-*/
+
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件排序")
     @PostMapping(value = "/templateFile/sort")
@@ -113,7 +113,7 @@ public class TemplateFileWebController extends BaseWebController {
 
         return new Response<>(templateFile);
     }
-
+*/
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器模板文件查询")
     @PostMapping(value = "/templateFile/infoQuery")

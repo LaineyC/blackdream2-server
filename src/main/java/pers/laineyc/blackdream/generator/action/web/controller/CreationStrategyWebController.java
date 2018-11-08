@@ -101,7 +101,7 @@ public class CreationStrategyWebController extends BaseWebController {
 
         return new Response<>(creationStrategyPageResult);
     }
-*/
+
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器生成策略排序")
     @PostMapping(value = "/creationStrategy/sort")
@@ -113,7 +113,7 @@ public class CreationStrategyWebController extends BaseWebController {
 
         return new Response<>(creationStrategy);
     }
-
+*/
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器生成策略多个查询")
     @PostMapping(value = "/creationStrategy/infoQuery")

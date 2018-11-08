@@ -101,7 +101,7 @@ public class DataModelWebController extends BaseWebController {
 
         return new Response<>(dataModelPageResult);
     }
-*/
+
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型排序")
     @PostMapping(value = "/dataModel/sort")
@@ -113,7 +113,7 @@ public class DataModelWebController extends BaseWebController {
 
         return new Response<>(dataModel);
     }
-
+*/
     @AuthSecurity(developer = true)
     @ApiOperation(value = "生成器数据模型多个查询")
     @PostMapping(value = "/dataModel/infoQuery")
