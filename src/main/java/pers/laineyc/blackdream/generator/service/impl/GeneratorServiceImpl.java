@@ -1,5 +1,6 @@
 package pers.laineyc.blackdream.generator.service.impl;
 
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,8 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
         generatorPo.setStatus(GeneratorStatusEnum.DEVELOP.getCode());
 
-        generatorPo.setReleaseVersion(0);
+        String releaseVersion = ObjectId.get().toString();
+        generatorPo.setReleaseVersion(releaseVersion);
 
         Integer engineType = parameter.getEngineType();
         generatorPo.setEngineType(engineType);
@@ -454,9 +456,11 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         templateFileBuildResourceParameter.setGeneratorId(id);
         templateFileService.buildResource(templateFileBuildResourceParameter);
 
+
+        String releaseVersion = ObjectId.get().toString();
         generatorPo.setStatus(GeneratorStatusEnum.RELEASE.getCode());
         generatorPo.setReleaseTime(now);
-        generatorPo.setReleaseVersion(generatorPo.getReleaseVersion() + 1);
+        generatorPo.setReleaseVersion(releaseVersion);
         generatorPo.setUpdateTime(now);
         generatorDao.update(generatorPo);
 
@@ -477,10 +481,16 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
         String id = parameter.getId();
 
+        Boolean isResetReleaseVersion = parameter.getIsResetReleaseVersion();
+
         GeneratorPo generatorPoUpdate = new GeneratorPo();
         generatorPoUpdate.setId(id);
         generatorPoUpdate.setDevelopTime(now);
         generatorPoUpdate.setStatus(GeneratorStatusEnum.DEVELOP.getCode());
+        if(isResetReleaseVersion != null && isResetReleaseVersion){
+            String releaseVersion = ObjectId.get().toString();
+            generatorPoUpdate.setReleaseVersion(releaseVersion);
+        }
         generatorDao.updateSelective(generatorPoUpdate);
 
         return new Generator();

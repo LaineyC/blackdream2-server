@@ -41,7 +41,7 @@ public class GeneratorInstancePo extends Po {
 	/**
 	 *  发布版本号
 	 */
-	private Integer releaseVersion;
+	private String releaseVersion;
 
 	/**
 	 *  描述
@@ -99,11 +99,11 @@ public class GeneratorInstancePo extends Po {
         this.name = name;
     }
 
-    public Integer getReleaseVersion() {
+    public String getReleaseVersion() {
         return releaseVersion;
     }
 
-	public void setReleaseVersion(Integer releaseVersion) {
+	public void setReleaseVersion(String releaseVersion) {
         this.releaseVersion = releaseVersion;
     }
 

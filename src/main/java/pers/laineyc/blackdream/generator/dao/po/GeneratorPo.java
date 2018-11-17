@@ -40,7 +40,7 @@ public class GeneratorPo extends Po {
 	/**
 	 *  版本号
 	 */
-	private Integer releaseVersion;
+	private String releaseVersion;
 
 	/**
 	 *  发布时间
@@ -113,11 +113,11 @@ public class GeneratorPo extends Po {
         this.status = status;
     }
 
-    public Integer getReleaseVersion() {
+    public String getReleaseVersion() {
         return releaseVersion;
     }
 
-	public void setReleaseVersion(Integer releaseVersion) {
+	public void setReleaseVersion(String releaseVersion) {
         this.releaseVersion = releaseVersion;
     }
 

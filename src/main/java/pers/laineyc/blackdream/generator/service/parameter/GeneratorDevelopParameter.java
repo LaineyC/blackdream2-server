@@ -13,6 +13,11 @@ public class GeneratorDevelopParameter extends Parameter {
      */
     private String id;
 
+    /**
+     *
+     */
+    private Boolean isResetReleaseVersion;
+
     public GeneratorDevelopParameter() {
 
     }
@@ -23,5 +28,13 @@ public class GeneratorDevelopParameter extends Parameter {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Boolean getIsResetReleaseVersion() {
+        return isResetReleaseVersion;
+    }
+
+    public void setIsResetReleaseVersion(Boolean isResetReleaseVersion) {
+        this.isResetReleaseVersion = isResetReleaseVersion;
     }
 }

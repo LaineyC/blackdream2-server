@@ -28,7 +28,7 @@ public class GeneratorInstance extends Domain {
     private String name;
 
     @ApiModelProperty(value = "发布版本号")
-    private Integer releaseVersion;
+    private String releaseVersion;
 
     @ApiModelProperty(value = "描述")
     private String description;
@@ -75,11 +75,11 @@ public class GeneratorInstance extends Domain {
         this.name = name;
     }
 
-    public Integer getReleaseVersion() {
+    public String getReleaseVersion() {
         return this.releaseVersion;
     }
 
-	public void setReleaseVersion(Integer releaseVersion) {
+	public void setReleaseVersion(String releaseVersion) {
         this.releaseVersion = releaseVersion;
     }
 

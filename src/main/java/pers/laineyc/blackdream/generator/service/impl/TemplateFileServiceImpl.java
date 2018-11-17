@@ -1,5 +1,6 @@
 package pers.laineyc.blackdream.generator.service.impl;
 
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +89,7 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         Integer engineType = parameter.getEngineType();
         templateFilePo.setEngineType(engineType);
 
-        String code = parameter.getCode();
+        String code = ObjectId.get().toString();
         templateFilePo.setCode(code);
 
         String displayGroup = parameter.getDisplayGroup();
@@ -109,9 +110,6 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         templateFilePo.setScript(script);
 
         templateFileDao.insert(templateFilePo);
-
-        templateFilePo.setCode(templateFilePo.getId());
-        templateFileDao.update(templateFilePo);
 
         GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
         generatorDevelopParameter.setAuth(auth);
@@ -199,13 +197,13 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
 
         Integer engineType = parameter.getEngineType();
         templateFilePo.setEngineType(engineType);
-
+/*
         String code = parameter.getCode();
         if(!StringUtils.hasText(code)){
             code = id;
         }
         templateFilePo.setCode(code);
-
+*/
         String displayGroup = parameter.getDisplayGroup();
         templateFilePo.setDisplayGroup(displayGroup);
 

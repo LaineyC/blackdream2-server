@@ -1,5 +1,6 @@
 package pers.laineyc.blackdream.generator.service.impl;
 
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +88,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         String name = parameter.getName();
         dataModelPo.setName(name);
 
-        String code = parameter.getCode();
+        String code = ObjectId.get().toString();
         dataModelPo.setCode(code);
 
         String iconStyle = parameter.getIconStyle();
@@ -109,9 +110,6 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         dataModelPo.setFieldList(parameter.getFieldList());
 
         dataModelDao.insert(dataModelPo);
-
-        dataModelPo.setCode(dataModelPo.getId());
-        dataModelDao.update(dataModelPo);
 
         GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
         generatorDevelopParameter.setAuth(auth);
@@ -163,7 +161,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         List<GeneratorInstancePo> generatorInstancePoList = generatorInstanceDao.selectList(generatorInstanceQuery);
         generatorInstancePoList.forEach(generatorInstancePo -> {
             if(!authUserId.equals(generatorInstancePo.getUserId())){
-                throw new BusinessException("生成器已被应用不能删除");
+                throw new BusinessException("生成器数据模型已被应用不能删除");
             }
         });
 
@@ -204,13 +202,13 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
         String name = parameter.getName();
         dataModelPo.setName(name);
-
+/*
         String code = parameter.getCode();
         if(!StringUtils.hasText(code)){
             code = id.toString();
         }
         dataModelPo.setCode(code);
-
+*/
         String iconStyle = parameter.getIconStyle();
         dataModelPo.setIconStyle(iconStyle);
 
@@ -228,6 +226,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         GeneratorDevelopParameter generatorDevelopParameter = new GeneratorDevelopParameter();
         generatorDevelopParameter.setAuth(auth);
         generatorDevelopParameter.setId(dataModelPo.getGeneratorId());
+        generatorDevelopParameter.setIsResetReleaseVersion(true);
         generatorService.develop(generatorDevelopParameter);
 
         DataModel dataModel = new DataModel();

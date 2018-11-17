@@ -817,8 +817,8 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
             throw new BusinessException("所属生成器不存在");
         }
 
-        Integer generatorReleaseVersion = generatorPo.getReleaseVersion();
-        if(generatorInstancePo.getReleaseVersion() < generatorReleaseVersion){
+        String generatorReleaseVersion = generatorPo.getReleaseVersion();
+        if(!generatorInstancePo.getReleaseVersion().equals(generatorReleaseVersion)){
             GeneratorInstancePo generatorInstancePoUpdate = new GeneratorInstancePo();
             generatorInstancePoUpdate.setId(id);
             generatorInstancePoUpdate.setReleaseVersion(generatorReleaseVersion);

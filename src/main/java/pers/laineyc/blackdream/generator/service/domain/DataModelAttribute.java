@@ -23,6 +23,9 @@ public class DataModelAttribute extends Domain {
     @ApiModelProperty(value = "属性注释")
     private String comment;
 
+    @ApiModelProperty(value = "占位文本")
+    private String placeholder;
+
     @ApiModelProperty(value = "数据类型：1NONE；2BOOLEAN；3INTEGER；4FLOAT；5STRING；6DATE；7TIME；8DATETIME；15MODEL_REF")
     private Integer dataType;
 
@@ -70,6 +73,14 @@ public class DataModelAttribute extends Domain {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getPlaceholder() {
+        return placeholder;
+    }
+
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
     }
 
     public Integer getDataType() {
