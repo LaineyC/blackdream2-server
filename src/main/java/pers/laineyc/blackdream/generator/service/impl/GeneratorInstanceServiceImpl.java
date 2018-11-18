@@ -535,7 +535,9 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
 
         List<TemplateFileContextData> templateFileContextDataList = templateFileContextDataCache.values().stream().sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).collect(Collectors.toList());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         List<TemplateFileContextData> templateFileContextDataTree = new ArrayList<>();
         templateFileContextDataList.forEach(templateFileContextData -> {
             String generatorDataPoId = templateFileContextData.getId();
@@ -585,7 +587,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                     }
                     else if(DataModelAttributeDataTypeEnum.DATE.getCode() == dataType){
                         try {
-                            properties.put(name, simpleDateFormat.parse(objectValue.toString()));
+                            properties.put(name, dateFormat.parse(objectValue.toString()));
                         }
                         catch (Exception e){
 
@@ -593,7 +595,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                     }
                     else if(DataModelAttributeDataTypeEnum.TIME.getCode() == dataType){
                         try {
-                            properties.put(name, simpleDateFormat.parse(objectValue.toString()));
+                            properties.put(name, timeFormat.parse(objectValue.toString()));
                         }
                         catch (Exception e){
 
@@ -601,7 +603,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                     }
                     else if(DataModelAttributeDataTypeEnum.DATETIME.getCode() == dataType){
                         try {
-                            properties.put(name, simpleDateFormat.parse(objectValue.toString()));
+                            properties.put(name, dateTimeFormat.parse(objectValue.toString()));
                         }
                         catch (Exception e){
 
@@ -655,7 +657,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                         }
                         else if(DataModelAttributeDataTypeEnum.DATE.getCode() == dataType){
                             try {
-                                tuple.put(name, simpleDateFormat.parse(objectValue.toString()));
+                                tuple.put(name, dateFormat.parse(objectValue.toString()));
                             }
                             catch (Exception e){
 
@@ -663,7 +665,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                         }
                         else if(DataModelAttributeDataTypeEnum.TIME.getCode() == dataType){
                             try {
-                                tuple.put(name, simpleDateFormat.parse(objectValue.toString()));
+                                tuple.put(name, timeFormat.parse(objectValue.toString()));
                             }
                             catch (Exception e){
 
@@ -671,7 +673,7 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                         }
                         else if(DataModelAttributeDataTypeEnum.DATETIME.getCode() == dataType){
                             try {
-                                tuple.put(name, simpleDateFormat.parse(objectValue.toString()));
+                                tuple.put(name, dateTimeFormat.parse(objectValue.toString()));
                             }
                             catch (Exception e){
 
