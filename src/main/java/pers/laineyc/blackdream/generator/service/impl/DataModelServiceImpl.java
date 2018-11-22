@@ -11,8 +11,10 @@ import pers.laineyc.blackdream.framework.model.Auth;
 import pers.laineyc.blackdream.framework.service.BaseService;
 import pers.laineyc.blackdream.framework.exception.BusinessException;
 import pers.laineyc.blackdream.framework.util.BeanUtils;
+import pers.laineyc.blackdream.generator.dao.GeneratorDataDao;
 import pers.laineyc.blackdream.generator.dao.GeneratorInstanceDao;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorInstancePo;
+import pers.laineyc.blackdream.generator.dao.query.GeneratorDataQuery;
 import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceQuery;
 import pers.laineyc.blackdream.generator.service.DataModelService;
 import pers.laineyc.blackdream.generator.service.GeneratorService;
@@ -59,6 +61,9 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
     @Autowired
     private GeneratorInstanceDao generatorInstanceDao;
+
+    @Autowired
+    private GeneratorDataDao generatorDataDao;
 
     @Autowired
     private GeneratorService generatorService;
@@ -153,6 +158,15 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
             else if(!generatorId.equals(dataModelPo.getGeneratorId())){
                 throw new BusinessException("不属于同一个生成器");
             }
+/*
+            GeneratorDataQuery generatorDataQuery = new GeneratorDataQuery();
+            generatorDataQuery.setDataModelId(item);
+            generatorDataQuery.setIsDeleted(false);
+            int generatorDataCount = generatorDataDao.selectCount(generatorDataQuery);
+            if(generatorDataCount > 0){
+                throw new BusinessException("生成器数据模型已被应用不能删除");
+            }
+*/
         }
 
         GeneratorInstanceQuery generatorInstanceQuery = new GeneratorInstanceQuery();

@@ -26,6 +26,9 @@ public class DataModelQueryWebRequest extends Request {
     @ApiModelProperty(value = "图标样式", required = true)
     private String iconStyle;
 
+    @ApiModelProperty(value = "懒加载", required = true)
+    private Boolean fetchLazy;
+
     public DataModelQueryWebRequest() {
 
     }
@@ -70,4 +73,11 @@ public class DataModelQueryWebRequest extends Request {
         this.iconStyle = iconStyle;
     }
 
+    public Boolean getFetchLazy() {
+        return fetchLazy;
+    }
+
+    public void setFetchLazy(Boolean fetchLazy) {
+        this.fetchLazy = fetchLazy;
+    }
 }

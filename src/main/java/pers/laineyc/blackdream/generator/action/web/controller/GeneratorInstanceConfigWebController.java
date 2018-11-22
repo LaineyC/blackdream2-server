@@ -66,6 +66,7 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
         return new Response<>(generatorInstanceConfig);
     }
 */
+    @AuthSecurity
     @ApiOperation(value = "生成器实例设置单个查询")
     @PostMapping(value = "/generatorInstanceConfig/get")
     public @ResponseBody Response<GeneratorInstanceConfig> get(@RequestBody GeneratorInstanceConfigGetWebRequest request) {
@@ -100,7 +101,7 @@ public class GeneratorInstanceConfigWebController extends BaseWebController {
     }
 */
 
-    @AuthSecurity(developer = true)
+    @AuthSecurity
     @ApiOperation(value = "生成器实例设置保存")
     @PostMapping(value = "/generatorInstanceConfig/save")
     public @ResponseBody Response<GeneratorInstanceConfig> save(@RequestBody GeneratorInstanceConfigSaveWebRequest request) {

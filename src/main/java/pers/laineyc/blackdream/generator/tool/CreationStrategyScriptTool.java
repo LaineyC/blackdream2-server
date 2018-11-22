@@ -228,6 +228,7 @@ public class CreationStrategyScriptTool {
     public void make(){
         commandList.forEach(Command::make);
         try {
+            FileUtil.mkdirs(outputRootPath.getPath());
             ZipUtil.compress(outputRootPath);
         }
         catch (Exception e){

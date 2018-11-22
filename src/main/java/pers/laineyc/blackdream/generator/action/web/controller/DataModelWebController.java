@@ -79,7 +79,7 @@ public class DataModelWebController extends BaseWebController {
         
         return new Response<>(dataModel);
     }
-/*
+
     @ApiOperation(value="生成器数据模型多个查询")
     @PostMapping(value = "/dataModel/query")
     public @ResponseBody Response<List<DataModel>> query(@RequestBody DataModelQueryWebRequest request) {
@@ -90,13 +90,13 @@ public class DataModelWebController extends BaseWebController {
 
         return new Response<>(dataModelList);
     }
-
+/*
     @ApiOperation(value = "生成器数据模型分页查询")
     @PostMapping(value = "/dataModel/search")
     public @ResponseBody Response<PageResult<DataModel>> search(@RequestBody DataModelSearchWebRequest request) {
         DataModelSearchParameter parameter = new DataModelSearchParameter();
         BeanUtils.copyProperties(request, parameter);
-        
+
         PageResult<DataModel> dataModelPageResult = dataModelService.search(parameter);
 
         return new Response<>(dataModelPageResult);

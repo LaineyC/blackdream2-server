@@ -44,7 +44,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
 
     }
 
-    @AuthSecurity()
+    @AuthSecurity
     @ApiOperation(value = "生成器实例创建")
     @PostMapping(value = "/generatorInstance/create")
     public @ResponseBody Response<GeneratorInstance> create(@RequestBody GeneratorInstanceCreateWebRequest request) {
@@ -56,7 +56,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstance);
     }
 
-    @AuthSecurity()
+    @AuthSecurity
     @ApiOperation(value = "生成器实例删除")
     @PostMapping(value = "/generatorInstance/delete")
     public @ResponseBody Response<GeneratorInstance> delete(@RequestBody GeneratorInstanceDeleteWebRequest request) {
@@ -68,7 +68,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstance);
     }
 
-    @AuthSecurity()
+    @AuthSecurity
     @ApiOperation(value = "生成器实例修改")
     @PostMapping(value = "/generatorInstance/update")
     public @ResponseBody Response<GeneratorInstance> update(@RequestBody GeneratorInstanceUpdateWebRequest request) {
@@ -113,7 +113,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstancePageResult);
     }
 */
-    @AuthSecurity()
+    @AuthSecurity
     @ApiOperation(value = "生成器实例分页查询")
     @PostMapping(value = "/generatorInstance/infoSearch")
     public @ResponseBody Response<PageResult<GeneratorInstance>> infoSearch(@RequestBody GeneratorInstanceInfoSearchWebRequest request) {
@@ -125,7 +125,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstancePageResult);
     }
 
-    @AuthSecurity()
+    @AuthSecurity
     @ApiOperation(value = "生成器实例生成")
     @PostMapping(value = "/generatorInstance/make")
     public @ResponseBody Response<GeneratorInstanceMakeResult> make(@RequestBody GeneratorInstanceMakeWebRequest request) {
@@ -137,7 +137,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstanceMakeResult);
     }
 
-    @AuthSecurity()
+    @AuthSecurity
     @ApiOperation(value = "生成器实例生成测试")
     @PostMapping(value = "/generatorInstance/makeTest")
     public @ResponseBody Response<GeneratorInstanceMakeResult> makeTest(@RequestBody GeneratorInstanceMakeTestWebRequest request) {
@@ -149,7 +149,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstanceMakeResult);
     }
 
-    @AuthSecurity()
+    @AuthSecurity
     @ApiOperation(value = "生成器实例版本同步")
     @PostMapping(value = "/generatorInstance/versionSync")
     public @ResponseBody Response<GeneratorInstance> versionSync(@RequestBody GeneratorInstanceVersionSyncWebRequest request) {
@@ -161,7 +161,7 @@ public class GeneratorInstanceWebController extends BaseWebController {
         return new Response<>(generatorInstance);
     }
 
-    @AuthSecurity()
+    @AuthSecurity
     @ApiOperation(value = "生成器实例下载")
     @RequestMapping(value = "/generatorInstance/makeDownload", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<byte[]> makeDownload(GeneratorInstanceDownloadWebRequest request) throws IOException {

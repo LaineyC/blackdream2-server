@@ -42,7 +42,7 @@ public class GeneratorDataWebController extends BaseWebController {
 
     }
 
-    @AuthSecurity(developer = true)
+    @AuthSecurity
     @ApiOperation(value = "生成器数据创建")
     @PostMapping(value = "/generatorData/create")
     public @ResponseBody Response<GeneratorData> create(@RequestBody GeneratorDataCreateWebRequest request) {
@@ -54,7 +54,7 @@ public class GeneratorDataWebController extends BaseWebController {
         return new Response<>(generatorData);
     }
 
-    @AuthSecurity(developer = true)
+    @AuthSecurity
     @ApiOperation(value = "生成器数据删除")
     @PostMapping(value = "/generatorData/delete")
     public @ResponseBody Response<GeneratorData> delete(@RequestBody GeneratorDataDeleteWebRequest request) {
@@ -66,7 +66,7 @@ public class GeneratorDataWebController extends BaseWebController {
         return new Response<>(generatorData);
     }
 
-    @AuthSecurity(developer = true)
+    @AuthSecurity
     @ApiOperation(value = "生成器数据修改")
     @PostMapping(value = "/generatorData/update")
     public @ResponseBody Response<GeneratorData> update(@RequestBody GeneratorDataUpdateWebRequest request) {
@@ -78,6 +78,7 @@ public class GeneratorDataWebController extends BaseWebController {
         return new Response<>(generatorData);
     }
 
+    @AuthSecurity
     @ApiOperation(value = "生成器数据单个查询")
     @PostMapping(value = "/generatorData/get")
     public @ResponseBody Response<GeneratorData> get(@RequestBody GeneratorDataGetWebRequest request) {
@@ -111,7 +112,7 @@ public class GeneratorDataWebController extends BaseWebController {
         return new Response<>(generatorDataPageResult);
     }
 */
-    @AuthSecurity(developer = true)
+    @AuthSecurity
     @ApiOperation(value = "生成器数据树形查询")
     @PostMapping(value = "/generatorData/tree")
     public @ResponseBody Response<List<GeneratorData>> tree(@RequestBody GeneratorDataTreeWebRequest request) {
