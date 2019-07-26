@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import pers.laineyc.blackdream.foundation.service.RunLogService;
 import pers.laineyc.blackdream.foundation.service.impl.RunLogConsoleServiceImpl;
-import pers.laineyc.blackdream.foundation.service.impl.RunLogMongoServiceImpl;
 import pers.laineyc.blackdream.foundation.service.impl.RunLogMultipleServiceImpl;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -33,11 +32,6 @@ public class DevelopmentConfig {
     @Bean
     public RunLogService runLogConsoleServiceImpl() {
         return new RunLogConsoleServiceImpl();
-    }
-
-    @Bean
-    public RunLogService runLogMongoServiceImpl() {
-        return new RunLogMongoServiceImpl();
     }
 
     @Bean

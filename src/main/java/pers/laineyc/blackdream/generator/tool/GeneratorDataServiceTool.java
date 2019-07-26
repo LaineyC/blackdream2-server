@@ -113,6 +113,17 @@ public class GeneratorDataServiceTool{
                         }
                         else{
                             if(!(value instanceof Integer)){
+                                // 前端传空字符串忽略
+                                if ("".equals(value)) {
+                                    control.setValue(null);
+                                    Boolean isRequired = dataValidator.getIsRequired();
+                                    if(Boolean.TRUE.equals(isRequired)){
+                                        throw new BusinessException(nameMessage + "必输项");
+                                    }
+                                    else {
+                                        return;
+                                    }
+                                }
                                 throw new BusinessException(nameMessage + "必须整型");
                             }
                             Integer integerValue = (Integer)value;
@@ -136,6 +147,17 @@ public class GeneratorDataServiceTool{
                         }
                         else{
                             if(!(value instanceof Number)){
+                                // 前端传空字符串忽略
+                                if ("".equals(value)) {
+                                    control.setValue(null);
+                                    Boolean isRequired = dataValidator.getIsRequired();
+                                    if(Boolean.TRUE.equals(isRequired)){
+                                        throw new BusinessException(nameMessage + "必输项");
+                                    }
+                                    else {
+                                        return;
+                                    }
+                                }
                                 throw new BusinessException(nameMessage + "必须数字");
                             }
                             Number numberValue = (Number)value;
