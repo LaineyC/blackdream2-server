@@ -15,12 +15,12 @@ spring:
   session:
     store-type: redis
   redis:
-    database: 1
-    host: localhost
+    database: 0
+    host: 127.0.0.1
     port: 6379
   data:
     mongodb:
-      uri: mongodb://localhost:27017/blackdream
+      uri: mongodb://127.0.0.1:27017/blackdream
   output:
     ansi:
       enabled: DETECT

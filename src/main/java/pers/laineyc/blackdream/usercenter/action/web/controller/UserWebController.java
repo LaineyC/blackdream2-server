@@ -35,9 +35,6 @@ public class UserWebController extends BaseWebController {
     private UserService userService;
 
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
     private UserServiceTool userServiceTool;
     
     public UserWebController() {
