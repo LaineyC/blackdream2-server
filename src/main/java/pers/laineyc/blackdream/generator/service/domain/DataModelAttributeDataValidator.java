@@ -19,7 +19,7 @@ public class DataModelAttributeDataValidator extends Domain {
     private Boolean isEnum;
 
     @ApiModelProperty(value = "枚举值列表")
-    private List<DataModelAttributeEnumItem> enumList = new ArrayList<>();
+    private List<DataModelAttributeEnumItem> enumList;// = new ArrayList<>();
 
     @ApiModelProperty(value = "是否必填项")
     private Boolean isRequired;

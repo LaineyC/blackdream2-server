@@ -577,10 +577,14 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                         properties.put(name, Boolean.valueOf(objectValue.toString()));
                     }
                     else if(DataModelAttributeDataTypeEnum.INTEGER.getCode() == dataType){
-                        properties.put(name, new BigInteger(objectValue.toString()));
+                        if(!objectValue.toString().isEmpty()){
+                            properties.put(name, new BigInteger(objectValue.toString()));
+                        }
                     }
                     else if(DataModelAttributeDataTypeEnum.DECIMAL.getCode() == dataType){
-                        properties.put(name, new BigDecimal(objectValue.toString()));
+                        if(!objectValue.toString().isEmpty()){
+                            properties.put(name, new BigDecimal(objectValue.toString()));
+                        }
                     }
                     else if(DataModelAttributeDataTypeEnum.STRING.getCode() == dataType){
                         properties.put(name, objectValue.toString());
@@ -647,10 +651,14 @@ public class GeneratorInstanceServiceImpl extends BaseService implements Generat
                             tuple.put(name, Boolean.valueOf(objectValue.toString()));
                         }
                         else if(DataModelAttributeDataTypeEnum.INTEGER.getCode() == dataType){
-                            tuple.put(name, new BigInteger(objectValue.toString()));
+                            if(!objectValue.toString().isEmpty()) {
+                                tuple.put(name, new BigInteger(objectValue.toString()));
+                            }
                         }
                         else if(DataModelAttributeDataTypeEnum.DECIMAL.getCode() == dataType){
-                            tuple.put(name, new BigDecimal(objectValue.toString()));
+                            if(!objectValue.toString().isEmpty()) {
+                                tuple.put(name, new BigDecimal(objectValue.toString()));
+                            }
                         }
                         else if(DataModelAttributeDataTypeEnum.STRING.getCode() == dataType){
                             tuple.put(name, objectValue.toString());
