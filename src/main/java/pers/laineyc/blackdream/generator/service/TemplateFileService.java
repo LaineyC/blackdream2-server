@@ -56,5 +56,10 @@ public interface TemplateFileService extends Service{
      * 构建资源
      */
     void buildResource(TemplateFileBuildResourceParameter parameter);
+
+    /**
+     * 创建
+     */
+    List<TemplateFile> createFrom(TemplateFileCreateFromParameter parameter);
     
 }

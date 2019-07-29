@@ -93,6 +93,11 @@ public class TemplateFileServiceTool{
             }
         }
 
+        Integer displayOrder = parameter.getDisplayOrder();
+        if(displayOrder == null){
+            parameter.setDisplayOrder(1000);
+        }
+
         String description = parameter.getDescription();
         if(StringUtils.hasText(description)){
             if(description.length() > 255){

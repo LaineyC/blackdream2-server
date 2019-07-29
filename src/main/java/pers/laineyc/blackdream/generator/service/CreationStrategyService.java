@@ -52,4 +52,9 @@ public interface CreationStrategyService extends Service{
      */
     List<CreationStrategy> infoQuery(CreationStrategyInfoQueryParameter parameter);
 
+    /**
+     * 创建
+     */
+    List<CreationStrategy> createFrom(CreationStrategyCreateFromParameter parameter);
+
 }

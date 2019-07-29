@@ -47,4 +47,9 @@ public interface GeneratorGuideService extends Service{
      */
     GeneratorGuide save(GeneratorGuideSaveParameter parameter);
 
+    /**
+     * 创建
+     */
+    GeneratorGuide createFrom(GeneratorGuideCreateFromParameter parameter);
+
 }

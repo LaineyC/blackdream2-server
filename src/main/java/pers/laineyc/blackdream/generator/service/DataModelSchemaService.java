@@ -47,4 +47,9 @@ public interface DataModelSchemaService extends Service{
      */
     DataModelSchema save(DataModelSchemaSaveParameter parameter);
 
+    /**
+     * 创建
+     */
+    DataModelSchema createFrom(DataModelSchemaCreateFromParameter parameter);
+
 }

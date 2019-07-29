@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
@@ -85,7 +86,8 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         Integer scriptLanguage = parameter.getScriptLanguage();
         creationStrategyPo.setScriptLanguage(scriptLanguage);
 
-        creationStrategyPo.setDisplayOrder(1000);
+        Integer displayOrder = parameter.getDisplayOrder();
+        creationStrategyPo.setDisplayOrder(displayOrder);
 
         String description = parameter.getDescription();
         creationStrategyPo.setDescription(description);
@@ -533,5 +535,38 @@ public class CreationStrategyServiceImpl extends BaseService implements Creation
         creationStrategyQueryParameter.setUserId(authUserId);
 
         return this.query(creationStrategyQueryParameter);
+    }
+
+    @Transactional
+    @Override
+    public List<CreationStrategy> createFrom(CreationStrategyCreateFromParameter parameter) {
+        Auth auth = parameter.getAuth();
+        List<CreationStrategy> domainList = new ArrayList<>();
+
+        String generatorId = parameter.getGeneratorId();
+        String fromGeneratorId = parameter.getFromGeneratorId();
+
+        CreationStrategyQuery creationStrategyQuery = new CreationStrategyQuery();
+        creationStrategyQuery.setIsDeleted(false);
+        creationStrategyQuery.setGeneratorId(fromGeneratorId);
+        creationStrategyQuery.fetchLazy(false);
+        List<CreationStrategyPo> creationStrategyPoList = creationStrategyDao.selectList(creationStrategyQuery);
+        if (CollectionUtils.isEmpty(creationStrategyPoList)) {
+            return domainList;
+        }
+
+        creationStrategyPoList.forEach(creationStrategyPo -> {
+            CreationStrategyCreateParameter creationStrategyCreateParameter = new CreationStrategyCreateParameter();
+            creationStrategyCreateParameter.setDescription(creationStrategyPo.getDescription());
+            creationStrategyCreateParameter.setGeneratorId(generatorId);
+            creationStrategyCreateParameter.setName(creationStrategyPo.getName());
+            creationStrategyCreateParameter.setScript(creationStrategyPo.getScript());
+            creationStrategyCreateParameter.setScriptLanguage(creationStrategyPo.getScriptLanguage());
+            creationStrategyCreateParameter.setDisplayOrder(creationStrategyPo.getDisplayOrder());
+            creationStrategyCreateParameter.setAuth(auth);
+            domainList.add(create(creationStrategyCreateParameter));
+        });
+
+        return domainList;
     }
 }

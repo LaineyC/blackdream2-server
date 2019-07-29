@@ -454,4 +454,29 @@ public class DataModelSchemaServiceImpl extends BaseService implements DataModel
         }
     }
 
+    @Transactional
+    @Override
+    public DataModelSchema createFrom(DataModelSchemaCreateFromParameter parameter) {
+        Auth auth = parameter.getAuth();
+
+        String generatorId = parameter.getGeneratorId();
+        String fromGeneratorId = parameter.getFromGeneratorId();
+
+        DataModelSchemaQuery dataModelSchemaQuery = new DataModelSchemaQuery();
+        dataModelSchemaQuery.setIsDeleted(false);
+        dataModelSchemaQuery.setGeneratorId(fromGeneratorId);
+        dataModelSchemaQuery.fetchLazy(false);
+        DataModelSchemaPo existPo = dataModelSchemaDao.selectOne(dataModelSchemaQuery);
+        if(existPo == null) {
+            return null;
+        }
+
+        DataModelSchemaCreateParameter dataModelSchemaCreateParameter = new DataModelSchemaCreateParameter();
+        dataModelSchemaCreateParameter.setName(existPo.getName());
+        dataModelSchemaCreateParameter.setRuleItemMap(existPo.getRuleItemMap());
+        dataModelSchemaCreateParameter.setGeneratorId(generatorId);
+        dataModelSchemaCreateParameter.setDescription(existPo.getDescription());
+        dataModelSchemaCreateParameter.setAuth(auth);
+        return create(dataModelSchemaCreateParameter);
+    }
 }

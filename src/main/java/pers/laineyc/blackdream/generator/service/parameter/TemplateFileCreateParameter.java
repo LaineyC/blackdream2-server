@@ -34,6 +34,11 @@ public class TemplateFileCreateParameter extends Parameter {
     private String displayGroup;
 
     /**
+     * 显示顺序
+     */
+    private Integer displayOrder;
+
+    /**
      * 描述
      */
     private String description;
@@ -85,6 +90,14 @@ public class TemplateFileCreateParameter extends Parameter {
 
     public void setDisplayGroup(String displayGroup) {
         this.displayGroup = displayGroup;
+    }
+
+    public Integer getDisplayOrder() {
+        return displayOrder;
+    }
+
+    public void setDisplayOrder(Integer displayOrder) {
+        this.displayOrder = displayOrder;
     }
 
     public String getDescription() {

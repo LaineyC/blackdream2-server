@@ -70,6 +70,11 @@ public class CreationStrategyServiceTool{
             throw new BusinessException("脚本类型参数值不合法");
         }
 
+        Integer displayOrder = parameter.getDisplayOrder();
+        if(displayOrder == null){
+            parameter.setDisplayOrder(1000);
+        }
+
         String description = parameter.getDescription();
         if(StringUtils.hasText(description)){
             if(description.length() > 255){

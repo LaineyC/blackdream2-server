@@ -52,4 +52,9 @@ public interface DataModelService extends Service{
      */
     List<DataModel> infoQuery(DataModelInfoQueryParameter parameter);
 
+    /**
+     * 创建
+     */
+    List<DataModel> createFrom(DataModelCreateFromParameter parameter);
+
 }

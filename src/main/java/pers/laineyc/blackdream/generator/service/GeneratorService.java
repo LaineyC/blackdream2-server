@@ -66,5 +66,10 @@ public interface GeneratorService extends Service{
      * 生成器开发
      */
     Generator develop(GeneratorDevelopParameter parameter);
-    
+
+    /**
+     * 生成器复制
+     */
+    Generator createFrom(GeneratorCreateFromParameter parameter);
+
 }

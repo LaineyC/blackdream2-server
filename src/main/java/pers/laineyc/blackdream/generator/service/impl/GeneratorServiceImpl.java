@@ -13,8 +13,7 @@ import pers.laineyc.blackdream.generator.constant.GeneratorStatusEnum;
 import pers.laineyc.blackdream.generator.dao.GeneratorInstanceDao;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorInstancePo;
 import pers.laineyc.blackdream.generator.dao.query.GeneratorInstanceQuery;
-import pers.laineyc.blackdream.generator.service.GeneratorService;
-import pers.laineyc.blackdream.generator.service.TemplateFileService;
+import pers.laineyc.blackdream.generator.service.*;
 import pers.laineyc.blackdream.generator.service.parameter.*;
 import pers.laineyc.blackdream.generator.tool.GeneratorServiceTool;
 import pers.laineyc.blackdream.framework.model.PageResult;
@@ -54,6 +53,18 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
     @Autowired
     private TemplateFileService templateFileService;
+
+    @Autowired
+    private GeneratorGuideService generatorGuideService;
+
+    @Autowired
+    private DataModelService dataModelService;
+
+    @Autowired
+    private DataModelSchemaService dataModelSchemaService;
+
+    @Autowired
+    private CreationStrategyService creationStrategyService;
 
     public GeneratorServiceImpl() {
 
@@ -495,4 +506,67 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
 
         return new Generator();
     }
+
+    /**
+     * 生成器复制
+     */
+    @Transactional
+    @Override
+    public Generator createFrom(GeneratorCreateFromParameter parameter) {
+        generatorServiceTool.createFromValidate(parameter);
+
+        Auth auth = parameter.getAuth();
+        String authUserId = auth.getUserId();
+
+        String name = parameter.getName();
+        Integer engineType = parameter.getEngineType();
+        String description = parameter.getDescription();
+        String fromGeneratorId = parameter.getFromGeneratorId();
+
+        GeneratorPo existPo = generatorDao.selectById(fromGeneratorId);
+        if (!authUserId.equals(existPo.getUserId()) && GeneratorStatusEnum.RELEASE.getCode() != existPo.getStatus()) {
+            throw new BusinessException("发布的生成器才能复制");
+        }
+        // Generator
+        GeneratorCreateParameter generatorCreateParameter = new GeneratorCreateParameter();
+        generatorCreateParameter.setDescription(description);
+        generatorCreateParameter.setEngineType(engineType);
+        generatorCreateParameter.setName(name);
+        generatorCreateParameter.setAuth(auth);
+        Generator generator = create(generatorCreateParameter);
+        String generatorId = generator.getId();
+        // GeneratorGuide
+        GeneratorGuideCreateFromParameter generatorGuideCreateFromParameter = new GeneratorGuideCreateFromParameter();
+        generatorGuideCreateFromParameter.setAuth(auth);
+        generatorGuideCreateFromParameter.setGeneratorId(generatorId);
+        generatorGuideCreateFromParameter.setFromGeneratorId(fromGeneratorId);
+        generatorGuideService.createFrom(generatorGuideCreateFromParameter);
+        // DataModel
+        DataModelCreateFromParameter dataModelCreateFromParameter = new DataModelCreateFromParameter();
+        dataModelCreateFromParameter.setAuth(auth);
+        dataModelCreateFromParameter.setGeneratorId(generatorId);
+        dataModelCreateFromParameter.setFromGeneratorId(fromGeneratorId);
+        dataModelService.createFrom(dataModelCreateFromParameter);
+        // DataModelSchema
+        DataModelSchemaCreateFromParameter dataModelSchemaCreateFromParameter = new DataModelSchemaCreateFromParameter();
+        dataModelSchemaCreateFromParameter.setAuth(auth);
+        dataModelSchemaCreateFromParameter.setGeneratorId(generatorId);
+        dataModelSchemaCreateFromParameter.setFromGeneratorId(fromGeneratorId);
+        dataModelSchemaService.createFrom(dataModelSchemaCreateFromParameter);
+        // CreationStrategy
+        CreationStrategyCreateFromParameter creationStrategyCreateFromParameter = new CreationStrategyCreateFromParameter();
+        creationStrategyCreateFromParameter.setAuth(auth);
+        creationStrategyCreateFromParameter.setGeneratorId(generatorId);
+        creationStrategyCreateFromParameter.setFromGeneratorId(fromGeneratorId);
+        creationStrategyService.createFrom(creationStrategyCreateFromParameter);
+        // TemplateFile
+        TemplateFileCreateFromParameter templateFileCreateFromParameter = new TemplateFileCreateFromParameter();
+        templateFileCreateFromParameter.setAuth(auth);
+        templateFileCreateFromParameter.setGeneratorId(generatorId);
+        templateFileCreateFromParameter.setFromGeneratorId(fromGeneratorId);
+        templateFileService.createFrom(templateFileCreateFromParameter);
+
+        return generator;
+    }
+
 }

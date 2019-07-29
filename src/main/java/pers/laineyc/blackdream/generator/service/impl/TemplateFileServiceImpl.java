@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
@@ -95,7 +96,8 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         String displayGroup = parameter.getDisplayGroup();
         templateFilePo.setDisplayGroup(displayGroup);
 
-        templateFilePo.setDisplayOrder(1000);
+        Integer displayOrder = parameter.getDisplayOrder();
+        templateFilePo.setDisplayOrder(displayOrder);
 
         String description = parameter.getDescription();
         templateFilePo.setDescription(description);
@@ -601,4 +603,38 @@ public class TemplateFileServiceImpl extends BaseService implements TemplateFile
         FileUtil.writeString(path, script);
     }
 
+    @Transactional
+    @Override
+    public List<TemplateFile> createFrom(TemplateFileCreateFromParameter parameter) {
+        Auth auth = parameter.getAuth();
+        List<TemplateFile> domainList = new ArrayList<>();
+
+        String generatorId = parameter.getGeneratorId();
+        String fromGeneratorId = parameter.getFromGeneratorId();
+
+        TemplateFileQuery templateFileQuery = new TemplateFileQuery();
+        templateFileQuery.setIsDeleted(false);
+        templateFileQuery.setGeneratorId(fromGeneratorId);
+        templateFileQuery.fetchLazy(false);
+        List<TemplateFilePo> templateFilePoList = templateFileDao.selectList(templateFileQuery);
+        if (CollectionUtils.isEmpty(templateFilePoList)) {
+            return domainList;
+        }
+
+        templateFilePoList.forEach(templateFilePo -> {
+            TemplateFileCreateParameter templateFileCreateParameter = new TemplateFileCreateParameter();
+            templateFileCreateParameter.setAuth(auth);
+            templateFileCreateParameter.setCode(templateFilePo.getCode());
+            templateFileCreateParameter.setDescription(templateFilePo.getDescription());
+            templateFileCreateParameter.setDisplayGroup(templateFilePo.getDisplayGroup());
+            templateFileCreateParameter.setDisplayOrder(templateFilePo.getDisplayOrder());
+            templateFileCreateParameter.setEngineType(templateFilePo.getEngineType());
+            templateFileCreateParameter.setGeneratorId(generatorId);
+            templateFileCreateParameter.setName(templateFilePo.getName());
+            templateFileCreateParameter.setScript(templateFilePo.getScript());
+            domainList.add(create(templateFileCreateParameter));
+        });
+
+        return domainList;
+    }
 }

@@ -59,6 +59,11 @@ public class DataModelServiceTool{
             }
         }
 
+        Integer displayOrder = parameter.getDisplayOrder();
+        if(displayOrder == null){
+            parameter.setDisplayOrder(1000);
+        }
+
         String iconStyle = parameter.getIconStyle();
         if(!StringUtils.hasText(iconStyle)){
             throw new BusinessException("缺少图标样式");

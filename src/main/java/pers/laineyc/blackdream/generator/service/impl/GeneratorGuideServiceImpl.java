@@ -447,4 +447,30 @@ public class GeneratorGuideServiceImpl extends BaseService implements GeneratorG
         }
     }
 
+    @Transactional
+    @Override
+    public GeneratorGuide createFrom(GeneratorGuideCreateFromParameter parameter) {
+        Auth auth = parameter.getAuth();
+
+        String generatorId = parameter.getGeneratorId();
+        String fromGeneratorId = parameter.getFromGeneratorId();
+
+        GeneratorGuideQuery generatorGuideQuery = new GeneratorGuideQuery();
+        generatorGuideQuery.setIsDeleted(false);
+        generatorGuideQuery.setGeneratorId(fromGeneratorId);
+        generatorGuideQuery.fetchLazy(false);
+        GeneratorGuidePo existPo = generatorGuideDao.selectOne(generatorGuideQuery);
+        if(existPo == null) {
+            return null;
+        }
+
+        GeneratorGuideCreateParameter generatorGuideCreateParameter = new GeneratorGuideCreateParameter();
+        generatorGuideCreateParameter.setAuth(auth);
+        generatorGuideCreateParameter.setGeneratorId(generatorId);
+        generatorGuideCreateParameter.setName(existPo.getName());
+        generatorGuideCreateParameter.setContent(existPo.getContent());
+        generatorGuideCreateParameter.setDocType(existPo.getDocType());
+        generatorGuideCreateParameter.setDescription(existPo.getDescription());
+        return create(generatorGuideCreateParameter);
+    }
 }

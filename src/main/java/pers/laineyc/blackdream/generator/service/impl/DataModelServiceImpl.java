@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import pers.laineyc.blackdream.framework.dao.query.Order;
 import pers.laineyc.blackdream.framework.model.Auth;
@@ -33,7 +34,7 @@ import pers.laineyc.blackdream.generator.service.domain.Generator;
 import pers.laineyc.blackdream.generator.dao.po.GeneratorPo;
 import pers.laineyc.blackdream.generator.dao.query.GeneratorQuery;
 import pers.laineyc.blackdream.generator.dao.GeneratorDao;
-import java.util.List; 
+import java.util.List;
 import java.util.Date; 
 import java.util.ArrayList; 
 import java.util.Map; 
@@ -99,7 +100,8 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         String iconStyle = parameter.getIconStyle();
         dataModelPo.setIconStyle(iconStyle);
 
-        dataModelPo.setDisplayOrder(1000);
+        Integer displayOrder = parameter.getDisplayOrder();
+        dataModelPo.setDisplayOrder(displayOrder);
 
         String description = parameter.getDescription();
         dataModelPo.setDescription(description);
@@ -592,4 +594,38 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
         return this.query(dataModelQueryParameter);
     }
 
+    @Transactional
+    @Override
+    public List<DataModel> createFrom(DataModelCreateFromParameter parameter) {
+        Auth auth = parameter.getAuth();
+        List<DataModel> domainList = new ArrayList<>();
+
+        String generatorId = parameter.getGeneratorId();
+        String fromGeneratorId = parameter.getFromGeneratorId();
+
+        DataModelQuery dataModelQuery = new DataModelQuery();
+        dataModelQuery.setIsDeleted(false);
+        dataModelQuery.setGeneratorId(fromGeneratorId);
+        dataModelQuery.fetchLazy(false);
+        List<DataModelPo> dataModelPoList = dataModelDao.selectList(dataModelQuery);
+        if (CollectionUtils.isEmpty(dataModelPoList)) {
+            return domainList;
+        }
+
+        dataModelPoList.forEach(dataModelPo -> {
+            DataModelCreateParameter dataModelCreateParameter = new DataModelCreateParameter();
+            dataModelCreateParameter.setCode(dataModelPo.getCode());
+            dataModelCreateParameter.setDescription(dataModelPo.getDescription());
+            dataModelCreateParameter.setGeneratorId(generatorId);
+            dataModelCreateParameter.setIconStyle(dataModelPo.getIconStyle());
+            dataModelCreateParameter.setName(dataModelPo.getName());
+            dataModelCreateParameter.setFieldList(dataModelPo.getFieldList());
+            dataModelCreateParameter.setPropertyList(dataModelPo.getPropertyList());
+            dataModelCreateParameter.setDisplayOrder(dataModelPo.getDisplayOrder());
+            dataModelCreateParameter.setAuth(auth);
+            domainList.add(create(dataModelCreateParameter));
+        });
+
+        return domainList;
+    }
 }

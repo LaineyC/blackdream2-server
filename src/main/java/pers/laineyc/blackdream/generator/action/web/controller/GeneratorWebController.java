@@ -147,5 +147,17 @@ public class GeneratorWebController extends BaseWebController {
 
         return new Response<>(generator);
     }
+
+    @AuthSecurity(developer = true)
+    @ApiOperation(value = "生成器复制")
+    @PostMapping(value = "/generator/createFrom")
+    public @ResponseBody Response<Generator> createFrom(@RequestBody GeneratorCreateFromWebRequest request) {
+        GeneratorCreateFromParameter parameter = new GeneratorCreateFromParameter();
+        BeanUtils.copyProperties(request, parameter);
+
+        Generator generator = generatorService.createFrom(parameter);
+
+        return new Response<>(generator);
+    }
     
 }

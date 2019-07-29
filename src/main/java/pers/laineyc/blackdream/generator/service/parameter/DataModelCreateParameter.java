@@ -33,6 +33,11 @@ public class DataModelCreateParameter extends Parameter {
     private String iconStyle;
 
     /**
+     * 显示顺序
+     */
+    private Integer displayOrder;
+
+    /**
      * 描述
      */
     private String description;
@@ -81,6 +86,14 @@ public class DataModelCreateParameter extends Parameter {
 
     public void setIconStyle(String iconStyle) {
         this.iconStyle = iconStyle;
+    }
+
+    public Integer getDisplayOrder() {
+        return displayOrder;
+    }
+
+    public void setDisplayOrder(Integer displayOrder) {
+        this.displayOrder = displayOrder;
     }
 
     public String getDescription() {
