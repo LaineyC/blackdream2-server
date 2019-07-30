@@ -221,5 +221,20 @@ public class GeneratorServiceTool{
             throw new BusinessException("缺少fromGeneratorId");
         }
     }
+
+    /**
+     * 生成器top查询Validate
+     */
+    public void queryTopValidate(GeneratorQueryTopParameter parameter) {
+        Integer topNumber = parameter.getTopNumber();
+        if(topNumber == null){
+            parameter.setTopNumber(10);
+        }
+        else {
+            if (topNumber < 10 || topNumber > 100) {
+                throw new BusinessException("topNumber值不能小于10或大于100");
+            }
+        }
+    }
     
 }

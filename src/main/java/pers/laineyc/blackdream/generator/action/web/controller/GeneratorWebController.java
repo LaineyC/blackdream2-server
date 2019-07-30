@@ -78,7 +78,7 @@ public class GeneratorWebController extends BaseWebController {
 
         return new Response<>(generator);
     }
-
+/*
     @ApiOperation(value="生成器多个查询")
     @PostMapping(value = "/generator/query")
     public @ResponseBody Response<List<Generator>> query(@RequestBody GeneratorQueryWebRequest request) {
@@ -89,7 +89,7 @@ public class GeneratorWebController extends BaseWebController {
 
         return new Response<>(generatorList);
     }
-
+*/
     @ApiOperation(value = "生成器分页查询")
     @PostMapping(value = "/generator/search")
     public @ResponseBody Response<PageResult<Generator>> search(@RequestBody GeneratorSearchWebRequest request) {
@@ -158,6 +158,17 @@ public class GeneratorWebController extends BaseWebController {
         Generator generator = generatorService.createFrom(parameter);
 
         return new Response<>(generator);
+    }
+
+    @ApiOperation(value="生成器top查询")
+    @PostMapping(value = "/generator/queryTop")
+    public @ResponseBody Response<List<Generator>> queryTop(@RequestBody GeneratorQueryTopWebRequest request) {
+        GeneratorQueryTopParameter parameter = new GeneratorQueryTopParameter();
+        BeanUtils.copyProperties(request, parameter);
+
+        List<Generator> generatorList = generatorService.queryTop(parameter);
+
+        return new Response<>(generatorList);
     }
     
 }

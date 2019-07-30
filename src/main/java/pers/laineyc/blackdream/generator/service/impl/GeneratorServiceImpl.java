@@ -311,6 +311,7 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
                 String id = po.getId();
                 User user = userMap.get(id);
                 user.setId(id);
+                user.setUsername(po.getUsername());
             });
         }
 
@@ -569,4 +570,78 @@ public class GeneratorServiceImpl extends BaseService implements GeneratorServic
         return generator;
     }
 
+    @Override
+    public List<Generator> queryTop(GeneratorQueryTopParameter parameter) {
+        generatorServiceTool.queryTopValidate(parameter);
+
+        Auth auth = parameter.getAuth();
+        Integer topNumber = parameter.getTopNumber();
+
+        GeneratorQuery generatorQuery = new GeneratorQuery();
+        generatorQuery.setIsDeleted(false);
+        generatorQuery.setStatus(GeneratorStatusEnum.RELEASE.getCode());
+        generatorQuery.limit(0, topNumber);
+
+        List<GeneratorPo> generatorPoList = generatorDao.selectList(generatorQuery);
+
+        List<Generator> generatorList = new ArrayList<>();
+        if(generatorPoList.isEmpty()){
+            return generatorList;
+        }
+
+        Map<String, User> userMap = new HashMap<>();
+        generatorPoList.forEach(po -> {
+            Generator generator = new Generator();
+
+            generator.setId(po.getId());
+
+            String userId = po.getUserId();
+            if(userId != null) {
+                User user;
+                if(userMap.containsKey(userId)) {
+                    user = userMap.get(userId);
+                }
+                else {
+                    user = new User();
+                    user.setId(userId);
+                    userMap.put(userId, user);
+                }
+                generator.setUser(user);
+            }
+
+            generator.setName(po.getName());
+
+            generator.setStatus(po.getStatus());
+
+            generator.setReleaseVersion(po.getReleaseVersion());
+
+            generator.setReleaseTime(po.getReleaseTime());
+
+            generator.setDevelopTime(po.getDevelopTime());
+
+            generator.setEngineType(po.getEngineType());
+
+            generator.setDescription(po.getDescription());
+
+            generator.setCreateTime(po.getCreateTime());
+
+            generator.setUpdateTime(po.getUpdateTime());
+
+            generatorList.add(generator);
+        });
+
+        if(!userMap.isEmpty()){
+            UserQuery userQuery = new UserQuery();
+            userQuery.setIdList(new ArrayList<>(userMap.keySet()));
+            List<UserPo> userPos = userDao.selectList(userQuery);
+            userPos.forEach(po -> {
+                String id = po.getId();
+                User user = userMap.get(id);
+                user.setId(id);
+                user.setUsername(po.getUsername());
+            });
+        }
+
+        return generatorList;
+    }
 }

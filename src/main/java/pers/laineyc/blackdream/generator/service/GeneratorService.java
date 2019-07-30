@@ -72,4 +72,9 @@ public interface GeneratorService extends Service{
      */
     Generator createFrom(GeneratorCreateFromParameter parameter);
 
+    /**
+     * top查询
+     */
+    List<Generator> queryTop(GeneratorQueryTopParameter parameter);
+
 }
