@@ -200,7 +200,7 @@ public class GeneratorDataServiceTool{
                             }
 
                             String regex = dataValidator.getRegex();
-                            if(regex != null && !Pattern.matches(regex, stringValue)){
+                            if(StringUtils.hasText(regex) && !Pattern.matches(regex, stringValue)){
                                 String message = dataValidator.getRegexMessage() == null ? ("格式不匹配【" + regex + "】") : dataValidator.getRegexMessage();
                                 throw new BusinessException(nameMessage + "" + message);
                             }
